@@ -6,12 +6,13 @@ gem "rails", "4.0.0"
 
 gem "pg"
 
+gem "devise"
 gem "nestive"
 gem "slim-rails"
-gem "jquery-rails"
 gem "simple_form"
 
-group :assets do
+group :development, :assets do
+  gem "jquery-rails"
   gem "sass-rails"
   gem "coffee-rails"
   gem "uglifier"
