@@ -8,5 +8,14 @@ html
       = javascript_include_tag "application"
     = csrf_meta_tags
 
-  body
-    = yield
+  body class=body_classes
+    .header.container
+      = area :header do
+        h1 Sembl
+    .content.container
+      = area :content do
+        = flashes
+        = yield
+    .footer.container
+      = area :footer do
+        p Made with ♥︎ by #{link_to "Icelab", "http://icelab.com.au"}
