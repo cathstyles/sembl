@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    title = area :title, "Sembl Administration"
+    = area :stylesheets do
+      = stylesheet_link_tag "admin", media: "all"
+    = area :javascripts do
+      = javascript_include_tag "admin"
+    = csrf_meta_tags
+
+  body class=body_classes
+    .navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container
+          = area :header do
+            .brand Sembl Admin
+            ul.nav
+              li = link_to "Dashboard", admin_root_path
+            ul.nav.pull-right
+              li = link_to "Back to Sembl", root_path
+              li = link_to "Sign out", destroy_user_session_path
+
+    .content.container
+      = area :content do
+        = flashes
+        = yield
+
+    .footer.container
+      = area :footer do
+        p Made with ♥︎ by #{link_to "Icelab", "http://icelab.com.au"}

@@ -11,11 +11,12 @@ gem "nestive"
 gem "slim-rails"
 gem "simple_form"
 
-group :development, :assets do
+group :development, :test, :assets do
   gem "jquery-rails"
   gem "sass-rails"
   gem "coffee-rails"
   gem "uglifier"
+  gem "bootstrap-sass"
 end
 
 group :doc do
