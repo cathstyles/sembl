@@ -1,0 +1,25 @@
+- area :title, "Thing"
+
+header
+  .heading
+    h1 Thing
+  .actions
+    = link_to "New", new_admin_thing_path, class: "btn"
+
+- if things.any?
+  table.table.table-striped.table-hover.index
+    thead
+      tr
+        th.title Title
+        th.actions
+    tbody
+      - things.each do |thing|
+        tr
+          td.title = thing.title
+          td.actions
+            .btn-group
+              = link_to "Edit", edit_admin_thing_path(thing), class: "btn"
+              = link_to "Destroy", admin_thing_path(thing), class: "btn btn-danger", method: "delete", confirm: "There is no undo.\n\nAre you sure you want to remove #{thing.title}?"
+
+- else
+  p.muted Nothing yet—better get cracking!

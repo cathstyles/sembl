@@ -45,6 +45,43 @@ SimpleForm.setup do |config|
     b.use :error, wrap_with: { tag: :span, class: :error }
   end
 
+  config.wrappers :bootstrap, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.use :label
+    b.wrapper :tag => 'div', :class => 'controls' do |ba|
+      ba.use :input
+      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+      ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
+    end
+  end
+
+  config.wrappers :prepend, :tag => 'div', :class => "control-group", :error_class => 'error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.use :label
+    b.wrapper :tag => 'div', :class => 'controls' do |input|
+      input.wrapper :tag => 'div', :class => 'input-prepend' do |prepend|
+        prepend.use :input
+      end
+      input.use :hint,  :wrap_with => { :tag => 'span', :class => 'help-block' }
+      input.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+    end
+  end
+
+  config.wrappers :append, :tag => 'div', :class => "control-group", :error_class => 'error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.use :label
+    b.wrapper :tag => 'div', :class => 'controls' do |input|
+      input.wrapper :tag => 'div', :class => 'input-append' do |append|
+        append.use :input
+      end
+      input.use :hint,  :wrap_with => { :tag => 'span', :class => 'help-block' }
+      input.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+    end
+  end
+
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :default
 
@@ -63,10 +100,10 @@ SimpleForm.setup do |config|
   # config.error_method = :first
 
   # Default tag used for error notification helper.
-  config.error_notification_tag = :div
+  config.error_notification_tag = :aside
 
   # CSS class to add for error notification helper.
-  config.error_notification_class = 'alert alert-error'
+  config.error_notification_class = 'flash alert'
 
   # ID to add for error notification helper.
   # config.error_notification_id = nil

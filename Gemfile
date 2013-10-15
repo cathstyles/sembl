@@ -6,6 +6,7 @@ gem "rails", "4.0.0"
 
 gem "pg"
 
+gem "decent_exposure"
 gem "devise"
 gem "nestive"
 gem "slim-rails"
