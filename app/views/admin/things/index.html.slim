@@ -10,11 +10,15 @@ header
   table.table.table-striped.table-hover.index
     thead
       tr
+        th.image
         th.title Title
         th.actions
     tbody
       - things.each do |thing|
         tr
+          td.image
+            - if item.image?
+              = image_tag item.image.url, alt: item.title
           td.title = thing.title
           td.actions
             .btn-group

@@ -39,6 +39,6 @@ class Admin::ThingsController < AdminController
 protected
 
   def thing_params
-    params.require(:thing).permit(:title, :description)
+    params.require(:thing).permit(:title, :description, :image)
   end
 end

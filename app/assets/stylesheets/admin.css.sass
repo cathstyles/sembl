@@ -18,6 +18,34 @@ body
       @extend .pull-right
       margin: ($baseLineHeight / 2) 0 // same as h1
 
+.frame
+  background: $bodyBackground
+  padding: 4px
+  border: 1px solid $grayLighter
+
+
+table.index
+  td.image, th.image
+    width: 100px + 2 * 5px
+    img
+      max-width: 100px
+      max-height: 100px
+      @extend .frame
+  th.actions, td.actions
+    vertical-align: middle
+    white-space: nowrap
+    width: 1%
+
+.admin
+  .simple_form
+    .image_file
+      img
+        display: block
+        max-width: 300px
+        max-height: 200px
+        @extend .frame
+
+
 .footer
   border-top: 1px solid $grayLighter
   margin-top: ($baseLineHeight / 2)

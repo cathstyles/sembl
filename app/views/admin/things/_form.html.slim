@@ -6,6 +6,8 @@
 
   = form.input :description, input_html: {class: "input-block-level"}
 
+  = form.input :image, as: :image_file
+
   - unless thing.new_record?
     .control-group
       .control-label Created by
