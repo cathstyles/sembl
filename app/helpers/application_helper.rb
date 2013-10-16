@@ -1,16 +1,16 @@
 module ApplicationHelper
   def modular_application_name
-    @@application_name ||= Rails.application.class.name.sub(/::Application\Z/, "").underscore
+    @application_name ||= Rails.application.class.name.sub(/::Application\Z/, "").underscore
   end
 
   def modular_controller_namespace
-    @@modular_controller_namespace ||= if controller.class.parent
+    @modular_controller_namespace ||= if controller.class.parent
       controller.class.parent.name.underscore
     end
   end
 
   def modular_controller_name
-    @@modular_controller_name ||= controller.class.name.sub(/Controller\Z/, "").underscore
+    @modular_controller_name ||= controller.class.name.sub(/Controller\Z/, "").underscore
   end
 
   def body_classes
