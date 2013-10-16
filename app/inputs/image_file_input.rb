@@ -2,10 +2,6 @@
 # Maybe with http://jasny.github.io/bootstrap/javascript.html#fileupload
 # Will need SimpleForm.wrapper_mappings help
 class ImageFileInput < SimpleForm::Inputs::FileInput
-  def input
-    template.safe_join([preview, super].compact)
-  end
-
   def preview
     version = input_html_options.delete(:preview_version)
     use_default_url = options.delete(:use_default_url)
@@ -17,5 +13,13 @@ class ImageFileInput < SimpleForm::Inputs::FileInput
     if uploader || use_default_url
       template.image_tag(uploader.url, *Array(preview_options))
     end
+  end
+
+  def cache
+    @builder.hidden_field "#{attribute_name}_cache"
+  end
+
+  def input
+    template.safe_join([preview, cache, super].compact)
   end
 end
