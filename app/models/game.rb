@@ -1,3 +1,8 @@
 class Game < ActiveRecord::Base
-  validates
+  validates :title, presence: true
+  belongs_to :board
+
+  belongs_to :creator, class_name: "User"
+  belongs_to :updator, class_name: "User"
+
 end
