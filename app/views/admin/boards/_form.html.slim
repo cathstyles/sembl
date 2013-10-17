@@ -3,18 +3,17 @@
   = form.error_notification
 
   = form.input :title, input_html: {class: "input-block-level"}
-
   = form.input :number_of_players, input_html: {class: "input-mini"}
 
   - unless board.new_record?
     .control-group
       .control-label Created by
-      .controls.readonly #{board.creator || "(unknown)"} #{time_ago_tag board.created_at}
+      .controls.static #{board.creator || "(unknown)"} #{time_ago_tag board.created_at}
 
   - unless board.new_record? or not board.updated_at or board.updated_at == board.created_at
     .control-group
       .control-label Updated by
-      .controls.readonly #{board.updator || "(unknown)"} #{time_ago_tag board.updated_at}
+      .controls.static #{board.updator || "(unknown)"} #{time_ago_tag board.updated_at}
 
   .form-actions
     = form.button :submit, class: "btn-primary"

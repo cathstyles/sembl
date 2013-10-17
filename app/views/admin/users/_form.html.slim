@@ -9,12 +9,12 @@
   - unless user.new_record?
     .control-group
       .control-label Created
-      .controls.readonly #{time_ago_tag user.created_at}
+      .controls.static #{time_ago_tag user.created_at}
 
   - unless user.new_record? or not user.updated_at or user.updated_at == user.created_at
     .control-group
       .control-label Updated
-      .controls.readonly #{time_ago_tag user.updated_at}
+      .controls.static #{time_ago_tag user.updated_at}
 
   .form-actions
     = form.button :submit, class: "btn-primary"

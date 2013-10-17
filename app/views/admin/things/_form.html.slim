@@ -3,20 +3,18 @@
   = form.error_notification
 
   = form.input :title, input_html: {class: "input-block-level"}
-
   = form.input :description, input_html: {class: "input-block-level"}
-
   = form.input :image, as: :image_file
 
   - unless thing.new_record?
     .control-group
       .control-label Created by
-      .controls.readonly #{thing.creator || "(unknown)"} #{time_ago_tag thing.created_at}
+      .controls.static #{thing.creator || "(unknown)"} #{time_ago_tag thing.created_at}
 
   - unless thing.new_record? or not thing.updated_at or thing.updated_at == thing.created_at
     .control-group
       .control-label Updated by
-      .controls.readonly #{thing.updator || "(unknown)"} #{time_ago_tag thing.updated_at}
+      .controls.static #{thing.updator || "(unknown)"} #{time_ago_tag thing.updated_at}
 
   .form-actions
     = form.button :submit, class: "btn-primary"
