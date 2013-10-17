@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131015070339) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20131017045458) do
 
   create_table "boards", force: true do |t|
     t.string   "title",             null: false
@@ -28,9 +25,78 @@ ActiveRecord::Schema.define(version: 20131015070339) do
   add_index "boards", ["creator_id"], name: "index_boards_on_creator_id", using: :btree
   add_index "boards", ["updator_id"], name: "index_boards_on_updator_id", using: :btree
 
-  create_table "things", force: true do |t|
+  create_table "games", force: true do |t|
+    t.integer  "board_id"
     t.string   "title",       null: false
+    t.text     "description"
+    t.integer  "creator_id"
+    t.integer  "updator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "games", ["creator_id"], name: "index_games_on_creator_id", using: :btree
+  add_index "games", ["updator_id"], name: "index_games_on_updator_id", using: :btree
+
+  create_table "links", force: true do |t|
+    t.integer  "source_id"
+    t.integer  "target_id"
+    t.integer  "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "links", ["game_id"], name: "index_links_on_game_id", using: :btree
+  add_index "links", ["source_id"], name: "index_links_on_source_id", using: :btree
+  add_index "links", ["target_id"], name: "index_links_on_target_id", using: :btree
+
+  create_table "nodes", force: true do |t|
+    t.integer  "game_id"
+    t.integer  "round"
+    t.string   "state"
+    t.integer  "allocated_to_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "placements", force: true do |t|
+    t.string   "state",      null: false
+    t.integer  "thing_id"
+    t.integer  "node_id"
+    t.integer  "creator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "placements", ["creator_id"], name: "index_placements_on_creator_id", using: :btree
+
+  create_table "ratings", force: true do |t|
+    t.float    "rating"
+    t.integer  "resemblance_id"
+    t.integer  "creator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ratings", ["creator_id"], name: "index_ratings_on_creator_id", using: :btree
+  add_index "ratings", ["resemblance_id"], name: "index_ratings_on_resemblance_id", using: :btree
+
+  create_table "resemblances", force: true do |t|
     t.text     "description", null: false
+    t.string   "state",       null: false
+    t.float    "score"
+    t.integer  "link_id"
+    t.integer  "creator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "resemblances", ["creator_id"], name: "index_resemblances_on_creator_id", using: :btree
+  add_index "resemblances", ["link_id"], name: "index_resemblances_on_link_id", using: :btree
+
+  create_table "things", force: true do |t|
+    t.string   "title",                    null: false
+    t.text     "description", default: ""
     t.integer  "creator_id"
     t.integer  "updator_id"
     t.datetime "created_at"

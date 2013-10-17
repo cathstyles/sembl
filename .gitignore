@@ -17,3 +17,5 @@
 
 # Ignore uploads
 /public/uploads
+
+.ruby-version
