@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131017045458) do
+ActiveRecord::Schema.define(version: 20131018043025) do
 
   create_table "boards", force: true do |t|
     t.string   "title",             null: false
@@ -27,12 +27,17 @@ ActiveRecord::Schema.define(version: 20131017045458) do
 
   create_table "games", force: true do |t|
     t.integer  "board_id"
-    t.string   "title",       null: false
+    t.string   "title",                                null: false
     t.text     "description"
     t.integer  "creator_id"
     t.integer  "updator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "invite_only",          default: false
+    t.boolean  "uploads_allowed",      default: false
+    t.string   "theme"
+    t.text     "filter_content_by"
+    t.boolean  "allow_keyword_search", default: false
   end
 
   add_index "games", ["creator_id"], name: "index_games_on_creator_id", using: :btree
@@ -69,6 +74,14 @@ ActiveRecord::Schema.define(version: 20131017045458) do
   end
 
   add_index "placements", ["creator_id"], name: "index_placements_on_creator_id", using: :btree
+
+  create_table "players", force: true do |t|
+    t.integer  "game_id"
+    t.integer  "user_id"
+    t.float    "score"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "ratings", force: true do |t|
     t.float    "rating"
