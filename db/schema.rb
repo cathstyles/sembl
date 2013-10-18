@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131018043025) do
+ActiveRecord::Schema.define(version: 20131018051741) do
 
   create_table "boards", force: true do |t|
     t.string   "title",             null: false
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20131018043025) do
 
   create_table "games", force: true do |t|
     t.integer  "board_id"
-    t.string   "title",                                null: false
+    t.string   "title",                                  null: false
     t.text     "description"
     t.integer  "creator_id"
     t.integer  "updator_id"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20131018043025) do
     t.string   "theme"
     t.text     "filter_content_by"
     t.boolean  "allow_keyword_search", default: false
+    t.string   "state",                default: "draft"
   end
 
   add_index "games", ["creator_id"], name: "index_games_on_creator_id", using: :btree
