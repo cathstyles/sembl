@@ -5,4 +5,5 @@ class Game < ActiveRecord::Base
   belongs_to :creator, class_name: "User"
   belongs_to :updator, class_name: "User"
 
+  has_many :users, through: :player 
 end
