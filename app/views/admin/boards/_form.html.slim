@@ -5,6 +5,25 @@
   = form.input :title, input_html: {class: "input-block-level"}
   = form.input :number_of_players, input_html: {class: "input-mini"}
 
+  .control-group.game
+    .control-label Game
+    .controls.static
+      .game-board.preview
+      ul.help-block
+        li Click on the board to add a node
+        li Click and drag a node to move it
+        li Click a node then click another node to create a link
+        li Click a node then click another node which are already linked to remove a link
+        li Double-click a node to edit the round
+        li Right-click a node to remove the node and its links
+
+  - if Rails.env.development?
+    = form.input :game_attributes do
+      = form.text_area :game_attributes, class: "input-block-level", rows: 10
+      p.help-block This text area appears only in development.
+  - else
+    = form.hidden_field :game_attributes
+
   - unless board.new_record?
     .control-group
       .control-label Created by
