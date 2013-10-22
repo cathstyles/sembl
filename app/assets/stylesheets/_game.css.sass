@@ -1,7 +1,11 @@
 .game-board
-  .node
-    stroke: #fff
-    stroke-width: 4px
+  .node-group
+    .node
+      stroke: #ffffff
+      stroke-width: 4px
+
+    &.selected .node
+      stroke: #99ccff
 
   .label
     fill: #fff

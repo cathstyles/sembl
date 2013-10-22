@@ -13,7 +13,7 @@ $ ->
     width = board.width()
     height = board.height()
 
-    newLinkSource = null
+    selectedNode = null
 
     sanitize = (game) ->
       # Make sure both collections are present
@@ -33,8 +33,8 @@ $ ->
     # Click on the game board creates a node
     clickBoard = ->
       if d3.event.toElement is this
-        if newLinkSource
-          cancelLink()
+        if selectedNode
+          cancelSelection()
         else
           point = d3.mouse(this)
           game.nodes.push x: point[0], y: point[1], round: "0"
@@ -73,23 +73,23 @@ $ ->
         thisSelector = d3.select(this)
         thisIndex = _(game.nodes).indexOf(thisSelector.datum())
 
-        if newLinkSource
-          newLinkSourceSelector = d3.select(newLinkSource)
-          newLinkSourceIndex = _(game.nodes).indexOf(d3.select(newLinkSource).datum())
+        if selectedNode
+          selectedNodeSelector = d3.select(selectedNode)
+          selectedNodeIndex = _(game.nodes).indexOf(d3.select(selectedNode).datum())
 
-        if not newLinkSource
-          newLinkSource = this
-          thisSelector.classed("new-link-source-node", true)
-        else if newLinkSource is this
-          cancelLink()
-        else if (index = existingLinkIndex(newLinkSourceIndex, thisIndex)) isnt -1
+        if not selectedNode
+          selectedNode = this
+          thisSelector.classed("selected", true)
+        else if selectedNode is this
+          cancelSelection()
+        else if (index = existingLinkIndex(selectedNodeIndex, thisIndex)) isnt -1
           game.links.splice(index, 1)
           update()
-          cancelLink()
-        else if newLinkSource and this
-          game.links.push source: newLinkSourceIndex, target: thisIndex
+          cancelSelection()
+        else if selectedNode and this
+          game.links.push source: selectedNodeIndex, target: thisIndex
           update()
-          cancelLink()
+          cancelSelection()
 
     existingLinkIndex = (oneIndex, twoIndex) ->
       for link, index in game.links
@@ -97,35 +97,38 @@ $ ->
           (link.target is oneIndex and link.source is twoIndex)
       -1
 
-    cancelLink = ->
-      if newLinkSource
-        d3.select(newLinkSource).classed("new-link-source-node", false)
-        newLinkSource = null
+    cancelSelection = ->
+      if selectedNode
+        d3.select(selectedNode).classed("selected", false)
+        selectedNode = null
 
     # Double click on a node edits the node
     doubleClickNode = (d) ->
-      cancelLink()
+      cancelSelection()
       d3.event.stopPropagation()
       if newRound = prompt "Round", d.round
         d3.select(this).datum().round = newRound
         update()
 
-    # Right-click on a node removes the node
-    rightClickNode = (d) ->
-      d3.event.preventDefault()
+    # Backspace/delete removes a selected node
+    keydownWindow = ->
+      if (d3.event.keyCode is 8 or d3.event.keyCode is 46) and selectedNode
+        d3.event.preventDefault()
+        nodeToRemove = selectedNode
+        cancelSelection()
+        removeNode(d3.select(nodeToRemove).datum())
+        update()
 
-      removeIndex = _(game.nodes).indexOf(d)
+    d3.select(window).on("keydown", keydownWindow)
 
-      game.nodes.splice(removeIndex, 1)
-
-      for link, index in game.links
-        if link.source is removeIndex or link.target is removeIndex
-          game.links.splice(index, 1)
-        else
+    # Removes a node and all associated links
+    removeNode = (node) ->
+      if (removeIndex = _(game.nodes).indexOf(node)) isnt -1
+        game.nodes.splice(removeIndex, 1)
+        game.links = _(game.links).reject((link) -> link.source is removeIndex or link.target is removeIndex)
+        for link in game.links
           link.source -= 1 if link.source > removeIndex
           link.target -= 1 if link.target > removeIndex
-
-      update()
 
     # Update the whole visualisation
     update = ->
@@ -162,7 +165,6 @@ $ ->
       nodeGroupsEnter.call(drag)
         .on("click", clickNode)
         .on("dblclick", doubleClickNode)
-        .on("contextmenu", rightClickNode)
 
       # Exit
       nodeGroups.exit().remove()
