@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20131018051741) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "boards", force: true do |t|
     t.string   "title",                                                                      null: false
     t.integer  "number_of_players",                                                          null: false
@@ -113,8 +110,8 @@ ActiveRecord::Schema.define(version: 20131018051741) do
   add_index "resemblances", ["link_id"], name: "index_resemblances_on_link_id", using: :btree
 
   create_table "things", force: true do |t|
-    t.string   "title",       null: false
-    t.text     "description", null: false
+    t.string   "title",                    null: false
+    t.text     "description", default: ""
     t.integer  "creator_id"
     t.integer  "updator_id"
     t.datetime "created_at"

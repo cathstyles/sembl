@@ -12,6 +12,12 @@ gem "devise"
 gem "nestive"
 gem "slim-rails"
 gem "simple_form"
+gem "cancan"
+gem "state_machine"
+
+group :development do 
+  gem "annotate"
+end 
 
 group :development, :test, :assets do
   gem "jquery-rails"

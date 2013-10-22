@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: games
+#
+#  id                   :integer          not null, primary key
+#  board_id             :integer
+#  title                :string(255)      not null
+#  description          :text
+#  creator_id           :integer
+#  updator_id           :integer
+#  created_at           :datetime
+#  updated_at           :datetime
+#  invite_only          :boolean          default(FALSE)
+#  uploads_allowed      :boolean          default(FALSE)
+#  theme                :string(255)
+#  filter_content_by    :text
+#  allow_keyword_search :boolean          default(FALSE)
+#  state                :string(255)      default("draft")
+#
+
 class Game < ActiveRecord::Base
   validates :title, presence: true
   belongs_to :board

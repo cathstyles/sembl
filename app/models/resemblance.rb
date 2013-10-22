@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: resemblances
+#
+#  id          :integer          not null, primary key
+#  description :text             not null
+#  state       :string(255)      not null
+#  score       :float
+#  link_id     :integer
+#  creator_id  :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 class Resemblance < ActiveRecord::Base
   validates_presence_of :description
   belongs_to :link
