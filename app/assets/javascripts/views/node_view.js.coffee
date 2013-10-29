@@ -1,3 +1,5 @@
+#= require views/node_editor_view
+
 class Sembl.NodeView extends Backbone.RaphaelView
   radius: 30
 
@@ -76,8 +78,7 @@ class Sembl.NodeView extends Backbone.RaphaelView
       node.select()
 
   onDoubleClick: (event) ->
-    console.log arguments...
     event.preventDefault()
     event.stopPropagation()
-    if newRound = prompt("Round", @model.get("round"))
-      @model.set("round", newRound)
+
+    new Sembl.NodeEditorView(model: @model).show()

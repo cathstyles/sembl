@@ -1,6 +1,7 @@
 #= stub application
 
 #= require jquery
+#= require bootstrap
 
 #= require models/board
 #= require views/board_view
