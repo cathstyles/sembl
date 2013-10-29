@@ -1,4 +1,11 @@
 #= require jquery
-#= require jquery_ujs
+#= require raphael
+#= require underscore
+#= require backbone
+#= require backbone-raphael
 #= require_self
-#= require_tree .
+
+@Sembl = Sembl =
+  version: "0.1"
+
+_.extend Sembl, Backbone.Events
