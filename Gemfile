@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "2.0.0"
 
-gem "rails", "4.0.0"
+gem "rails", "4.0.1.rc3"
 
 gem "pg"
 
@@ -15,12 +15,12 @@ gem "simple_form"
 gem "cancan"
 gem "state_machine"
 
-group :development do 
+group :development do
   gem "annotate"
   gem "unicorn"
   gem "better_errors", ">= 1.0.0.rc1"
   gem "binding_of_caller"
-end 
+end
 
 group :development, :test, :assets do
   gem "jquery-rails"
@@ -36,7 +36,7 @@ end
 
 group :development, :test do
   gem "rspec-rails"
-  gem "factory_girl_rails"  
+  gem "factory_girl_rails"
   gem "pry-rails", "~> 0.2.1"
 end
 
