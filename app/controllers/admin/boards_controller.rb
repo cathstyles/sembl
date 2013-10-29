@@ -39,6 +39,6 @@ class Admin::BoardsController < AdminController
 protected
 
   def board_params
-    params.require(:board).permit(:title, :number_of_players, :game_attributes)
+    params.require(:board).permit(:title, :number_of_players, :nodes_attributes, :links_attributes)
   end
 end

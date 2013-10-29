@@ -8,36 +8,48 @@
 $ ->
   if $(document.body).is(".admin-boards-new, .admin-boards-create, .admin-boards-edit, .admin-boards-update, .admin-games-new, .admin-games-create, .admin-games-edit, .admin-games-update")
     board = $(".game-board")
-    input = $(":input[name='#{board.data("input")}']")
-    form = input.parents("form")
+    form = board.closest("form")
 
-    try
-      attributes = JSON.parse(input.val())
+    nodesInput = form.find(":input[name$=\"[nodes_attributes]\"]")
+    linksInput = form.find(":input[name$=\"[links_attributes]\"]")
+
+    nodesAttributes = try
+      JSON.parse(nodesInput.val())
     catch
-      attributes = {}
+      {}
+    linksAttributes = try
+      JSON.parse(linksInput.val())
+    catch
+      {}
 
-    Sembl.board = new Sembl.Board(attributes)
+    Sembl.board = new Sembl.Board(nodes: nodesAttributes, links: linksAttributes)
     Sembl.boardView = new Sembl.BoardView(el: board, model: Sembl.board)
 
-    reallyUpdateInput = ->
-      input.val(JSON.stringify(Sembl.board))
+    updateNodesInput = ->
+      nodesInput.val(JSON.stringify(Sembl.board.nodes.toJSON()))
+    updateLinksInput = ->
+      linksInput.val(JSON.stringify(Sembl.board.links.toJSON()))
 
     form.submit ->
-      reallyUpdateInput()
+      updateNodesInput()
+      updateLinksInput()
 
-    updateInput = ->
-      unless input.is(":focus")
-        reallyUpdateInput()
+    Sembl.board.nodes.on "add change remove", ->
+      unless nodesInput.is(":focus")
+        updateNodesInput()
+    Sembl.board.links.on "add change remove", ->
+      unless linksInput.is(":focus")
+        updateLinksInput()
 
-    Sembl.board.on "change", updateInput
-    Sembl.board.nodes.on "change", updateInput
-    Sembl.board.links.on "change", updateInput
-
-    input.on "input", ->
+    nodesInput.on "input", ->
       try
-        json = JSON.parse(input.val())
+        json = JSON.parse(nodesInput.val())
       catch
         return
-
-      Sembl.board.nodes.set(json.nodes)
-      Sembl.board.links.set(json.links)
+      Sembl.board.nodes.set(json)
+    linksInput.on "input", ->
+      try
+        json = JSON.parse(linksInput.val())
+      catch
+        return
+      Sembl.board.links.set(json)

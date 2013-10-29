@@ -9,7 +9,8 @@
 #  updator_id        :integer
 #  created_at        :datetime
 #  updated_at        :datetime
-#  game_attributes   :text             default("{\"nodes\": [{\"round\": 0}], \"links\": []}"), not null
+#  nodes_attributes  :json             default("[{\"round\": 0}]"), not null
+#  links_attributes  :json             default("[]"), not null
 #
 
 class Board < ActiveRecord::Base

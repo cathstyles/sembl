@@ -10,7 +10,7 @@ class Sembl.NodeView extends Backbone.RaphaelView
     @backCircle = @paper.circle().toFront()
       .attr
         "r": @radius
-        "fill": "#999"
+        "fill": "#333"
     @text = @paper.text().toFront()
       .attr
         "fill": "#fff"

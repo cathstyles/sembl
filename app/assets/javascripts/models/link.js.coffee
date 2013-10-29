@@ -17,5 +17,5 @@ class Sembl.Link extends Backbone.Model
         @destroy()
 
   toJSON: ->
-    source: @collection.board.nodes.indexOf(@source)
-    target: @collection.board.nodes.indexOf(@target)
+    source: @board.nodes.indexOf(@source)
+    target: @board.nodes.indexOf(@target)

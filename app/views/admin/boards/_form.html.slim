@@ -18,11 +18,18 @@
         li Double-click a node to edit the round
 
   - if Rails.env.development?
-    = form.input :game_attributes do
-      = form.text_area :game_attributes, class: "input-block-level", rows: 10
+    = form.input :nodes_attributes, label: "Nodes" do
+      = form.text_area :nodes_attributes, class: "input-block-level", rows: 5
       p.help-block This text area appears only in development.
   - else
-    = form.hidden_field :game_attributes
+    = form.hidden_field :nodes_attributes
+
+  - if Rails.env.development?
+    = form.input :links_attributes, label: "Links" do
+      = form.text_area :links_attributes, class: "input-block-level", rows: 5
+      p.help-block This text area appears only in development.
+  - else
+    = form.hidden_field :links_attributes
 
   - unless board.new_record?
     .control-group
