@@ -9,5 +9,7 @@ Sembl::Application.routes.draw do
 
   devise_for :users
 
-  root to: "home#show"
+  resources :games
+
+  root to: "games#index"
 end

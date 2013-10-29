@@ -16,6 +16,7 @@
 #  filter_content_by    :text
 #  allow_keyword_search :boolean          default(FALSE)
 #  state                :string(255)      default("draft")
+#  current_round        :integer          default(1)
 #
 
 class Game < ActiveRecord::Base
@@ -27,6 +28,8 @@ class Game < ActiveRecord::Base
 
   has_many :users, through: :players
   has_many :players
+
+  has_many :nodes
 
 
   # Games still open to users to join
@@ -55,6 +58,11 @@ class Game < ActiveRecord::Base
 
   def self.hosted_by(current_user)
     where(creator: current_user)
+  end
+
+  def seed_thing
+    seed_node = nodes.where(round: 0).take
+    seed_node.final_placement.try(:thing)
   end
 
 end

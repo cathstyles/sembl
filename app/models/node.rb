@@ -18,4 +18,9 @@ class Node < ActiveRecord::Base
   belongs_to :game
   has_many :links
   has_many :placements
+
+
+  def final_placement
+    placements.where(state: 'final').take
+  end 
 end
