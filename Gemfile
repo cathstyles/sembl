@@ -17,6 +17,9 @@ gem "state_machine"
 
 group :development do 
   gem "annotate"
+  gem "unicorn"
+  gem "better_errors", ">= 1.0.0.rc1"
+  gem "binding_of_caller"
 end 
 
 group :development, :test, :assets do
@@ -33,7 +36,8 @@ end
 
 group :development, :test do
   gem "rspec-rails"
-  gem "factory_girl_rails"
+  gem "factory_girl_rails"  
+  gem "pry-rails"
 end
 
 group :test do
