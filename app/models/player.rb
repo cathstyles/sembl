@@ -14,4 +14,11 @@
 class Player < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
+
+  def can_end_turn?
+    game.links.where(user: user).
+    joins(:node).
+    where("nodes.round == ?", [game.current_round]).
+    present?
+  end
 end

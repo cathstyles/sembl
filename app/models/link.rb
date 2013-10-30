@@ -11,4 +11,13 @@
 #
 
 class Link < ActiveRecord::Base
+  belongs_to :game
+  belongs_to :source, class: Node
+  belongs_to :target, class: Node
+
+  # Link becomes available when the target node has been filled
+  def available_to?(user)
+    game.participating?(user) &&
+    target.placements.where(creator: user).present?
+  end
 end

@@ -30,6 +30,7 @@ class Game < ActiveRecord::Base
   has_many :players
 
   has_many :nodes
+  has_many :links
 
 
   # Games still open to users to join
@@ -63,6 +64,22 @@ class Game < ActiveRecord::Base
   def seed_thing
     seed_node = nodes.where(round: 0).take
     seed_node.final_placement.try(:thing)
+  end
+
+  def in_progress? 
+    state == 'playing_round' || state == 'rating'
+  end
+
+  def editable?
+    state == 'draft' || state == 'open'
+  end
+
+  def participating?(user)
+    users.include?(user)
+  end
+
+  def player(current_user)
+    players.where(user: current_user).take
   end
 
 end

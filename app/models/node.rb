@@ -23,4 +23,9 @@ class Node < ActiveRecord::Base
   def final_placement
     placements.where(state: 'final').take
   end 
+
+  def available_to?(user)
+    game.participating?(user) &&
+    (game.current_round > 1 || allocated_to_id == user.id)
+  end
 end
