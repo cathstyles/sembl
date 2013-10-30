@@ -1,0 +1,6 @@
+.game
+  a.image href="#{game_path(game)}"
+    = image_tag game.seed_thing.try(:image).try(:url)
+  a.title href="#{game_path(game)}"
+    = game.title
+  span.theme = game.theme
