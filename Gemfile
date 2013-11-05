@@ -14,20 +14,18 @@ gem "slim-rails"
 gem "simple_form"
 gem "cancan"
 gem "state_machine"
+gem "jquery-rails"
+gem "sass-rails"
+gem "coffee-rails"
+gem "uglifier"
+gem "bootstrap-sass"
+
 
 group :development do
   gem "annotate"
   gem "unicorn"
   gem "better_errors", ">= 1.0.0.rc1"
   gem "binding_of_caller"
-end
-
-group :development, :test, :assets do
-  gem "jquery-rails"
-  gem "sass-rails"
-  gem "coffee-rails"
-  gem "uglifier"
-  gem "bootstrap-sass"
 end
 
 group :doc do
