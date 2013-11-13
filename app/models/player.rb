@@ -15,10 +15,14 @@ class Player < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
 
+  # Player can end turn if they have entered one or more resemblances 
+  # for the current round
   def can_end_turn?
-    game.links.where(user: user).
-    joins(:node).
-    where("nodes.round == ?", [game.current_round]).
+    game.links.
+    joins(:target).
+    joins(:resemblances).
+    where("nodes.round = ?", [game.current_round]).
+    where("resemblances.creator_id = ?", [user.id]).
     present?
   end
 end

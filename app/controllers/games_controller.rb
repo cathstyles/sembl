@@ -2,7 +2,7 @@ class GamesController < ApplicationController
 
   respond_to :html
 
-  before_filter :authenticate_user!, only: [:index, :show]
+  before_filter :authenticate_user!, except: [:index, :show]
   before_filter :find_game, except: :index
 
   def index
@@ -22,6 +22,26 @@ class GamesController < ApplicationController
   def summary
     respond_with @game
   end 
+
+  def join
+    respond_with @game
+  end
+
+  def create
+
+  end
+
+  def new
+
+  end
+
+  def edit
+
+  end
+
+  def update
+
+  end
 
   private
 
