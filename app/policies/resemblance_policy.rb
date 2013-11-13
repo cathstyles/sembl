@@ -15,8 +15,8 @@ class ResemblancePolicy < ApplicationPolicy
 
   def rate? 
     record.creator_id != user.id &&
-    record.link.game.state == "rating" &&  
-    record.link.game.participating?(user) 
+    record.game.state == "rating" &&  
+    record.game.participating?(user) 
   end
   
 end
