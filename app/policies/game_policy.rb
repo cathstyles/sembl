@@ -26,6 +26,7 @@ class GamePolicy < ApplicationPolicy
   end
 
   def join? 
-    scope.open_to_join.where(:id => record.id).exists?
+    record.state == "open"
+    #scope.open_to_join.where(:id => record.id).exists?
   end
 end

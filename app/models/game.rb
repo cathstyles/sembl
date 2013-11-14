@@ -35,10 +35,11 @@ class Game < ActiveRecord::Base
 
   # Games still open to users to join
   def self.open_to_join
-    where(invite_only: false).
-      joins(:users, :board).
-      group("games.id, boards.number_of_players").
-      having("count(users.id) < boards.number_of_players")
+    where(state: 'open')
+    # where(invite_only: false).
+    #   joins(:users, :board).
+    #   group("games.id, boards.number_of_players").
+    #   having("count(users.id) < boards.number_of_players")
   end
 
   def self.completed
@@ -66,8 +67,13 @@ class Game < ActiveRecord::Base
     seed_node.final_placement.try(:thing)
   end
 
+  def open_to_join?
+    invite_only == false && 
+    users.count < board.number_of_players
+  end
+
   def in_progress? 
-    state == 'playing_round' || state == 'rating'
+    state == 'open' || state == 'playing' || state == 'rating'
   end
 
   def editable?

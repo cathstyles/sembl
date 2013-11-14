@@ -1,11 +1,18 @@
-development:
+development: &base
   adapter: postgresql
-  encoding: unicode
   database: sembl_development
-  pool: 5
+  encoding: unicode
+  port: <%= ENV["BOXEN_POSTGRESQL_PORT"] || 5432 %>
+  host: localhost
+  password:
+
+production:
+  <<: *base
 
 test:
   adapter: postgresql
-  encoding: unicode
   database: sembl_test
-  pool: 5
+  encoding: unicode
+  port: <%= ENV["BOXEN_POSTGRESQL_PORT"] || 5432 %>
+  host: localhost
+  password:
