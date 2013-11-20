@@ -15,6 +15,7 @@ gem "simple_form"
 gem "cancan"
 gem "state_machine"
 gem "puma"
+gem "fastercsv"
 
 gem "jquery-rails"
 gem "sass-rails"
