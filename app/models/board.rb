@@ -9,8 +9,8 @@
 #  updator_id        :integer
 #  created_at        :datetime
 #  updated_at        :datetime
-#  nodes_attributes  :json             default("[{\"round\": 0}]"), not null
-#  links_attributes  :json             default("[]"), not null
+#  nodes_attributes  :json             default([{"round"=>0}]), not null
+#  links_attributes  :json             default([]), not null
 #
 
 class Board < ActiveRecord::Base

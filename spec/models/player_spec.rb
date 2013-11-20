@@ -8,6 +8,7 @@
 #  score      :float
 #  created_at :datetime
 #  updated_at :datetime
+#  state      :string(255)      default("completing_turn")
 #
 
 require 'spec_helper'
