@@ -7,6 +7,7 @@ gem "rails", "4.0.1.rc3"
 gem "pg"
 
 gem "carrierwave"
+gem "fog"
 gem "decent_exposure"
 gem "devise"
 gem "nestive"

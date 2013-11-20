@@ -3,6 +3,8 @@ require 'carrierwave/processing/mime_types'
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MimeTypes
 
+  storage :fog
+
   process :set_content_type
 
   def store_dir
