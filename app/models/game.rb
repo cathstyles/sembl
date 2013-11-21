@@ -55,7 +55,8 @@ class Game < ActiveRecord::Base
   end
 
   def self.participating(current_user)
-    joins(:players).where(user: current_user)
+      joins(:users).where(["users.id = ?", current_user.try(:id)])
+
   end
 
   def self.hosted_by(current_user)
