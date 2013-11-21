@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131121032603) do
+ActiveRecord::Schema.define(version: 20131121040600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 20131121032603) do
     t.json     "general_attributes", default: [], null: false
     t.string   "import_row_id"
     t.string   "random_seed"
+    t.string   "access_via"
   end
 
   add_index "things", ["creator_id"], name: "index_things_on_creator_id", using: :btree
