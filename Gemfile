@@ -24,7 +24,7 @@ gem "coffee-rails"
 gem "uglifier"
 gem "bootstrap-sass"
 gem "asset_sync"
-
+gem "unf"
 
 group :development do
   gem "annotate"
@@ -38,6 +38,7 @@ group :doc do
 end
 
 group :development, :test do
+  gem "dotenv-rails"
   gem "rspec-rails"
   gem "factory_girl_rails"
   gem "pry-rails", "~> 0.2.1"
