@@ -14,4 +14,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   def extension_white_list
     %w(jpg jpeg gif png)
   end
+
+  version(:admin_thumb) do
+    process resize_to_fill: [150, 150]
+  end
+
+  version(:browse_thumb) do 
+    process resize_to_fit: [100000, 350]
+  end
 end
