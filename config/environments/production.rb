@@ -77,4 +77,6 @@ Sembl::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.action_controller.asset_host = "https://#{ENV['CLOUDFRONT_DOMAIN']}"
 end
