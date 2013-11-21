@@ -2,6 +2,7 @@ require 'carrierwave/processing/mime_types'
 
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MimeTypes
+  include CarrierWave::MiniMagick
 
   storage :fog
 
