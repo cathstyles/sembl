@@ -20,6 +20,8 @@ module Sembl
 
     config.time_zone = "Melbourne"
 
+    config.assets.precompile += %w(admin.css admin.js)
+
     config.generators do |g|
       g.hidden_namespaces += [:test_unit, :erb]
 

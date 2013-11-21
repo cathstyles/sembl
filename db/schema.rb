@@ -17,14 +17,13 @@ ActiveRecord::Schema.define(version: 20131121040600) do
   enable_extension "plpgsql"
 
   create_table "boards", force: true do |t|
-    t.string   "title",                                      null: false
-    t.integer  "number_of_players",                          null: false
+    t.string   "title",                                                                      null: false
+    t.integer  "number_of_players",                                                          null: false
     t.integer  "creator_id"
     t.integer  "updator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.json     "nodes_attributes",  default: [{"round"=>0}], null: false
-    t.json     "links_attributes",  default: [],             null: false
+    t.text     "game_attributes",   default: "{\"nodes\": [{\"round\": 0}], \"links\": []}", null: false
   end
 
   add_index "boards", ["creator_id"], name: "index_boards_on_creator_id", using: :btree
