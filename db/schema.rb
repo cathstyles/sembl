@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131120045237) do
+ActiveRecord::Schema.define(version: 20131121002730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,7 +118,7 @@ ActiveRecord::Schema.define(version: 20131120045237) do
 
   create_table "things", force: true do |t|
     t.string   "title"
-    t.text     "description", default: ""
+    t.text     "description",        default: ""
     t.integer  "creator_id"
     t.integer  "updator_id"
     t.datetime "created_at"
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 20131120045237) do
     t.string   "attribution"
     t.string   "item_url"
     t.string   "copyright"
-    t.json     "attributes",  default: [], null: false
+    t.json     "general_attributes", default: [], null: false
   end
 
   add_index "things", ["creator_id"], name: "index_things_on_creator_id", using: :btree
