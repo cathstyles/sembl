@@ -20,6 +20,7 @@ header
             - if thing.image?
               = image_tag thing.image.admin_thumb.url, alt: thing.description
           td.title = thing.description
+
           td.actions
             .btn-group
               = link_to "Edit", edit_admin_thing_path(thing), class: "btn"
