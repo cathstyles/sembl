@@ -23,6 +23,7 @@ gem "sass-rails"
 gem "coffee-rails"
 gem "uglifier"
 gem "bootstrap-sass"
+gem "asset_sync"
 
 
 group :development do

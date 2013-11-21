@@ -28,6 +28,9 @@ GEM
     annotate (2.5.0)
       rake
     arel (4.0.1)
+    asset_sync (1.0.0)
+      activemodel
+      fog (>= 1.8.0)
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
     better_errors (1.0.1)
@@ -221,6 +224,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  asset_sync
   better_errors (>= 1.0.0.rc1)
   binding_of_caller
   bootstrap-sass

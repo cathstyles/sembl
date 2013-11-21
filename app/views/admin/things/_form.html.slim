@@ -4,6 +4,11 @@
 
   = form.input :title, input_html: {class: "input-block-level"}
   = form.input :description, input_html: {class: "input-block-level"}
+  = form.input :item_url, input_html: {class: "input-block-level"}
+  = form.input :copyright, input_html: {class: "input-block-level"}
+  = form.input :access_via, input_html: {class: "input-block-level"}
+  = form.input :general_attributes, label: "Attributes" do
+    = form.text_area :general_attributes, class: "input-block-level", rows: 5
   = form.input :image, as: :image_file
 
   - unless thing.new_record?
