@@ -75,7 +75,6 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
-    fastercsv (1.5.5)
     fog (1.18.0)
       builder
       excon (~> 0.28.0)
@@ -229,7 +228,6 @@ DEPENDENCIES
   decent_exposure
   devise
   factory_girl_rails
-  fastercsv
   fog
   forgery
   jquery-rails

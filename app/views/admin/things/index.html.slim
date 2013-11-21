@@ -17,8 +17,8 @@ header
       - things.each do |thing|
         tr
           td.image
-            - if thing.image?
-              = image_tag thing.image.url, alt: thing.title
+            / # - if thing.image?
+              / # = image_tag thing.image.url, alt: thing.title
           td.title = thing.title
           td.actions
             .btn-group
