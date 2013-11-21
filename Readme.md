@@ -66,3 +66,13 @@ Without Boxen:
     heroku sharing:add toby@icelab.com.au
     heroku config:set { CONFIG_VARS }
     heroku labs:enable user-env-compile -a sembl
+
+### Importing a CSV for "things"
+
+On rails console:
+
+1. If images are in the same directory as the file
+    Thing.import_csv("path/to/filename.csv")
+
+2. If images are in different directory
+    Thing.import_csv("path/to/filename.csv", image_path: "path/to/images")
