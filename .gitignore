@@ -18,4 +18,8 @@
 # Ignore uploads
 /public/uploads
 
+# Ignore configuration files
+/config/database.yml
+/config/config.yml
+
 .ruby-version
