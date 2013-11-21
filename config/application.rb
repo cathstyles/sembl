@@ -7,6 +7,13 @@ require "sprockets/railtie"
 
 Bundler.require(:default, Rails.env)
 
+# Load the deployment specific config into environment variables
+if File.exist?(config_file = File.expand_path("../../config/config.yml", __FILE__))
+  YAML.load_file(config_file).each do |key, value|
+    ENV[key.to_s] = value
+  end
+end
+
 module Sembl
   class Application < Rails::Application
     config.autoload_paths << Rails.root.join("lib")
