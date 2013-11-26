@@ -23,4 +23,21 @@ class ImageUploader < CarrierWave::Uploader::Base
   version(:browse_thumb) do 
     process resize_to_fit: [100000, 350]
   end
+
+  def filename
+    @name ||= "#{secure_token}.#{file.extension.downcase}" if original_filename
+  end
+
+  def store_dir
+    "images/#{model.id}"
+  end
+
+
+  private
+
+  def secure_token
+    ivar = "@#{mounted_as}_secure_token"
+    token = model.instance_variable_get(ivar)
+    token ||= model.instance_variable_set(ivar, SecureRandom.hex(4))
+  end
 end

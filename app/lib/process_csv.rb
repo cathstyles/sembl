@@ -1,33 +1,51 @@
 class ProcessCSV
-  attr_accessor :filename, :map, :options
+  attr_accessor :filepath, :map, :options
 
   require 'csv'
+  require 'open-uri'
 
-  def initialize(filename, map = {})
-    @filename = filename
-    @options = options
+  def initialize(filepath, map = {}, options = {})
+    @options = options.reverse_merge!(remote: true)
     @map = map 
-
+    @filepath = filepath
   end
 
-  def foreach
-    CSV.foreach(filename, headers: true) do |row|
-      out = {general_attributes: []}
-      row.each do |key, value|
-        mapped_key = map[key.strip] 
+  def foreach(&block)
+    options[:remote] ? parse_remote(&block) : parse_local(&block)
+  end
 
-        if mapped_key
-          out[mapped_key] = value  
-        else 
-          # key not mapped, add to general attributes
-          values = value.try(:split, ',') || []
-          values.each do |val|
-            out[:general_attributes] << {key => val.strip}
-          end
+  private
+
+  def parse_remot(&block)
+   open(@filepath) do |file|
+      CSV.parse(file, headers: true) do |row|
+        block.call process_row(row)
+      end
+    end
+  end
+
+  def parse_local(&block)
+    CSV.foreach(@filepath, headers: true) do |row|
+      block.call process_row(row)
+    end
+  end
+
+  def process_row(row)
+    out = {general_attributes: []}
+    row.each do |key, value|
+      mapped_key = map[key.strip] 
+
+      if mapped_key
+        out[mapped_key] = value  
+      else 
+        # key not mapped, add to general attributes
+        values = value.try(:split, ',') || []
+        values.each do |val|
+          out[:general_attributes] << {key => val.strip}
         end
       end
-      yield out
     end
+    out
   end
 
 end
