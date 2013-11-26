@@ -45,22 +45,7 @@ class Thing < ActiveRecord::Base
 
     csv_processor.foreach do |row|
       begin
-        image_filename = row.delete(:image_filename)
-        image_url = row.delete(:image_url)
-
-        if image_filename.present? || image_url.present?
-          thing = self.new
-          image_path = image_url || File.join(options[:image_path], image_filename)
-
-          if options[:remote] || image_url.present?
-            thing.remote_image_url = image_path
-          else 
-            thing.image = File.open(image_path)
-          end
-
-          thing.update(row)
-          thing.save!
-        end
+        create_thing_from_row(row)
       rescue Exception => e
         puts "Error loading file #{row[:image_filename]}: #{e.message}"
       end
@@ -68,6 +53,26 @@ class Thing < ActiveRecord::Base
   end
 
   private 
+
+  def create_thing_from_row(row)
+    image_filename = row.delete(:image_filename)
+    image_url = row.delete(:image_url)
+
+    # Ignore row if there is no image
+    return unless image_filename.present? || image_url.present?
+
+    thing = self.new
+    image_path = image_url || File.join(options[:image_path], image_filename)
+
+    if options[:remote] || image_url.present?
+      thing.remote_image_url = image_path
+    else 
+      thing.image = File.open(image_path)
+    end
+
+    thing.update(row)
+    thing.save!
+  end
 
   def self.field_mapping 
     {
