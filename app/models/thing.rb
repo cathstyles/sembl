@@ -70,6 +70,7 @@ class Thing < ActiveRecord::Base
       thing.image = File.open(image_path)
     end
 
+    thing.random_seed = SecureRandom.hex(8)
     thing.update(row)
     thing.save!
   end
