@@ -16,7 +16,7 @@ class ProcessCSV
 
   private
 
-  def parse_remot(&block)
+  def parse_remote(&block)
    open(@filepath) do |file|
       CSV.parse(file, headers: true) do |row|
         block.call process_row(row)
