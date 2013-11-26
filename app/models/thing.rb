@@ -45,7 +45,7 @@ class Thing < ActiveRecord::Base
 
     csv_processor.foreach do |row|
       begin
-        create_thing_from_row(row)
+        self.create_thing_from_row(row)
       rescue Exception => e
         puts "Error loading file #{row[:image_filename]}: #{e.message}"
       end
@@ -54,7 +54,7 @@ class Thing < ActiveRecord::Base
 
   private 
 
-  def create_thing_from_row(row)
+  def self.create_thing_from_row(row)
     image_filename = row.delete(:image_filename)
     image_url = row.delete(:image_url)
 
