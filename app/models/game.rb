@@ -23,7 +23,7 @@
 class Game < ActiveRecord::Base
   validates :title, presence: true
   validates :board, presence: true
-  
+
   belongs_to :board
 
   belongs_to :creator, class_name: "User"
@@ -40,9 +40,11 @@ class Game < ActiveRecord::Base
   # Games still open to users to join
   def self.open_to_join
     where(invite_only: false).
-      joins(:users, :board).
-      group("games.id, boards.number_of_players").
-      having("count(users.id) < boards.number_of_players")
+      joins(:board).
+      includes(:players).
+      group("games.id, boards.number_of_players, players.id").
+      having("count(players.id) < boards.number_of_players").
+      references(:players)
   end
 
   def self.completed
@@ -50,7 +52,7 @@ class Game < ActiveRecord::Base
   end
 
   def self.in_progress
-    where("state != 'draft' AND state != 'completed'")
+    where("games.state != 'draft' AND games.state != 'completed'")
   end
 
   def self.invite_only
