@@ -105,11 +105,7 @@ class Game < ActiveRecord::Base
 
     node_array = []
     board.nodes_attributes.each do |node_attr|
-      node_array << nodes.create(
-        round: node_attr['round'],
-        position_x: node_attr['x'],
-        position_y: node_attr['y']
-      )
+      node_array << nodes.create(node_attr.except('fixed'))
     end
 
     board.links_attributes.each do |link_attr| 
