@@ -1,10 +1,11 @@
 require 'spec_helper'
 
 describe ThingsController do
-  describe 'GET 'in describe "GET 'index'" do
+  describe "GET 'index'" do
     it "returns http success" do
-      get :index
+      @game = FactoryGirl.create(:game)
+      get :index, game_id: @game.id
       response.should be_success
     end
-  end
+  end 
 end

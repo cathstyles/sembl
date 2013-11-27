@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :game do
-    title { Forgery(:lorem).word }
-    theme { Forgery(:lorem).word }
+    title { Forgery(:lorem_ipsum).word }
+    theme { Forgery(:lorem_ipsum).word }
 
   end
 end
