@@ -15,8 +15,8 @@
 #  copyright          :string(255)
 #  general_attributes :json             default([]), not null
 #  import_row_id      :string(255)
-#  random_seed        :string(255)
 #  access_via         :string(255)
+#  random_seed        :integer
 #
 
 class Thing < ActiveRecord::Base

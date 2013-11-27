@@ -17,6 +17,7 @@
 #  allow_keyword_search :boolean          default(FALSE)
 #  state                :string(255)      default("draft")
 #  current_round        :integer          default(1)
+#  random_seed          :integer
 #
 
 require 'spec_helper'
