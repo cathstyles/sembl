@@ -9,7 +9,9 @@ Sembl::Application.routes.draw do
 
   devise_for :users
 
-  resources :games
+  resources :games do
+    resources :things, only: [:index]
+  end
 
   root to: "games#index"
 end

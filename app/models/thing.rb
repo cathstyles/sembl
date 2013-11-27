@@ -25,7 +25,14 @@ class Thing < ActiveRecord::Base
   belongs_to :creator, class_name: "User"
   belongs_to :updator, class_name: "User"
 
+  before_create :generate_random_seed
+
   mount_uploader :image, ImageUploader
+
+  # XOR operator is # in postgres
+  def self.random_fixed_order(seed)
+    order("(things.random_seed # #{seed})")
+  end
 
   def self.import_csv(filename, options = {})
     default_options = {
@@ -70,9 +77,8 @@ class Thing < ActiveRecord::Base
       thing.image = File.open(image_path)
     end
 
-    thing.random_seed = SecureRandom.hex(8)
     thing.update(row)
-    thing.save!
+    thing.save! 
   end
 
   def self.field_mapping 
@@ -87,6 +93,11 @@ class Thing < ActiveRecord::Base
       'Copyright info' => :copyright 
     }
   end
+
+  private 
+    def generate_random_seed
+      random_seed = SecureRandom.random_number(2147483646)
+    end
 
 end
 

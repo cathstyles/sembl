@@ -32,6 +32,7 @@ class Game < ActiveRecord::Base
   has_many :nodes
   has_many :links
 
+  before_create :generate_random_seed
 
   # Games still open to users to join
   def self.open_to_join
@@ -88,5 +89,11 @@ class Game < ActiveRecord::Base
   def player(current_user)
     players.where(user: current_user).take
   end
+
+  private 
+
+    def generate_random_seed
+      random_seed = SecureRandom.random_number(2147483646)
+    end
 
 end
