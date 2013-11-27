@@ -94,7 +94,7 @@ class Game < ActiveRecord::Base
   private 
 
     def generate_random_seed
-      random_seed = SecureRandom.random_number(2147483646)
+      self.random_seed = SecureRandom.random_number(2147483646)
     end
 
 end
