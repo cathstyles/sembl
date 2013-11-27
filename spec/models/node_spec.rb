@@ -9,6 +9,8 @@
 #  allocated_to_id :integer
 #  created_at      :datetime
 #  updated_at      :datetime
+#  position_x      :float
+#  position_y      :float
 #
 
 require 'spec_helper'

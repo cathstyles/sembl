@@ -9,6 +9,8 @@
 #  allocated_to_id :integer
 #  created_at      :datetime
 #  updated_at      :datetime
+#  position_x      :float
+#  position_y      :float
 #
 
 class Node < ActiveRecord::Base
@@ -19,6 +21,8 @@ class Node < ActiveRecord::Base
   has_many :links
   has_many :placements
 
+  before_create :assign_initial_node_states
+
 
   def final_placement
     placements.where(state: 'final').take
@@ -27,5 +31,16 @@ class Node < ActiveRecord::Base
   def available_to?(user)
     game.participating?(user) &&
     (game.current_round > 1 || allocated_to_id == user.id)
+  end
+
+  private 
+
+  def assign_initial_node_states
+    self.state = 'locked'
+    if round == 0
+      self.state = 'filled'
+    elsif round == 1
+      self.state = 'in_play'
+    end
   end
 end

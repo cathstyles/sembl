@@ -22,6 +22,8 @@
 
 class Game < ActiveRecord::Base
   validates :title, presence: true
+  validates :board, presence: true
+  
   belongs_to :board
 
   belongs_to :creator, class_name: "User"
@@ -37,11 +39,10 @@ class Game < ActiveRecord::Base
 
   # Games still open to users to join
   def self.open_to_join
-    where(state: 'open')
-    # where(invite_only: false).
-    #   joins(:users, :board).
-    #   group("games.id, boards.number_of_players").
-    #   having("count(users.id) < boards.number_of_players")
+    where(invite_only: false).
+      joins(:users, :board).
+      group("games.id, boards.number_of_players").
+      having("count(users.id) < boards.number_of_players")
   end
 
   def self.completed
@@ -79,8 +80,9 @@ class Game < ActiveRecord::Base
     state == 'open' || state == 'playing' || state == 'rating'
   end
 
+  # Only editable if no players have joined
   def editable?
-    state == 'draft' || state == 'open'
+    state == 'draft' || !game.players.present?
   end
 
   def participating?(user)
@@ -89,6 +91,32 @@ class Game < ActiveRecord::Base
 
   def player(current_user)
     players.where(user: current_user).take
+  end
+
+
+  # Copy nodes and links from board
+  def copy_board_to_game
+    return unless board.present? 
+
+    nodes.destroy_all
+    links.destroy_all
+
+    node_array = []
+    board.nodes_attributes.each do |node_attr|
+      node_array << nodes.create(
+        round: node_attr['round'],
+        position_x: node_attr['x'],
+        position_y: node_attr['y']
+      )
+    end
+
+    board.links_attributes.each do |link_attr| 
+      links.create(
+        source: node_array[link_attr['source']],
+        target: node_array[link_attr['target']]
+      )
+    end
+
   end
 
   private 
