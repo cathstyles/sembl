@@ -6,19 +6,19 @@ class GamePolicy < ApplicationPolicy
   def show?
     !record.invite_only ||
     record.participating?(user) ||
-    record.creator_id == user.id 
+    record.creator_id == user.try(:id) 
   end
 
   def create?
-    user.exists?
+    !!user
   end
 
   def update?
-    user.id == record.creator_id && record.editable?
+    !!user && user.id == record.creator_id && record.editable?
   end
 
   def destroy?
-    user.id == record.creator_id && record.editable?
+    !!user && user.id == record.creator_id && record.editable?
   end
 
   def summary?
@@ -26,7 +26,7 @@ class GamePolicy < ApplicationPolicy
   end
 
   def join? 
-    record.state == "open"
+    !!user && record.state == "open"
     #scope.open_to_join.where(:id => record.id).exists?
   end
 end

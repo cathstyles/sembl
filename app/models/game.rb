@@ -84,7 +84,7 @@ class Game < ActiveRecord::Base
 
   # Only editable if no players have joined
   def editable?
-    state == 'draft' || !game.players.present?
+    state == 'draft' || !players.present?
   end
 
   def participating?(user)
@@ -116,6 +116,8 @@ class Game < ActiveRecord::Base
     end
 
   end
+
+
 
   private 
 

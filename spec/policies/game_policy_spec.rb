@@ -4,6 +4,7 @@ describe GamePolicy do
   subject { GamePolicy.new(user, game)}
 
   let(:game) { FactoryGirl.create(:game) }
+  let(:game_creator) { FactoryGirl.create(:user) }
 
   context "for a guest" do 
     let(:user) { nil }
@@ -17,8 +18,8 @@ describe GamePolicy do
     it { should_not permit(:join) }
 
     context "game is invite only" do 
-      let(:game) { FactoryGirl.create(:game, invite_only: true) }
-      it { should_not permit(:show)       }
+      let(:game) { FactoryGirl.create(:game, invite_only: true, creator: game_creator) }
+      it { should_not permit(:show) }
     end
 
     context "game is not invite only" do
@@ -42,7 +43,7 @@ describe GamePolicy do
       it { should permit(:show)   }
     end
 
-    context "for a game that is hosted by user and is not in progress" do 
+    context "a game that is hosted by user and is not in progress" do 
       let(:game) {
         FactoryGirl.create(:game, creator: user, state: 'draft')
       }
@@ -51,9 +52,12 @@ describe GamePolicy do
       it { should permit(:destroy) }
     end
 
-    context "for a game that is hosted by user and is in progress" do 
+    context "a game that is hosted by user and is in progress" do 
       let(:game) {
-        FactoryGirl.create(:game, creator: user, state: 'playing')
+        FactoryGirl.create(:game_in_progress, 
+          creator: user, 
+          state: 'playing'
+        )
       }
       it { should_not permit(:update)   }
       it { should_not permit(:edit)  }
@@ -80,7 +84,8 @@ describe GamePolicy do
       it { should_not permit(:show)   }
 
       context "user is a player" do 
-        let(:player) { FactoryGirl.create(:player, user: user, game: game) }
+        let(:player) { FactoryGirl.create(:player, user: user) }
+        let(:game) { FactoryGirl.create(:game, invite_only: true, players: [player]) }
         it { should permit(:show)   }
       end
 

@@ -5,7 +5,7 @@ class PlacementPolicy < ApplicationPolicy
   end
 
   def update? 
-    user.id == record.creator_id && 
+    user.try(:id) == record.creator_id && 
     record.node.game.player(user).state == "completing_turn"
   end
 
