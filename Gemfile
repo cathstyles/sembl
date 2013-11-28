@@ -25,6 +25,7 @@ gem "uglifier"
 gem "bootstrap-sass"
 gem "asset_sync"
 gem "unf"
+gem "jbuilder"
 
 group :development do
   gem "annotate"
