@@ -1,4 +1,4 @@
-class Sembl.Node extends Backbone.Model
+class Sembl.BoardNode extends Backbone.Model
   defaults:
     x: 200
     y: 200

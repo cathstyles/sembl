@@ -1,7 +1,7 @@
-#= require models/link
+#= require models/board_link
 
 class Sembl.BoardLinks extends Backbone.Collection
-  model: Sembl.Link
+  model: Sembl.BoardLink
 
   initialize: (models, options) ->
     @board = options?.board

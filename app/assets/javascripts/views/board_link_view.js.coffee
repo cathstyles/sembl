@@ -1,4 +1,4 @@
-class Sembl.LinkView extends Backbone.RaphaelView
+class Sembl.BoardLinkView extends Backbone.RaphaelView
   el: ->
     @paper.path().toBack()
       .attr

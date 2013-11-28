@@ -1,4 +1,4 @@
-class Sembl.Link extends Backbone.Model
+class Sembl.BoardLink extends Backbone.Model
   initialize: (options) ->
     @board = @collection.board
 

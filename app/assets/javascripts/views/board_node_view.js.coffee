@@ -1,6 +1,6 @@
 #= require views/node_editor_view
 
-class Sembl.NodeView extends Backbone.RaphaelView
+class Sembl.BoardNodeView extends Backbone.RaphaelView
   radius: 30
 
   # @backCircle is the fill circle

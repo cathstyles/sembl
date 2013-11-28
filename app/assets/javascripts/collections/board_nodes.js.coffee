@@ -1,7 +1,7 @@
-#= require models/node
+#= require models/board_node
 
 class Sembl.BoardNodes extends Backbone.Collection
-  model: Sembl.Node
+  model: Sembl.BoardNode
 
   initialize: (models, options) ->
     @board = options?.board

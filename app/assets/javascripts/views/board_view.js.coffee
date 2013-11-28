@@ -1,5 +1,5 @@
-#= require views/node_view
-#= require views/link_view
+#= require views/board_node_view
+#= require views/board_link_view
 
 class Sembl.BoardView extends Backbone.View
   className: "board-view"
@@ -27,10 +27,10 @@ class Sembl.BoardView extends Backbone.View
     super
 
   addLink: (link) ->
-    new Sembl.LinkView(paper: @paper, model: link)
+    new Sembl.BoardLinkView(paper: @paper, model: link)
 
   addNode: (node) ->
-    new Sembl.NodeView(paper: @paper, model: node)
+    new Sembl.BoardNodeView(paper: @paper, model: node)
 
   onClick: (event) ->
     if selectedNode = @model.nodes.selected()
