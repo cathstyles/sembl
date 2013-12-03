@@ -26,6 +26,7 @@ gem "bootstrap-sass"
 gem "asset_sync"
 gem "unf"
 gem "jbuilder"
+gem "handlebars_assets"
 
 group :development do
   gem "annotate"

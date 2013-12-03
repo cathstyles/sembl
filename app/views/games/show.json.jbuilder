@@ -1,4 +1,3 @@
-
 json.(
   @game, 
   :title,

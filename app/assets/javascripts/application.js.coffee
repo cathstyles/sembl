@@ -3,6 +3,7 @@
 #= require underscore
 #= require backbone
 #= require backbone-raphael
+#= require handlebars-v1.1.2
 #= require_self
 
 @Sembl = Sembl =
