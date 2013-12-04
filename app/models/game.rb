@@ -38,6 +38,9 @@ class Game < ActiveRecord::Base
   before_create :generate_random_seed
 
   state_machine initial: :draft do 
+
+    after_transition :rating => :playing, do: :increment_round
+
     event :publish do 
       transition :draft => :open
     end
@@ -83,6 +86,10 @@ class Game < ActiveRecord::Base
     invite_only == false && can_join?
   end
 
+  def increment_round
+    self.current_round += 1
+  end
+
   # Games still open to users to join
   def self.open_to_join
     where(invite_only: false).with_states(:joining, :open)
@@ -98,7 +105,6 @@ class Game < ActiveRecord::Base
 
   def self.participating(current_user)
       joins(:users).where(["users.id = ?", current_user.try(:id)])
-
   end
 
   def self.hosted_by(current_user)

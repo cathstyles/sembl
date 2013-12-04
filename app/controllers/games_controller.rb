@@ -23,6 +23,7 @@ class GamesController < ApplicationController
   end
 
   def join
+    @game.players.build(id: current_user.id)
     respond_with @game
   end
 

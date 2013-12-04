@@ -23,6 +23,10 @@ class Node < ActiveRecord::Base
 
   before_create :assign_initial_node_states
 
+  state_machine do 
+    
+  end
+
 
   def final_placement
     placements.where(state: 'final').take

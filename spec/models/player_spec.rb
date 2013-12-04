@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  game_id    :integer
 #  user_id    :integer
-#  score      :float
+#  score      :float            default(0.0), not null
 #  created_at :datetime
 #  updated_at :datetime
 #  state      :string(255)      default("completing_turn")
