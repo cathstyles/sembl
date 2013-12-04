@@ -3,10 +3,21 @@
 #= require underscore
 #= require backbone
 #= require backbone-raphael
-#= require handlebars-v1.1.2
+#= require handlebars.runtime
 #= require_self
+#= require routers/game_router
+#= require_tree ./templates
+
 
 @Sembl = Sembl =
   version: "0.1"
+  init: -> 
+    @game = new Sembl.Game($('#container').data('game'))
+    @router = new Sembl.GameRouter(@game)
+    Backbone.history.start()
 
 _.extend Sembl, Backbone.Events
+
+
+$(document).ready -> 
+  Sembl.init()

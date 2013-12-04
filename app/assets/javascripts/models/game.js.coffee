@@ -5,5 +5,5 @@ class Sembl.Game extends Backbone.Model
   urlRoot: '/games'
 
   initialize: (options) ->  
-    @nodes = new Sembl.Nodes(@get("nodes"), board: this)
-    @links = new Sembl.Links(@get("links"), board: this)
+    @nodes = new Sembl.Nodes(@get("nodes"), game: this)
+    @links = new Sembl.Links(@get("links"), game: this)

@@ -3,3 +3,4 @@ class Sembl.LinkView extends Backbone.View
     @render()
 
   render: ->
+    

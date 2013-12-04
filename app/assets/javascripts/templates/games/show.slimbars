@@ -1,0 +1,11 @@
+/ https://github.com/leshill/handlebars_assets/issues/69
+h1 
+  | {{title}}
+
+.meta
+  .description 
+  | {{description}}
+  .players
+
+.board-wrapper
+  
