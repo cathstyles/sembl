@@ -6,7 +6,7 @@ class ResemblancePolicy < ApplicationPolicy
 
   def update? 
     user.id == record.creator_id && 
-    record.link.game.player(user).state == "completing_turn"
+    record.link.game.player(user).playing_turn?
   end
 
   def destroy?
@@ -15,7 +15,7 @@ class ResemblancePolicy < ApplicationPolicy
 
   def rate? 
     record.creator_id != user.id &&
-    record.game.state == "rating" &&  
+    record.game.rating? &&  
     record.game.participating?(user) 
   end
   

@@ -6,7 +6,7 @@ class PlacementPolicy < ApplicationPolicy
 
   def update? 
     user.try(:id) == record.creator_id && 
-    record.node.game.player(user).state == "completing_turn"
+    record.node.game.player(user).playing_turn?
   end
 
   def destroy?

@@ -15,9 +15,9 @@ class Player < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
 
-  state_machine initial: :completing_turn do 
+  state_machine initial: :playing_turn do 
 
-    after_transition :completing_turn => :waiting, do: :check_turn_completion
+    after_transition :playing_turn => :waiting, do: :check_turn_completion
     after_transition :rating => :wating, do: :check_rating_completion
 
     event :end_turn do 
@@ -34,7 +34,7 @@ class Player < ActiveRecord::Base
     end
 
     event :begin_turn do 
-      transition :waiting => :completing_turn
+      transition :waiting => :playing_turn
     end
 
   end
