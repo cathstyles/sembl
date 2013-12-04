@@ -17,24 +17,24 @@ class Player < ActiveRecord::Base
 
   state_machine initial: :completing_turn do 
 
-    after_transition :completing_turn => :finished_turn, do: :check_turn_completion
-    after_transition :rating => :finished_rating, do: :check_rating_completion
+    after_transition :completing_turn => :waiting, do: :check_turn_completion
+    after_transition :rating => :wating, do: :check_rating_completion
 
     event :end_turn do 
-      transition :playing => :finished_turn, 
+      transition :playing => :waiting, 
         if: lambda {|player|  player.completed_requirements? }
     end
 
     event :begin_rating do 
-      transition :finished_turn => :rating
+      transition :waiting => :rating
     end
 
     event :end_rating do 
-      transition :rating => :finished_rating
+      transition :rating => :waiting
     end
 
     event :begin_turn do 
-      transition :finished_rating => :completing_turn
+      transition :waiting => :completing_turn
     end
 
   end
