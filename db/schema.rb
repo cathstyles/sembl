@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204052618) do
+ActiveRecord::Schema.define(version: 20131204234506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20131204052618) do
 
   create_table "games", force: true do |t|
     t.integer  "board_id"
-    t.string   "title",                                  null: false
+    t.string   "title",                                null: false
     t.text     "description"
     t.integer  "creator_id"
     t.integer  "updator_id"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20131204052618) do
     t.string   "theme"
     t.text     "filter_content_by"
     t.boolean  "allow_keyword_search", default: false
-    t.string   "state",                default: "draft"
+    t.string   "state"
     t.integer  "current_round",        default: 1
     t.integer  "random_seed"
   end
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20131204052618) do
     t.float    "score",      default: 0.0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",      default: "",  null: false
+    t.string   "state",                    null: false
   end
 
   create_table "ratings", force: true do |t|
