@@ -20,19 +20,14 @@
 #
 
 class Thing < ActiveRecord::Base
+  include RandomFixedOrderable
+
   validates :image, presence: true
 
   belongs_to :creator, class_name: "User"
   belongs_to :updator, class_name: "User"
 
-  before_create :generate_random_seed
-
   mount_uploader :image, ImageUploader
-
-  # XOR operator is # in postgres
-  def self.random_fixed_order(seed)
-    order("(things.random_seed # #{seed})")
-  end
 
   def self.import_csv(filename, options = {})
     default_options = {
@@ -93,11 +88,5 @@ class Thing < ActiveRecord::Base
       'Copyright info' => :copyright 
     }
   end
-
-  private 
-    def generate_random_seed
-      self.random_seed = SecureRandom.random_number(2147483646)
-    end
-
 end
 
