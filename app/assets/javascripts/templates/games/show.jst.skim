@@ -1,0 +1,7 @@
+h1 = @game.get("title")
+
+.meta
+  .description = @game.get("description")
+  .players
+
+.board-wrapper

@@ -3,7 +3,7 @@
 #= require underscore
 #= require backbone
 #= require backbone-raphael
-#= require handlebars.runtime
+#= require skim
 #= require_self
 #= require models/game
 #= require routers/game_router

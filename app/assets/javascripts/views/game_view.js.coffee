@@ -3,11 +3,11 @@
 #= require views/link_view
 
 class Sembl.GameView extends Backbone.View
-  template: HandlebarsTemplates['games/show']
-
   initialize: (options) ->
     @render()
 
+  template: JST["templates/games/show"]
+
   render: ->
-    $(@el).html(@template(@model.attributes))
+    @$el.html(@template(game: @model))
     this
