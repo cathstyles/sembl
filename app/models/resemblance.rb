@@ -19,6 +19,9 @@ class Resemblance < ActiveRecord::Base
 
   has_many :ratings
 
+  # == States 
+  #   proposed
+  #   final
   state_machine initial: :proposed do 
     event :reify do 
       transition :proposed => :final

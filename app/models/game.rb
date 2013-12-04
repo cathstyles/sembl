@@ -20,6 +20,13 @@
 #  random_seed          :integer
 #
 
+# == States 
+#   draft:     Will not be published
+#   open:      Open to join but no players have joined, can still be edited
+#   joining:   Players have joined and can begin play, but there are still places available
+#   playing:   Players are adding placements and sembls
+#   rating:    Players are rating 
+#   completed: Game is over 
 class Game < ActiveRecord::Base
   validates :title, presence: true
   validates :board, presence: true

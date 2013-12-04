@@ -23,6 +23,10 @@ class Node < ActiveRecord::Base
 
   before_validate :assign_initial_node_states
 
+  # == States 
+  #   locked
+  #   in_play
+  #   filled
   state_machine do 
     event :unlock do 
       transition :locked => :in_play, if: lambda { |node| node.round == node.game.current_round }
@@ -33,18 +37,30 @@ class Node < ActiveRecord::Base
     end
   end
 
+  def player_placement(user)
+    placements.with_state(:proposed).where(creator: user)
+  end
 
   def final_placement
     placements.with_state(:final).take
   end 
 
   def available_to?(user)
-    game.participating?(user) &&
-    allocated_to?(user) || (unlocked? && round > 1)
+    game.participating?(user) && in_play? &&
+    (allocated_to?(user) || round > 1)
   end
 
   def allocated_to?(user)
     allocated_to_id == user.id 
+  end
+
+  # == User States 
+  #   locked
+  #   available
+  #   filled
+  def user_state(user)
+    locked? || filled? return state
+    available_to?(user) ? 'available' : 'locked'
   end
 
   private 
