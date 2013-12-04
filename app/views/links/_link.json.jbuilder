@@ -1,2 +1,1 @@
-json.source link.source, :id, :round, :x, :y, :state
-json.target link.target, :id, :round, :x, :y, :state
+json.(link, :source_id, :target_id)

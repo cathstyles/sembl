@@ -4,4 +4,7 @@ h1 = @game.get("title")
   .description = @game.get("description")
   .players
 
-.board-wrapper
+.board
+  .links
+  .nodes
+  .resemblences

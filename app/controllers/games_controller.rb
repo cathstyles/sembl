@@ -1,5 +1,4 @@
 class GamesController < ApplicationController
-
   respond_to :html, :json
 
   before_filter :authenticate_user!, except: [:index, :show]
@@ -21,7 +20,7 @@ class GamesController < ApplicationController
 
   def summary
     respond_with @game
-  end 
+  end
 
   def join
     respond_with @game
@@ -43,10 +42,9 @@ class GamesController < ApplicationController
 
   end
 
-  private
+private
 
-    def find_game 
-      @game = Game.find(params[:id])
-    end
-
+  def find_game
+    @game = Game.find(params[:id])
+  end
 end

@@ -6,6 +6,8 @@ html
       = stylesheet_link_tag "application", media: "all"
     = area :javascripts do
       = javascript_include_tag "application"
+      javascript:
+        Sembl.user = new Sembl.User(#{raw current_user.to_json});
     = csrf_meta_tags
 
   body class=body_classes
