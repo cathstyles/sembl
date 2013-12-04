@@ -1,4 +1,3 @@
-#= require models/game
 #= require views/game_view
 
 class Sembl.GameRouter extends Backbone.Router

@@ -5,6 +5,7 @@
 #= require backbone-raphael
 #= require handlebars.runtime
 #= require_self
+#= require models/game
 #= require routers/game_router
 #= require_tree ./templates
 
