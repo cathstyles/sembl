@@ -7,7 +7,7 @@ class GamesController < ApplicationController
 
   def index
     @games = {
-      open: Game.in_progress.open_to_join,
+      open: Game.open_to_join,
       participating:  Game.participating(current_user),
       hosted: Game.hosted_by(current_user)
     }

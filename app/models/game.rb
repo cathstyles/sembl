@@ -55,12 +55,9 @@ class Game < ActiveRecord::Base
       transition :playing => :rating
     end
 
-    event :rating_completed do 
+    event :ratings_completed do 
+      transition :rating => :completed, if: lambda {|game| game.final_round? }
       transition :rating => :playing
-    end
-
-    event :all_rounds_complete do
-      transition :rating => :completed
     end
 
     state :draft, :open do
@@ -91,12 +88,8 @@ class Game < ActiveRecord::Base
     where(invite_only: false).with_states(:joining, :open)
   end
 
-  def self.completed
-    with_state(:completed)
-  end
-
   def self.in_progress
-    with_states(:open, :playing, :rating)
+    with_states(:open, :joining, :playing, :rating)
   end
 
   def self.invite_only
@@ -119,6 +112,10 @@ class Game < ActiveRecord::Base
 
   def final_round 
     nodes.maximum(:round)
+  end
+
+  def final_round? 
+    current_round == final_round
   end
 
   def participating?(user)
