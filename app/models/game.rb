@@ -37,22 +37,66 @@ class Game < ActiveRecord::Base
 
   before_create :generate_random_seed
 
+  state_machine initial: :draft do 
+    event :publish do 
+      transition :draft => :open
+    end
+
+    event :unpublish do 
+      transition :open => :draft
+    end
+
+    event :join do 
+      transition [:open, :joining] => :joining, if: lambda {|game| game.has_open_places? }
+      transition [:joining, :open] => :playing
+    end
+
+    event :turns_completed do 
+      transition :playing => :rating
+    end
+
+    event :rating_completed do 
+      transition :rating => :playing
+    end
+
+    event :all_rounds_complete do
+      transition :rating => :completed
+    end
+
+    state :draft, :open do
+      def editable? 
+        true
+      end
+    end
+
+    state :playing, :rating, :complete do
+      def editable? 
+        false
+      end
+    end
+
+  end
+
+  def has_open_places? 
+    players.count < board.number_of_players
+  end 
+
+  # TODO how to get this into the state machine in a sensible way
+  def open_to_join?
+    invite_only == false && can_join?
+  end
+
   # Games still open to users to join
   def self.open_to_join
-    where(invite_only: false).
-      joins(:board).
-      includes(:players).
-      group("games.id, boards.number_of_players, players.id").
-      having("count(players.id) < boards.number_of_players").
-      references(:players)
+    where(invite_only: false).with_states(:joining, :open)
   end
 
   def self.completed
-    where(state: 'completed')
+    with_state(:completed)
   end
 
   def self.in_progress
-    where("games.state != 'draft' AND games.state != 'completed'")
+    with_states(:open, :playing, :rating)
   end
 
   def self.invite_only
@@ -73,18 +117,8 @@ class Game < ActiveRecord::Base
     seed_node.final_placement.try(:thing)
   end
 
-  def open_to_join?
-    invite_only == false && 
-    users.count < board.number_of_players
-  end
-
-  def in_progress? 
-    state == 'open' || state == 'playing' || state == 'rating'
-  end
-
-  # Only editable if no players have joined
-  def editable?
-    state == 'draft' || !players.present?
+  def final_round 
+    nodes.maximum(:round)
   end
 
   def participating?(user)
