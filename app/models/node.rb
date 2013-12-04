@@ -21,20 +21,30 @@ class Node < ActiveRecord::Base
   has_many :links
   has_many :placements
 
-  before_create :assign_initial_node_states
+  before_validate :assign_initial_node_states
 
   state_machine do 
-    
+    event :unlock do 
+      transition :locked => :in_play, if: lambda { |node| node.round == node.game.current_round }
+    end 
+
+    event :fill do
+      transition :in_play => :filled
+    end
   end
 
 
   def final_placement
-    placements.where(state: 'final').take
+    placements.with_state(:final).take
   end 
 
   def available_to?(user)
     game.participating?(user) &&
-    (game.current_round > 1 || allocated_to_id == user.id)
+    allocated_to?(user) || (unlocked? && round > 1)
+  end
+
+  def allocated_to?(user)
+    allocated_to_id == user.id 
   end
 
   private 

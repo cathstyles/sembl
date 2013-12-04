@@ -24,6 +24,8 @@ class Game < ActiveRecord::Base
   validates :title, presence: true
   validates :board, presence: true
 
+  validate :players_must_not_outnumber_board_number
+
   belongs_to :board
 
   belongs_to :creator, class_name: "User"
@@ -77,19 +79,6 @@ class Game < ActiveRecord::Base
 
   end
 
-  def has_open_places? 
-    players.count < board.number_of_players
-  end 
-
-  # TODO how to get this into the state machine in a sensible way
-  def open_to_join?
-    invite_only == false && can_join?
-  end
-
-  def increment_round
-    self.current_round += 1
-  end
-
   # Games still open to users to join
   def self.open_to_join
     where(invite_only: false).with_states(:joining, :open)
@@ -111,6 +100,19 @@ class Game < ActiveRecord::Base
     where(creator: current_user)
   end
 
+  def has_open_places? 
+    players.count < board.number_of_players
+  end 
+
+  # TODO how to get this into the state machine in a sensible way
+  def open_to_join?
+    invite_only == false && can_join?
+  end
+
+  def increment_round
+    self.current_round += 1
+  end
+
   def seed_thing
     seed_node = nodes.where(round: 0).take
     seed_node.final_placement.try(:thing)
@@ -130,6 +132,12 @@ class Game < ActiveRecord::Base
 
   def player(current_user)
     players.where(user: current_user).take
+  end
+
+  def players_must_not_outnumber_board_number
+    if players.count > board.number_of_players
+      errors.add(:players, "can't be more than #{board.number_of_players}")
+    end
   end
 
 

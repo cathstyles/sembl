@@ -21,4 +21,8 @@ class Link < ActiveRecord::Base
     game.participating?(user) &&
     target.placements.where(creator: user).present?
   end
+
+  def round
+    target.round
+  end
 end

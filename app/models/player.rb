@@ -15,6 +15,8 @@ class Player < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
 
+  after_create :allocate_first_node
+
   state_machine initial: :playing_turn do 
 
     after_transition :playing_turn => :waiting, do: :check_turn_completion
@@ -37,6 +39,13 @@ class Player < ActiveRecord::Base
       transition :waiting => :playing_turn
     end
 
+  end
+
+  #TODO record locking.
+  def allocate_first_node
+    node = game.nodes.with_state(:in_play).where(allocated_to_id: nil).take
+    node.allocated_to = self
+    node.save!
   end
 
   def check_turn_completion

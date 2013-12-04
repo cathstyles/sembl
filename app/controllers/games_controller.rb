@@ -24,6 +24,7 @@ class GamesController < ApplicationController
 
   def join
     @game.players.build(id: current_user.id)
+    @game.save
     respond_with @game
   end
 

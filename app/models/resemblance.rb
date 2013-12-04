@@ -18,4 +18,11 @@ class Resemblance < ActiveRecord::Base
   belongs_to :creator, class_name: "User"
 
   has_many :ratings
+
+  state_machine initial: :proposed do 
+    event :reify do 
+      transition :proposed => :final
+    end
+  end
+
 end
