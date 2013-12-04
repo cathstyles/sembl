@@ -8,7 +8,7 @@
 #  score      :float            default(0.0), not null
 #  created_at :datetime
 #  updated_at :datetime
-#  state      :string(255)      default("completing_turn")
+#  state      :string(255)      default(""), not null
 #
 
 class Player < ActiveRecord::Base
