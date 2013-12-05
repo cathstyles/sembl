@@ -21,7 +21,7 @@ class Node < ActiveRecord::Base
   has_many :links
   has_many :placements
 
-  before_validate :assign_initial_node_states
+  before_create :assign_initial_node_states
 
   # == States 
   #   locked
@@ -59,7 +59,7 @@ class Node < ActiveRecord::Base
   #   available
   #   filled
   def user_state(user)
-    locked? || filled? return state
+    return state if locked? || filled?
     available_to?(user) ? 'available' : 'locked'
   end
 
