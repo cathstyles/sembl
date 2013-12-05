@@ -1,6 +1,6 @@
 if ENV['BOXEN_SOCKET_DIR']
   bind "unix://#{ENV['BOXEN_SOCKET_DIR']}/sembl"
-  workers 2
+  workers 1
 end
 
 if ENV['RACK_ENV'] == 'production'
