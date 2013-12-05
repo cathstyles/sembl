@@ -20,10 +20,16 @@ class Placement < ActiveRecord::Base
   # == States 
   #   proposed
   #   final
-  state_machine initial: :proposed do 
+  state_machine initial: :proposed do
+    after_transition :proposed => :final, do: :fill_node
+
     event :reify do 
       transition :proposed => :final
     end
+  end
+
+  def fill_node
+    node.fill
   end
 
 end

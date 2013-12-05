@@ -49,6 +49,8 @@ class Game < ActiveRecord::Base
   state_machine initial: :draft do 
 
     after_transition :rating => :playing, do: :increment_round
+    after_transition :playing => :rating, do: :players_begin_rating
+    after_transition :rating => :playing, do: :players_begin_playing
 
     event :publish do 
       transition :draft => :open
@@ -145,6 +147,14 @@ class Game < ActiveRecord::Base
     if players.count > board.number_of_players
       errors.add(:players, "can't be more than #{board.number_of_players}")
     end
+  end
+
+  def players_begin_playing
+    players.each {|player| player.begin_turn }
+  end
+
+  def players_being_rating
+    players.each {|player| player.begin_rating }
   end
 
 
