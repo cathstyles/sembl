@@ -15,9 +15,10 @@
 #  theme                :string(255)
 #  filter_content_by    :text
 #  allow_keyword_search :boolean          default(FALSE)
-#  state                :string(255)      default("draft")
+#  state                :string(255)
 #  current_round        :integer          default(1)
 #  random_seed          :integer
+#  number_of_players    :integer
 #
 
 # == States 
@@ -113,7 +114,6 @@ class Game < ActiveRecord::Base
     players.count < board.number_of_players
   end 
 
-  # TODO how to get this into the state machine in a sensible way
   def open_to_join?
     invite_only == false && can_join?
   end
