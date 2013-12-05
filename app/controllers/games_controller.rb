@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   after_filter :verify_authorized, :except => :index
 
   before_filter :authenticate_user!, except: [:index, :show]
-  before_filter :find_game, except: :index
+  before_filter :find_game, except: [:index, :new, :create]
 
   def index
     @games = {
@@ -17,10 +17,12 @@ class GamesController < ApplicationController
   end
 
   def show
+    authorize @game
     respond_with @game
   end
 
   def summary
+    authorize @game
     respond_with @game
   end
 
@@ -33,6 +35,7 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.new(game_params)
+    @game.copy_board_to_game
     authorize @game
 
     flash[:notice] = 'Game created.' if @game.save

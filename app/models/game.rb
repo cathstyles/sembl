@@ -171,16 +171,17 @@ class Game < ActiveRecord::Base
 
     node_array = []
     board.nodes_attributes.each do |node_attr|
-      node_array << nodes.create(node_attr.except('fixed'))
+      node_array << nodes.build(node_attr.except('fixed'))
     end
 
     board.links_attributes.each do |link_attr| 
-      links.create(
+      links.build(
         source: node_array[link_attr['source']],
         target: node_array[link_attr['target']]
       )
     end
 
+    self.number_of_players = board.number_of_players
   end
 
 
