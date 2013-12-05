@@ -139,6 +139,10 @@ class Game < ActiveRecord::Base
     users.include?(user)
   end
 
+  def hosting?(user)
+    creator == user
+  end
+
   def player(current_user)
     players.where(user: current_user).take
   end
@@ -153,7 +157,7 @@ class Game < ActiveRecord::Base
     players.each {|player| player.begin_turn }
   end
 
-  def players_being_rating
+  def players_begin_rating
     players.each {|player| player.begin_rating }
   end
 
