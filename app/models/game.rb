@@ -122,9 +122,12 @@ class Game < ActiveRecord::Base
     self.current_round += 1
   end
 
-  def seed_thing
-    seed_node = nodes.where(round: 0).take
+  def seed_thing 
     seed_node.final_placement.try(:thing)
+  end
+
+  def seed_node 
+    nodes.where(round: 0).take
   end
 
   def final_round 
@@ -148,7 +151,7 @@ class Game < ActiveRecord::Base
   end
 
   def players_must_not_outnumber_board_number
-    if players.count > board.number_of_players
+    if board && players.count > board.number_of_players
       errors.add(:players, "can't be more than #{board.number_of_players}")
     end
   end

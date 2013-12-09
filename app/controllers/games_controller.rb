@@ -36,6 +36,16 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     @game.copy_board_to_game
+    @game.creator = current_user
+
+    if seed_node_thing = Thing.find(seed_node_params[:seed_thing_id])
+      seed_node = @game.nodes.detect {|node| node.round == 0 }
+      seed_node.placements.build(
+        thing: seed_node_thing, 
+        creator: current_user
+      ) if seed_node
+    end
+
     authorize @game
 
     flash[:notice] = 'Game created.' if @game.save
@@ -78,5 +88,9 @@ private
       :theme, 
       :allow_keyword_search
     )
+  end
+
+  def seed_node_params
+    params.permit(:seed_thing_id)
   end
 end

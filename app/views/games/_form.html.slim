@@ -19,6 +19,6 @@
   = form.input :allow_keyword_search, label: "Allow keyword search"
     = form.check_box :allow_keyword_search
 
-    
+  = hidden_field_tag(:seed_thing_id, Thing.first.id)
 
   = form.button :submit
