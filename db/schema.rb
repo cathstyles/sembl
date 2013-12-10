@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131205035026) do
+ActiveRecord::Schema.define(version: 20131210034401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,10 +131,11 @@ ActiveRecord::Schema.define(version: 20131205035026) do
     t.string   "attribution"
     t.string   "item_url"
     t.string   "copyright"
-    t.json     "general_attributes", default: [], null: false
+    t.json     "general_attributes", default: [],    null: false
     t.string   "import_row_id"
     t.string   "access_via"
     t.integer  "random_seed"
+    t.boolean  "suggested_seed",     default: false
   end
 
   add_index "things", ["creator_id"], name: "index_things_on_creator_id", using: :btree
