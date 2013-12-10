@@ -37,14 +37,8 @@ class GamesController < ApplicationController
     @game = Game.new(game_params)
     @game.copy_board_to_game
     @game.creator = current_user
-
-    if seed_node_thing = Thing.find(seed_node_params[:seed_thing_id])
-      seed_node = @game.nodes.detect {|node| node.round == 0 }
-      seed_node.placements.build(
-        thing: seed_node_thing, 
-        creator: current_user
-      ) if seed_node
-    end
+    @game.updator = current_user
+    add_or_update_seed_thing
 
     authorize @game
 
@@ -65,6 +59,9 @@ class GamesController < ApplicationController
 
   def update
     @game.assign_attributes(game_params)
+    @game.copy_board_to_game
+    @game.updator = current_user
+    add_or_update_seed_thing
 
     authorize @game
     flash[:notice] = 'Game saved.' if @game.save
@@ -72,6 +69,26 @@ class GamesController < ApplicationController
   end
 
 private
+
+  def add_or_update_seed_thing
+    if seed_node_thing = Thing.find(seed_node_params[:seed_thing_id])
+      seed_node = @game.nodes.detect {|node| node.round == 0 }
+      return unless seed_node
+
+      if placement = seed_node.placements.take
+        placement.assign_attributes(
+          thing: seed_node_thing, 
+          creator: current_user
+        )
+      else
+        seed_node.placements.build(
+          thing: seed_node_thing, 
+          creator: current_user
+        ) 
+       
+      end
+    end
+  end
 
   def find_game
     @game = Game.find(params[:id])

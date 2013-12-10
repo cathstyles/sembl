@@ -3,4 +3,7 @@
     = image_tag game.seed_thing.try(:image).try(:url)
   a.title href="#{game_path(game)}"
     = game.title
+  - if policy(game).edit?
+    a.edit href="#{edit_game_path(game)}"
+      | Edit
   span.theme = game.theme

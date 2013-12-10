@@ -75,13 +75,15 @@ class Game < ActiveRecord::Base
       transition :rating => :playing
     end
 
+    # TODO This probably needs to be more fine grained. Some fields like description
+    # should be editable after play begins.
     state :draft, :open do
       def editable? 
         true
       end
     end
 
-    state :playing, :rating, :complete do
+    state :joining, :playing, :rating, :complete do
       def editable? 
         false
       end
