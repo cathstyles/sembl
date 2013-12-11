@@ -19,6 +19,12 @@
   = form.input :allow_keyword_search, label: "Allow keyword search"
     = form.check_box :allow_keyword_search
 
+  .suggested-seeds
+    label Select a seed node
+    - Thing.where(suggested_seed: true).each do |thing|
+      - if thing.image?
+        = render_seed_thing(thing, @game)
+
   = hidden_field_tag(:seed_thing_id, Thing.first.id)
 
   = form.button :submit

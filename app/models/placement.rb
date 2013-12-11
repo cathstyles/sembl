@@ -17,6 +17,8 @@ class Placement < ActiveRecord::Base
   belongs_to :thing
   belongs_to :creator, class_name: "User"
 
+  after_create :reify_seed_node
+
   # == States 
   #   proposed
   #   final
@@ -31,5 +33,11 @@ class Placement < ActiveRecord::Base
   def fill_node
     node.fill
   end
+
+  def reify_seed_node
+    if node.round == 0
+      self.reify 
+    end
+  end 
 
 end

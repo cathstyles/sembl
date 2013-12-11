@@ -7,6 +7,7 @@
 #= require models/game
 #= require models/user
 #= require routers/game_router
+#= require game_form
 
 @Sembl =
   version: "0.1"
