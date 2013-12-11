@@ -19,7 +19,7 @@ header
           td.image
             - if thing.image?
               = image_tag thing.image.admin_thumb.url, alt: thing.description
-          td.title = thing.description
+          td.title = thing.title
 
           td.actions
             .btn-group
