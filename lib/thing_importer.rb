@@ -5,6 +5,7 @@ class ThingImporter
     'Image URL' => :image_url,
     'Copyright holder' => :attribution,
     'URL for context' => :item_url,
+    'Title' => :title,
     'Description' => :description,
     'Access via' => :access_via,
     'Copyright info' => :copyright
@@ -43,7 +44,7 @@ private
     # Ignore row if there is no image
     return unless image_filename.present? || image_url.present?
 
-    thing = Thing.find_by_import_row_id(row(:import_row_id)) || Thing.new
+    thing = Thing.find_by_import_row_id(row[:import_row_id]) || Thing.new
 
     image_path = image_url || File.join(@options[:image_path], image_filename)
 
