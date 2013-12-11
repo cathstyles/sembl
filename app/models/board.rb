@@ -21,6 +21,6 @@ class Board < ActiveRecord::Base
   belongs_to :updator, class_name: "User"
 
   def title_with_players
-    "#{title}, players: #{number_of_players }"
+    "#{title}: #{number_of_players } players"
   end
 end
