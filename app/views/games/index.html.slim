@@ -9,6 +9,8 @@
   - @games[:hosted].each do |game|
     = render partial: "game", locals: {game: game}
 
+  = link_to "New game", new_game_path
+
 h1 Browse open games
 
 - @games[:open].each do |game|

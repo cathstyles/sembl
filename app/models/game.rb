@@ -15,9 +15,10 @@
 #  theme                :string(255)
 #  filter_content_by    :text
 #  allow_keyword_search :boolean          default(FALSE)
-#  state                :string(255)      default("draft")
+#  state                :string(255)
 #  current_round        :integer          default(1)
 #  random_seed          :integer
+#  number_of_players    :integer
 #
 
 # == States 
@@ -74,13 +75,15 @@ class Game < ActiveRecord::Base
       transition :rating => :playing
     end
 
+    # TODO This probably needs to be more fine grained. Some fields like description
+    # should be editable after play begins.
     state :draft, :open do
       def editable? 
         true
       end
     end
 
-    state :playing, :rating, :complete do
+    state :joining, :playing, :rating, :complete do
       def editable? 
         false
       end
@@ -113,7 +116,6 @@ class Game < ActiveRecord::Base
     players.count < board.number_of_players
   end 
 
-  # TODO how to get this into the state machine in a sensible way
   def open_to_join?
     invite_only == false && can_join?
   end
@@ -122,9 +124,12 @@ class Game < ActiveRecord::Base
     self.current_round += 1
   end
 
-  def seed_thing
-    seed_node = nodes.where(round: 0).take
+  def seed_thing 
     seed_node.final_placement.try(:thing)
+  end
+
+  def seed_node 
+    nodes.where(round: 0).take
   end
 
   def final_round 
@@ -139,12 +144,16 @@ class Game < ActiveRecord::Base
     users.include?(user)
   end
 
+  def hosting?(user)
+    creator == user
+  end
+
   def player(current_user)
     players.where(user: current_user).take
   end
 
   def players_must_not_outnumber_board_number
-    if players.count > board.number_of_players
+    if board && players.count > board.number_of_players
       errors.add(:players, "can't be more than #{board.number_of_players}")
     end
   end
@@ -153,7 +162,7 @@ class Game < ActiveRecord::Base
     players.each {|player| player.begin_turn }
   end
 
-  def players_being_rating
+  def players_begin_rating
     players.each {|player| player.begin_rating }
   end
 
@@ -167,16 +176,17 @@ class Game < ActiveRecord::Base
 
     node_array = []
     board.nodes_attributes.each do |node_attr|
-      node_array << nodes.create(node_attr.except('fixed'))
+      node_array << nodes.build(node_attr.except('fixed'))
     end
 
     board.links_attributes.each do |link_attr| 
-      links.create(
+      links.build(
         source: node_array[link_attr['source']],
         target: node_array[link_attr['target']]
       )
     end
 
+    self.number_of_players = board.number_of_players
   end
 
 

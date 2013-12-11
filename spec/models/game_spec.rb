@@ -15,9 +15,10 @@
 #  theme                :string(255)
 #  filter_content_by    :text
 #  allow_keyword_search :boolean          default(FALSE)
-#  state                :string(255)      default("draft")
+#  state                :string(255)
 #  current_round        :integer          default(1)
 #  random_seed          :integer
+#  number_of_players    :integer
 #
 
 require 'spec_helper'

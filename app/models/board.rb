@@ -19,4 +19,8 @@ class Board < ActiveRecord::Base
 
   belongs_to :creator, class_name: "User"
   belongs_to :updator, class_name: "User"
+
+  def title_with_players
+    "#{title}, players: #{number_of_players }"
+  end
 end

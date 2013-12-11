@@ -8,7 +8,7 @@
 #  score      :float            default(0.0), not null
 #  created_at :datetime
 #  updated_at :datetime
-#  state      :string(255)      default(""), not null
+#  state      :string(255)      not null
 #
 
 require 'spec_helper'

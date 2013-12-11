@@ -1,0 +1,30 @@
+= simple_form_for @game do |form|
+
+  = form.error_notification
+
+  = form.input :title
+  = form.input :theme
+  = form.input :description, label: "Description"
+    = form.text_area :description
+
+  = form.input :board, label: "Board"
+    = form.collection_select :board_id, Board.all, :id, :title_with_players, prompt: "Please select a board"
+
+  = form.input :invite_only, label: "Invite only"
+    = form.check_box :invite_only
+
+  = form.input :uploads_allowed, label: "Allow uploads"
+    = form.check_box :uploads_allowed
+
+  = form.input :allow_keyword_search, label: "Allow keyword search"
+    = form.check_box :allow_keyword_search
+
+  .suggested-seeds
+    label Select a seed node
+    - Thing.where(suggested_seed: true).each do |thing|
+      - if thing.image?
+        = render_seed_thing(thing, @game)
+
+  = hidden_field_tag(:seed_thing_id, Thing.first.id)
+
+  = form.button :submit
