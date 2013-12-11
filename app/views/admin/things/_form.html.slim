@@ -10,6 +10,8 @@
   = form.input :general_attributes, label: "Attributes" do
     = form.text_area :general_attributes, class: "input-block-level", rows: 5
   = form.input :image, as: :image_file
+  = form.input :suggested_seed, label: "Suggested seed node" do
+    = form.check_box :suggested_seed
 
   - unless thing.new_record?
     .control-group
