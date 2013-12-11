@@ -1,11 +1,11 @@
 class ThingImporter
   FIELD_MAPPING = {
-    'Row ID' => :import_row_id,
+    'ID #' => :import_row_id,
     'Filename' => :image_filename,
     'Image URL' => :image_url,
-    'Attribution' => :attribution,
+    'Copyright holder' => :attribution,
     'URL for context' => :item_url,
-    'Alt tag' => :description,
+    'Description' => :description,
     'Access via' => :access_via,
     'Copyright info' => :copyright
   }.freeze
@@ -25,9 +25,6 @@ class ThingImporter
     # Anything unmapped goes into :general_attributes
     csv_processor = ProcessCSV.new(@filename, FIELD_MAPPING, remote: @options[:remote])
 
-    # TODO: remove this once we have import_row_id's and only update/add new
-    Thing.delete_all
-
     csv_processor.foreach do |row|
       begin
         create_thing_from_row(row)
@@ -46,7 +43,8 @@ private
     # Ignore row if there is no image
     return unless image_filename.present? || image_url.present?
 
-    thing = Thing.new
+    thing = Thing.find_by_import_row_id(row(:import_row_id)) || Thing.new
+
     image_path = image_url || File.join(@options[:image_path], image_filename)
 
     if @options[:remote] || image_url.present?
