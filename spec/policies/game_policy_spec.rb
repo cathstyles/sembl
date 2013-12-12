@@ -96,16 +96,16 @@ describe GamePolicy do
 
   end
 
-  context "for a power user" do 
-    context "for a power user" do 
-      let(:user) { FactoryGirl.create(:user, role: 2) }
-      it { should permit(:customise) }
-    end 
 
-    context "for an admin user" do 
-      let(:user) { FactoryGirl.create(:user, role: 10) }
-      it { should permit(:customise) }
-    end 
+  context "for a power user" do 
+    let(:user) { FactoryGirl.create(:user, role: 2) }
+    it { should permit(:customise) }
   end 
+
+  context "for an admin user" do 
+    let(:user) { FactoryGirl.create(:user, role: 10) }
+    it { should permit(:customise) }
+  end 
+
 
 end
