@@ -22,8 +22,38 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
   has_many :games, through: :player
-  
+
+  ROLES = {
+    :participant => 1,
+    :power => 2,
+    :admin => 10,
+    :banned => 0
+  }.freeze
+
+  state_machine :role, initial: :participant do 
+    ROLES.each do |name, value|
+      state name, :value => value
+    end 
+
+    event :make_participant do 
+      transition all => :participant
+    end
+
+    event :make_power_user do 
+      transition all => :power
+    end 
+
+    event :make_admin do 
+      transition all => :admin
+    end 
+
+    event :ban do 
+      transition all => :banned
+    end
+  end 
+
   def to_s
     email
   end
+
 end
