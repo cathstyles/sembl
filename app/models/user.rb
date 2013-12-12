@@ -15,7 +15,7 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
-#  admin                  :boolean          default(FALSE), not null
+#  role                   :integer          default(1), not null
 #
 
 class User < ActiveRecord::Base
