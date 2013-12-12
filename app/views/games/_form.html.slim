@@ -3,9 +3,11 @@
   = form.error_notification
 
   = form.input :title
-  = form.input :theme
-  = form.input :description, label: "Description"
-    = form.text_area :description
+
+  - if policy(@game).customise?
+    = form.input :theme
+    = form.input :description, label: "Description"
+      = form.text_area :description
 
   = form.input :board_id, collection: Board.all, value_method: :id, label_method: :title_with_players, as: :radio_buttons
 
@@ -26,16 +28,14 @@
       - if thing.image?
         = render_seed_thing(thing)
 
-  = form.input :invite_only, label: "Invite only"
-    = form.check_box :invite_only
+  - if policy(@game).customise?
+    = form.input :invite_only, label: "Invite only"
+      = form.check_box :invite_only
 
-  = form.input :uploads_allowed, label: "Allow uploads"
-    = form.check_box :uploads_allowed
+    = form.input :uploads_allowed, label: "Allow uploads"
+      = form.check_box :uploads_allowed
 
-  = form.input :allow_keyword_search, label: "Allow keyword search"
-    = form.check_box :allow_keyword_search
-
-  
-
+    = form.input :allow_keyword_search, label: "Allow keyword search"
+      = form.check_box :allow_keyword_search
 
   = form.button :submit

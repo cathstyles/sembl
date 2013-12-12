@@ -125,7 +125,7 @@ class Game < ActiveRecord::Base
   end
 
   def seed_thing 
-    seed_node.final_placement.try(:thing)
+    seed_node.try(:final_placement).try(:thing)
   end
 
   def seed_node 
