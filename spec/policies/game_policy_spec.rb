@@ -5,6 +5,7 @@ describe GamePolicy do
 
   let(:game) { FactoryGirl.create(:game) }
   let(:game_creator) { FactoryGirl.create(:user) }
+  let(:player) { FactoryGirl.create(:player, user: user, game: game)}
 
   context "for a guest" do 
     let(:user) { nil }
@@ -16,6 +17,7 @@ describe GamePolicy do
     it { should_not permit(:edit)    }
     it { should_not permit(:destroy) }
     it { should_not permit(:join) }
+    it { should_not permit(:customise) }
 
     context "game is invite only" do 
       let(:game) { FactoryGirl.create(:game, invite_only: true, creator: game_creator) }
@@ -37,6 +39,7 @@ describe GamePolicy do
     it { should_not permit(:update)   }
     it { should_not permit(:edit)  }
     it { should_not permit(:destroy) }
+    it { should_not permit(:customise) }
   
     context "for a game that is hosted by user" do 
       let(:game) { FactoryGirl.create(:game, creator: user) }
@@ -92,5 +95,17 @@ describe GamePolicy do
     end
 
   end
+
+  context "for a power user" do 
+    context "for a power user" do 
+      let(:user) { FactoryGirl.create(:user, role: 2) }
+      it { should permit(:customise) }
+    end 
+
+    context "for an admin user" do 
+      let(:user) { FactoryGirl.create(:user, role: 10) }
+      it { should permit(:customise) }
+    end 
+  end 
 
 end

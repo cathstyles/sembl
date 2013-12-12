@@ -30,6 +30,10 @@ class GamePolicy < ApplicationPolicy
   end
 
   def customise? 
-    !!user && user.power? || user.admin?
+    create? && (user.power? || user.admin?)
+  end
+
+  def save_template? 
+    customise?
   end
 end

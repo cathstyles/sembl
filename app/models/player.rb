@@ -44,8 +44,10 @@ class Player < ActiveRecord::Base
   #TODO record locking.
   def allocate_first_node
     node = game.nodes.with_state(:in_play).where(allocated_to_id: nil).take
-    node.allocated_to = self
-    node.save!
+    if node 
+      node.allocated_to = self
+      node.save!
+    end
   end
 
   def check_turn_completion
