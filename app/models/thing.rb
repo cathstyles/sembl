@@ -17,6 +17,7 @@
 #  import_row_id      :string(255)
 #  access_via         :string(255)
 #  random_seed        :integer
+#  suggested_seed     :boolean          default(FALSE)
 #
 
 class Thing < ActiveRecord::Base
