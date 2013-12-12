@@ -11,7 +11,14 @@ Sembl::Application.routes.draw do
 
   resources :games do
     resources :things, only: [:index]
+    member do 
+      get 'join'
+      get 'summary'
+    end
   end
+
+  resources :things, only: [:index]
+  get 'things/random', to: 'things#random' 
 
   root to: "games#index"
 end

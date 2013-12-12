@@ -68,6 +68,12 @@ class GamesController < ApplicationController
     respond_with @game
   end
 
+  def destroy
+    @game.authorize
+    flash[:notice] = 'Game deleted.' if @game.destroy
+    respond_with @game
+  end
+
 private
 
   def add_or_update_seed_thing

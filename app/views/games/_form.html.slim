@@ -17,7 +17,7 @@
 
   = form.input :change_seed_image, label: "Change seed image"
     = link_to_function "Suggested seed images", "$('.suggested-seeds').show()"
-    = link_to_function "Select random image", ""
+    = link_to_function "Select random image", "Sembl.selectRandomSeed()"
     = link_to_function "Browse all images", ""
 
   .suggested-seeds style="display: none"
