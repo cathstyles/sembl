@@ -28,7 +28,7 @@ class Player < ActiveRecord::Base
       transition :draft => :invited
     end
 
-    event :joined do 
+    event :join do 
       transition :invited => :playing_turn
     end
 
@@ -81,5 +81,10 @@ class Player < ActiveRecord::Base
     where("nodes.round = ?", [game.current_round]).
     where("resemblances.creator_id = ?", [user.id]).
     present?
+  end
+
+  def send_invitation
+    PlayerMailer.game_invitation(@player).deliver
+    invited
   end
 end

@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  player_mailer: 
+    game_invitation:
+      subject: "You have been invited to join a Sembl game."

@@ -49,12 +49,14 @@ class Game < ActiveRecord::Base
 
   state_machine initial: :draft do 
 
+    after_transition :draft => :open, do: :invite_players
     after_transition :rating => :playing, do: :increment_round
     after_transition :playing => :rating, do: :players_begin_rating
     after_transition :rating => :playing, do: :players_begin_playing
 
     event :publish do 
       transition :draft => :open
+      # validate correct number of players have been invited.
     end
 
     event :unpublish do 
@@ -64,6 +66,11 @@ class Game < ActiveRecord::Base
     event :join do 
       transition [:open, :joining] => :joining, if: lambda {|game| game.has_open_places? }
       transition [:joining, :open] => :playing
+    end
+
+    # Skip the joining phase where players are invited, transition straight to playing
+    event :join_all do
+      transition :open => :playing 
     end
 
     event :turns_completed do 
@@ -88,6 +95,10 @@ class Game < ActiveRecord::Base
         false
       end
     end
+
+    state :playing do
+      validate :all_players_created
+    end 
 
   end
 
@@ -124,6 +135,14 @@ class Game < ActiveRecord::Base
     self.current_round += 1
   end
 
+  def invite_players 
+    players.each do |player|
+      player.send_invitation
+    end
+    # Join all the players and set game to playing
+    join_all
+  end 
+
   def seed_thing 
     seed_node.try(:final_placement).try(:thing)
   end
@@ -155,6 +174,12 @@ class Game < ActiveRecord::Base
   def players_must_not_outnumber_board_number
     if board && players.count > board.number_of_players
       errors.add(:players, "can't be more than #{board.number_of_players}")
+    end
+  end
+
+  def all_players_created
+    if board && players.count < board.number_of_players
+      errors.add(:players, "have not all been added. #{board.number_of_players} are required to publish this game.")
     end
   end
 

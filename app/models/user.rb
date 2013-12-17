@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
   has_many :games, through: :player
+  before_create :join_games
 
   ROLES = {
     :participant => 1,
@@ -54,6 +55,18 @@ class User < ActiveRecord::Base
 
   def to_s
     email
+  end
+
+  def join_games
+    Player.find_by_email(email).each do |email|
+      player.user = self
+      if player.save 
+        # Only transition state to playing if player has actually been sent an invitation.
+        player.join if player.invited? 
+      else
+        errors.add(:base, "Error joining the game #{player.game.title}, hosted by #{player.game.creator.email}.") 
+      end
+    end
   end
 
 end

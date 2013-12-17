@@ -1,0 +1,4 @@
+p
+  = "You have been invited by #{@game.hosted_by.email} to join a game on Sembl."
+p
+  = link_to "Join the game", game_url(@game, only_path: false)
