@@ -17,10 +17,20 @@ class Player < ActiveRecord::Base
 
   after_create :allocate_first_node
 
-  state_machine initial: :playing_turn do 
+  state_machine initial: :draft do 
 
     after_transition :playing_turn => :waiting, do: :check_turn_completion
     after_transition :rating => :wating, do: :check_rating_completion
+
+    event :invited do 
+      transition :draft => :playing_turn, 
+        if: lambda {|player| player.user.exists? }
+      transition :draft => :invited
+    end
+
+    event :joined do 
+      transition :invited => :playing_turn
+    end
 
     event :end_turn do 
       transition :playing => :waiting, 
