@@ -3,6 +3,8 @@
 #= require jquery
 #= require bootstrap
 
+#= require raphael
+#= require backbone-raphael
 #= require models/board
 #= require views/board_view
 
