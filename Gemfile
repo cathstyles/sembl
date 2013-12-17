@@ -27,6 +27,7 @@ gem "asset_sync"
 gem "unf"
 gem "jbuilder"
 gem "skim"
+gem 'rails_12factor', group: :production
 
 group :development do
   gem "annotate"
