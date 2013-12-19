@@ -9,7 +9,7 @@
     = form.input :description, label: "Description"
       = form.text_area :description
 
-  = form.input :board_id, collection: Board.all, value_method: :id, label_method: :title_with_players, as: :radio_buttons
+  = form.input :board_id, collection: boards_for_select, as: :select, include_blank: false
 
   = form.input :seed_thing_id, label: "Seed node"
     .seed-image 
@@ -42,9 +42,11 @@
     .invited_players
       label Invite players
       - if @game.invite_only && @game.board_id
-        = form.simple_fields_for :players do |players_fields|
-          = players_fields.input :email 
-          = players_fields.hidden_field :user_id   
+
+        = form.simple_fields_for :players do |player_fields|
+          = render "player_fields", f: player_fields
+        = new_player_invite_field(form)
+
 
   - if @game.editable?
     = form.input :publish_game, label: "Publish game"
