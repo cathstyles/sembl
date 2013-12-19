@@ -15,7 +15,7 @@
     .seed-image 
       = image_tag @game.seed_thing.try(:image).try(:admin_thumb).try(:url)
 
-    = hidden_field_tag(:seed_thing_id, Thing.first.id)
+    = hidden_field_tag('game_form[seed_thing_id]', Thing.first.id)
 
   = form.input :change_seed_image, label: "Change seed image"
     = link_to_function "Suggested seed images", "$('.suggested-seeds').show()"
@@ -37,5 +37,18 @@
 
     = form.input :allow_keyword_search, label: "Allow keyword search"
       = form.check_box :allow_keyword_search
+
+
+    .invited_players
+      label Invite players
+      - if @game.invite_only && @game.board_id
+        = form.simple_fields_for :players do |players_fields|
+          = players_fields.input :email 
+          = players_fields.hidden_field :user_id   
+
+  - if @game.editable?
+    = form.input :publish_game, label: "Publish game"
+      = check_box_tag 'game_form[publish_game]', value: !@game.draft?, disabled: !@game.editable?
+  
 
   = form.button :submit

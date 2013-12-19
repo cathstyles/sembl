@@ -41,6 +41,7 @@ class Game < ActiveRecord::Base
 
   has_many :users, through: :players
   has_many :players
+  accepts_nested_attributes_for :players
 
   has_many :nodes
   has_many :links
@@ -49,14 +50,14 @@ class Game < ActiveRecord::Base
 
   state_machine initial: :draft do 
 
-    after_transition :draft => :open, do: :invite_players
+    before_transition :draft => :playing, do: :invite_players
     after_transition :rating => :playing, do: :increment_round
     after_transition :playing => :rating, do: :players_begin_rating
     after_transition :rating => :playing, do: :players_begin_playing
 
     event :publish do 
-      transition :draft => :open
-      # validate correct number of players have been invited.
+      transition :draft => :open, if: lambda { |game| !game.invite_only }
+      transition :draft => :playing
     end
 
     event :unpublish do 
@@ -66,11 +67,6 @@ class Game < ActiveRecord::Base
     event :join do 
       transition [:open, :joining] => :joining, if: lambda {|game| game.has_open_places? }
       transition [:joining, :open] => :playing
-    end
-
-    # Skip the joining phase where players are invited, transition straight to playing
-    event :join_all do
-      transition :open => :playing 
     end
 
     event :turns_completed do 
@@ -96,11 +92,14 @@ class Game < ActiveRecord::Base
       end
     end
 
+    # validate correct number of players have been invited.
     state :playing do
       validate :all_players_created
     end 
 
   end
+
+  # Scopes
 
   # Games still open to users to join
   def self.open_to_join
@@ -123,6 +122,7 @@ class Game < ActiveRecord::Base
     where(creator: current_user)
   end
 
+  # Helpers
   def has_open_places? 
     players.count < board.number_of_players
   end 
@@ -130,18 +130,6 @@ class Game < ActiveRecord::Base
   def open_to_join?
     invite_only == false && can_join?
   end
-
-  def increment_round
-    self.current_round += 1
-  end
-
-  def invite_players 
-    players.each do |player|
-      player.send_invitation
-    end
-    # Join all the players and set game to playing
-    join_all
-  end 
 
   def seed_thing 
     seed_node.try(:final_placement).try(:thing)
@@ -171,6 +159,26 @@ class Game < ActiveRecord::Base
     players.where(user: current_user).take
   end
 
+  # Transition callbacks
+  def players_begin_playing
+    players.each {|player| player.begin_turn }
+  end
+
+  def players_begin_rating
+    players.each {|player| player.begin_rating }
+  end
+
+  def invite_players 
+    players.each do |player|
+      player.send_invitation
+    end
+  end 
+
+  def increment_round
+    self.current_round += 1
+  end
+
+  # Validations
   def players_must_not_outnumber_board_number
     if board && players.count > board.number_of_players
       errors.add(:players, "can't be more than #{board.number_of_players}")
@@ -182,15 +190,6 @@ class Game < ActiveRecord::Base
       errors.add(:players, "have not all been added. #{board.number_of_players} are required to publish this game.")
     end
   end
-
-  def players_begin_playing
-    players.each {|player| player.begin_turn }
-  end
-
-  def players_begin_rating
-    players.each {|player| player.begin_rating }
-  end
-
 
   # Copy nodes and links from board
   def copy_board_to_game

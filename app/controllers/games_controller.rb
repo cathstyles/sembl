@@ -39,6 +39,11 @@ class GamesController < ApplicationController
     @game.creator = current_user
     @game.updator = current_user
     add_or_update_seed_thing
+    if game_form_params[:publish]
+      @game.publish 
+    else
+      @game.unpublish
+    end
 
     authorize @game
 
@@ -48,11 +53,14 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
+    @game.players.build
     authorize @game
     respond_with @game
   end
 
   def edit
+    players_required = @game.number_of_players - @game.players.count
+    players_required.times {|p| @game.players.build }
     authorize @game
     respond_with @game
   end
@@ -62,6 +70,11 @@ class GamesController < ApplicationController
     @game.copy_board_to_game
     @game.updator = current_user
     add_or_update_seed_thing
+    if game_form_params[:publish]
+      @game.publish 
+    else
+      @game.unpublish
+    end
 
     authorize @game
     flash[:notice] = 'Game saved.' if @game.save
@@ -77,7 +90,7 @@ class GamesController < ApplicationController
 private
 
   def add_or_update_seed_thing
-    if seed_node_thing = Thing.find(seed_node_params[:seed_thing_id])
+    if seed_node_thing = Thing.find(game_form_params[:seed_thing_id])
       seed_node = @game.nodes.detect {|node| node.round == 0 }
       return unless seed_node
 
@@ -109,11 +122,13 @@ private
       :uploads_allowed,
       :filter_content_by, 
       :theme, 
-      :allow_keyword_search
+      :allow_keyword_search,
+      :publish
     )
   end
 
-  def seed_node_params
-    params.permit(:seed_thing_id)
+  def game_form_params
+    params.require(:game_form).permit(:seed_thing_id, :publish)
   end
+
 end
