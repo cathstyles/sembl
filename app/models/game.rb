@@ -61,6 +61,7 @@ class Game < ActiveRecord::Base
     end
 
     event :unpublish do 
+      transition :draft => :draft
       transition :open => :draft
     end
 
@@ -78,16 +79,14 @@ class Game < ActiveRecord::Base
       transition :rating => :playing
     end
 
-    # TODO This probably needs to be more fine grained. Some fields like description
-    # should be editable after play begins.
     state :draft, :open do
-      def editable? 
+      def configurable? 
         true
       end
     end
 
     state :joining, :playing, :rating, :complete do
-      def editable? 
+      def configurable? 
         false
       end
     end
@@ -181,13 +180,13 @@ class Game < ActiveRecord::Base
   # Validations
   def players_must_not_outnumber_board_number
     if board && players.count > board.number_of_players
-      errors.add(:players, "can't be more than #{board.number_of_players}")
+      errors.add(:base, "#{board.number_of_players} players have already joined this game.")
     end
   end
 
   def all_players_created
     if board && players.count < board.number_of_players
-      errors.add(:players, "have not all been added. #{board.number_of_players} are required to publish this game.")
+      errors.add(:base, "#{board.number_of_players} players are required to publish this game.")
     end
   end
 

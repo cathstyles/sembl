@@ -1,6 +1,7 @@
 = simple_form_for @game do |form|
 
   = form.error_notification
+  = form.error :base
 
   = form.input :title
 
@@ -9,48 +10,47 @@
     = form.input :description, label: "Description"
       = form.text_area :description
 
-  = form.input :board_id, collection: boards_for_select, as: :select, include_blank: false
+  - if @game.configurable?
+    = form.input :board_id, collection: boards_for_select, as: :select, include_blank: false
 
-  = form.input :seed_thing_id, label: "Seed node"
-    .seed-image 
-      = image_tag @game.seed_thing.try(:image).try(:admin_thumb).try(:url)
+    = form.input :seed_thing_id, label: "Seed node"
+      .seed-image 
+        = image_tag @game.seed_thing.try(:image).try(:admin_thumb).try(:url)
 
-    = hidden_field_tag('game_form[seed_thing_id]', Thing.first.id)
+      = hidden_field_tag('game_form[seed_thing_id]', Thing.first.id)
 
-  = form.input :change_seed_image, label: "Change seed image"
-    = link_to_function "Suggested seed images", "$('.suggested-seeds').show()"
-    = link_to_function "Select random image", "Sembl.selectRandomSeed()"
-    = link_to_function "Browse all images", ""
+    = form.input :change_seed_image, label: "Change seed image"
+      = link_to_function "Suggested seed images", "$('.suggested-seeds').show()"
+      = link_to_function "Select random image", "Sembl.selectRandomSeed()"
+      = link_to_function "Browse all images", ""
 
-  .suggested-seeds style="display: none"
-    label Suggested images
-    - Thing.where(suggested_seed: true).each do |thing|
-      - if thing.image?
-        = render_seed_thing(thing)
+    .suggested-seeds style="display: none"
+      label Suggested images
+      - Thing.where(suggested_seed: true).each do |thing|
+        - if thing.image?
+          = render_seed_thing(thing)
+ 
 
-  - if policy(@game).customise?
-    = form.input :invite_only, label: "Invite only"
-      = form.check_box :invite_only
+  - if policy(@game).customise? 
 
     = form.input :uploads_allowed, label: "Allow uploads"
       = form.check_box :uploads_allowed
 
     = form.input :allow_keyword_search, label: "Allow keyword search"
       = form.check_box :allow_keyword_search
-
-
-    .invited_players
-      label Invite players
-      - if @game.invite_only && @game.board_id
-
-        = form.simple_fields_for :players do |player_fields|
-          = render "player_fields", f: player_fields
-        = new_player_invite_field(form)
-
-
-  - if @game.editable?
-    = form.input :publish_game, label: "Publish game"
-      = check_box_tag 'game_form[publish_game]', value: !@game.draft?, disabled: !@game.editable?
   
+    - if @game.draft?
+      = form.input :invite_only, label: "Invite only"
+        = form.check_box :invite_only
 
-  = form.button :submit
+      .invited-players data-new=new_invite_fields(form) data-destroy=destroy_invite_field(form) style=("display: none" unless @game.invite_only)
+        label Invite players
+        - if @game.board_id
+          = form.simple_fields_for :players do |player_fields|
+            = render "player_fields", f: player_fields
+
+  - if @game.draft?
+    = form.button :submit, "Save Draft"
+    = form.button :submit, "Publish", name: 'publish'
+  - else
+    = form.button :submit

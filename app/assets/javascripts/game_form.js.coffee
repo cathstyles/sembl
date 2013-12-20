@@ -1,6 +1,8 @@
 #= stub jquery
 
-Sembl.selectRandomSeed = ->
+Sembl.GameForm = {}
+
+Sembl.GameForm.selectRandomSeed = ->
   $.ajax('/things/random').done (data) -> 
     $seedFormField = $('#seed_thing_id')
     $seedImage = $('.seed-image img')
@@ -9,9 +11,9 @@ Sembl.selectRandomSeed = ->
     $seedImage.attr('alt', data.title)
 
 
-Sembl.selectSeedNode = -> 
+Sembl.GameForm.setupSeedNode = -> 
   $suggestedSeeds = $('.suggested-seeds')
-  $seedFormField = $('#seed_thing_id')
+  $seedFormField = $('#game_form_seed_thing_id')
   $seedImage = $('.seed-image')
 
   $suggestedSeeds.on('click', '.seed', -> 
@@ -23,27 +25,39 @@ Sembl.selectSeedNode = ->
     $suggestedSeeds.hide()
   )
 
-Sembl.updatePlayerFields = -> 
-  
+Sembl.GameForm.setupPlayerFields = -> 
+  $("#game_invite_only").change -> 
+    console.log $(this).is(":checked")
+    if $(this).is(":checked")
+      $(".invited-players").show()
+    else
+      $(".invited-players").hide()
+
   $("#game_board_id").change ->
     players = parseInt($("#game_board_id option:selected").data('number_of_players'))
-    invites = parseInt($(".invited_players .player_fields").size())
-    $invited_players = $(".invited_players")
-    console.log invites
+    invites = parseInt($(".invited-players .player-fields").size())
+    invitesRemaining = players-invites
 
-    if players > invites
-      new_fields = $('#new-player-fields').data('fields')
+    if invitesRemaining > 0
+      Sembl.GameForm.addInviteFields(invitesRemaining)
+    else if invitesRemaining < 0
+      Sembl.GameForm.destroyInviteFields(-invitesRemaining)
       
-      [0..(players-invites)].each -> 
-        $invited_players.append(new_fields)
 
-    else if players < invites 
-      #Remove player fields
-      [0..(invites-players)].each -> 
-        $invited_players.last()
+Sembl.GameForm.addInviteFields = (invitesRemaining) -> 
+  $invitedPlayers =  $(".invited-players")
+  newFields = $invitedPlayers.data('new')
+  for n in [1..invitesRemaining]
+    $invitedPlayers.append(newFields)
 
+Sembl.GameForm.destroyInviteFields = (invitesToRemove) -> 
+  $invitedPlayers =  $(".invited-players")
+  destroyField = $invitedPlayers.data('destroy')
+  $invitedPlayers.find('.player-fields').slice(-invitesToRemove).each (i, el) -> 
+    $(el).append(destroyField)
+    $(el).hide()
 
 $ ->
   if $(document.body).is(".games-new, .games-edit")
-    Sembl.selectSeedNode()
-    Sembl.updatePlayerFields()
+    Sembl.GameForm.setupSeedNode()
+    Sembl.GameForm.setupPlayerFields()

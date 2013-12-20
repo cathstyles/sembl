@@ -14,11 +14,11 @@ class GamePolicy < ApplicationPolicy
   end
 
   def update?
-    !!user && user.id == record.creator_id && record.editable?
+    !!user && user.id == record.creator_id 
   end
 
   def destroy?
-    !!user && user.id == record.creator_id && record.editable?
+    !!user && user.id == record.creator_id && record.configurable?
   end
 
   def summary?

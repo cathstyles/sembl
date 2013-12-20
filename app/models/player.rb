@@ -16,6 +16,7 @@ class Player < ActiveRecord::Base
   belongs_to :user
 
   after_create :allocate_first_node
+  validate :email_or_user_id
 
   state_machine initial: :draft do 
 
@@ -81,6 +82,12 @@ class Player < ActiveRecord::Base
     where("nodes.round = ?", [game.current_round]).
     where("resemblances.creator_id = ?", [user.id]).
     present?
+  end
+
+  def email_or_user_id
+    if email.blank? || user_id.blank? 
+      errors.add(:base, "Must enter a valid email address or Sembl user.")
+    end
   end
 
   def send_invitation

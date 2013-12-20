@@ -38,16 +38,16 @@ class GamesController < ApplicationController
     @game.copy_board_to_game
     @game.creator = current_user
     @game.updator = current_user
+    @game.state_event = 'publish' if params[:publish]
+
     add_or_update_seed_thing
-    if game_form_params[:publish]
-      @game.publish 
-    else
-      @game.unpublish
-    end
 
     authorize @game
 
-    flash[:notice] = 'Game created.' if @game.save
+    if @game.save
+      flash[:notice] = 'Game created.' if @game.save
+      game_form_params[:publish] ? @game.publish :  @game.unpublish
+    end
     respond_with(@game)
   end
 
@@ -61,6 +61,8 @@ class GamesController < ApplicationController
   def edit
     players_required = @game.number_of_players - @game.players.count
     players_required.times {|p| @game.players.build }
+    raise players_required.inspect
+
     authorize @game
     respond_with @game
   end
@@ -69,14 +71,10 @@ class GamesController < ApplicationController
     @game.assign_attributes(game_params)
     @game.copy_board_to_game
     @game.updator = current_user
+    @game.state_event = 'publish' if params[:publish]
     add_or_update_seed_thing
-    if game_form_params[:publish]
-      @game.publish 
-    else
-      @game.unpublish
-    end
-
     authorize @game
+    
     flash[:notice] = 'Game saved.' if @game.save
     respond_with @game
   end
@@ -123,12 +121,12 @@ private
       :filter_content_by, 
       :theme, 
       :allow_keyword_search,
-      :publish
+      player_attributes: [:email, :user_id, :_destroy]
     )
   end
 
   def game_form_params
-    params.require(:game_form).permit(:seed_thing_id, :publish)
+    params.require(:game_form).permit(:seed_thing_id)
   end
 
 end
