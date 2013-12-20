@@ -29,13 +29,5 @@ module GameHelper
       Board.all.map {|b| [b.title_with_players, b.id, "data-number_of_players" => b.number_of_players] }
     }
   end 
-
-  # def state_collection 
-  #   [['Draft', :unpublish], ['Publish', :publish]]
-  # end
-
-  # def state_checked_val
-  #   @game.draft? ? :unpublish : :publish
-  # end
-
+  
 end

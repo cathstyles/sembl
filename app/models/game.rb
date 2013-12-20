@@ -51,6 +51,7 @@ class Game < ActiveRecord::Base
   state_machine initial: :draft do 
 
     before_transition :draft => :playing, do: :invite_players
+    before_transition :draft => :open, do: :remove_draft_players
     after_transition :rating => :playing, do: :increment_round
     after_transition :playing => :rating, do: :players_begin_rating
     after_transition :rating => :playing, do: :players_begin_playing
@@ -170,8 +171,12 @@ class Game < ActiveRecord::Base
   def invite_players 
     players.each do |player|
       player.send_invitation
-    end
+    end if invite_only
   end 
+
+  def remove_draft_players
+    players.with_state(:draft).destroy_all if !invite_only
+  end
 
   def increment_round
     self.current_round += 1
