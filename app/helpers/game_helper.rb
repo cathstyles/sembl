@@ -28,15 +28,15 @@ module GameHelper
   end
 
   def required_players 
+    return @game.players.build if @game.number_of_players.blank?
+      
     players_required = @game.number_of_players - @game.players.count
     players_required.times {|p| @game.players.build }
     @game.players
   end
 
   def boards_for_select
-    Proc.new { 
-      Board.all.map {|b| [b.title_with_players, b.id, "data-number_of_players" => b.number_of_players] }
-    }
+    Board.all.map {|b| [b.title_with_players, b.id, "data-number_of_players" => b.number_of_players] }
   end 
   
 end

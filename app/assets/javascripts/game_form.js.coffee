@@ -32,7 +32,9 @@ Sembl.GameForm.setupPlayerFields = ->
     else
       $(".invited-players").hide()
 
+  console.log ("#game_board_id")
   $("#game_board_id").change ->
+    console.log "changed"
     players = parseInt($("#game_board_id option:selected").data('number_of_players'))
     invites = parseInt($(".invited-players .player-fields").size())
     invitesRemaining = players-invites
@@ -58,6 +60,6 @@ Sembl.GameForm.destroyInviteFields = (invitesToRemove) ->
     $(el).hide()
 
 $ ->
-  if $(document.body).is(".games-new, .games-edit")
+  if $(document.body).is(".games-new, .games-edit, .games-create, .games-update")
     Sembl.GameForm.setupSeedNode()
     Sembl.GameForm.setupPlayerFields()

@@ -11,7 +11,7 @@
       = form.text_area :description
 
   - if @game.configurable?
-    = form.input :board_id, collection: boards_for_select, as: :select, include_blank: false
+    = form.association :board, collection: boards_for_select, as: :select
 
     = form.input :seed_thing_id, label: "Seed node"
       .seed-image 
@@ -45,10 +45,9 @@
 
       = invited_players_tag(form) do 
         label Invite players
-        - if @game.board_id
-          = form.simple_fields_for :players, required_players do |player_fields|
-            = player_fields.error :base
-            = render "player_fields", f: player_fields
+        = form.simple_fields_for :players, required_players do |player_fields|
+          = player_fields.error :base
+          = render "player_fields", f: player_fields
 
   - if @game.draft?
     = form.button :submit, "Save Draft"
