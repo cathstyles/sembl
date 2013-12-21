@@ -16,16 +16,16 @@ class Player < ActiveRecord::Base
   belongs_to :user
 
   after_create :allocate_first_node
-  validate :email_or_user_id
 
   state_machine initial: :draft do 
 
     after_transition :playing_turn => :waiting, do: :check_turn_completion
     after_transition :rating => :wating, do: :check_rating_completion
+    after_transition :draft => any, do: :send_invitation
 
-    event :invited do 
+    event :invite do 
       transition :draft => :playing_turn, 
-        if: lambda {|player| player.user.exists? }
+        if: lambda {|player| player.user.present? }
       transition :draft => :invited
     end
 
@@ -34,7 +34,7 @@ class Player < ActiveRecord::Base
     end
 
     event :end_turn do 
-      transition :playing => :waiting, 
+      transition :playing_turn => :waiting, 
         if: lambda {|player|  player.completed_requirements? }
     end
 
@@ -50,7 +50,19 @@ class Player < ActiveRecord::Base
       transition :waiting => :playing_turn
     end
 
+    state :invited do 
+      validates_presence_of :email 
+    end
+
+    state :playing_turn do 
+      validates_presence_of :user
+    end 
+
   end
+
+  def self.playing 
+    without_states(:draft, :invited)
+  end 
 
   #TODO record locking.
   def allocate_first_node
@@ -91,7 +103,6 @@ class Player < ActiveRecord::Base
   end
 
   def send_invitation
-    PlayerMailer.game_invitation(@player).deliver
-    invited
+    PlayerMailer.game_invitation(self).deliver
   end
 end

@@ -12,16 +12,25 @@ module GameHelper
   end
 
   def new_invite_fields(form)
-    fields = form.fields_for(:players, Player.new, :child_index => "new_players") do |builder|
+    fields = form.fields_for(:players, Player.new, :child_index => "new_player") do |builder|
       render("player_fields", :f => builder)
     end
     fields.to_str
-    # content_tag(:div, nil, {id: 'new-player-fields', data: {fields: fields.to_str}})
   end
 
-  def destroy_invite_field(form)
-    field = form.hidden_field "_destroy"
-    field.to_str
+  def invited_players_tag(form)
+    content_tag :div, { 
+      class: 'invited-players',
+      data: {new: new_invite_fields(form)},
+      style: ("display: none" unless @game.invite_only) } do 
+        yield
+    end
+  end
+
+  def required_players 
+    players_required = @game.number_of_players - @game.players.count
+    players_required.times {|p| @game.players.build }
+    @game.players
   end
 
   def boards_for_select

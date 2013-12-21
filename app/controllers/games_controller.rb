@@ -29,7 +29,7 @@ class GamesController < ApplicationController
   def join
     authorize @game
     @game.players.build(user: current_user)
-    @game.join if @game.save
+    @game.join 
     respond_with @game
   end
 
@@ -53,16 +53,11 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
-    @game.players.build
     authorize @game
     respond_with @game
   end
 
   def edit
-    players_required = @game.number_of_players - @game.players.count
-    players_required.times {|p| @game.players.build }
-    raise players_required.inspect
-
     authorize @game
     respond_with @game
   end
@@ -121,8 +116,11 @@ private
       :filter_content_by, 
       :theme, 
       :allow_keyword_search,
-      player_attributes: [:email, :user_id, :_destroy]
+      players_attributes: [:id, :email, :user_id, :_destroy]
     )
+
+
+
   end
 
   def game_form_params

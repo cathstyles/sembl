@@ -27,7 +27,6 @@ Sembl.GameForm.setupSeedNode = ->
 
 Sembl.GameForm.setupPlayerFields = -> 
   $("#game_invite_only").change -> 
-    console.log $(this).is(":checked")
     if $(this).is(":checked")
       $(".invited-players").show()
     else
@@ -47,14 +46,15 @@ Sembl.GameForm.setupPlayerFields = ->
 Sembl.GameForm.addInviteFields = (invitesRemaining) -> 
   $invitedPlayers =  $(".invited-players")
   newFields = $invitedPlayers.data('new')
+  time = new Date().getTime()
   for n in [1..invitesRemaining]
-    $invitedPlayers.append(newFields)
+    regexp = new RegExp('new_player', 'g')
+    $invitedPlayers.append(newFields.replace(regexp, time+n))
 
 Sembl.GameForm.destroyInviteFields = (invitesToRemove) -> 
   $invitedPlayers =  $(".invited-players")
-  destroyField = $invitedPlayers.data('destroy')
   $invitedPlayers.find('.player-fields').slice(-invitesToRemove).each (i, el) -> 
-    $(el).append(destroyField)
+    $(el).find('.destroy-player').val(true)
     $(el).hide()
 
 $ ->

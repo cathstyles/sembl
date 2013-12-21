@@ -41,7 +41,10 @@ class Game < ActiveRecord::Base
 
   has_many :users, through: :players
   has_many :players
-  accepts_nested_attributes_for :players
+  
+  accepts_nested_attributes_for :players, 
+    allow_destroy: true,
+    reject_if: :all_blank
 
   has_many :nodes
   has_many :links
@@ -49,9 +52,8 @@ class Game < ActiveRecord::Base
   before_create :generate_random_seed
 
   state_machine initial: :draft do 
-
-    before_transition :draft => :playing, do: :invite_players
-    before_transition :draft => :open, do: :remove_draft_players
+    after_transition :draft => :open, do: :remove_draft_players
+    after_transition :draft => :playing, do: :invite_players
     after_transition :rating => :playing, do: :increment_round
     after_transition :playing => :rating, do: :players_begin_rating
     after_transition :rating => :playing, do: :players_begin_playing
@@ -170,12 +172,12 @@ class Game < ActiveRecord::Base
 
   def invite_players 
     players.each do |player|
-      player.send_invitation
+      player.invite
     end if invite_only
   end 
 
   def remove_draft_players
-    players.with_state(:draft).destroy_all if !invite_only
+    players.with_state(:draft).destroy_all 
   end
 
   def increment_round

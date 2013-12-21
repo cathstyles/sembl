@@ -21,7 +21,7 @@
 
     = form.input :change_seed_image, label: "Change seed image"
       = link_to_function "Suggested seed images", "$('.suggested-seeds').show()"
-      = link_to_function "Select random image", "Sembl.selectRandomSeed()"
+      = link_to_function "Select random image", "Sembl.GameForm.selectRandomSeed()"
       = link_to_function "Browse all images", ""
 
     .suggested-seeds style="display: none"
@@ -43,10 +43,11 @@
       = form.input :invite_only, label: "Invite only"
         = form.check_box :invite_only
 
-      .invited-players data-new=new_invite_fields(form) data-destroy=destroy_invite_field(form) style=("display: none" unless @game.invite_only)
+      = invited_players_tag(form) do 
         label Invite players
         - if @game.board_id
-          = form.simple_fields_for :players do |player_fields|
+          = form.simple_fields_for :players, required_players do |player_fields|
+            = player_fields.error :base
             = render "player_fields", f: player_fields
 
   - if @game.draft?
