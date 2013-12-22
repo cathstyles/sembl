@@ -32,7 +32,7 @@ class Game < ActiveRecord::Base
   validates :title, presence: true
   validates :board, presence: true
 
-  validate :players_must_not_outnumber_board_number
+  
 
   belongs_to :board
 
@@ -41,7 +41,7 @@ class Game < ActiveRecord::Base
 
   has_many :users, through: :players
   has_many :players
-  
+
   accepts_nested_attributes_for :players, 
     allow_destroy: true,
     reject_if: :all_blank
@@ -97,6 +97,7 @@ class Game < ActiveRecord::Base
     # validate correct number of players have been invited.
     state :playing do
       validate :all_players_created
+      validate :players_must_not_outnumber_board_number
     end 
 
   end
