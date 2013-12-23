@@ -25,25 +25,21 @@ Sembl.GameForm.setupSeedNode = ->
     $suggestedSeeds.hide()
   )
 
-Sembl.GameForm.setupPlayerFields = -> 
-  $("#game_invite_only").change -> 
-    if $(this).is(":checked")
-      $(".invited-players").show()
-    else
-      $(".invited-players").hide()
+Sembl.GameForm.toggleInviteFields = -> 
+  if $("#game_invite_only").is(":checked")
+    $(".invited-players").show()
+  else
+    $(".invited-players").hide()
 
-  console.log ("#game_board_id")
-  $("#game_board_id").change ->
-    console.log "changed"
-    players = parseInt($("#game_board_id option:selected").data('number_of_players'))
-    invites = parseInt($(".invited-players .player-fields").size())
-    invitesRemaining = players-invites
+Sembl.GameForm.setupRequiredInviteFields = -> 
+  players = parseInt($("#game_board_id option:selected").data('number_of_players'))
+  invites = parseInt($(".invited-players .player-fields").size())
+  invitesRemaining = players-invites
 
-    if invitesRemaining > 0
-      Sembl.GameForm.addInviteFields(invitesRemaining)
-    else if invitesRemaining < 0
-      Sembl.GameForm.destroyInviteFields(-invitesRemaining)
-      
+  if invitesRemaining > 0
+    Sembl.GameForm.addInviteFields(invitesRemaining)
+  else if invitesRemaining < 0
+    Sembl.GameForm.destroyInviteFields(-invitesRemaining)
 
 Sembl.GameForm.addInviteFields = (invitesRemaining) -> 
   $invitedPlayers =  $(".invited-players")
@@ -62,4 +58,11 @@ Sembl.GameForm.destroyInviteFields = (invitesToRemove) ->
 $ ->
   if $(document.body).is(".games-new, .games-edit, .games-create, .games-update")
     Sembl.GameForm.setupSeedNode()
-    Sembl.GameForm.setupPlayerFields()
+    Sembl.GameForm.setupRequiredInviteFields()
+    Sembl.GameForm.toggleInviteFields()
+
+  $("#game_invite_only").change -> 
+    Sembl.GameForm.toggleInviteFields()
+
+  $("#game_board_id").change ->
+    Sembl.GameForm.setupRequiredInviteFields()
