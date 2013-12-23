@@ -61,8 +61,8 @@ $ ->
     Sembl.GameForm.setupRequiredInviteFields()
     Sembl.GameForm.toggleInviteFields()
 
-  $("#game_invite_only").change -> 
-    Sembl.GameForm.toggleInviteFields()
+    $("#game_invite_only").change -> 
+      Sembl.GameForm.toggleInviteFields()
 
-  $("#game_board_id").change ->
-    Sembl.GameForm.setupRequiredInviteFields()
+    $("#game_board_id").change ->
+      Sembl.GameForm.setupRequiredInviteFields()
