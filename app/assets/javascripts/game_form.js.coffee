@@ -1,68 +1,73 @@
 #= stub jquery
 
-Sembl.GameForm = {}
+class Sembl.GameForm
 
-Sembl.GameForm.selectRandomSeed = ->
-  $.ajax('/things/random').done (data) -> 
-    $seedFormField = $('#seed_thing_id')
-    $seedImage = $('.seed-image img')
-    $seedFormField.val data.id
-    $seedImage.attr('src', data.image_admin_url)
-    $seedImage.attr('alt', data.title)
+  constructor: ->
+    @$invitedPlayers = $(".invited-players")
+    @$seedFormField = $('#game_form_seed_thing_id')
+    @$seedImage = $('.seed-image')
+    @$gameInviteOnly = $('#game_invite_only')
+    @$gameBoardId = $('#game_board_id')
+    
+    @setupSeedNode()
+    @setupRequiredInviteFields()
+    @toggleInviteFields()
+
+    @$gameInviteOnly.change -> 
+      @toggleInviteFields()
+
+    @$gameBoardId.change ->
+      @setupRequiredInviteFields()
 
 
-Sembl.GameForm.setupSeedNode = -> 
-  $suggestedSeeds = $('.suggested-seeds')
-  $seedFormField = $('#game_form_seed_thing_id')
-  $seedImage = $('.seed-image')
+  selectRandomSeed: ->
+    $.ajax('/things/random').done (data) -> 
+      @$seedFormField.val data.id
+      @$seedImage.attr('src', data.image_admin_url)
+      @$seedImage.attr('alt', data.title)
 
-  $suggestedSeeds.on('click', '.seed', -> 
-    $suggestedSeeds.find('.seed').removeClass('selected')
-    $this = $(this)
-    $this.addClass('selected')
-    $seedFormField.val $this.data('id')
-    $seedImage.html $this.html()
-    $suggestedSeeds.hide()
-  )
 
-Sembl.GameForm.toggleInviteFields = -> 
-  if $("#game_invite_only").is(":checked")
-    $(".invited-players").show()
-  else
-    $(".invited-players").hide()
+  setupSeedNode: -> 
+    $suggestedSeeds = $('.suggested-seeds')
+    $suggestedSeeds.on('click', '.seed', -> 
+      $suggestedSeeds.find('.seed').removeClass('selected')
+      $this = $(this)
+      $this.addClass('selected')
+      @$seedFormField.val $this.data('id')
+      @$seedImage.html $this.html()
+      $suggestedSeeds.hide()
+    )
 
-Sembl.GameForm.setupRequiredInviteFields = -> 
-  players = parseInt($("#game_board_id option:selected").data('number_of_players'))
-  invites = parseInt($(".invited-players .player-fields").size())
-  invitesRemaining = players-invites
+  toggleInviteFields: -> 
+    if @$gameInviteOnly.is(":checked")
+      @$invitedPlayers.show()
+    else
+      @$invitedPlayers.hide()
 
-  if invitesRemaining > 0
-    Sembl.GameForm.addInviteFields(invitesRemaining)
-  else if invitesRemaining < 0
-    Sembl.GameForm.destroyInviteFields(-invitesRemaining)
+  setupRequiredInviteFields: -> 
+    players = parseInt(@$gameBoardId.find("option:selected").data('number_of_players'))
+    invites = parseInt(@$invitedPlayers.find(".player-fields").size())
+    invitesRemaining = players-invites
 
-Sembl.GameForm.addInviteFields = (invitesRemaining) -> 
-  $invitedPlayers =  $(".invited-players")
-  newFields = $invitedPlayers.data('new')
-  time = new Date().getTime()
-  for n in [1..invitesRemaining]
-    regexp = new RegExp('new_player', 'g')
-    $invitedPlayers.append(newFields.replace(regexp, time+n))
+    if invitesRemaining > 0
+      @addInviteFields(invitesRemaining)
+    else if invitesRemaining < 0
+      @destroyInviteFields(-invitesRemaining)
 
-Sembl.GameForm.destroyInviteFields = (invitesToRemove) -> 
-  $invitedPlayers =  $(".invited-players")
-  $invitedPlayers.find('.player-fields').slice(-invitesToRemove).each (i, el) -> 
-    $(el).find('.destroy-player').val(true)
-    $(el).hide()
+  addInviteFields: (invitesRemaining) -> 
+    console.log @$invitedPlayers
+    newFields = @$invitedPlayers.data('new')
+    console.log newFields
+    time = new Date().getTime()
+    for n in [1..invitesRemaining]
+      regexp = new RegExp('new_player', 'g')
+      @$invitedPlayers.append(newFields.replace(regexp, time+n))
+
+  destroyInviteFields: (invitesToRemove) -> 
+    @$invitedPlayers.find('.player-fields').slice(-invitesToRemove).each (i, el) -> 
+      $(el).find('.destroy-player').val(true)
+      $(el).hide()
 
 $ ->
   if $(document.body).is(".games-new, .games-edit, .games-create, .games-update")
-    Sembl.GameForm.setupSeedNode()
-    Sembl.GameForm.setupRequiredInviteFields()
-    Sembl.GameForm.toggleInviteFields()
-
-    $("#game_invite_only").change -> 
-      Sembl.GameForm.toggleInviteFields()
-
-    $("#game_board_id").change ->
-      Sembl.GameForm.setupRequiredInviteFields()
+    Sembl.gameForm = new Sembl.GameForm

@@ -1,0 +1,17 @@
+= form.input :seed_thing_id, label: "Seed node"
+  .seed-image 
+    = image_tag @game.seed_thing.try(:image).try(:admin_thumb).try(:url)
+
+  = hidden_field_tag('game_form[seed_thing_id]', Thing.first.id)
+
+= form.input :change_seed_image, label: "Change seed image"
+  = link_to_function "Suggested seed images", "$('.suggested-seeds').show()"
+  = link_to_function "Select random image", "Sembl.gameForm.selectRandomSeed()"
+  = link_to_function "Browse all images", ""
+
+.suggested-seeds style="display: none"
+  label Suggested images
+  - Thing.where(suggested_seed: true).each do |thing|
+    - if thing.image?
+      = render_seed_thing(thing)
+ 
