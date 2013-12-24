@@ -31,8 +31,7 @@
 class Game < ActiveRecord::Base
   validates :title, presence: true
   validates :board, presence: true
-
-  
+  validates :uploads_disabled_for_public_game
 
   belongs_to :board
 
@@ -195,6 +194,12 @@ class Game < ActiveRecord::Base
   def all_players_created
     if board && players.count < board.number_of_players
       errors.add(:base, "#{board.number_of_players} players are required to publish this game.")
+    end
+  end
+
+  def uploads_disabled_for_public_game
+    if !invite_only && uploads_allowed
+      erros.add(:base, "Can only enable uploads on private, invitation only games.")
     end
   end
 
