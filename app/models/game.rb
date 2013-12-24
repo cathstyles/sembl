@@ -34,9 +34,7 @@ class Game < ActiveRecord::Base
   validate :uploads_disabled_for_public_game
   validate :players_must_not_outnumber_board_number
 
-
   belongs_to :board
-
   belongs_to :creator, class_name: "User"
   belongs_to :updator, class_name: "User"
 
@@ -189,20 +187,20 @@ class Game < ActiveRecord::Base
 
   # == Validations
   def players_must_not_outnumber_board_number
-    if board && players.count > game.number_of_players
-      errors.add(:base, "#{board.number_of_players} players have already joined this game.")
+    if board && players.count > (number_of_players || 0)
+      errors.add(:base, "#{number_of_players} players have already joined this game.")
     end
   end
 
   def all_players_created
-    if board && players.count < game.number_of_players
-      errors.add(:base, "#{board.number_of_players} players are required to publish this game.")
+    if board && players.count < number_of_players
+      errors.add(:base, "#{number_of_players} players are required to publish this game.")
     end
   end
 
   def uploads_disabled_for_public_game
     if !invite_only && uploads_allowed
-      erros.add(:base, "Can only enable uploads on private, invitation only games.")
+      errors.add(:base, "Can only enable uploads on private, invitation only games.")
     end
   end
 
