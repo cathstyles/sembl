@@ -31,7 +31,9 @@
 class Game < ActiveRecord::Base
   validates :title, presence: true
   validates :board, presence: true
-  validates :uploads_disabled_for_public_game
+  validate :uploads_disabled_for_public_game
+  validate :players_must_not_outnumber_board_number
+
 
   belongs_to :board
 
@@ -49,6 +51,8 @@ class Game < ActiveRecord::Base
   has_many :links
 
   before_create :generate_random_seed
+
+  # == State Machine
 
   state_machine initial: :draft do 
     after_transition :draft => :open, do: :remove_draft_players
@@ -96,12 +100,11 @@ class Game < ActiveRecord::Base
     # validate correct number of players have been invited.
     state :playing do
       validate :all_players_created
-      validate :players_must_not_outnumber_board_number
     end 
 
   end
 
-  # Scopes
+  # == Scopes
 
   # Games still open to users to join
   def self.open_to_join
@@ -126,7 +129,7 @@ class Game < ActiveRecord::Base
 
   # Helpers
   def has_open_places? 
-    players.count < board.number_of_players
+    players.count < game.number_of_players
   end 
 
   def open_to_join?
@@ -184,15 +187,15 @@ class Game < ActiveRecord::Base
     self.current_round += 1
   end
 
-  # Validations
+  # == Validations
   def players_must_not_outnumber_board_number
-    if board && players.count > board.number_of_players
+    if board && players.count > game.number_of_players
       errors.add(:base, "#{board.number_of_players} players have already joined this game.")
     end
   end
 
   def all_players_created
-    if board && players.count < board.number_of_players
+    if board && players.count < game.number_of_players
       errors.add(:base, "#{board.number_of_players} players are required to publish this game.")
     end
   end
@@ -203,6 +206,7 @@ class Game < ActiveRecord::Base
     end
   end
 
+  # == Stuff that shouln't be here
   # Copy nodes and links from board
   def copy_board_to_game
     return unless board.present? 

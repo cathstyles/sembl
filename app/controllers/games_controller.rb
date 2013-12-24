@@ -29,7 +29,7 @@ class GamesController < ApplicationController
   def join
     authorize @game
     @game.players.build(user: current_user)
-    @game.join 
+    @game.join if @game.save
     respond_with @game
   end
 
