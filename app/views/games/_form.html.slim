@@ -16,15 +16,15 @@
     = render partial: "seed_node", locals: {form: form}
   - if policy(@game).customise? 
 
-    = form.input :uploads_allowed, label: "Allow uploads"
-      = form.check_box :uploads_allowed
-
     = form.input :allow_keyword_search, label: "Allow keyword search"
       = form.check_box :allow_keyword_search
   
     - if @game.draft?
       = form.input :invite_only, label: "Invite only"
         = form.check_box :invite_only
+
+      = form.input :uploads_allowed, label: "Allow uploads", wrapper_html: {style: "display: none"}
+        = form.check_box :uploads_allowed
 
       = invited_players_tag(form) do 
         label Invite players

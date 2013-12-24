@@ -13,10 +13,10 @@ class Sembl.GameForm
     @setupRequiredInviteFields()
     @toggleInviteFields()
 
-    @$gameInviteOnly.change -> 
+    @$gameInviteOnly.change => 
       @toggleInviteFields()
 
-    @$gameBoardId.change ->
+    @$gameBoardId.change =>
       @setupRequiredInviteFields()
 
 
@@ -41,8 +41,10 @@ class Sembl.GameForm
   toggleInviteFields: -> 
     if @$gameInviteOnly.is(":checked")
       @$invitedPlayers.show()
+      $('.game_uploads_allowed').show()
     else
       @$invitedPlayers.hide()
+      $('.game_uploads_allowed').hide()
 
   setupRequiredInviteFields: -> 
     players = parseInt(@$gameBoardId.find("option:selected").data('number_of_players'))
