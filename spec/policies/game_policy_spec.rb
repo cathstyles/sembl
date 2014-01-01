@@ -46,13 +46,22 @@ describe GamePolicy do
       it { should permit(:show)   }
     end
 
-    context "a game that is hosted by user and is not in progress" do 
+    context "a game that is hosted by user and is a draft" do 
       let(:game) {
         FactoryGirl.create(:game, creator: user, state: 'draft')
       }
       it { should permit(:update)   }
       it { should permit(:edit)  }
       it { should permit(:destroy) }
+    end
+
+    context "a game that is hosted by user and is configurable" do 
+      let(:game) {
+        FactoryGirl.create(:game, creator: user, state: 'open')
+      }
+      it { should permit(:update)   }
+      it { should permit(:edit)  }
+      it { should_not permit(:destroy) }
     end
 
     context "a game that is hosted by user and is in progress" do 

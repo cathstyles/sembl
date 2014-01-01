@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
   end
 
   def join_games
-    Player.find_by_email(email).each do |email|
+    Player.find_by_email(email).try(:each) do |player|
       player.user = self
       if player.save 
         # Only transition state to playing if player has actually been sent an invitation.

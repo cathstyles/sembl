@@ -8,7 +8,7 @@ FactoryGirl.define do
 
     factory :game_in_progress do 
       after(:create) do |game|
-        FactoryGirl.create_list(:player, 3, game: game, state: 'playing')
+        FactoryGirl.create_list(:player, 3, game: game, state: 'playing_turn')
       end
     end
   end

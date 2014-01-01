@@ -110,7 +110,7 @@ class Game < ActiveRecord::Base
   end
 
   def self.in_progress
-    with_states(:open, :joining, :playing, :rating)
+    with_states(:joining, :playing, :rating)
   end
 
   def self.invite_only
@@ -127,7 +127,7 @@ class Game < ActiveRecord::Base
 
   # Helpers
   def has_open_places? 
-    players.count < game.number_of_players
+    number_of_players && players.count < number_of_players
   end 
 
   def open_to_join?
@@ -162,7 +162,7 @@ class Game < ActiveRecord::Base
     players.where(user: current_user).take
   end
 
-  # Transition callbacks
+  # == Transition callbacks
   def players_begin_playing
     players.each {|player| player.begin_turn }
   end
@@ -187,13 +187,13 @@ class Game < ActiveRecord::Base
 
   # == Validations
   def players_must_not_outnumber_board_number
-    if board && players.count > (number_of_players || 0)
+    if number_of_players && players.count > (number_of_players || 0)
       errors.add(:base, "#{number_of_players} players have already joined this game.")
     end
   end
 
   def all_players_created
-    if board && players.count < number_of_players
+    if number_of_players && players.count < number_of_players
       errors.add(:base, "#{number_of_players} players are required to publish this game.")
     end
   end
