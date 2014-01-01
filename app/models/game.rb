@@ -109,14 +109,6 @@ class Game < ActiveRecord::Base
     where(invite_only: false).with_states(:joining, :open)
   end
 
-  def self.in_progress
-    with_states(:joining, :playing, :rating)
-  end
-
-  def self.invite_only
-    where(invite_only: true)
-  end
-
   def self.participating(current_user)
       joins(:users).where(["users.id = ?", current_user.try(:id)])
   end

@@ -71,7 +71,15 @@ describe Game do
         game.should_not be_valid
       end
     end 
+  end
 
+  describe "scopes" do 
+  end
+
+  describe "helpers" do 
+    describe "#"
 
   end
+
+
 end
