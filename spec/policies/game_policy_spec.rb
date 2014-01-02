@@ -67,8 +67,7 @@ describe GamePolicy do
     context "a game that is hosted by user and is in progress" do 
       let(:game) {
         FactoryGirl.create(:game_in_progress, 
-          creator: user, 
-          state: 'playing'
+          creator: user
         )
       }
       it { should_not permit(:update)   }
@@ -81,6 +80,20 @@ describe GamePolicy do
         FactoryGirl.create(:game, state: 'open', invite_only: false)
       }
       it { should permit(:join)   }
+
+      context "for a game that has one place left" do
+        let(:game) {
+          FactoryGirl.create(:game_being_joined)
+        }
+        it { should permit(:join) }
+      end
+      
+      context "for a game that has no places left" do
+        let(:game) {
+          FactoryGirl.create(:game_in_progress)
+        }
+        it { should_not permit(:join) } 
+      end
     end
 
     # TODO not sure how best to handle invite only games with invited users who are not yet members.

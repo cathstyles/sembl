@@ -69,8 +69,9 @@ class Game < ActiveRecord::Base
       transition :open => :draft
     end
 
+    # This happens after a player has successfully been created.
     event :join do 
-      transition [:open, :joining] => :joining, if: lambda {|game| game.has_open_places? }
+      transition [:open, :joining] => :joining, if: lambda {|game| game.with_open_places? }
       transition [:joining, :open] => :playing
     end
 
@@ -117,8 +118,8 @@ class Game < ActiveRecord::Base
     where(creator: current_user)
   end
 
-  # Helpers
-  def has_open_places? 
+  # == Helpers
+  def with_open_places? 
     number_of_players && players.count < number_of_players
   end 
 
