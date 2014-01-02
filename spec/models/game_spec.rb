@@ -115,8 +115,9 @@ describe Game do
     end
 
     describe "#final_round?" do 
-      subject(:game) { FactoryGirl.create(:game_with_nodes) }
-
+      before do
+        game.stub(:final_round).and_return(4)
+      end
       it "should be true if the current round is the final round" do 
         game.current_round = 4
         game.should be_final_round
@@ -129,7 +130,7 @@ describe Game do
     end
 
     describe "#participating?" do 
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.build(:user) }
 
       it "should be false if user is a not a player" do
         game.participating?(user).should be_false
@@ -138,13 +139,12 @@ describe Game do
 
       it "shoudl be true if user is a player" do 
         game.players.build(user: user)
-        game.save
         game.participating?(user).should be_true
       end
     end
 
     describe "#hosting?" do 
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.build(:user) }
       it "should be false if user is not the creator" do
         game.hosting?(user).should be_false
       end
