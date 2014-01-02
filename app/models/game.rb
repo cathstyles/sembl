@@ -31,6 +31,8 @@
 class Game < ActiveRecord::Base
   validates :title, presence: true
   validates :board, presence: true
+  validates :number_of_players, presence: true, numericality: {greater_than: 1} 
+
   validate :uploads_disabled_for_public_game
   validate :players_must_not_outnumber_board_number
 
@@ -65,7 +67,6 @@ class Game < ActiveRecord::Base
     end
 
     event :unpublish do 
-      transition :draft => :draft
       transition :open => :draft
     end
 

@@ -5,9 +5,9 @@ FactoryGirl.define do
     title { Forgery(:lorem_ipsum).word }
     theme { Forgery(:lorem_ipsum).word }
     board { FactoryGirl.create(:board) }
+    number_of_players { 3 }
 
     factory :game_in_progress do 
-      number_of_players { 3 }
       state { 'draft' }
       after(:create) do |game|
         FactoryGirl.create_list(:player, 3, game: game, state: 'playing_turn')
@@ -16,10 +16,9 @@ FactoryGirl.define do
     end
 
     factory :game_being_joined do 
-      number_of_players { 3 }
       state { 'joining' }
       invite_only { false }
-      before(:create) do |game|
+      after(:create) do |game|
         FactoryGirl.create_list(:player, 2, game: game, state: 'playing_turn')
       end
     end 

@@ -29,35 +29,34 @@ describe Game do
   describe "validations" do 
     it { should validate_presence_of :title }
     it { should validate_presence_of :board }
+    it { should validate_presence_of :number_of_players }
+    it { should validate_numericality_of :number_of_players}
 
-    context "has 3 player board" do 
-      before do 
-        game.number_of_players = 3
-      end
+    it { should_not allow_value(1).for(:number_of_players) }
+    it { should allow_value(2).for(:number_of_players) }
 
-      it "is invalid if players > 3" do 
-        game.stub(:players) { Array.new(4, double) }
-        game.should_not be_valid
-      end
+    it "is invalid if players > 3" do 
+      game.stub(:players) { Array.new(4, double) }
+      game.should_not be_valid
+    end
 
-      it "is valid if players === 3" do 
-        game.stub(:players) { Array.new(3, double) }
-        game.should be_valid
-      end
+    it "is valid if players === 3" do 
+      game.stub(:players) { Array.new(3, double) }
+      game.should be_valid
+    end
 
       #TODO this should be in state machine tests.
-      context "is invite only" do
+    context "is invite only" do
+      before do 
+        game.stub(:invite_only) { true }
+      end
+      context "state is playing" do 
         before do 
-          game.stub(:invite_only) { true }
+          game.stub(:state) { 'playing' }
         end
-        context "state is playing" do 
-          before do 
-            game.stub(:state) { 'playing' }
-          end
-          it "is invalid if 2 players have been created" do
-            game.stub(:players) { Array.new(2, double) }
-            game.should_not be_valid
-          end
+        it "is invalid if 2 players have been created" do
+          game.stub(:players) { Array.new(2, double) }
+          game.should_not be_valid
         end
       end
     end
@@ -212,22 +211,141 @@ describe Game do
 
       context "has a final placement" do 
         before do 
-          game.seed_node.placements.create(state: 'final', thing: thing)
+          game.seed_node.placements.create(thing: thing)
         end
 
         it "returns a thing" do 
           game.seed_thing.should be_a(Thing)
         end
       end
+    end
+  end
 
-      context "has a proposed placement" do 
+  describe "transition callbacks" do 
+    describe "#players_begin_playing" do 
+    end
+
+    describe "#players_begin_rating" do 
+    end
+
+    describe "#invite_players" do 
+
+    end
+    
+    describe "#remove_draft_players" do 
+    end
+
+    describe "#increment_round" do
+    end
+  end
+
+  describe "states" do 
+    # initial state
+    
+    describe ":draft" do 
+      it "should be the initial state" do
+        game.should be_draft 
+      end
+
+      it "should transition to :open on :publish if public" do
+        game.invite_only = false
+        game.publish! 
+        game.should be_open
+      end
+
+      context "invite only" do 
         before do 
-          game.seed_node.placements.create(thing: thing)
+          game.invite_only = true
+        end
+        it "should transition to :playing on :publish if it has 3 players" do
+          game.stub(:players) { Array.new(3, Player.new )}
+          game.publish! 
+          game.should be_playing
         end
 
-        it "does not return a thing" do 
-          game.seed_thing.should_not be_a(Thing)
+        it "should raise an error on :publish if it has < 3 players" do
+          game.stub(:players) { Array.new(2, Player.new )}
+          -> { game.publish! }.should raise_error
         end
+      end
+
+      ['join!', 'turns_completed!', 'ratings_completed!'].each do |action|
+        it "should raise an error for #{action}" do
+          -> { game.send(action) }.should raise_error
+        end
+      end
+    end
+
+    describe ":open" do 
+      before do 
+        game.state = 'open'
+        game.invite_only = false
+      end
+
+      it "should transition to :joining on :join" do
+        game.join!
+        game.should be_joining
+      end
+    end
+
+    describe ":joining" do 
+      before do 
+        game.state = 'joining'
+        game.invite_only = false
+      end
+      context "game still has open places" do
+        before do 
+          game.stub(:players) { Array.new(2, double) }
+        end 
+        it "should not change state on :join" do 
+          game.join! 
+          game.should be_joining
+        end
+      end
+      context "game has no open places" do 
+        before do 
+          game.stub(:players) { Array.new(3, double) }
+        end
+
+        it "should change to :playing on :join" do 
+          game.join!
+          game.should be_playing
+        end
+      end
+      ['unpublish!', 'turns_completed!', 'ratings_completed!'].each do |action|
+        it "should raise an error for #{action}" do
+          -> { game.send(action) }.should raise_error
+        end
+      end
+    end
+
+    describe ":playing" do 
+      before do 
+        game.state = 'playing'
+      end
+
+      it "should change to :rating on :turns_completed" do 
+        game.turns_completed!
+        game.should be_rating
+      end
+
+    end
+
+    describe ":rating" do 
+      before do 
+        game.state = 'rating'
+        game.stub(:players) { Array.new(3, Player.new(state: 'rating')) }
+      end
+
+      it "should change to :playing on :rating_completed" do 
+        game.ratings_completed!
+        game.should be_playing
+      end
+
+      it "should change to :completed on :rating_completed in final round" do 
+        game.stub(:final_round?).and_return(:true)
+        game.ratings_completed!
+        game.should be_completed
       end
     end
   end
