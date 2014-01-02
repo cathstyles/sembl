@@ -202,38 +202,34 @@ describe Game do
 
     describe "#seed_thing" do 
       subject(:game) { FactoryGirl.create(:game_with_nodes) }
-      let(:thing) { Thing.create }
+
+      # Skip validations so we don't have to upload an image
+      let(:thing) { 
+        t = FactoryGirl.build(:thing) 
+        t.save(validate: false)
+        t
+      }
 
       context "has a final placement" do 
         before do 
           game.seed_node.placements.create(state: 'final', thing: thing)
         end
 
-        xit "returns a thing" do 
+        it "returns a thing" do 
           game.seed_thing.should be_a(Thing)
         end
       end
 
-      context "has a proposed thing" do 
+      context "has a proposed placement" do 
         before do 
-          game.seed_node.placements.build(thing: thing)
+          game.seed_node.placements.create(thing: thing)
         end
 
-        xit "does not return a thing" do 
+        it "does not return a thing" do 
           game.seed_thing.should_not be_a(Thing)
         end
       end
-
     end
-
-
   end
-
-#   def seed_thing 
-#     seed_node.try(:final_placement).try(:thing)
-#   end
-
-
-
 
 end

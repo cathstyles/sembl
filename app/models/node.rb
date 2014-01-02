@@ -20,6 +20,7 @@ class Node < ActiveRecord::Base
   belongs_to :game
   has_many :links
   has_many :placements
+  belongs_to :allocated_to, class_name: "User"
 
   before_create :assign_initial_node_states
 
