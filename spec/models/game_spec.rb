@@ -45,22 +45,7 @@ describe Game do
       game.should be_valid
     end
 
-      #TODO this should be in state machine tests.
-    context "is invite only" do
-      before do 
-        game.stub(:invite_only) { true }
-      end
-      context "state is playing" do 
-        before do 
-          game.stub(:state) { 'playing' }
-        end
-        it "is invalid if 2 players have been created" do
-          game.stub(:players) { Array.new(2, double) }
-          game.should_not be_valid
-        end
-      end
-    end
-    
+   
     context "game is public" do 
       before do 
         game.stub(:invite_only) { false }
@@ -211,7 +196,8 @@ describe Game do
 
       context "has a final placement" do 
         before do 
-          game.seed_node.placements.create(thing: thing)
+          placement = game.seed_node.placements.create(thing: thing)
+          placement.should be_final
         end
 
         it "returns a thing" do 
@@ -324,6 +310,11 @@ describe Game do
         game.state = 'playing'
       end
 
+      it "is invalid if < 3 players have been created" do
+        game.stub(:players) { Array.new(2, double) }
+        game.should_not be_valid
+      end
+    
       it "should change to :rating on :turns_completed" do 
         game.turns_completed!
         game.should be_rating
