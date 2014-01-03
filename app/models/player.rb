@@ -18,7 +18,6 @@ class Player < ActiveRecord::Base
   after_create :allocate_first_node
 
   state_machine initial: :draft do 
-
     after_transition :playing_turn => :waiting, do: :check_turn_completion
     after_transition :rating => :wating, do: :check_rating_completion
     after_transition :draft => any, do: :send_invitation
@@ -34,7 +33,7 @@ class Player < ActiveRecord::Base
     end
 
     event :end_turn do 
-      transition :playing_turn => :waiting, 
+      transition :playing_turn => :waiting,
         if: lambda {|player|  player.completed_requirements? }
     end
 
@@ -68,7 +67,7 @@ class Player < ActiveRecord::Base
   def allocate_first_node
     node = game.nodes.with_state(:in_play).where(allocated_to_id: nil).take
     if node 
-      node.allocated_to = self
+      node.allocated_to = self.user
       node.save!
     end
   end
@@ -85,8 +84,9 @@ class Player < ActiveRecord::Base
     end
   end
 
-  # Player can end turn if they have entered one or more resemblances 
-  # for the current round
+  #TODO: This logic is not right. 
+  # A player can end a turn when one more more placements are complete. 
+  # A placement is complete when all target sembls have been entered.
   def completed_requirements?
     game.links.
     joins(:target).
@@ -94,12 +94,6 @@ class Player < ActiveRecord::Base
     where("nodes.round = ?", [game.current_round]).
     where("resemblances.creator_id = ?", [user.id]).
     present?
-  end
-
-  def email_or_user_id
-    if email.blank? || user_id.blank? 
-      errors.add(:base, "Must enter a valid email address or Sembl user.")
-    end
   end
 
   def send_invitation

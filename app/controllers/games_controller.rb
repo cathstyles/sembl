@@ -118,9 +118,6 @@ private
       :allow_keyword_search,
       players_attributes: [:id, :email, :user_id, :_destroy]
     )
-
-
-
   end
 
   def game_form_params
