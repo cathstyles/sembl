@@ -18,7 +18,8 @@ class Node < ActiveRecord::Base
   validates_numericality_of :round
   
   belongs_to :game
-  has_many :links
+  has_many :target_links, class_name: "Link", foreign_key: "target_id"
+  has_many :source_links, class_name: "Link", foreign_key: "source_id"
   has_many :placements
   belongs_to :allocated_to, class_name: "User"
 
