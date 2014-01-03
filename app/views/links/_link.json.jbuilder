@@ -1,1 +1,1 @@
-json.(link, :source_id, :target_id)
+json.(link, :source_id, :target_id, :round)
