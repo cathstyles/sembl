@@ -24,6 +24,7 @@
 require 'spec_helper'
 
 describe Game do
+  # Build a game with 3 players
   subject(:game) { FactoryGirl.build(:game) }
 
   describe "validations" do 
