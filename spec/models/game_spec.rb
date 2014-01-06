@@ -211,7 +211,7 @@ describe Game do
   describe "transition callbacks" do 
 
     describe "#players_begin_playing" do 
-      it "should send 'begin_playing' method to all players " do
+      it "should begin all players turns" do
         player = double
         game.stub(:players) { Array.new(3, player) } 
         player.should receive(:begin_turn).exactly(3).times
@@ -220,7 +220,7 @@ describe Game do
     end
 
     describe "#players_begin_rating" do
-      it "should send 'begin_rating' method to all players " do 
+      it "should begin all players rating" do 
         player = double
         game.stub(:players) { Array.new(3, player) } 
         player.should receive(:begin_rating).exactly(3).times
@@ -229,7 +229,7 @@ describe Game do
     end
 
     describe "#invite_players" do 
-      it "should send 'invite' method to all players if invite_only" do 
+      it "should invite all players if invite_only" do 
         game.invite_only = true
         player = double
         game.stub(:players) { Array.new(3, player) }
