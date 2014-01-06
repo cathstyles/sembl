@@ -209,20 +209,58 @@ describe Game do
   end
 
   describe "transition callbacks" do 
+
     describe "#players_begin_playing" do 
+      it "should send 'begin_playing' method to all players " do
+        player = double
+        game.stub(:players) { Array.new(3, player) } 
+        player.should receive(:begin_turn).exactly(3).times
+        game.players_begin_playing
+      end
     end
 
-    describe "#players_begin_rating" do 
+    describe "#players_begin_rating" do
+      it "should send 'begin_rating' method to all players " do 
+        player = double
+        game.stub(:players) { Array.new(3, player) } 
+        player.should receive(:begin_rating).exactly(3).times
+        game.players_begin_rating
+      end 
     end
 
     describe "#invite_players" do 
-
+      it "should send 'invite' method to all players if invite_only" do 
+        game.invite_only = true
+        player = double
+        game.stub(:players) { Array.new(3, player) }
+        player.should receive(:invite).exactly(3).times
+        game.invite_players
+      end
     end
     
     describe "#remove_draft_players" do 
+      it "should remove all draft players" do 
+        3.times { game.players.build(state: 'draft') }
+        game.save!
+        game.remove_draft_players
+        game.players.count.should == 0
+      end
+
+      it "should not remove players in non-draft state" do 
+        3.times { game.players.build(state: 'draft') }
+        1.times { game.players.build(state: 'invited', email: 'xx') }
+        game.save!
+        game.remove_draft_players
+        game.players.count.should == 1
+      end
     end
 
     describe "#increment_round" do
+      it "should increment current round by one" do
+        game.current_round = 1
+        -> { game.increment_round }.should change(game, :current_round).by(1)
+        game.increment_round
+      end
     end
   end
 
