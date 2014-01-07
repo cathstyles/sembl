@@ -132,6 +132,8 @@ class Game < ActiveRecord::Base
     seed_node.try(:final_placement).try(:thing)
   end
 
+ 
+
   def seed_node 
     nodes.where(round: 0).take
   end
@@ -203,28 +205,7 @@ class Game < ActiveRecord::Base
   end
 
   # == Stuff that shouln't be here
-  # Copy nodes and links from board
-  def copy_board_to_game
-    return unless board.present? 
-
-    nodes.destroy_all
-    links.destroy_all
-
-    node_array = []
-    board.nodes_attributes.each do |node_attr|
-      node_array << nodes.build(node_attr.except('fixed'))
-    end
-
-    board.links_attributes.each do |link_attr| 
-      links.build(
-        source: node_array[link_attr['source']],
-        target: node_array[link_attr['target']]
-      )
-    end
-
-    self.number_of_players = board.number_of_players
-  end
-
+  
 
 
   private 

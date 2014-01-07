@@ -36,11 +36,11 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.new(game_params)
-    @game.copy_board_to_game
     @game.creator = current_user
     @game.updator = current_user
     @game.state_event = 'publish' if params[:publish]
 
+    copy_board_to_game
     add_or_update_seed_thing
 
     authorize @game
@@ -66,9 +66,10 @@ class GamesController < ApplicationController
 
   def update
     @game.assign_attributes(game_params)
-    @game.copy_board_to_game
     @game.updator = current_user
     @game.state_event = 'publish' if params[:publish]
+
+    copy_board_to_game
     add_or_update_seed_thing
     authorize @game
     
@@ -87,6 +88,29 @@ class GamesController < ApplicationController
   end
 
 private
+
+  # Copy nodes and links from board
+  def copy_board_to_game
+    board = @game.board
+    return unless board.present? 
+
+    @game.nodes.destroy_all
+    @game.links.destroy_all
+
+    node_array = []
+    board.nodes_attributes.each do |node_attr|
+      node_array << @game.nodes.build(node_attr.except('fixed'))
+    end
+
+    board.links_attributes.each do |link_attr| 
+      @game.links.build(
+        source: node_array[link_attr['source']],
+        target: node_array[link_attr['target']]
+      )
+    end
+
+    @game.number_of_players = board.number_of_players
+  end
 
   def add_or_update_seed_thing
     if seed_node_thing = Thing.find(game_form_params[:seed_thing_id])
