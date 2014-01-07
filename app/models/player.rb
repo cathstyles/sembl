@@ -73,13 +73,13 @@ class Player < ActiveRecord::Base
   end
 
   def check_turn_completion
-    if game.players.with_state(:finished_turn) == game.number_of_players
+    if game.players.with_state(:waiting).count == game.number_of_players
       game.turns_completed
     end
   end
 
   def check_rating_completion
-    if game.players.with_state(:finished_rating) == game.number_of_players
+    if game.players.with_state(:waiting).count == game.number_of_players
       game.ratings_completed
     end
   end
@@ -94,6 +94,7 @@ class Player < ActiveRecord::Base
     where("nodes.round = ?", [game.current_round]).
     where("resemblances.creator_id = ?", [user.id]).
     present?
+    # true
   end
 
   def send_invitation
