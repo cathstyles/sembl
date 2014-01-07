@@ -7,7 +7,6 @@ class Sembl.GameForm
     @$seedImage = $('.seed-image')
     @$gameInviteOnly = $('#game_invite_only')
     @$gameBoardId = $('#game_board_id')
-
     
     @setupSeedNode()
 

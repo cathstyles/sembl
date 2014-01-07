@@ -5,7 +5,11 @@ FactoryGirl.define do
     password_confirmation { password }
 
     trait :admin do
-      admin true
+      role_event { 'make_admin' }
+    end
+
+    trait :power_user do 
+      role_event { 'make_power_user' }
     end
   end
 end

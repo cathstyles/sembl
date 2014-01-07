@@ -6,8 +6,10 @@ module RandomFixedOrderable
   end
 
   # XOR operator is # in postgres
-  def self.random_fixed_order(seed)
-    order("(things.random_seed # #{seed})")
+  module ClassMethods
+    def random_fixed_order(seed)
+      order("(things.random_seed # #{seed})")
+    end
   end
 
 private

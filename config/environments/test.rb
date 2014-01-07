@@ -31,6 +31,9 @@ Sembl::Application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Render full development URLs in mail
+  config.action_mailer.default_url_options = {host: "sembl.dev"}
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 end

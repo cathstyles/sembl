@@ -6,6 +6,7 @@ FactoryGirl.define do
     theme { Forgery(:lorem_ipsum).word }
     board { FactoryGirl.create(:board) }
     number_of_players { 3 }
+    creator { FactoryGirl.create(:user) }
 
     factory :game_in_progress do 
       state { 'draft' }
