@@ -10,7 +10,10 @@ class Sembl.GameForm
 
     
     @setupSeedNode()
-    @setupRequiredInviteFields()
+
+    if @$invitedPlayers.length
+      @setupRequiredInviteFields()
+    
     @toggleInviteFields()
 
     @$gameInviteOnly.change => 
@@ -22,9 +25,6 @@ class Sembl.GameForm
 
   selectRandomSeed: ->
     $.ajax('/things/random').done (data) => 
-      console.log @$seedFormField
-      console.log data
-      console.log @$seedImage
       @$seedFormField.val data.id
       @$seedImage.find('img').attr('src', data.image_admin_url)
       @$seedImage.find('img').attr('alt', data.title)
