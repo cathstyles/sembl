@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
         # Only transition state to playing if player has actually been sent an invitation.
         player.join if player.invited? 
       else
-        errors.add(:base, "Error joining the game #{player.game.title}, hosted by #{player.game.creator.email}.") 
+        errors.add(:base, "Could not join the game #{player.game.title}, hosted by #{player.game.creator.email}.") 
       end
     end
   end

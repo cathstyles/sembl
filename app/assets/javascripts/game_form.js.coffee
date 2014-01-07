@@ -1,13 +1,13 @@
 #= stub jquery
 
 class Sembl.GameForm
-
   constructor: ->
     @$invitedPlayers = $(".invited-players")
     @$seedFormField = $('#game_form_seed_thing_id')
     @$seedImage = $('.seed-image')
     @$gameInviteOnly = $('#game_invite_only')
     @$gameBoardId = $('#game_board_id')
+
     
     @setupSeedNode()
     @setupRequiredInviteFields()
@@ -21,20 +21,24 @@ class Sembl.GameForm
 
 
   selectRandomSeed: ->
-    $.ajax('/things/random').done (data) -> 
+    $.ajax('/things/random').done (data) => 
+      console.log @$seedFormField
+      console.log data
+      console.log @$seedImage
       @$seedFormField.val data.id
-      @$seedImage.attr('src', data.image_admin_url)
-      @$seedImage.attr('alt', data.title)
+      @$seedImage.find('img').attr('src', data.image_admin_url)
+      @$seedImage.find('img').attr('alt', data.title)
 
 
   setupSeedNode: -> 
     $suggestedSeeds = $('.suggested-seeds')
+    self = this
     $suggestedSeeds.on('click', '.seed', -> 
       $suggestedSeeds.find('.seed').removeClass('selected')
       $this = $(this)
       $this.addClass('selected')
-      @$seedFormField.val $this.data('id')
-      @$seedImage.html $this.html()
+      self.$seedFormField.val $this.data('id')
+      self.$seedImage.html $this.html()
       $suggestedSeeds.hide()
     )
 
@@ -57,9 +61,7 @@ class Sembl.GameForm
       @destroyInviteFields(-invitesRemaining)
 
   addInviteFields: (invitesRemaining) -> 
-    console.log @$invitedPlayers
     newFields = @$invitedPlayers.data('new')
-    console.log newFields
     time = new Date().getTime()
     for n in [1..invitesRemaining]
       regexp = new RegExp('new_player', 'g')

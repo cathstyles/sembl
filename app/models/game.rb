@@ -188,7 +188,11 @@ class Game < ActiveRecord::Base
 
   def all_players_created
     if number_of_players && players.count < number_of_players
-      errors.add(:base, "#{number_of_players} players are required to publish this game.")
+      if invite_only
+        errors.add(:base, "This game is invite only. #{number_of_players} players must be invited to publish this game.")
+      else 
+        errors.add(:base, "#{number_of_players} players are required to publish this game.")
+      end
     end
   end
 

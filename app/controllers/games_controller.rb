@@ -47,9 +47,10 @@ class GamesController < ApplicationController
 
     if @game.save
       flash[:notice] = 'Game created.' if @game.save
-      game_form_params[:publish] ? @game.publish :  @game.unpublish
+      redirect_to games_path
+    else
+      respond_with(@game)
     end
-    respond_with(@game)
   end
 
   def new
@@ -71,8 +72,12 @@ class GamesController < ApplicationController
     add_or_update_seed_thing
     authorize @game
     
-    flash[:notice] = 'Game saved.' if @game.save
-    respond_with @game
+    if @game.save
+      flash[:notice] = 'Game saved.' if @game.save
+      redirect_to games_path
+    else
+      respond_with(@game)
+    end
   end
 
   def destroy
