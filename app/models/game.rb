@@ -52,6 +52,12 @@ class Game < ActiveRecord::Base
 
   before_create :generate_random_seed
 
+  # Convenience methods for persisting the seed_thing_id when there are validation errors.
+  attr_accessor :seed_thing_id
+  after_initialize do |game|
+    game.seed_thing_id = seed_thing.try(:id)
+  end
+
   # == State Machine
 
   state_machine initial: :draft do 
@@ -129,7 +135,11 @@ class Game < ActiveRecord::Base
   end
 
   def seed_thing 
-    seed_node.try(:final_placement).try(:thing)
+    if seed_thing_id
+      Thing.find(seed_thing_id)
+    else 
+      seed_node.try(:final_placement).try(:thing)
+    end
   end
 
  

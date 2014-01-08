@@ -1,7 +1,7 @@
 = form.input :seed_thing_id, label: "Seed node"
   .seed-image 
     = image_tag @game.seed_thing.try(:image).try(:admin_thumb).try(:url)
-  = hidden_field_tag('game_form[seed_thing_id]', @game.seed_thing.try(:id))
+  = hidden_field_tag('game[seed_thing_id]', @game.seed_thing.try(:id))
 
 = form.input :change_seed_image, label: "Change seed image"
   = link_to_function "Suggested seed images", "$('.suggested-seeds').show()"

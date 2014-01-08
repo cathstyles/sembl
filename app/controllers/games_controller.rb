@@ -113,18 +113,18 @@ private
   end
 
   def add_or_update_seed_thing
-    if seed_node_thing = Thing.find(game_form_params[:seed_thing_id])
+    if seed_thing = Thing.find(game_params[:seed_thing_id])
       seed_node = @game.nodes.detect {|node| node.round == 0 }
       return unless seed_node
 
       if placement = seed_node.placements.take
         placement.assign_attributes(
-          thing: seed_node_thing, 
+          thing: seed_thing, 
           creator: current_user
         )
       else
         seed_node.placements.build(
-          thing: seed_node_thing, 
+          thing: seed_thing, 
           creator: current_user
         ) 
        
@@ -146,12 +146,9 @@ private
       :filter_content_by, 
       :theme, 
       :allow_keyword_search,
+      :seed_thing_id,
       players_attributes: [:id, :email, :user_id, :_destroy]
     )
-  end
-
-  def game_form_params
-    params.require(:game_form).permit(:seed_thing_id)
   end
 
 end

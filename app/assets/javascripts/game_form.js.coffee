@@ -3,7 +3,7 @@
 class Sembl.GameForm
   constructor: ->
     @$invitedPlayers = $(".invited-players")
-    @$seedFormField = $('#game_form_seed_thing_id')
+    @$seedFormField = $('#game_seed_thing_id')
     @$seedImage = $('.seed-image')
     @$gameInviteOnly = $('#game_invite_only')
     @$gameBoardId = $('#game_board_id')
