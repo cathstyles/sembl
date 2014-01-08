@@ -14,7 +14,7 @@ class Link < ActiveRecord::Base
   belongs_to :game
   belongs_to :source, class_name: Node
   belongs_to :target, class_name: Node
-  has_many :resemblances
+  has_many :resemblances, dependent: :destroy
 
   # # Link becomes available when the target node has been filled
   # def available_to?(user)

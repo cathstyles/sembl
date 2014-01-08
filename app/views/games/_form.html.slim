@@ -33,7 +33,7 @@
           = render "player_fields", f: player_fields
 
   - if @game.draft?
-    = form.button :submit, "Save Draft"
+    = form.button :submit
     = form.button :submit, "Publish", name: 'publish'
   - else
     = form.button :submit

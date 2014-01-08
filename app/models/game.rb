@@ -47,8 +47,8 @@ class Game < ActiveRecord::Base
     allow_destroy: true,
     reject_if: :all_blank
 
-  has_many :nodes
-  has_many :links
+  has_many :nodes, dependent: :destroy
+  has_many :links, dependent: :destroy
 
   before_create :generate_random_seed
 
