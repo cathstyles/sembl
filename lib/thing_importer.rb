@@ -30,7 +30,7 @@ class ThingImporter
       begin
         create_thing_from_row(row)
       rescue
-        puts "Error loading file #{row[:image_filename]}: #{$!.message}"
+        puts "Error loading file #{row['Filename']}: #{$!.message}"
       end
     end
   end
