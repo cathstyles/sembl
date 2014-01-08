@@ -16,5 +16,4 @@ describe PlayerMailer do
       mail.body.encoded.should match(/You have been invited/)
     end
   end
-
 end

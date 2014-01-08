@@ -33,7 +33,8 @@ class ProcessCSV
   def process_row(row)
     out = {general_attributes: []}
     row.each do |key, value|
-      mapped_key = map[key.strip] 
+
+      mapped_key = map[key.try(:strip)] 
 
       if mapped_key
         out[mapped_key] = value  
