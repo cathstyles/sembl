@@ -41,7 +41,7 @@ class GamesController < ApplicationController
     @game.state_event = 'publish' if params[:publish]
 
     copy_board_to_game
-    add_or_update_seed_thing
+    update_seed_thing if game_params[:seed_thing_id].present? 
 
     authorize @game
 
@@ -70,7 +70,7 @@ class GamesController < ApplicationController
     @game.state_event = 'publish' if params[:publish]
 
     copy_board_to_game
-    add_or_update_seed_thing
+    update_seed_thing if game_params[:seed_thing_id].present? 
     authorize @game
     
     if @game.save
@@ -92,10 +92,11 @@ private
   # Copy nodes and links from board
   def copy_board_to_game
     board = @game.board
-    return unless board.present? 
+    return unless @game.board_id.present? && @game.board_id_changed? 
 
-    @game.nodes.destroy_all
-    @game.links.destroy_all
+    # So they are not destroyed if validation fails.
+    @game.nodes.each {|n| n.mark_for_destruction }
+    @game.links.each {|l| l.mark_for_destruction }
 
     node_array = []
     board.nodes_attributes.each do |node_attr|
@@ -112,23 +113,19 @@ private
     @game.number_of_players = board.number_of_players
   end
 
-  def add_or_update_seed_thing
-    if seed_thing = Thing.find(game_params[:seed_thing_id])
-      seed_node = @game.nodes.detect {|node| node.round == 0 }
+  def update_seed_thing
+    if  seed_thing = Thing.find(game_params[:seed_thing_id])
+      seed_node = @game.nodes.detect {|node| 
+        node.round == 0 && !node.marked_for_destruction? 
+      }
       return unless seed_node
 
-      if placement = seed_node.placements.take
-        placement.assign_attributes(
-          thing: seed_thing, 
-          creator: current_user
-        )
-      else
-        seed_node.placements.build(
-          thing: seed_thing, 
-          creator: current_user
-        ) 
-       
-      end
+      placement = seed_node.placements[0] || seed_node.placements.build
+      placement.assign_attributes(
+        thing: seed_thing,
+        creator: current_user
+      )
+      
     end
   end
 

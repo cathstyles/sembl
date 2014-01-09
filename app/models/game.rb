@@ -47,8 +47,8 @@ class Game < ActiveRecord::Base
     allow_destroy: true,
     reject_if: :all_blank
 
-  has_many :nodes, dependent: :destroy
-  has_many :links, dependent: :destroy
+  has_many :nodes, dependent: :destroy, autosave: true
+  has_many :links, dependent: :destroy, autosave: true
 
   before_create :generate_random_seed
 
@@ -135,7 +135,7 @@ class Game < ActiveRecord::Base
   end
 
   def seed_thing 
-    if seed_thing_id
+    if seed_thing_id.present?
       Thing.find(seed_thing_id)
     else 
       seed_node.try(:final_placement).try(:thing)

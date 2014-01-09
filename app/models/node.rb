@@ -20,7 +20,7 @@ class Node < ActiveRecord::Base
   belongs_to :game
   has_many :target_links, class_name: "Link", foreign_key: "target_id"
   has_many :source_links, class_name: "Link", foreign_key: "source_id"
-  has_many :placements, dependent: :destroy
+  has_many :placements, dependent: :destroy, autosave: true
   belongs_to :allocated_to, class_name: "User"
 
   before_create :assign_initial_node_states
