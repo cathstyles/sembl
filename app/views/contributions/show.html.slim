@@ -1,0 +1,8 @@
+h1= @thing.title
+
+= simple_format @thing.description
+
+- if @thing.image?
+  = image_tag @thing.image.browse_thumb.url, alt: @thing.description
+
+p= link_to 'Return', contributions_path

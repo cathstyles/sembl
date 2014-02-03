@@ -1,0 +1,7 @@
+h1 All Things
+
+= link_to 'New Thing', new_contribution_path
+
+ul
+  - @things.each do |thing|
+    li= link_to thing.title, contribution_path(thing)

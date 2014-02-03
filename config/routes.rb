@@ -21,4 +21,6 @@ Sembl::Application.routes.draw do
   get 'things/random', to: 'things#random' 
 
   root to: "games#index"
+
+  resources :contributions
 end
