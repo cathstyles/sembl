@@ -1,56 +1,57 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-ruby "2.0.0"
+ruby '2.0.0'
 
-gem "rails", "4.0.1.rc3"
+gem 'rails', '4.0.1.rc3'
 
-gem "pg"
-
-gem "carrierwave"
-gem "mini_magick"
-gem "fog"
-gem "decent_exposure"
-gem "devise"
-gem "nestive"
-gem "slim-rails"
-gem "simple_form"
-gem "pundit"
-gem "state_machine"
-gem "puma"
-
-gem "jquery-rails"
-gem "sass-rails"
-gem "coffee-rails"
-gem "uglifier"
-gem "bootstrap-sass"
-gem "asset_sync"
-gem "unf"
-gem "jbuilder"
-gem "skim"
-gem 'rails_12factor', group: :production
+gem 'asset_sync'
+gem 'bootstrap-sass'
+gem 'carrierwave'
+gem 'coffee-rails'
+gem 'decent_exposure'
+gem 'devise'
+gem 'fog'
+gem 'jbuilder'
+gem 'jquery-rails'
+gem 'mini_magick'
+gem 'nestive'
+gem 'pg'
+gem 'puma'
+gem 'pundit'
+gem 'sass-rails'
+gem 'simple_form'
+gem 'skim'
+gem 'slim-rails'
+gem 'state_machine'
+gem 'uglifier'
+gem 'unf'
 
 group :development do
-  gem "annotate"
-  gem "unicorn"
-  gem "better_errors", ">= 1.0.0.rc1"
-  gem "binding_of_caller"
+  gem 'annotate'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'unicorn'
 end
 
 group :doc do
-  gem "sdoc", require: false
+  gem 'sdoc', require: false
 end
 
 group :development, :test do
-  gem "dotenv-rails"
-  gem "rspec-rails"
-  gem "factory_girl_rails"
-  gem "pry-rails", "~> 0.2.1"
+  gem 'dotenv-rails'
+  gem 'factory_girl_rails'
+  gem 'pry-rails'
+  gem 'rspec-rails'
 end
 
 group :test do
-  gem "forgery"
-  gem "shoulda-matchers"
-  gem "capybara"
-  gem "poltergeist"
-  gem "database_cleaner"
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'forgery'
+  gem 'poltergeist'
+  gem 'shoulda-matchers'
+end
+
+group :production do
+  gem 'rails_12factor'
 end

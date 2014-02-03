@@ -244,7 +244,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   asset_sync
-  better_errors (>= 1.0.0.rc1)
+  better_errors
   binding_of_caller
   bootstrap-sass
   capybara
@@ -263,7 +263,7 @@ DEPENDENCIES
   nestive
   pg
   poltergeist
-  pry-rails (~> 0.2.1)
+  pry-rails
   puma
   pundit
   rails (= 4.0.1.rc3)
