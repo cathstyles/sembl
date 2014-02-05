@@ -7,6 +7,9 @@ class Sembl.GameView extends Backbone.View
 
   template: JST["templates/game_view"]
 
+  events: 
+    'click .join': 'joinGame'
+
   initialize: (options) ->
     @width = @model.width()
     @height = @model.height()
@@ -17,6 +20,9 @@ class Sembl.GameView extends Backbone.View
 
   render: ->
     @$el.html(@template(game: @model))
+
+    if @model.hasErrors()
+      @$el.find('.errors').show()
 
     @boardEl = @$el.find(".board")
       .css({@width, @height})
@@ -37,3 +43,11 @@ class Sembl.GameView extends Backbone.View
     @linksView = new Sembl.GameLinksView({@width, @height, collection: @model.links})
     @linksEl.append(@linksView.el)
 
+  joinGame: -> 
+    $.post(
+      "#{@model.urlRoot}/#{@model.id}/join.json"
+      {authenticity_token: @model.get('auth_token')}
+      (data) =>
+        @model.fetch()
+        #Handle errors.
+    )

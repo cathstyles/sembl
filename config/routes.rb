@@ -12,7 +12,7 @@ Sembl::Application.routes.draw do
   resources :games do
     resources :things, only: [:index]
     member do 
-      get 'join'
+      post 'join'
       get 'summary'
     end
   end
