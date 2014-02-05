@@ -6,7 +6,7 @@ header
   .actions
     = link_to "New", new_admin_board_path, class: "btn"
 
-- if boards.any?
+- if @boards.any?
   table.table.table-striped.table-hover.index
     thead
       tr
@@ -14,7 +14,7 @@ header
         th.number-of-players Players
         th.actions
     tbody
-      - boards.each do |board|
+      - @boards.each do |board|
         tr
           td.title = board.title
           td.title = board.number_of_players

@@ -1,37 +1,38 @@
 class Admin::UsersController < AdminController
-  expose(:users)
-  expose(:user, attributes: :user_params)
-
   respond_to :html
 
   def index
-    respond_with :admin, users
+    @users = User.order("updated_at DESC")
+    respond_with :admin, @users
   end
 
   def new
-    respond_with :admin, user
+    @user = User.new
+    respond_with :admin, @user
   end
 
   def create
-    user.save
-
-    respond_with :admin, user, location: [:admin, :users]
+    @user = User.new(user_params)
+    @user.save
+    respond_with :admin, @user, location: [:admin, :users]
   end
 
   def edit
-    respond_with :admin, user
+    @user = User.find(params[:id])
+    respond_with :admin, @user
   end
 
   def update
-    user.save
-
-    respond_with :admin, user, location: [:admin, :users]
+    @user = User.find(params[:id])
+    @user.update_attributes(user_params)
+    @user.save
+    respond_with :admin, @user, location: [:admin, :users]
   end
 
   def destroy
-    user.destroy
-
-    respond_with :admin, user, location: [:admin, :users]
+    @user = User.find(params[:id])
+    @user.destroy
+    respond_with :admin, @user, location: [:admin, :users]
   end
 
 protected

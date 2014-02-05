@@ -1,39 +1,40 @@
 class Admin::ThingsController < AdminController
-  expose(:things)
-  expose(:thing, attributes: :thing_params)
-
   respond_to :html
 
   def index
-    respond_with :admin, things
+    @things = Thing.order("updated_at DESC")
+    respond_with :admin, @things
   end
 
   def new
-    respond_with :admin, thing
+    @thing = Thing.new
+    respond_with :admin, @thing
   end
 
   def create
-    thing.creator = current_user
-    thing.save
-
-    respond_with :admin, thing, location: [:admin, :things]
+    @thing = Thing.new(thing_params)
+    @thing.creator = current_user
+    @thing.save
+    respond_with :admin, @thing, location: [:admin, :things]
   end
 
   def edit
-    respond_with :admin, thing
+    @thing = Thing.find(params[:id])
+    respond_with :admin, @thing
   end
 
   def update
-    thing.updator = current_user
-    thing.save
-
-    respond_with :admin, thing, location: [:admin, :things]
+    @thing = Thing.find(params[:id])
+    @thing.update_attributes(thing_params)
+    @thing.updator = current_user
+    @thing.save
+    respond_with :admin, @thing, location: [:admin, :things]
   end
 
   def destroy
-    thing.destroy
-
-    respond_with :admin, thing, location: [:admin, :things]
+    @thing = Thing.find(params[:id])
+    @thing.destroy
+    respond_with :admin, @thing, location: [:admin, :things]
   end
 
 protected

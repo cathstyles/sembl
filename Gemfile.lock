@@ -62,7 +62,6 @@ GEM
     coffee-script-source (1.6.3)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
-    decent_exposure (2.3.0)
     devise (3.1.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -245,7 +244,6 @@ DEPENDENCIES
   carrierwave
   coffee-rails
   database_cleaner
-  decent_exposure
   devise
   dotenv-rails
   factory_girl_rails

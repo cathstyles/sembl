@@ -1,4 +1,4 @@
-= simple_form_for [:admin, thing], wrapper: :bootstrap, html: {class: "form-horizontal"} do |form|
+= simple_form_for [:admin, @thing], wrapper: :bootstrap, html: {class: "form-horizontal"} do |form|
 
   = form.error_notification
 
@@ -13,15 +13,15 @@
   = form.input :suggested_seed, label: "Suggested seed node" do
     = form.check_box :suggested_seed
 
-  - unless thing.new_record?
+  - unless @thing.new_record?
     .control-group
       .control-label Created by
-      .controls.static #{thing.creator || "(unknown)"} #{time_ago_tag thing.created_at}
+      .controls.static #{@thing.creator || "(unknown)"} #{time_ago_tag @thing.created_at}
 
-  - unless thing.new_record? or not thing.updated_at or thing.updated_at == thing.created_at
+  - unless @thing.new_record? or not @thing.updated_at or @thing.updated_at == @thing.created_at
     .control-group
       .control-label Updated by
-      .controls.static #{thing.updator || "(unknown)"} #{time_ago_tag thing.updated_at}
+      .controls.static #{@thing.updator || "(unknown)"} #{time_ago_tag @thing.updated_at}
 
   .form-actions
     = form.button :submit, class: "btn-primary"

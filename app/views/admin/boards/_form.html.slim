@@ -1,4 +1,4 @@
-= simple_form_for [:admin, board], wrapper: :bootstrap, html: {class: "form-horizontal"} do |form|
+= simple_form_for [:admin, @board], wrapper: :bootstrap, html: {class: "form-horizontal"} do |form|
 
   = form.error_notification
 
@@ -31,15 +31,15 @@
   - else
     = form.hidden_field :links_attributes
 
-  - unless board.new_record?
+  - unless @board.new_record?
     .control-group
       .control-label Created by
-      .controls.static #{board.creator || "(unknown)"} #{time_ago_tag board.created_at}
+      .controls.static #{@board.creator || "(unknown)"} #{time_ago_tag @board.created_at}
 
-  - unless board.new_record? or not board.updated_at or board.updated_at == board.created_at
+  - unless @board.new_record? or not @board.updated_at or @board.updated_at == @board.created_at
     .control-group
       .control-label Updated by
-      .controls.static #{board.updator || "(unknown)"} #{time_ago_tag board.updated_at}
+      .controls.static #{@board.updator || "(unknown)"} #{time_ago_tag @board.updated_at}
 
   .form-actions
     = form.button :submit, class: "btn-primary"

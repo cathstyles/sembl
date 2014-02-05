@@ -5,10 +5,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  decent_configuration do
-    strategy DecentExposure::StrongParametersStrategy
-  end
-  
   private
 
     def user_not_authorized

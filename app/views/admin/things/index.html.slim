@@ -6,7 +6,7 @@ header
   .actions
     = link_to "New", new_admin_thing_path, class: "btn"
 
-- if things.any?
+- if @things.any?
   table.table.table-striped.table-hover.index
     thead
       tr
@@ -14,7 +14,7 @@ header
         th.title Title
         th.actions
     tbody
-      - things.each do |thing|
+      - @things.each do |thing|
         tr
           td.image
             - if thing.image?
