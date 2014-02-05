@@ -1,13 +1,14 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  # Allows API post calls
+  protect_from_forgery with: :null_session
 
   include Pundit
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  decent_configuration do
-    strategy DecentExposure::StrongParametersStrategy
-  end
+  # decent_configuration do
+  #   strategy DecentExposure::StrongParametersStrategy
+  # end
   
   private
 
