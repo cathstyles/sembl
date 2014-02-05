@@ -40,8 +40,11 @@ class ProcessCSV
         out[mapped_key] = value  
       else 
         # key not mapped, add to general attributes
-        values = value.try(:split, ',') || []
-        out[:general_attributes][key] = values.map(&:strip)
+        unless key.nil?
+          key = key.strip 
+          values = value.try(:split, ',') || []
+          out[:general_attributes][key] = values.map(&:strip)
+        end
       end
     end
     out
