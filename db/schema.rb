@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131217042024) do
+ActiveRecord::Schema.define(version: 20140205010520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,12 +41,12 @@ ActiveRecord::Schema.define(version: 20131217042024) do
     t.boolean  "invite_only",          default: false
     t.boolean  "uploads_allowed",      default: false
     t.string   "theme"
-    t.text     "filter_content_by"
     t.boolean  "allow_keyword_search", default: false
     t.string   "state"
     t.integer  "current_round",        default: 1
     t.integer  "random_seed"
     t.integer  "number_of_players"
+    t.json     "filter_content_by",    default: [],    null: false
   end
 
   add_index "games", ["creator_id"], name: "index_games_on_creator_id", using: :btree
@@ -137,6 +137,8 @@ ActiveRecord::Schema.define(version: 20131217042024) do
     t.string   "access_via"
     t.integer  "random_seed"
     t.boolean  "suggested_seed",     default: false
+    t.boolean  "public",             default: true,  null: false
+    t.integer  "game_id"
   end
 
   add_index "things", ["creator_id"], name: "index_things_on_creator_id", using: :btree

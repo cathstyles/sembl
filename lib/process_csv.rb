@@ -31,7 +31,7 @@ class ProcessCSV
   end
 
   def process_row(row)
-    out = {general_attributes: []}
+    out = {general_attributes: {}}
     row.each do |key, value|
 
       mapped_key = map[key.try(:strip)] 
@@ -41,9 +41,7 @@ class ProcessCSV
       else 
         # key not mapped, add to general attributes
         values = value.try(:split, ',') || []
-        values.each do |val|
-          out[:general_attributes] << {key => val.strip}
-        end
+        out[:general_attributes][key] = values.map(&:strip)
       end
     end
     out
