@@ -1,15 +1,15 @@
 ul
   - @things.each do |thing|
     li
-	  	= thing.title
-	  	br
-	  	= thing.description
-	  	br
-	  	= thing.general_attributes["Keywords"]
-	  	br
-	  	= thing.general_attributes["Date/s"]
-	  	br
-			= thing.general_attributes["Places"]
-	  	br
-	  	img src=thing.image height="200" width="200"
+      = thing.title
+      br
+      = thing.description
+      br
+      = thing.general_attributes["Keywords"]
+      br
+      = thing.general_attributes["Date/s"]
+      br
+      = thing.general_attributes["Places"]
+      br
+      img src=thing.image height="200" width="200"
 
