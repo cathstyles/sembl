@@ -20,6 +20,8 @@ Sembl::Application.routes.draw do
   resources :things, only: [:index]
   get 'things/random', to: 'things#random' 
 
+  get 'search', to: 'search#index' 
+
   root to: "games#index"
 
   resources :contributions

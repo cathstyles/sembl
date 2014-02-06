@@ -28,5 +28,12 @@ class Thing < ActiveRecord::Base
   belongs_to :creator, class_name: "User"
   belongs_to :updator, class_name: "User"
 
+  after_create :add_to_search_index	
+  after_update :add_to_search_index	
+
   mount_uploader :image, ImageUploader
+
+  def add_to_search_index
+    Services.search.index(self)
+  end
 end
