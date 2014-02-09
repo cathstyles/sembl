@@ -1,4 +1,4 @@
-class Search::ThingQuery < Search::BaseQuery
+class Search::ThingQuery
   attr_accessor :text, :place_filter, :access_filter, :date_from, :date_to, :created_to, :game_seed
 
   def initialize(params)
@@ -16,15 +16,15 @@ class Search::ThingQuery < Search::BaseQuery
     @place_field = 'general_attributes.Places'
     @access_field = 'access_via'
   end
-  
+
   def build
+    query_builder = ElasticsearchQueryBuilder.new
     query_builder.text(@text_fields, text) unless !text
     query_builder.range(@date_field, date_from, date_to) unless !(date_from || date_to)
     query_builder.range(:created_at, nil, created_to) unless !created_to
     query_builder.text([@place_field], place_filter) unless !place_filter
     query_buidler.text([@access_field], access_filter) unless !access_filter
     query_builder.random_order(game_seed) unless !game_seed
-    puts query_builder.query
     return query_builder.query
   end
 end
