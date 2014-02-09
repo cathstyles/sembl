@@ -25,8 +25,8 @@ class Thing < ActiveRecord::Base
 
   validates :image, presence: true
 
-  belongs_to :creator, class_name: "User"
-  belongs_to :updator, class_name: "User"
+  belongs_to :creator, class_name: 'User', inverse_of: :created_things
+  belongs_to :updator, class_name: 'User', inverse_of: :updated_things
 
   after_create :add_to_search_index	
   after_update :add_to_search_index	

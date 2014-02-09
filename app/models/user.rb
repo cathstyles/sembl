@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
   has_many :games, through: :player
+
+  has_many :created_things, class_name: 'Thing', foreign_key: :creator_id, inverse_of: :creator
+  has_many :updated_things, class_name: 'Thing', foreign_key: :updator_id, inverse_of: :updator
+
   before_create :join_games
 
   ROLES = {

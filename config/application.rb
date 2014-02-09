@@ -13,6 +13,8 @@ module Sembl
 
     config.time_zone = "Melbourne"
 
+    config.i18n.enforce_available_locales = true
+
     config.assets.precompile += %w(admin.css admin.js)
 
     config.generators do |g|
