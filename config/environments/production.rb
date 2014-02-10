@@ -79,4 +79,6 @@ Sembl::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.action_controller.asset_host = "https://#{ENV['CLOUDFRONT_DOMAIN']}"
+
+  config.react.variant = :production
 end
