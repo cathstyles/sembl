@@ -1,7 +1,8 @@
 class Services
   class << self
     def search_service
-      @search_service ||= Services::ElasticSearchService.new(Rails.application.config.elasticsearch)
+      #@search_service ||= Services::ElasticSearchService.new(Rails.application.config.elasticsearch)
+      @search_service ||= Services::StubSearchService.new
     end
     
     def search_service=(service)
@@ -38,6 +39,15 @@ class Services
       end
       # preserve order
       clazz.find(thing_ids).index_by(&:id).slice(*thing_ids).values
+    end
+  end
+
+  class StubSearchService
+    def index(object)
+    end
+
+    def search(clazz, search_query)
+      return clazz.all.limit(10)
     end
   end
 end
