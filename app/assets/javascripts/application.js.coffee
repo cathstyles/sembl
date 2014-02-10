@@ -2,6 +2,7 @@
 #= require jquery.color
 #= require underscore
 #= require backbone
+#= require react
 #= require skim
 #= require_self
 #= require models/game

@@ -1,15 +1,13 @@
-ul
-  - @things.each do |thing|
-    li
-      = thing.title
-      br
-      = thing.description
-      br
-      = thing.general_attributes["Keywords"]
-      br
-      = thing.general_attributes["Date/s"]
-      br
-      = thing.general_attributes["Places"]
-      br
-      img src=thing.image height="200" width="200"
+= javascript_include_tag "search"
+
+#searchApp
+
+javascript:
+  var things = #{raw(@things.to_json)}
+
+  React.renderComponent(
+    Sembl.SearchApp({things: things}),
+    document.getElementById('searchApp')
+  );
+  
 
