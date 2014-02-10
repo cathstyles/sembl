@@ -18,12 +18,12 @@ class Search::ThingQuery
   end
 
   def build
-    query_builder = ElasticsearchQueryBuilder.new
+    query_builder = Search::ElasticsearchQueryBuilder.new
     query_builder.text(@text_fields, text) unless !text
     query_builder.range(@date_field, date_from, date_to) unless !(date_from || date_to)
     query_builder.range(:created_at, nil, created_to) unless !created_to
     query_builder.text([@place_field], place_filter) unless !place_filter
-    query_buidler.text([@access_field], access_filter) unless !access_filter
+    query_builder.text([@access_field], access_filter) unless !access_filter
     query_builder.random_order(game_seed) unless !game_seed
     return query_builder.query
   end

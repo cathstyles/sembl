@@ -45,7 +45,7 @@ class Search::ElasticsearchQueryBuilder
       {
         filtered: {
           query: query,
-          filter: filter
+          filter: { query: filter }
         }
       }
     else
