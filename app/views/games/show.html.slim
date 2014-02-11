@@ -1,6 +1,22 @@
+= javascript_include_tag "views/search_view"
+
 #container Loading game...
+
+#searchView
 
 javascript:
   Sembl.game = new Sembl.Game(#{raw(render(template: "games/show", formats: :json, object: @game))});
   Sembl.router = new Sembl.GameRouter(Sembl.game);
   Backbone.history.start();
+
+  var query = {
+    text: "*",
+    place_filter: null,
+    access_filter: null
+  };
+
+  React.renderComponent(
+    Sembl.SearchView({query: query}),
+    document.getElementById('searchView')
+  );
+

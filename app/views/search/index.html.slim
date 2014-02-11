@@ -1,13 +1,18 @@
-= javascript_include_tag "search"
+= javascript_include_tag "views/search_edit"
 
-#searchApp
+#searchEdit
 
 javascript:
-  var things = #{raw(@things.to_json)}
+  var things = #{raw(@things.to_json)};
+  var initialQuery = {
+    text: null,
+    place_filter: null,
+    access_filter: null
+  };
 
   React.renderComponent(
-    Sembl.SearchApp({things: things}),
-    document.getElementById('searchApp')
+    Sembl.SearchEdit({initialThings: things, initialQuery: initialQuery}),
+    document.getElementById('searchEdit')
   );
   
 

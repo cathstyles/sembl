@@ -1,13 +1,13 @@
 //= require views/search_thing
 /** @jsx React.DOM */
-window.Sembl.SearchRow = React.createClass({
+window.Sembl.SearchList = React.createClass({
   render: function() {
-    props = this.props
+    var SearchThing = Sembl.SearchThing;
     var things = this.props.things.map(function (thing) {
-      return Sembl.SearchThing( {key:thing.id, thing:thing} )
+      return <SearchThing key={thing.id} thing={thing} />
     });
     return (
-      <div className="searchRow">
+      <div className="searchList">
         {things}
       </div>
     );
