@@ -45,6 +45,11 @@ class GamesController < ApplicationController
 
     authorize @game
 
+    if game_params[:filter_content_by] and not game_params[:filter_content_by].empty?
+      filter_parameters = JSON.load(game_params.filter_content_by)
+      @game.filter_content_by = Search::ThingQuery.new(filter_parameters).to_json
+    end
+
     if @game.save
       flash[:notice] = 'Game created.' if @game.save
       redirect_to games_path

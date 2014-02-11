@@ -6,9 +6,9 @@ window.Sembl.SearchForm = React.createClass({
   },
 
   handleChange: function(event) {
-    var text = this.refs.text.getDOMNode().value.trim();
-    var place_filter = this.refs.place_filter.getDOMNode().value.trim();
-    var access_filter = this.refs.access_filter.getDOMNode().value.trim();
+    var text = this.refs.text.getDOMNode().value;
+    var place_filter = this.refs.place_filter.getDOMNode().value;
+    var access_filter = this.refs.access_filter.getDOMNode().value;
     this.props.handleQueryChange({text: text, place_filter: place_filter, access_filter: access_filter});
   },
 

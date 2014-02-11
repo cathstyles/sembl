@@ -1,18 +1,18 @@
 = javascript_include_tag "views/search_edit"
 
-#searchEdit
+#searchEditContainer
 
 javascript:
   var things = #{raw(@things.to_json)};
-  var initialQuery = {
+  var query = {
     text: null,
     place_filter: null,
     access_filter: null
   };
 
   React.renderComponent(
-    Sembl.SearchEdit({initialThings: things, initialQuery: initialQuery}),
-    document.getElementById('searchEdit')
+    Sembl.SearchEdit({query: query}),
+    document.getElementById('searchEditContainer')
   );
   
 

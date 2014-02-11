@@ -214,6 +214,10 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def filter_query
+    @filter_query ||= Search::ThingQuery.new(filter_content_by || {})
+  end
+
   # == Stuff that shouln't be here
   
 

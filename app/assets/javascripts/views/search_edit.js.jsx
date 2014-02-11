@@ -4,8 +4,8 @@
 window.Sembl.SearchEdit = React.createClass({
   getInitialState: function() {
     return {
-      things: this.props.initialThings,
-      query: this.props.initialQuery
+      things: [],
+      query: this.props.query
     };
   },
 
@@ -14,6 +14,10 @@ window.Sembl.SearchEdit = React.createClass({
     var things = $.getJSON("/search.json", this.state.query, function(data){
       searchEdit.setState({things: data});
     });
+  },
+
+  componentWillMount: function() {
+    this.handleSearch();
   },
 
   handleQueryChange: function(query_parameters) {

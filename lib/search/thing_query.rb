@@ -2,13 +2,12 @@ class Search::ThingQuery
   attr_accessor :text, :place_filter, :access_filter, :date_from, :date_to, :created_to, :random_seed
 
   def initialize(params)
-    @text = params[:text]
+    @text = params[:text] || "*"
     @place_filter = params[:place_filter]
     @access_filter = params[:access_filter]
     @date_from = Date.parse(params[:date_from]) unless not params[:date_from]
     @date_to = Date.parse(params[:date_to]) unless not params[:date_to]
     @created_to = Date.parse(params[:created_to]) unless not params[:created_to]
-
     @random_seed = params[:random_seed]
 
     @text_fields = ['title', 'description', 'general_attributes.Keywords']
@@ -37,6 +36,7 @@ class Search::ThingQuery
       json.date_from date_from.to_s unless not date_from
       json.date_to date_to.to_s unless not date_to
       json.created_to created_to.to_s unless not created_to
+      json.random_seed random_seed.to_s unless not random_seed
     end
   end
 end

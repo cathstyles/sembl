@@ -4,13 +4,11 @@ class SearchController < ApplicationController
   def index
     if search_params[:game_id]
       game = Game.find(search_params[:game_id])
-      thing_query = Search::ThingQuery.new(game.filter_content_by || {})
+      thing_query = game.filter_query
       thing_query.random_seed = game.random_seed
       @things = Services.search_service.search(Thing, thing_query)
-    elsif search_params[:text]
-      @things = Services.search_service.search(Thing, Search::ThingQuery.new(search_params))
     else
-      @things = []
+      @things = Services.search_service.search(Thing, Search::ThingQuery.new(search_params))
     end
     respond_with @things
   end
