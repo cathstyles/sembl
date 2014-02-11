@@ -10,9 +10,7 @@ javascript:
   Backbone.history.start();
 
   var query = {
-    text: "*",
-    place_filter: null,
-    access_filter: null
+    game_id: #{raw(@game.id)}
   };
 
   React.renderComponent(
