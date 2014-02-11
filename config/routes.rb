@@ -11,8 +11,9 @@ Sembl::Application.routes.draw do
 
   resources :games do
     resources :things, only: [:index]
+    resources :players, only: [:index, :create]
     member do 
-      post 'join'
+      # post 'join'
       get 'summary'
     end
   end

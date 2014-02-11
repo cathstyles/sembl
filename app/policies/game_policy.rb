@@ -25,10 +25,6 @@ class GamePolicy < ApplicationPolicy
     show?
   end
 
-  def join? 
-    !!user && record.open_to_join?
-  end
-
   def customise? 
     create? && (user.power? || user.admin?)
   end

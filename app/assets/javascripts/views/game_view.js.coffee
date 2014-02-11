@@ -43,6 +43,7 @@ class Sembl.GameView extends Backbone.View
     @linksView = new Sembl.GameLinksView({@width, @height, collection: @model.links})
     @linksEl.append(@linksView.el)
 
+  # TODO this should really be a player/create method that alters the players collection. 
   joinGame: -> 
     $.post(
       "#{@model.urlRoot}/#{@model.id}/join.json"

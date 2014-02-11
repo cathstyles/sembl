@@ -17,6 +17,13 @@ describe Player do
 
   subject(:player) { described_class.new }
 
+  describe "validations" do 
+    before do 
+      player.stub(:allocate_first_node)
+      player.game = Game.new()
+    end
+    xit { should validate_uniqueness_of(:user_id).scoped_to(:game_id).allow_nil() }
+  end 
   describe "states" do 
     before do 
       player.stub(:allocate_first_node)

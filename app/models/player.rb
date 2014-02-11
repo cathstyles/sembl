@@ -17,6 +17,8 @@ class Player < ActiveRecord::Base
 
   after_create :allocate_first_node
 
+  validates :user_id, uniqueness: {scope: :game_id}, allow_nil: true
+
   state_machine initial: :draft do 
     after_transition :playing_turn => :waiting, do: :check_turn_completion
     after_transition :rating => :wating, do: :check_rating_completion
