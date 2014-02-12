@@ -38,16 +38,12 @@ class GamesController < ApplicationController
     @game.creator = current_user
     @game.updator = current_user
     @game.state_event = 'publish' if params[:publish]
-
+    @game.filter_content_by = clean_search_query_json(game_params[:filter_content_by])
+    
     copy_board_to_game
     update_seed_thing if game_params[:seed_thing_id].present? 
 
     authorize @game
-
-    if game_params[:filter_content_by] and not game_params[:filter_content_by].empty?
-      filter_parameters = JSON.load(game_params[:filter_content_by])
-      @game.filter_content_by = Search::ThingQuery.new(filter_parameters).to_json
-    end
 
     if @game.save
       flash[:notice] = 'Game created.' if @game.save
@@ -72,6 +68,7 @@ class GamesController < ApplicationController
     @game.assign_attributes(game_params)
     @game.updator = current_user
     @game.state_event = 'publish' if params[:publish]
+    @game.filter_content_by = clean_search_query_json(game_params[:filter_content_by])
 
     copy_board_to_game
     update_seed_thing if game_params[:seed_thing_id].present? 
@@ -135,6 +132,18 @@ private
 
   def find_game
     @game = Game.find(params[:id])
+  end
+
+  def clean_search_query_json(search_query_json)
+    puts search_query_json
+    if search_query_json and not search_query_json.empty?
+      search_query_params = JSON.parse(search_query_json, symbolize_names: true)
+      puts search_query_params.inspect
+      puts Search::ThingQuery.new(search_query_params).to_json
+      Search::ThingQuery.new(search_query_params).to_json
+    else
+      nil
+    end
   end
 
   def game_params

@@ -15,7 +15,6 @@ class Services
     end
 
     def search(clazz, search_query)
-      puts search_query.build
       return clazz.all.limit(10)
     end
   end

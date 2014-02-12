@@ -11,7 +11,6 @@ class Search::ElasticSearchService
   end
 
   def search(clazz, search_query)
-    puts search_query.build
     type = clazz.name.downcase
     body = {
       query: search_query.build
