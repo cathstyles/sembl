@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+  /** @jsx React.DOM */
 window.Sembl.SearchForm = React.createClass({
   handleSubmit: function(event) {
     this.props.handleSearch();

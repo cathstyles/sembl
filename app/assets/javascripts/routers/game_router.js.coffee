@@ -7,5 +7,7 @@ class Sembl.GameRouter extends Backbone.Router
   initialize: (@game) ->
 
   show: ->
-    @gameView = new Sembl.GameView(model: @game)
-    $("#container").html(@gameView.el)
+    React.renderComponent(
+      Sembl.GameView({game: @game})
+      document.getElementById('container')
+    )
