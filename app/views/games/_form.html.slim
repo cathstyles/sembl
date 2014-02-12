@@ -7,7 +7,6 @@
   = form.error :base
 
   = form.input :title
-  = form.hidden_field :filter_content_by
 
   - if policy(@game).customise?
     = form.input :theme
@@ -37,21 +36,8 @@
           = player_fields.error :base
           = render "player_fields", f: player_fields
       
-      javascript:
-        var toggle = function() {
-          $("#searchEditContainer").toggle();
-        }
-      div
-        a href="#" onClick="toggle();" filter
-      #searchEditContainer style="display: none"
-      javascript:
-        var query = #{raw @game.filter_query.to_json}
-        React.renderComponent(
-          Sembl.SearchEdit({query: query}),
-          document.getElementById('searchEditContainer')
-        );
-        
-
+      div data-view="searchEdit" data-query="#{@game.filter_query.to_json}" data-hidden="true"
+        = form.hidden_field :filter_content_by, class: :filter_query
 
   - if @game.draft?
     = form.button :submit

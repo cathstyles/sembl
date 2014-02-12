@@ -28,3 +28,9 @@ window.Sembl.SearchView = React.createClass({
     );
   }
 });
+
+window.Sembl.views.searchView = function($el, el) {
+  var query = $el.data().query;
+  var hidden = $el.data().hidden;
+  React.renderComponent(Sembl.SearchView({query: query, hidden: hidden}), el);
+};

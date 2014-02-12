@@ -12,7 +12,6 @@ class GamesController < ApplicationController
       participating:  Game.participating(current_user),
       hosted: Game.hosted_by(current_user)
     }
-
     respond_with @games
   end
 
@@ -46,7 +45,7 @@ class GamesController < ApplicationController
     authorize @game
 
     if game_params[:filter_content_by] and not game_params[:filter_content_by].empty?
-      filter_parameters = JSON.load(game_params.filter_content_by)
+      filter_parameters = JSON.load(game_params[:filter_content_by])
       @game.filter_content_by = Search::ThingQuery.new(filter_parameters).to_json
     end
 

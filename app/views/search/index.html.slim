@@ -1,18 +1,4 @@
 = javascript_include_tag "views/search_edit"
 
-#searchEditContainer
-
-javascript:
-  var things = #{raw(@things.to_json)};
-  var query = {
-    text: null,
-    place_filter: null,
-    access_filter: null
-  };
-
-  React.renderComponent(
-    Sembl.SearchEdit({query: query}),
-    document.getElementById('searchEditContainer')
-  );
-  
-
+div data-view="searchEdit" data-query="{}"
+  input type="hidden" name="test"
