@@ -19,4 +19,4 @@ class Sembl.Game extends Backbone.Model
     @get('errors') is not null and @get('errors').length > 0
 
   canJoin: -> 
-    !@get('is_participating') and (@get('state') is 'open' or @get('state') is 'joining') 
+    !@get('is_participating') and !@get('is_hosting') and (@get('state') is 'open' or @get('state') is 'joining') 
