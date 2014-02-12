@@ -215,7 +215,9 @@ class Game < ActiveRecord::Base
   end
 
   def filter_query
-    @filter_query ||= Search::ThingQuery.new(filter_content_by || {})
+    @filter_query ||= Search::ThingQuery.new(filter_content_by ? JSON.parse(filter_content_by, :symbolize_names => true) : {})
+    puts "filter query " + @filter_query.inspect
+    @filter_query
   end
 
   # == Stuff that shouln't be here
