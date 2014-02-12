@@ -33,6 +33,10 @@ class Thing < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
+  def self.filter_keys 
+    Thing.distinct.pluck("json_object_keys(json_array_elements(general_attributes))")
+  end
+  
   def add_to_search_index
     Services.search.index(self)
   end
