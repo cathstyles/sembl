@@ -5,8 +5,4 @@ class PlayerPolicy < ApplicationPolicy
     record.can_end_turn?
   end
 
-  def create?
-    !!user && && record.game.open_to_join?
-  end
-  
 end
