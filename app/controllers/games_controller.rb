@@ -138,8 +138,6 @@ private
     puts search_query_json
     if search_query_json and not search_query_json.empty?
       search_query_params = JSON.parse(search_query_json, symbolize_names: true)
-      puts search_query_params.inspect
-      puts Search::ThingQuery.new(search_query_params).to_json
       Search::ThingQuery.new(search_query_params).to_json
     else
       nil
