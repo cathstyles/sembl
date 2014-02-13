@@ -10,8 +10,15 @@ Sembl.GameView = React.createBackboneClass
       game: @props.game
     }
 
-  handleJoin: -> 
-
+  handleJoin: ->  
+    $.post(
+      "#{@model.urlRoot}/#{@model.id}/join.json"
+      {authenticity_token: @model.get('auth_token')}
+      (data) =>
+        @model().reset(data)
+        
+        #Handle errors.
+    )
 
   render: ->
     joinDiv = ""
@@ -22,6 +29,9 @@ Sembl.GameView = React.createBackboneClass
     GameLinksView = Sembl.GameLinksView
     width = @state.game.width()
     height = @state.game.height()
+    boardCSS = 
+      width: width
+      height: height
 
     return `<div className="game">
         <div className="header">
@@ -29,28 +39,11 @@ Sembl.GameView = React.createBackboneClass
         </div>
         <div className="messages">
         </div>
-        <div className="board">
+        <div className="board" style={boardCSS}>
           <GameLinksView width={width} height={height} links={this.state.game.links}/> 
           <GameNodesView nodes={this.state.game.nodes}/> 
         </div>
       </div>`
-
-
-#     .header
-#   .title = @game.get("title")
-#   .description = @game.get("description")
-#   - if @game.canJoin()
-#     .join Join game
-#   .players
-
-# .errors style="display: none"
-#   - _.each @game.get('errors'), (error) -> 
-#     = error
-
-# .board
-#   .links
-#   .nodes
-#   .resemblences
     
 
 # #= require templates/game_view
@@ -97,12 +90,4 @@ Sembl.GameView = React.createBackboneClass
 #     @linksView = new Sembl.GameLinksView({@width, @height, collection: @model.links})
 #     @linksEl.append(@linksView.el)
 
-#   # TODO this should really be a player/create method that alters the players collection. 
-#   joinGame: -> 
-#     $.post(
-#       "#{@model.urlRoot}/#{@model.id}/join.json"
-#       {authenticity_token: @model.get('auth_token')}
-#       (data) =>
-#         @model.fetch()
-#         #Handle errors.
-#     )
+
