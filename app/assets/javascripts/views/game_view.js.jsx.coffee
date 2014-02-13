@@ -18,7 +18,6 @@ Sembl.GameView = React.createBackboneClass
     if @state.game.canJoin() 
       joinDiv = `<div className='header__join'>Join Game</div>`
 
-    console.log @state.game.nodes
     GameNodesView = Sembl.GameNodesView
     GameLinksView = Sembl.GameLinksView
     width = @state.game.width()
@@ -31,8 +30,8 @@ Sembl.GameView = React.createBackboneClass
         <div className="messages">
         </div>
         <div className="board">
-          <GameNodesView nodes={this.state.game.nodes}/> 
           <GameLinksView width={width} height={height} links={this.state.game.links}/> 
+          <GameNodesView nodes={this.state.game.nodes}/> 
         </div>
       </div>`
 
