@@ -1,0 +1,15 @@
+development: &CONFIG
+  auth:
+    key: "<%= ENV['TRANSLOADIT_AUTH_KEY'] %>"
+    secret: "<%= ENV['TRANSLOADIT_AUTH_SECRET'] %>"
+    duration: 1800 # 30 minute validity period for signed upload forms
+
+  templates:
+    things_store_original: "<%= ENV['TRANSLOADIT_THINGS_STORE_ORIGINAL_TEMPLATE_ID'] %>"
+    things_crop: "<%= ENV['TRANSLOADIT_THINGS_CROP_TEMPLATE_ID'] %>"
+
+test:
+  <<: *CONFIG
+
+production:
+  <<: *CONFIG

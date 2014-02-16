@@ -23,6 +23,8 @@ Sembl::Application.routes.draw do
 
   get 'search', to: 'search#index' 
 
+  get 'transloadit_signatures/:template_id' => 'transloadit_signatures#template'
+
   root to: "games#index"
 
   resources :contributions
