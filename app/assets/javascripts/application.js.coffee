@@ -5,12 +5,13 @@
 #= require backbone
 #= require react
 #= require skim
-#= require viewloader
 #= require_self
 #= require models/game
 #= require models/user
 #= require routers/game_router
 #= require game_form
+#= require viewloader
+#= require views/uploader/contributions_view
 
 @Sembl =
   version: "0.1"

@@ -24,6 +24,7 @@ gem 'simple_form'
 gem 'skim'
 gem 'slim-rails'
 gem 'state_machine'
+gem 'transloadit-rails'
 gem 'uglifier'
 gem 'unf'
 
@@ -42,6 +43,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry-rails'
   gem 'rspec-rails'
+  gem 'quiet_assets'
 end
 
 group :test do
