@@ -1,5 +1,7 @@
 = javascript_include_tag "views/search_edit"
+= javascript_include_tag "views/games/setup/root"
 
+div data-view="gamesSetup" data-game="#{render(template: "games/show", formats: :json, object: @game)}"
 
 = simple_form_for @game do |form|
 

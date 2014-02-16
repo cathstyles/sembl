@@ -5,7 +5,6 @@
 div #{@game.filter_query.to_json}
 div data-view="searchView" data-query="{game_id: #{@game.id}}"
 
-
 javascript:
   Sembl.game = new Sembl.Game(#{raw(render(template: "games/show", formats: :json, object: @game))});
   Sembl.router = new Sembl.GameRouter(Sembl.game);
