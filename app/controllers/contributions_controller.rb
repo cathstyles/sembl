@@ -31,13 +31,13 @@ class ContributionsController < ApplicationController
   def create
     @thing = current_user.created_things.build(thing_params)
     @thing.save
-    respond_with @thing, location: contribution_path(@thing)
+    respond_with @thing, location: contribution_paths, action: 'new'
   end
 
   # PATCH /contributions/:id
   def update
     @thing.update thing_params
-    respond_with @thing, location: contribution_path(@thing)
+    respond_with @thing, location: contribution_paths, action: 'edit'
   end
 
   # DELETE /contributions/:id
