@@ -1,68 +1,94 @@
-= form_for @thing, url: contributions_path do |f|
-  - if @thing.errors.any?
-    #error_explanation
-      h2
-        = pluralize(@thing.errors.count, "error")
-        | prohibited this thing from being saved:
-      ul
-        - @thing.errors.full_messages.each do |msg|
-          li= msg
+/ = form_for @thing, url: contributions_path, html: { id: 'upload', enctype: 'multipart/form-data' } do |f|
+/   - if @thing.errors.any?
+/     #error_explanation
+/       h2
+/         = pluralize(@thing.errors.count, "error")
+/         | prohibited this thing from being saved:
+/       ul
+/         - @thing.errors.full_messages.each do |msg|
+/           li= msg
 
-  .field
-    = f.label :import_row_id, 'Display Key'
-    br
-      = f.text_field :import_row_id
+/   .field
+/     = f.label :import_row_id, 'Display Key'
+/     br
+/       = f.text_field :import_row_id
 
-  .field
-    = f.label :title
-    br
-      = f.text_field :title
+/   .field
+/     = f.label :title
+/     br
+/       = f.text_field :title
 
-  .field
-    = f.label :description
-    br
-      = f.text_area :description
+/   .field
+/     = f.label :description
+/     br
+/       = f.text_area :description
 
-  / .field
-  /   = f.label :creator_id
-  /   br
-  /     = f.number_field :creator_id
+/   / .field
+/   /   = f.label :creator_id
+/   /   br
+/   /     = f.number_field :creator_id
 
-  / .field
-  /   = f.label :updator_id
-  /   br
-  /     = f.number_field :updator_id
+/   / .field
+/   /   = f.label :updator_id
+/   /   br
+/   /     = f.number_field :updator_id
 
 
-  .field
-    = f.label :image
-    br
-      = f.file_field :image
+/   .field
+/     = f.label :image
+/     br
+/       = f.file_field :image
 
-  .field
-    = f.label :attribution
-    br
-      = f.text_field :attribution
+/   .field
+/     = f.label :attribution
+/     br
+/       = f.text_field :attribution
 
-  .field
-    = f.label :item_url
-    br
-      = f.text_field :item_url
+/   .field
+/     = f.label :item_url
+/     br
+/       = f.text_field :item_url
 
-  .field
-    = f.label :copyright
-    br
-      = f.text_field :copyright
+/   .field
+/     = f.label :copyright
+/     br
+/       = f.text_field :copyright
 
-  / .field
-  /   = f.label :general_attributes
-  /   br
-  /     = f.text_field :general_attributes
+/   / .field
+/   /   = f.label :general_attributes
+/   /   br
+/   /     = f.text_field :general_attributes
 
-  .field
-    = f.label :access_via
-    br
-      = f.text_field :access_via
+/   .field
+/     = f.label :access_via
+/     br
+/       = f.text_field :access_via
 
-  .actions
-    = f.submit
+/   .actions
+/     = f.submit
+
+.thing-uploader
+
+javascript:
+  window.contributionsView($('.thing-uploader').get(0));
+
+/ javascript:
+/   jQuery(function($) {
+/     var script = '//assets.transloadit.com/js/jquery.transloadit2-latest.js';
+
+/     $.getScript(script, function() {
+/       $.getJSON('/transloadit_signatures/things_store_original', function(data) {
+/         $('#upload').transloadit({
+/           signature: data.signature,
+/           params: data.params,
+/           wait: false,
+/           autoSubmit: false,
+/           triggerUploadOnFileSelection: true,
+/           onSuccess: function(assembly) {
+/             window.assembly = assembly;
+/           }
+/         });
+/       });
+/     });
+/   });
+
