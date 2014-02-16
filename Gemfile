@@ -24,6 +24,7 @@ gem 'simple_form'
 gem 'skim'
 gem 'slim-rails'
 gem 'state_machine'
+gem 'transloadit-rails'
 gem 'uglifier'
 gem 'unf'
 
