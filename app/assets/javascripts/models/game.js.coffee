@@ -1,5 +1,6 @@
 #= require collections/nodes
 #= require collections/links
+#= require collections/players
 
 class Sembl.Game extends Backbone.Model
   urlRoot: "/games"
@@ -7,7 +8,7 @@ class Sembl.Game extends Backbone.Model
   initialize: (options) ->
     @nodes = new Sembl.Nodes(@get("nodes"), game: this)
     @links = new Sembl.Links(@get("links"), game: this)
-    console.log @get('auth_token')
+    @players = new Sembl.Players(@get("players"), game: this)
 
   width: ->
     _(@nodes.pluck("x")).max() + 30 + 50

@@ -7,7 +7,7 @@
 Sembl.GameView = React.createBackboneClass 
   getInitialState: -> 
     return {
-      game: @props.game
+      model: @props.model
     }
 
   handleJoin: ->  
@@ -15,20 +15,21 @@ Sembl.GameView = React.createBackboneClass
       "#{@model.urlRoot}/#{@model.id}/join.json"
       {authenticity_token: @model.get('auth_token')}
       (data) =>
-        @model().reset(data)
+        @model().set(data)
+        @setState model: @model()
         
         #Handle errors.
     )
 
   render: ->
     joinDiv = ""
-    if @state.game.canJoin() 
+    if @state.model.canJoin() 
       joinDiv = `<div className='header__join'>Join Game</div>`
 
     GameNodesView = Sembl.GameNodesView
     GameLinksView = Sembl.GameLinksView
-    width = @state.game.width()
-    height = @state.game.height()
+    width = @state.model.width()
+    height = @state.model.height()
     boardCSS = 
       width: width
       height: height
@@ -40,54 +41,9 @@ Sembl.GameView = React.createBackboneClass
         <div className="messages">
         </div>
         <div className="board" style={boardCSS}>
-          <GameLinksView width={width} height={height} links={this.state.game.links}/> 
-          <GameNodesView nodes={this.state.game.nodes}/> 
+          <GameLinksView width={width} height={height} links={this.state.model.links}/> 
+          <GameNodesView nodes={this.state.model.nodes}/> 
         </div>
       </div>`
     
-
-# #= require templates/game_view
-# #= require views/game_node_view
-# #= require views/game_links_view
-# class Sembl.GameView extends Backbone.View
-#   className: "game"
-
-#   template: JST["templates/game_view"]
-
-#   events: 
-#     'click .join': 'joinGame'
-
-#   initialize: (options) ->
-#     @width = @model.width()
-#     @height = @model.height()
-
-#     @render()
-#     @renderNodes()
-#     @renderLinks()
-
-#   render: ->
-#     @$el.html(@template(game: @model))
-
-#     if @model.hasErrors()
-#       @$el.find('.errors').show()
-
-#     @boardEl = @$el.find(".board")
-#       .css({@width, @height})
-#     @nodesEl = @boardEl.find(".nodes")
-#     @linksEl = @boardEl.find(".links")
-
-#   renderNodes: ->
-#     if @nodeViews?.length
-#       _(@nodeViews).each (view) -> view.remove()
-
-#     @nodeViews = []
-#     @model.nodes.each (node) =>
-#       view = new Sembl.GameNodeView(model: node)
-#       @nodeViews.push(view)
-#       @nodesEl.append(view.el)
-
-#   renderLinks: ->
-#     @linksView = new Sembl.GameLinksView({@width, @height, collection: @model.links})
-#     @linksEl.append(@linksView.el)
-
 
