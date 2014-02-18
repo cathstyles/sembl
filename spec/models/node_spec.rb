@@ -45,6 +45,21 @@ describe Node do
         end
       end
 
+
+      describe "#viewable_placement" do 
+        it "returns the placement viewable by current user" do 
+          node.viewable_placement(user).should be_a(Placement)
+          node.viewable_placement(user).should be_final 
+        end
+
+        it "returns the users placement if there is no final placement" do 
+          node.placements.with_state(:final).destroy_all
+          node.viewable_placement(user).should be_a(Placement)
+          node.viewable_placement(user).should be_proposed
+          node.viewable_placement(user).creator.should == user
+        end
+      end
+
     end
 
     describe "#available_to?" do 

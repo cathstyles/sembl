@@ -28,4 +28,6 @@ class Resemblance < ActiveRecord::Base
     end
   end
 
+  
+
 end
