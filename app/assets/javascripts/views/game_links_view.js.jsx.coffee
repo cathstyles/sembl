@@ -2,6 +2,7 @@
 
 Sembl.GameLinksView = React.createBackboneClass
   componentDidMount: (rootNode) -> 
+    console.log 'rendering links'
     canvas = rootNode.firstChild
     canvas.width = @props.width
     canvas.height = @props.height

@@ -9,6 +9,7 @@ class Sembl.Game extends Backbone.Model
     @nodes = new Sembl.Nodes(@get("nodes"), game: this)
     @links = new Sembl.Links(@get("links"), game: this)
     @players = new Sembl.Players(@get("players"), game: this)
+    console.log 'init game'
 
   width: ->
     _(@nodes.pluck("x")).max() + 30 + 50
