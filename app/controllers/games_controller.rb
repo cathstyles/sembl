@@ -61,10 +61,28 @@ class GamesController < ApplicationController
 
   def edit
     authorize @game
+
+    @game_form = [
+      :board_id, 
+      :title, 
+      :description, 
+      :invite_only, 
+      :uploads_allowed,
+      :filter_content_by, 
+      :theme, 
+      :allow_keyword_search,
+      :seed_thing_id
+    ]
+
     respond_with @game
   end
 
   def update
+    puts "params"
+    puts params.inspect
+    puts "game_params"
+    puts game_params
+
     @game.assign_attributes(game_params)
     @game.updator = current_user
     @game.state_event = 'publish' if params[:publish]

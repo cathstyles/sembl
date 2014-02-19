@@ -18,8 +18,8 @@ Sembl::Application.routes.draw do
     end
   end
 
-  resources :things, only: [:index]
   get 'things/random', to: 'things#random' 
+  resources :things, only: [:index, :show]
 
   get 'search', to: 'search#index' 
 

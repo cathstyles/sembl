@@ -8,9 +8,11 @@ json.(
   :uploads_allowed,
   :theme,
   :allow_keyword_search,
-  :current_round
+  :current_round,
+  :seed_thing_id
 )
-
+json.board @game.board
+json.boards Board.all
 json.players @game.players.playing, partial: 'players/player', as: :player
 json.nodes @game.nodes, partial: 'nodes/node', as: :node
 json.links @game.links, partial: 'links/link', as: :link

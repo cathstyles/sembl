@@ -11,7 +11,6 @@ window.Sembl.SearchEdit = React.createClass({
   },
 
   handleSearch: function(query) {
-    console.log(query)
     var searchEdit = this;
 
     //TODO: Handle query errors.

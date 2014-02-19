@@ -1,5 +1,5 @@
 class ThingsController < ApplicationController
-  before_filter :find_game, except: :random
+  before_filter :find_game, except: [:random, :show]
   respond_to :json
 
   def index
@@ -12,6 +12,10 @@ class ThingsController < ApplicationController
     things = Thing.all.select(:id)
     @thing = Thing.find(things[SecureRandom.random_number(things.length-1)])
     respond_with @thing
+  end
+
+  def show
+    @thing = Thing.find(params[:id])
   end
 
 private
