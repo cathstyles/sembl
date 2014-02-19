@@ -28,7 +28,7 @@ Sembl.GameView = React.createBackboneClass
       height: height
 
     return `<div className="game">
-        <GameHeaderView game={this.props.model} handleJoin={this.handleJoin}/>
+        <GameHeaderView game={this.model()} handleJoin={this.handleJoin}/>
         <div className="messages">
         </div>
         <div className="board" style={boardCSS}>
@@ -43,7 +43,6 @@ Sembl.GameHeaderView = React.createClass
     @props.handleJoin()
 
   render: -> 
-    console.log 'rendering header'
     GamePlayersView = Sembl.GamePlayersView
     if @props.game.canJoin() 
       joinDiv = `<a className='header__join' onClick={this.handleJoin}>Join Game</a>`

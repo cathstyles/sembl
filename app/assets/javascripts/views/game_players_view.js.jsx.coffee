@@ -2,7 +2,6 @@
 
 Sembl.GamePlayersView = React.createClass
   render: -> 
-    console.log 'rendering players'
     players = @props.players.map((player) ->
       return `<li key={player.cid}>{player.get('user').email}</li>`
     )

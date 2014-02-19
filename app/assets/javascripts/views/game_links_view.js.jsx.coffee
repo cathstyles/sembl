@@ -1,8 +1,7 @@
 ###* @jsx React.DOM ###
 
-Sembl.GameLinksView = React.createBackboneClass
+Sembl.GameLinksView = React.createClass
   componentDidMount: (rootNode) -> 
-    console.log 'rendering links'
     canvas = rootNode.firstChild
     canvas.width = @props.width
     canvas.height = @props.height
