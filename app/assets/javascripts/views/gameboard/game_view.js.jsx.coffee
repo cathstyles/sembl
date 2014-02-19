@@ -1,6 +1,6 @@
-#= require views/game_nodes_view
-#= require views/game_links_view
-#= require views/game_players_view
+#= require views/gameboard/nodes_view
+#= require views/gameboard/links_view
+#= require views/gameboard/players_view
 #= require views/games/play/move_maker
 #= require views/games/play/selected_thing
 #= require views/games/gallery
@@ -10,7 +10,7 @@
 {SelectedThing, MoveMaker, SelectedThing} = Sembl.Games.Play
 {Gallery} = Sembl.Games
 
-Sembl.GameView = React.createBackboneClass 
+Sembl.Gameboard.GameView = React.createBackboneClass 
   handleJoin: ->  
     $.post(
       "#{@model().url()}/join.json"
@@ -23,9 +23,9 @@ Sembl.GameView = React.createBackboneClass
     @model().on('change', -> 
       console.log 'model change'
     )
-    GameNodesView = Sembl.GameNodesView
-    GameLinksView = Sembl.GameLinksView
-    GameHeaderView = Sembl.GameHeaderView
+    NodesView = Sembl.Gameboard.NodesView
+    LinksView = Sembl.Gameboard.LinksView
+    HeaderView = Sembl.Gameboard.HeaderView
     width = @model().width()
     height = @model().height()
     boardCSS = 
@@ -35,12 +35,12 @@ Sembl.GameView = React.createBackboneClass
     console.log "filter", filter
 
     return `<div className="game">
-        <GameHeaderView game={this.model()} handleJoin={this.handleJoin}/>
+        <HeaderView game={this.model()} handleJoin={this.handleJoin}/>
         <div className="messages">
         </div>
         <div className="board" style={boardCSS}>
-          <GameLinksView width={width} height={height} links={this.model().links}/> 
-          <GameNodesView nodes={this.model().nodes} /> 
+          <LinksView width={width} height={height} links={this.model().links}/> 
+          <NodesView nodes={this.model().nodes} /> 
         </div>
         <br />
         <br />
@@ -49,17 +49,17 @@ Sembl.GameView = React.createBackboneClass
       </div>`
     
 
-Sembl.GameHeaderView = React.createClass
+Sembl.Gameboard.HeaderView = React.createClass
   handleJoin: -> 
     @props.handleJoin()
 
   render: -> 
-    GamePlayersView = Sembl.GamePlayersView
+    PlayersView = Sembl.Gameboard.PlayersView
     if @props.game.canJoin() 
       joinDiv = `<a className='header__join' onClick={this.handleJoin}>Join Game</a>`
 
     return `<div className="header">
       {joinDiv}
-      <GamePlayersView players={this.props.game.players} />
+      <PlayersView players={this.props.game.players} />
     </div>`
 

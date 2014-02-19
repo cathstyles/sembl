@@ -1,5 +1,5 @@
-#= require views/board_node_view
-#= require views/board_link_view
+#= require views/board/board_node_view
+#= require views/board/board_link_view
 
 class Sembl.BoardView extends Backbone.View
   className: "board-view"

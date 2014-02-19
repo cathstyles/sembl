@@ -1,4 +1,4 @@
-#= require views/node_editor_view
+#= require views/board/node_editor_view
 
 class Sembl.BoardNodeView extends Backbone.RaphaelView
   radius: 30

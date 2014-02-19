@@ -1,6 +1,6 @@
 ###* @jsx React.DOM ###
 
-Sembl.GamePlayersView = React.createClass
+Sembl.Gameboard.PlayersView = React.createClass
   render: -> 
     players = @props.players.map((player) ->
       return `<li key={player.cid}>{player.get('user').email}</li>`

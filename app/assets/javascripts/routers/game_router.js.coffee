@@ -1,4 +1,4 @@
-#= require views/game_view
+#= require views/gameboard/game_view
 
 class Sembl.GameRouter extends Backbone.Router
   routes:
@@ -8,6 +8,6 @@ class Sembl.GameRouter extends Backbone.Router
 
   show: ->
     React.renderComponent(
-      Sembl.GameView({model: @game})
+      Sembl.Gameboard.GameView({model: @game})
       document.getElementById('container')
     )
