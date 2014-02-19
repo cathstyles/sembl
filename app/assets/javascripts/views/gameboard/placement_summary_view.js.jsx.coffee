@@ -17,7 +17,6 @@ Sembl.Gameboard.PlacementSummaryView = React.createClass
   render: ->
     className = "board__node__placement-summary state-#{@props.state}"
     imageUrl = @getImageForState()
-    console.log imageUrl
     return `<div className={className} >
         <img src={imageUrl} />
       </div>`

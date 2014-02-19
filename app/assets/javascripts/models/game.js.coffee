@@ -9,11 +9,21 @@ class Sembl.Game extends Backbone.Model
     @nodes = new Sembl.Nodes(@get("nodes"), game: this)
     @links = new Sembl.Links(@get("links"), game: this)
     @players = new Sembl.Players(@get("players"), game: this)
-    console.log 'init game'
+    
+    @listenTo(@, 'change:players', @updatePlayers)
+    @listenTo(@, 'change:nodes', @updateNodes)
 
   filter: ->
     @.attributes.filter
 
+  updatePlayers: -> 
+    @players.reset(@get("players"))
+    console.log 'reset players'
+
+  updateNodes: -> 
+    @nodes.reset(@get("nodes"))
+    console.log 'reset nodes'
+    
   width: ->
     _(@nodes.pluck("x")).max() + 30 + 50
 

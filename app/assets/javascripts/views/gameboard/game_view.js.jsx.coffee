@@ -16,13 +16,10 @@ Sembl.Gameboard.GameView = React.createBackboneClass
       "#{@model().url()}/join.json"
       {authenticity_token: @model().get('auth_token')}
       (data) =>
-        @model().set(is_participating: data.is_participating)
+        @model().set(data)
     )
 
   render: ->
-    @model().on('change', -> 
-      console.log 'model change'
-    )
     NodesView = Sembl.Gameboard.NodesView
     LinksView = Sembl.Gameboard.LinksView
     HeaderView = Sembl.Gameboard.HeaderView

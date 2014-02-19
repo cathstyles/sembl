@@ -17,7 +17,6 @@ Sembl.Gameboard.NodeView = React.createClass
 
     PlacementSummaryView = Sembl.Gameboard.PlacementSummaryView
     placement = @props.node.get('viewable_placement')
-    console.log @props.node.attributes
     state = @props.node.get('user_state')
     return `<div className="board__node"  
         style={style}

@@ -16,6 +16,7 @@ class Player < ActiveRecord::Base
   belongs_to :user
 
   after_create :allocate_first_node
+  after_destroy :remove_node_allocation
 
   validates :user_id, uniqueness: {scope: :game_id}, allow_nil: true
 
@@ -70,6 +71,14 @@ class Player < ActiveRecord::Base
     node = game.nodes.with_state(:in_play).where(allocated_to_id: nil).take
     if node 
       node.allocated_to = self.user
+      node.save!
+    end
+  end
+
+  def remove_node_allocation 
+    node = game.nodes.where(allocated_to_id: id).take
+    if node
+      node.allocated_to_id = nil
       node.save!
     end
   end
