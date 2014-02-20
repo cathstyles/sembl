@@ -9,8 +9,7 @@ json.(
   :theme,
   :allow_keyword_search,
   :current_round,
-  :seed_thing_id,
-  :filter_content_by
+  :seed_thing_id
 )
 json.board @game.board
 json.boards Board.all

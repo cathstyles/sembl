@@ -1,36 +1,20 @@
-class GamesController < ApplicationController
-  respond_to :html, :json
+class Api::GamesController < ApplicationController
+  respond_to :json
 
-  after_filter :verify_authorized, :except => :index
-
-  before_filter :authenticate_user!, except: [:index, :show]
-  before_filter :find_game, except: [:index, :new, :create]
-
-  def index
-    @games = {
-      open: Game.open_to_join,
-      participating:  Game.participating(current_user),
-      hosted: Game.hosted_by(current_user)
-    }
-    respond_with @games
-  end
+  before_filter :authenticate_user!, except: [:show]
+  before_filter :find_game, except: [:new, :create]
 
   def show
     authorize @game
     respond_with @game
   end
 
-  def summary
-    authorize @game
-    respond_with @game
-  end
-
   def join
-    authorize @game
-    # Skip to playing turn, no need for invitation workflow.
-    @game.players.build(user: current_user, state: 'playing_turn')
-    @game.join if @game.save
-    respond_with @game
+    # authorize @game
+    # # Skip to playing turn, no need for invitation workflow.
+    # @game.players.build(user: current_user, state: 'playing_turn')
+    # @game.join if @game.save
+    # respond_with @game
   end
 
   def create
@@ -53,18 +37,8 @@ class GamesController < ApplicationController
     end
   end
 
-  def new
-    @game = Game.new
-    authorize @game
-    respond_with @game
-  end
-
-  def edit
-    authorize @game
-    respond_with @game
-  end
-
   def update
+    puts game_params
     @game.assign_attributes(game_params)
     @game.updator = current_user
     @game.state_event = 'publish' if params[:publish]
@@ -72,23 +46,28 @@ class GamesController < ApplicationController
 
     copy_board_to_game
     update_seed_thing if game_params[:seed_thing_id].present? 
-    authorize @game
     
+    authorize @game
     if @game.save
-      flash[:notice] = 'Game saved.' if @game.save
-      redirect_to games_path
+      flash[:notice] = 'Game created'
+      @result = result(status=:ok)
+      respond_with @result
     else
-      respond_with(@game)
+      @result = result(status=:fail, alert='Game could not be updated', errors=@game.errors.full_messages)
+      respond_with @result
     end
   end
 
-  def destroy
-    @game.authorize
-    flash[:notice] = 'Game deleted.' if @game.destroy
-    respond_with @game
+private
+  def result(status=nil, notice=nil, alert=nil, errors=nil)
+    {
+      status: status,
+      notice: notice,
+      alert:  alert,
+      errors: errors
+    }
   end
 
-private
 
   # Copy nodes and links from board
   def copy_board_to_game
@@ -135,7 +114,6 @@ private
   end
 
   def clean_search_query_json(search_query_json)
-    puts search_query_json
     if search_query_json and not search_query_json.empty?
       search_query_params = JSON.parse(search_query_json, symbolize_names: true)
       Search::ThingQuery.new(search_query_params).to_json
@@ -158,20 +136,4 @@ private
       players_attributes: [:id, :email, :user_id, :_destroy]
     )
   end
-
-  def tmp_game_params
-    params.require(:tmpgame).permit(
-      :board_id, 
-      :title, 
-      :description, 
-      :invite_only, 
-      :uploads_allowed,
-      :filter_content_by, 
-      :theme, 
-      :allow_keyword_search,
-      :seed_thing_id,
-      players_attributes: [:id, :email, :user_id, :_destroy]
-    )
-  end
-
 end

@@ -10,7 +10,7 @@
     `<div className={this.className}>{this.props.confirmed ? tick : cross}</div>`
 
 {PlayerConfirmed,PlayersSearch} = Sembl.Games.Setup
-@Sembl.Games.Setup.SelectPlayers = React.createClass
+@Sembl.Games.Setup.Players = React.createClass
   className: "games-setup__players"
   render: () ->
     players_data = [
@@ -32,8 +32,7 @@
     ]
     players = players_data.map(
       (player) ->
-        `<tr>
-          <td>{player.username}</td>
+        `<tr key={player.email}>
           <td>{player.email}</td>
           <td><PlayerConfirmed confirmed={player.confirmed} /></td>
         </tr>`

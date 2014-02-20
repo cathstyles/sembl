@@ -1,17 +1,17 @@
 ###* @jsx React.DOM ###
 
 @Sembl.Games.Setup.BoardSelected = React.createClass
-  className: "board-selected"
+  className: "games-setup__board__selected"
 
   render: () ->
-    `<div>
+    `<div className={this.className} >
       <div>{this.props.title}</div>
       <img src="http://placehold.it/100x100" />
     </div>`
 
 
 @Sembl.Games.Setup.BoardSelection = React.createClass
-  className: "board-selection"
+  className: "setup__board__selection"
 
   handleSelectBoard: (board_id) ->
     console.log "click"
@@ -28,12 +28,12 @@
         <a href="#" value={board.id} onClick={handleClick}>{board.title}</a>
       </li>`
     )
-    `<ul>{boards}</ul>`
+    `<ul className={this.className}>{boards}</ul>`
 
 {BoardSelected, BoardSelection} = @Sembl.Games.Setup
 {ToggleComponent} = @Sembl.Components
-@Sembl.Games.Setup.SelectBoard = React.createClass
-  className: "games-setup__select-board"
+@Sembl.Games.Setup.Board = React.createClass
+  className: "games-setup__board"
 
   getInitialState: () ->
     board_id: this.props.board.id

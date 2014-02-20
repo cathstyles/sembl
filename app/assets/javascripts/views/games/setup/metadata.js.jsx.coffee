@@ -11,8 +11,8 @@
   className: "games-setup__metadata"
 
   getInitialState: () ->
-    title: this.props.title.value
-    description: this.props.description.value
+    title: this.props.title
+    description: this.props.description
 
   handleEditToggle: (event) ->
     if this.refs.title.state.toggle
@@ -62,7 +62,5 @@
       <button onClick={this.handleEditToggle}>Edit</button>
       {editableTitle}
       {editableDescription}
-      <input type="hidden" name={this.props.title.form_name} value={this.state.title} />
-      <input type="hidden" name={this.props.description.form_name} value={this.state.description} />
     </div>`
     

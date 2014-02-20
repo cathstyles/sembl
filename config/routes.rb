@@ -1,4 +1,8 @@
 Sembl::Application.routes.draw do
+  namespace :api, module: :api do
+    resources :games, only: [:show, :create, :update]
+  end
+
   namespace :admin, module: :admin, constraints: AdminConstraint do
     resources :things, except: [:show]
     resources :boards, except: [:show]

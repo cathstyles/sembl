@@ -1,55 +1,101 @@
 #= require views/games/setup/actions
 #= require views/games/setup/metadata
 #= require views/games/setup/seed
-#= require views/games/setup/select_board
-#= require views/games/setup/select_players
+#= require views/games/setup/board
+#= require views/games/setup/players
 #= require views/games/setup/settings
+#= require views/games/gallery
+
 ###* @jsx React.DOM ###
-{Actions, Metadata, Seed, SelectBoard, SelectPlayers, Settings} = @Sembl.Games.Setup
+{Actions, Metadata, Seed, Board, Players, Settings} = @Sembl.Games.Setup
+{Gallery} = @Sembl.Games
 
 @Sembl.Games.Setup.Root = React.createClass
-  className: "games-setup"
+  className: "games__setup"
+
+  getInitialState: () ->
+    game: this.props.game
+
+  getGameParams: (publish) ->
+    params = 
+      game:
+        board_id:      this.refs.board.state.id
+        seed_thing_id: this.refs.seed.state.id
+        title:         this.refs.metadata.state.title
+        description:   this.refs.metadata.state.description
+      authenticity_token: this.props.authenticity_token
+      _method: "patch"
+    console.log this.refs.settings.getParams()
+    _.extend(params.game, this.refs.settings.getParams())
+    console.log params
+    params
+
+  handleSave: (event) ->
+    this.updateGame(this.getGameParams())
+
+  handlePublish: (event) ->
+    params = this.getGameParams()
+    params.publish = publish
+    this.updateGame(params)
+
+  updateGame: (params) ->
+    self = this
+    url = "/api/games/" + this.state.game.id + ".json"    
+    $.post(
+      url
+      params,
+      (saved_game) ->
+        if saved_game.errors.length > 0
+          console.log "you have errors"
+        else 
+          console.log "saved game", saved_game
+          self.setState
+            game: saved_game
+      "json"
+    )
+    event.preventDefault()
+
   render: () ->
-    inputs = this.props.inputs
+    game = this.state.game
+    inputs = 
+      id: game.id
+      title: game.title
+      description: game.description 
+      board:
+        id: game.board.id
+        title: game.board.title
+      seed:
+        id: game.seed_thing_id
+      invite_only: game.invite_only
+      allow_keyword_search: game.allow_keyword_search
+      boards: _.sortBy game.boards, 'title'
+      filter: game.filter_content_by
+
     `<div className={this.className}>
-      <form method="post" action={"/games/" + this.props.game.id}>
-        <input name="_method" type="hidden" value="patch" />
-        <Seed seed={inputs.seed} />
-        <Metadata title={inputs.title} description={inputs.description} />
-        <Settings invite_only={inputs.invite_only} allow_keyword_search={inputs.allow_keyword_search} />
-        <SelectBoard board={inputs.board} boards={inputs.boards} />
-        <SelectPlayers />
-        <Actions />
-        <input type="submit" />
-      </form>
+      {this.state.status}
+
+      <Seed ref="seed" seed={inputs.seed} />
+      <Metadata ref="metadata" title={inputs.title} description={inputs.description} />
+      <Settings ref="settings" invite_only={inputs.invite_only} allow_keyword_search={inputs.allow_keyword_search} />
+      <Board ref="board" board={inputs.board} boards={inputs.boards} />
+      <Players ref="players" />
+
+      <div>
+        <button>Clone another game</button>
+        <button onClick={this.handleSave}>Save</button>
+        <button onClick={this.handlePublish}>Publish</button>
+      </div>
+
+      <Gallery filter={inputs.filter} />
     </div>`
 
 @Sembl.views.gamesSetup = ($el, el) ->
   game = $el.data().game
-  inputs = 
-    title:
-      value: game.title
-      form_name: "game[title]"
-    description:
-      value: game.description 
-      form_name: "game[description]"
-    board:
-      id: game.board.id
-      title: game.board.title
-      form_name: "game[board_id]"
-    boards: _.sortBy game.boards, 'title'
-    seed:
-      id: game.seed_thing_id
-      form_name: "game[seed_id]"
-    invite_only:
-      value: game.invite_only
-      form_name: "game[invite_only]"
-    allow_keyword_search:
-      value: game.allow_keyword_search
-      form_name: "game[allow_keyword_search]"
-
+  authenticity_token = $("[name=csrf-token]").attr("content")
   console.log game
   React.renderComponent(
-    Sembl.Games.Setup.Root({game: game, inputs: inputs})
+    Sembl.Games.Setup.Root
+      game: game, 
+      authenticity_token: authenticity_token
     el
   )
