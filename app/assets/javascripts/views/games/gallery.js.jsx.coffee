@@ -31,7 +31,7 @@
 
   render: () ->
     things = this.state.things.map (thing) ->
-      `<GalleryThing key={thing.id} sthing={thing} />`
+      `<GalleryThing key={thing.id} thing={thing} />`
 
     `<div className={this.className}>
       {things}

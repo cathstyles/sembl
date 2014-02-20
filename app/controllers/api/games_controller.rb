@@ -18,16 +18,12 @@ class Api::GamesController < ApplicationController
   end
 
   def create
-    puts game_params
-
     @game = Game.new(game_params)
     @game.creator = current_user
     @game.updator = current_user
     @game.state_event = 'publish' if params[:publish]
     @game.filter_content_by = clean_search_query_json(game_params[:filter_content_by])
     
-    puts @game
-
     copy_board_to_game
     update_seed_thing if game_params[:seed_thing_id].present? 
 
@@ -43,6 +39,8 @@ class Api::GamesController < ApplicationController
   end
 
   def update
+    puts game_params
+
     @game.assign_attributes(game_params)
     @game.updator = current_user
     @game.state_event = 'publish' if params[:publish]
@@ -53,7 +51,7 @@ class Api::GamesController < ApplicationController
 
     authorize @game
     if @game.save
-      @result = result(status=:ok, notice='Game updated'))
+      @result = result(status=:ok, notice='Game updated')
       respond_with @result
     else
       @result = result(status=:fail, alert='Game could not be updated', errors=@game.errors.full_messages)

@@ -2,13 +2,16 @@
 
 @Sembl.Games.Setup.SettingsCheckbox = React.createClass
   getInitialState: () ->
-    checked: this.props.value == 1 ? true : false
-    value: this.props.value == 1 ? 1 : 0
+    tmp = 
+      checked: if this.props.value then true else false
+      value: if this.props.value then 1 else 0
+    tmp
+
 
   handleChange: (event) ->
     this.setState 
       checked: event.target.checked
-      value: event.target.checked ? 1 : 0
+      value: if event.target.checked then 1 else 0
     true
 
   render: () ->

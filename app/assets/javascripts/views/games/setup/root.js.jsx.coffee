@@ -75,6 +75,8 @@
       filter: game.filter_content_by
 
     `<div className={this.className}>
+      {game.notice}
+      {game.alert}
       <Seed ref="seed" seed={inputs.seed} />
       <Metadata ref="metadata" title={inputs.title} description={inputs.description} />
       <Settings ref="settings" invite_only={inputs.invite_only} allow_keyword_search={inputs.allow_keyword_search} />

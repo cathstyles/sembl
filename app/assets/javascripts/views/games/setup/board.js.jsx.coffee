@@ -14,9 +14,7 @@
   className: "setup__board__selection"
 
   handleSelectBoard: (board_id) ->
-    console.log "click"
-    console.log board_id
-    this.props.requestChange(board_id)
+    this.props.requestChange?(board_id)
 
   render: () ->
     self = this
@@ -60,8 +58,8 @@
       OffClass: BoardSelected
       OnClass: BoardSelection
       offProps: 
-        id: this.state.board_id
-        title: this.state.board_title
+        id: this.state.id
+        title: this.state.title
       onProps:
         boards: this.props.boards
         requestChange: this.handleNewBoard
