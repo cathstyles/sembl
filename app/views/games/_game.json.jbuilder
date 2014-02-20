@@ -21,6 +21,3 @@ json.is_participating @game.participating?(current_user)
 json.is_hosting @game.hosting?(current_user)
 json.errors @game.errors.full_messages
 json.auth_token form_authenticity_token
-
-
-json.partial! 'games/game', game: @game

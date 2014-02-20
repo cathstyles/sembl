@@ -25,4 +25,16 @@ class Link < ActiveRecord::Base
   def round
     target.round
   end
+
+  def player_resemblance(user)
+    resemblances.with_state(:proposed).where(creator: user).take
+  end
+
+  def final_resemblance
+    resemblances.with_state(:final).take
+  end 
+
+  def viewable_resemblance(user)
+    final_resemblance || player_resemblance(user)
+  end
 end

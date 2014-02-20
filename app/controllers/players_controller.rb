@@ -11,15 +11,7 @@ class PlayersController < ApplicationController
     respond_with @players
   end
 
-  def create 
-    # Skip to playing turn, no need for invitation workflow.
-    @player = @game.players.build(user: current_user, state: 'playing_turn')
-    authorize @player
-
-    @game.join if @game.save
-    respond_with @player
-  end
-
+  private 
   def find_game
     @game = Game.find(params[:game_id]) if params[:game_id]
   end

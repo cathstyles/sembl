@@ -47,6 +47,10 @@ class Node < ActiveRecord::Base
     placements.with_state(:final).take
   end 
 
+  def viewable_placement(user)
+    final_placement || player_placement(user)
+  end
+
   def available_to?(user)
     game.participating?(user) && in_play? &&
     (allocated_to?(user) || round > 1)

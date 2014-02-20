@@ -4,6 +4,7 @@
 #= require underscore
 #= require backbone
 #= require react
+#= require react.backbone
 #= require skim
 #= require_self
 #= require models/game
