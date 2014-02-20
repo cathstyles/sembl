@@ -24,10 +24,8 @@
         title:         this.refs.metadata.state.title
         description:   this.refs.metadata.state.description
       authenticity_token: this.props.authenticity_token
-      _method: "patch"
-    console.log this.refs.settings.getParams()
     _.extend(params.game, this.refs.settings.getParams())
-    console.log params
+    console.log "params", params
     params
 
   handleSave: (event) ->
@@ -40,7 +38,12 @@
 
   updateGame: (params) ->
     self = this
-    url = "/api/games/" + this.state.game.id + ".json"    
+    if this.state.game.id
+      url = "/api/games/" + this.state.game.id + ".json"
+      params._method = "patch"
+    else 
+      url = "/api/games.json"
+
     $.post(
       url
       params,
@@ -62,8 +65,8 @@
       title: game.title
       description: game.description 
       board:
-        id: game.board.id
-        title: game.board.title
+        id: game.board?.id
+        title: game.board?.title
       seed:
         id: game.seed_thing_id
       invite_only: game.invite_only
@@ -72,8 +75,6 @@
       filter: game.filter_content_by
 
     `<div className={this.className}>
-      {this.state.status}
-
       <Seed ref="seed" seed={inputs.seed} />
       <Metadata ref="metadata" title={inputs.title} description={inputs.description} />
       <Settings ref="settings" invite_only={inputs.invite_only} allow_keyword_search={inputs.allow_keyword_search} />

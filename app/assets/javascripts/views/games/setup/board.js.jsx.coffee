@@ -36,15 +36,15 @@
   className: "games-setup__board"
 
   getInitialState: () ->
-    board_id: this.props.board.id
-    board_title: this.props.board.title
+    id: this.props.board.id
+    title: this.props.board.title
 
   handleNewBoard: (board_id) ->
     for board in this.props.boards
       if board.id == board_id
         this.setState 
-          board_id: board.id
-          board_title: board.title
+          id: board.id
+          title: board.title
     this.refs.toggle.handleToggleOff()
 
   handleChooseBoardToggle: () ->
@@ -70,6 +70,5 @@
       <div>CHOOSE GAMEBOARD</div> 
       <button onClick={this.handleChooseBoardToggle}>Choose</button>
       {component}
-      <input type="hidden" name={this.props.board.form_name} value={this.state.board_id} />
     </div>`
 
