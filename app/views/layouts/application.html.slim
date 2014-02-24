@@ -7,7 +7,7 @@ html
     = area :javascripts do
       = javascript_include_tag "application"
       javascript:
-        Sembl.user = new Sembl.User(#{raw current_user.to_json});
+        Sembl.userB = new Sembl.User(#{raw current_user.to_json});
     = csrf_meta_tags
 
   body class=body_classes
@@ -18,11 +18,19 @@ html
           ul.masthead__links
             - if user_signed_in?
               - if current_user.admin?
-                li.masthead__link = link_to "Admin", admin_root_path, class: 'masthead__link-anchor'
-              li.masthead__link = link_to "Sign out", destroy_user_session_path, class: 'masthead__link-anchor'
+                li.masthead__link
+                  i(class="fa fa-cog masthead__link-icon")
+                  = link_to "Admin", admin_root_path, class: 'masthead__link-anchor'
+              li.masthead__link
+                i(class="fa fa-power-off masthead__link-icon")
+                = link_to "Sign out", destroy_user_session_path, class: 'masthead__link-anchor'
             - else
-              li.masthead__link = link_to "Sign in", new_user_session_path, class: 'masthead__link-anchor'
-              li.masthead__link = link_to "Sign up", new_user_registration_path, class: 'masthead__link-anchor'
+              li.masthead__link
+                i(class="fa fa-key masthead__link-icon")
+                = link_to "Sign in", new_user_session_path, class: 'masthead__link-anchor'
+              li.masthead__link
+                i(class="fa fa-user masthead__link-icon")
+                = link_to "Sign up", new_user_registration_path, class: 'masthead__link-anchor'
     .content.container
       = area :content do
         = flashes
