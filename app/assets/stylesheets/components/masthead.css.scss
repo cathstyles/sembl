@@ -1,1 +1,61 @@
 // Masthead
+
+.masthead {
+  @include background(linear-gradient(#fffdf9, #fffdf2));
+  background-color: #fffdf9;
+  border-bottom: 1px solid #d6c8a9;
+  box-shadow: 0 0 5px 5px rgba(#888,.1);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.masthead__inner {
+  @include clearfix;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 20px;
+}
+
+.masthead__logo {
+  background-image: image-url("logo.png");
+  background-repeat: no-repeat;
+  display: block;
+  margin: 0;
+  text-indent: -9999em;
+  width: 96px;
+  height: 84px;
+  position: absolute;
+  top: -3px;
+  left: -3px;
+}
+
+.masthead__links {
+  @extend %clearfix-micro;
+  float: right;
+  list-style-type: none;
+  margin: 0;
+  padding-top: 10px;
+}
+
+.masthead__link {
+  float: left;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+.masthead__link-anchor {
+  color: #9a875e;
+  text-decoration: none;
+  i {
+    color: #a9b24b;
+    padding-right: 3px;
+  }
+  &:hover {
+    color: #594a29;
+    span {
+      border-bottom: 1px dashed #1d1111;
+      padding-bottom: 2px;
+    }
+  }
+}

@@ -13,16 +13,16 @@ html
   body class=body_classes
     .masthead
       = area :header do
-        h1 Sembl
-        nav
-          ul
+        a.masthead__logo(href="#") Sembl
+        .masthead__inner
+          ul.masthead__links
             - if user_signed_in?
               - if current_user.admin?
-                li = link_to "Admin", admin_root_path
-              li = link_to "Sign out", destroy_user_session_path
+                li.masthead__link = link_to "Admin", admin_root_path, class: 'masthead__link-anchor'
+              li.masthead__link = link_to "Sign out", destroy_user_session_path, class: 'masthead__link-anchor'
             - else
-              li = link_to "Sign in", new_user_session_path
-              li = link_to "Sign up", new_user_registration_path
+              li.masthead__link = link_to "Sign in", new_user_session_path, class: 'masthead__link-anchor'
+              li.masthead__link = link_to "Sign up", new_user_registration_path, class: 'masthead__link-anchor'
     .content.container
       = area :content do
         = flashes
