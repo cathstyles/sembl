@@ -1,0 +1,10 @@
+json.(
+  query,
+  :text,
+  :place_filter,
+  :access_filter, 
+  :date_from,
+  :date_to,
+  :created_to,
+  :random_seed
+)

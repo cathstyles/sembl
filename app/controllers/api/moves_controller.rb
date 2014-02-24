@@ -2,7 +2,10 @@ class Api::MovesController < ApplicationController
   respond_to :json
 
   before_filter :authenticate_user!
-  before_filter :find_game, except: [:new, :create]
+
+  def index
+    create
+  end
 
   def create
     move_params
@@ -29,8 +32,8 @@ class Api::MovesController < ApplicationController
         game_id: game.id 
       )
       resemblances << Resemblance.new(
-        link: link
-        description: resemblance_params[:description]
+        link: link,
+        description: resemblance_params[:description],
         creator: current_user
       )
     end

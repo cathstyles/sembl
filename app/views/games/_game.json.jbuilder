@@ -9,8 +9,12 @@ json.(
   :theme,
   :allow_keyword_search,
   :current_round,
-  :seed_thing_id
+  :seed_thing_id,
 )
+json.set! :filter do 
+  json.partial! 'search/thing_query', query: @game.filter_query, as: :filter
+end
+
 json.board @game.board
 json.boards Board.all
 json.players @game.players.playing, partial: 'players/player', as: :player

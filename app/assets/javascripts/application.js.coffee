@@ -9,6 +9,7 @@
 #= require_self
 #= require models/game
 #= require models/user
+#= require models/move
 #= require routers/game_router
 #= require game_form
 #= require viewloader
@@ -22,6 +23,7 @@ _.extend Sembl, Backbone.Events
 @Sembl.Components = @Sembl.Components || {}
 @Sembl.Games = @Sembl.Games || {}
 @Sembl.Games.Setup = @Sembl.Games.Setup || {}
+@Sembl.Games.Play = @Sembl.Games.Play || {}
 @Sembl.views = @Sembl.views || {}
 
 init = ->

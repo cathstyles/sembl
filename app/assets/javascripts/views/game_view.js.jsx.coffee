@@ -1,9 +1,13 @@
 #= require views/game_nodes_view
 #= require views/game_links_view
 #= require views/game_players_view
-
+#= require views/games/play/move_maker
+#= require views/games/gallery
 
 ###* @jsx React.DOM ###
+
+{MoveMaker} = Sembl.Games.Play
+{Gallery} = Sembl.Games
 
 Sembl.GameView = React.createBackboneClass 
   handleJoin: ->  
@@ -26,6 +30,8 @@ Sembl.GameView = React.createBackboneClass
     boardCSS = 
       width: width
       height: height
+    filter = @model().filter()
+    console.log "filter", filter
 
     return `<div className="game">
         <GameHeaderView game={this.model()} handleJoin={this.handleJoin}/>
@@ -35,6 +41,10 @@ Sembl.GameView = React.createBackboneClass
           <GameLinksView width={width} height={height} links={this.model().links}/> 
           <GameNodesView nodes={this.model().nodes} /> 
         </div>
+        <br />
+        <br />
+        <MoveMaker game={this.model()}/>
+        <Gallery filter={filter} />
       </div>`
     
 

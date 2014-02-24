@@ -11,6 +11,9 @@ class Sembl.Game extends Backbone.Model
     @players = new Sembl.Players(@get("players"), game: this)
     console.log 'init game'
 
+  filter: ->
+    @.attributes.filter
+
   width: ->
     _(@nodes.pluck("x")).max() + 30 + 50
 
