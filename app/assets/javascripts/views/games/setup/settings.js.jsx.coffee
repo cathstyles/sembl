@@ -15,7 +15,7 @@
     true
 
   render: () ->
-    className = "games__setup__settings__" + this.props.ref
+    className = "games-setup__settings__" + this.props.ref
     inputId = className + "__input"
 
     `<div className={this.className}>
@@ -32,7 +32,7 @@
     mature_allowed:       this.refs.mature_allowed.state.value
     uploads_allow:        this.refs.uploads_allow.state.value
 
-  className: "games__setup__settings"
+  className: "games-setup__settings"
   render: () ->
     `<div className={this.className}>
       <p>SETTINGS</p>
