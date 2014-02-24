@@ -1,6 +1,10 @@
 @import bourbon/bourbon
 @import normalize
 
+body 
+  background-color: #f7efe0
+  font-family: "Archer", "museo-slab", "Georgia", "Hoefler Text", serif
+
 .container
   width: 100%
   max-width: 60em
@@ -23,7 +27,6 @@
       position: relative
       padding: 60px
       border: 1px solid green
-
       .board__nodes, .board__links, .board__resemblences
         position: absolute
 
@@ -43,5 +46,14 @@
 
 @import forms
 @import common
+@import patterns/_accessibility
+@import patterns/_clearing
+@import patterns/_font-size
+@import patterns/_media-queries
+@import patterns/_reset
+@import patterns/_spacing-classes
+@import patterns/_touch
+@import patterns/_type
+@import components/masthead
 @import components/game_form
 @import components/search
