@@ -9,11 +9,20 @@ class Api::MovesController < ApplicationController
 
     game = Game.find(move_params.game_id)
 
-    target_placement = new_target_placement(move_params[:target])
+    target_params = move_params[:target]
+    target_placement = Placement.new(
+      creator: current_user, 
+      node: Node.find(target_params[:node_id]), 
+      thing: Thing.find(target_params[:thing_id])
+    )
 
     resemblances = []
     move_params[:resemblances].each do |resemblance_params|
-      source_placement = find_source_placement[:source]
+      source_params = resemblance_params[:source]
+      source_placement = Placement.find_by(
+        node_id: source_params[:node_id],
+        thing_id: source_params[:thing_id]
+      )
       Link.find_by(
         source_id: source_placement.node.id,
         target_id: target_placement.node.id,
@@ -54,21 +63,6 @@ class Api::MovesController < ApplicationController
     }
   end
 
-  def find_source_placement(source_params)
-    Placement.find_by(
-      node_id: source_params[:node_id],
-      thing_id: source_params[:thing_id]
-    )
-  end
-
-  def new_target_placement(target_params)
-    Placement.new(
-      creator: current_user, 
-      node: Node.find(target_params[:node_id]), 
-      thing: Thing.find(target_params[:thing_id])
-    )
-  end
-  
   def move_params
     move = params.require(:move)
     move.require(:game_id)
