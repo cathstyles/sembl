@@ -1,3 +1,5 @@
+###* @jsx React.DOM ###
+
 Sembl.Gameboard.HeaderView = React.createClass
   handleJoin: -> 
     @props.handleJoin()

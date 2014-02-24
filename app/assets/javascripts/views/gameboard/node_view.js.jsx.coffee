@@ -1,4 +1,5 @@
 #= require views/gameboard/placement_summary_view
+#= require views/gameboard/placement_detail_view
 
 ###* @jsx React.DOM ###
 
@@ -16,6 +17,7 @@ Sembl.Gameboard.NodeView = React.createClass
       top: @props.node.get('y')
 
     PlacementSummaryView = Sembl.Gameboard.PlacementSummaryView
+    PlacementDetailView = Sembl.Gameboard.PlacementDetailView
     placement = @props.node.get('viewable_placement')
     state = @props.node.get('user_state')
     return `<div className="board__node"  

@@ -1,6 +1,7 @@
 #= require views/gameboard/nodes_view
 #= require views/gameboard/links_view
 #= require views/gameboard/players_view
+#= require views/gameboard/header_view
 #= require views/games/play/move_maker
 #= require views/games/play/selected_thing
 #= require views/games/gallery

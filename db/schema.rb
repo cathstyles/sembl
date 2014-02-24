@@ -141,6 +141,8 @@ ActiveRecord::Schema.define(version: 20140224031647) do
     t.string   "access_via"
     t.integer  "random_seed"
     t.boolean  "suggested_seed",     default: false
+    t.boolean  "public",             default: true,  null: false
+    t.integer  "game_id"
   end
 
   add_index "things", ["creator_id"], name: "index_things_on_creator_id", using: :btree
