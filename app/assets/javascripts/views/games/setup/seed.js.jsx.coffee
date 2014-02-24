@@ -37,9 +37,8 @@
 
   render: () ->
     `<div className={this.className}>
-      <div>SEED NODE</div>
-      <div>{this.state.title}</div>
-      <img key={this.state.image_url} src={this.state.image_url} />
-      <h3 className="randomise"><i class="fa fa-random"></i> <a href="#" onClick={this.handleRandomSeed}>RANDOMIZE</a></h3>
+      <h3 className="games-setup__seed-title">Seed Node</h3>
+      <img key={this.state.image_url} src={this.state.image_url} className="games-setup__seed-image" width="100" height="100" />
+      <h3 className="games-setup__seed-randomise"><a href="#" onClick={this.handleRandomSeed}><i className="fa fa-random"></i> <span>Randomise</span></a></h3>
       <input type="hidden" name={this.props.seed.form_name} value={this.state.seed_id} />
     </div>`

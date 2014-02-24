@@ -12,6 +12,8 @@ $border-color: #d6c8a9;
 $container-max-width: 1400px;
 $highlight-background-color: #fffdf9;
 $highlight-color: #a9b24b;
+$link-color: #2f7c87;
+$link-hover-color: #48676c;
 
 // Global
 
@@ -25,6 +27,14 @@ body {
   background-color: $background-color;
   color: $text-color;
   font-family: "Archer", "museo-slab", "Georgia", "Hoefler Text", serif;
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+  &:hover {
+    color: $link-hover-color;
+  }
 }
 
 .container {
