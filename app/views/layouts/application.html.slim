@@ -13,7 +13,7 @@ html
   body class=body_classes
     .masthead
       = area :header do
-        a.masthead__logo(href="#") Sembl
+        = link_to "Sembl", root_path, class: 'masthead__logo'
         .masthead__inner
           ul.masthead__links
             - if user_signed_in?

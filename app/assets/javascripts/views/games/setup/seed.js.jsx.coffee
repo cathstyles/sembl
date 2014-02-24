@@ -40,6 +40,6 @@
       <div>SEED NODE</div>
       <div>{this.state.title}</div>
       <img key={this.state.image_url} src={this.state.image_url} />
-      <div><a href="#" onClick={this.handleRandomSeed}>RANDOMIZE</a></div>
+      <h3 className="randomise"><i class="fa fa-random"></i> <a href="#" onClick={this.handleRandomSeed}>RANDOMIZE</a></h3>
       <input type="hidden" name={this.props.seed.form_name} value={this.state.seed_id} />
     </div>`
