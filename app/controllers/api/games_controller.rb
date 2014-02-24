@@ -69,7 +69,6 @@ private
     }
   end
 
-
   # Copy nodes and links from board
   def copy_board_to_game
     board = @game.board

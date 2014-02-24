@@ -15,6 +15,12 @@
 class Resemblance < ActiveRecord::Base
   validates_presence_of :description
   belongs_to :link
+
+  # A resemeblance needs two placements, because every resemblance between the same two nodes
+  # can have a different target placement. So knowing about the link, and thus the nodes, is not enough.
+  belongs_to :source, class_name: "Placement"
+  belongs_to :target, class_name: "Placement"
+
   belongs_to :creator, class_name: "User"
 
   has_many :ratings
