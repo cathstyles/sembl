@@ -1,0 +1,60 @@
+// New game
+
+.games-setup__seed {
+  @extend .small-tracked-out-heading;
+  @include pad(all, small);
+  background-color: #fffdf7;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px 5px rgba(#888,.1);
+  float: left;
+  margin-right: 20px;
+  text-align: center;
+  img {
+    @include inset(vert, small);
+    border: 3px solid #fff;
+    box-shadow: 0 0 2px 2px rgba(#888,.1);
+    max-width: 106px;
+  }
+}
+
+.games-setup__settings {
+  @include pad(vert, small);
+  float: left;
+  p {
+    @extend .small-tracked-out-heading;
+  }
+  div {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+}
+
+.games-setup__board,
+.games-setup__players {
+  @include pad(all, small);
+  background-color: #fcf8f0;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px 5px rgba(#888,.1);
+  float: left;
+}
+
+.games__gallery {
+  clear: both;
+}
+
+.seed {
+  display: inline-block;
+  border: 2px solid rgba(255,255,255,0);
+  &:hover {
+    border: 2px solid #ccc;
+  }
+  &.selected {
+    border: 2px solid #ccc;
+  }
+}
+
+.choose-gameboard {
+  @extend .small-tracked-out-heading;
+}

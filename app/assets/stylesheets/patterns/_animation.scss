@@ -1,0 +1,24 @@
+@mixin animate-background($transition-duration: 250ms, $transition-delay: 0) {
+  @include transition(background-color $transition-duration ease-in-out $transition-delay);
+}
+
+@mixin animate-border($transition-duration: 250ms, $transition-delay: 0) {
+  @include transition(border $transition-duration ease-in-out $transition-delay);
+}
+
+@mixin animate-color($transition-duration: 250ms, $transition-delay: 0) {
+  @include transition(color $transition-duration ease-in-out $transition-delay);
+}
+
+@mixin animate-width($transition-duration: 250ms, $transition-delay: 0) {
+  @include transition(width $transition-duration ease-in-out $transition-delay);
+}
+
+@mixin animate-grow($scale: 1.2, $transition-duration: 100ms, $transition-delay: 0) {
+  @include transform(translate3d(0,0,0));
+  @include transform(scale($scale));
+  @include transition-property(transform);
+  @include transition-duration($transition-duration);
+  @include transition-timing-function(ease-in-out);
+  @include transition-delay($transition-delay);
+}

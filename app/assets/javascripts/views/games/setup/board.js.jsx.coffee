@@ -65,7 +65,7 @@
         requestChange: this.handleNewBoard
 
     `<div className={this.className}>
-      <div>CHOOSE GAMEBOARD</div> 
+      <h3 className="choose-gameboard">Choose Gameboard</h3> 
       <button onClick={this.handleChooseBoardToggle}>Choose</button>
       {component}
     </div>`
