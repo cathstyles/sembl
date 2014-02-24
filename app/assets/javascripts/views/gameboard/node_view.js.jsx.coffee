@@ -23,6 +23,7 @@ Sembl.Gameboard.NodeView = React.createClass
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}>
         <PlacementSummaryView state={state} placement={placement} />
+        <PlacementDetailView state={state} placement={placement} />
       </div>`
 
 
