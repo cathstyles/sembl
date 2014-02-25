@@ -158,7 +158,7 @@ CropComponent = React.createClass
   render: ->
     `<div>
       <img src={this.props.cropUrl} />
-      <button onClick={this.handleSubmit} />
+      <button onClick={this.handleSubmit}>Crop</button>
     </div>`
 
 
