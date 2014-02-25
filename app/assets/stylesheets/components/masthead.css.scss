@@ -65,7 +65,7 @@
   position: relative;
   h1 {
     @include font-size(22);
-    background-color: $highlight-background-color;
+    background-color: #fffbf3;
     border: {
       left: 1px solid $border-color;
       right: 1px solid $border-color;
