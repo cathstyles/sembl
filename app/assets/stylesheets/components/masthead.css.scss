@@ -61,7 +61,6 @@
 .heading {
   @include inset(bottom, larger);
   text-align: center;
-  margin-top: -45px;
   position: relative;
   h1 {
     @include font-size(22);
@@ -76,6 +75,7 @@
     box-shadow: 0 0 3px 3px rgba(#888,.1);
     display: inline-block;
     font-weight: 500;
-    padding: 20px 20px 16px;
+    margin-top: -100%;
+    padding: 40px 20px 16px;
   }
 }

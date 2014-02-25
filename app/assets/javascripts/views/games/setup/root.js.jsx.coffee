@@ -86,8 +86,8 @@
       requestSelectSeed: this.handleSelectSeed
 
     `<div className={this.className}>
-      {game.notice}
-      {game.alert}
+      <span className="flash-message">{game.notice}</span>
+      <span className="flash-message">{game.alert}</span>
       <Seed ref="seed" seed={inputs.seed} />
       <div className="games-setup__meta-and-settings">
         <Metadata ref="metadata" title={inputs.title} description={inputs.description} />

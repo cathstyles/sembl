@@ -31,6 +31,7 @@ a {
   max-width: $container-max-width;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
   width: 100%;
 }
 
@@ -42,4 +43,17 @@ textarea {
   border: 1px solid #d8d0bf;
   box-shadow: inset 1px 1px 1px 1px rgba(#666,.1);
   padding: 3px;
+}
+
+.flash-message {
+  @include pad(all, small);
+  background-color: #fffbf3;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right: $border-radius;
+  box-shadow: 0 0 10px 2px rgba(#888,.1);
+  font-weight: 500;
+  text-shadow: 1px 1px 1px #fff;
 }
