@@ -8,7 +8,7 @@
 
 ###* @jsx React.DOM ###
 
-{SelectedThing, MoveMaker, SelectedThing} = Sembl.Games.Move
+{MoveMaker, SelectedThing} = Sembl.Games.Move
 {Gallery} = Sembl.Games
 
 Sembl.Games.Gameboard.GameView = React.createBackboneClass 
@@ -20,6 +20,9 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
         @model().set(data)
     )
 
+  handleSelectThing: (thing) ->
+    this.refs.move_maker.handleSelectThing(thing)
+
   render: ->
     NodesView = Sembl.Games.Gameboard.NodesView
     LinksView = Sembl.Games.Gameboard.LinksView
@@ -30,7 +33,9 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
       width: width
       height: height
     filter = @model().filter()
-    console.log "filter", filter
+
+    galleryRequests = 
+      requestSelectThing: this.handleSelectThing
 
     return `<div className="game">
         <HeaderView game={this.model()} handleJoin={this.handleJoin}/>
@@ -42,8 +47,8 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
         </div>
         <br />
         <br />
-        <MoveMaker game={this.model()}/>
-        <Gallery filter={filter} SelectedClass={SelectedThing} />
+        <MoveMaker ref="move_maker" game={this.model()}/>
+        <Gallery filter={filter} SelectedClass={SelectedThing} requests={galleryRequests} />
       </div>`
     
 

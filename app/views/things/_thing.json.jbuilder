@@ -1,4 +1,5 @@
 json.(@thing || thing, 
+  :id,
   :title, 
   :description, 
   :copyright,

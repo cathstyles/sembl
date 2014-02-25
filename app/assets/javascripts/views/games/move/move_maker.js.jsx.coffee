@@ -9,10 +9,12 @@
 
     {
       move: move
+      target: null
     }
 
   handleSubmitMove: () ->
     params = {move: this.state.move}
+    console.log params
     url = "/api/moves.json"
     # TODO: this shoudl be POST, but get is helpful for debugging.
     $.get(
@@ -22,6 +24,11 @@
         console.log move_status
       "json"
     )
+
+  handleSelectThing: (thing) ->
+    this.state.move.setTarget(1, thing.id)
+    this.setState
+      move: this.state.move
 
   render: () ->
     `<div className={this.className}>

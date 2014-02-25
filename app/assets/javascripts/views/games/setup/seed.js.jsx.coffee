@@ -15,6 +15,7 @@
     )
 
   handleNewSeed: (seed) ->
+    console.log "new seed", seed
     this.setState
       id: seed.id
       title: seed.title
@@ -39,5 +40,5 @@
       <h3 className="games-setup__seed-title">Seed Node</h3>
       <img key={this.state.image_url} src={this.state.image_url} className="games-setup__seed-image" width="120" height="120" />
       <h3 className="games-setup__seed-randomise"><a href="#" onClick={this.handleRandomSeed}><i className="fa fa-random"></i> <span>Randomise</span></a></h3>
-      <input type="hidden" name={this.props.seed.form_name} value={this.state.seed_id} />
+      <input type="hidden" name={this.props.seed.form_name} value={this.state.id} />
     </div>`

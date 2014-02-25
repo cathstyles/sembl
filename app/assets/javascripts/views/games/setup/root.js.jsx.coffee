@@ -78,7 +78,6 @@
       boards: _.sortBy game.boards, 'title'
       filter: game.filter_content_by
 
-
     actionRequests = 
       requestSave: this.handleSave
       requestPublish: this.handlePublish

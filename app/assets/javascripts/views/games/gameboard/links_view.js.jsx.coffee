@@ -1,4 +1,8 @@
+#= require d3
+
 ###* @jsx React.DOM ###
+
+
 
 Sembl.Games.Gameboard.LinksView = React.createClass
   componentDidMount: (rootNode) -> 

@@ -5,8 +5,10 @@ class Sembl.Move
     @target = null
     @resemblances = []
 
-  addTarget: (target) ->
-    @target = target
+  setTarget: (node_id, thing_id) ->
+    @target = 
+      node_id: node_id
+      thing_id: thing_id
 
   addResemblance: (source, description) ->
     @resemblances.push {
