@@ -23,9 +23,10 @@ _.extend Sembl, Backbone.Events
 @Sembl.Components = @Sembl.Components || {}
 @Sembl.Games = @Sembl.Games || {}
 @Sembl.Games.Setup = @Sembl.Games.Setup || {}
-@Sembl.Games.Play = @Sembl.Games.Play || {}
+@Sembl.Games.Gameboard = @Sembl.Games.Gameboard || {}
+@Sembl.Games.Move = @Sembl.Games.Move || {}
 @Sembl.views = @Sembl.views || {}
-@Sembl.Gameboard = {}
+
 
 init = ->
   viewloader.execute Sembl.views

@@ -1,11 +1,11 @@
 ###* @jsx React.DOM ###
 
-Sembl.Gameboard.HeaderView = React.createClass
+Sembl.Games.Gameboard.HeaderView = React.createClass
   handleJoin: -> 
     @props.handleJoin()
 
   render: -> 
-    PlayersView = Sembl.Gameboard.PlayersView
+    PlayersView = Sembl.Games.Gameboard.PlayersView
     if @props.game.canJoin() 
       joinDiv = `<a className='header__join' onClick={this.handleJoin}>Join Game</a>`
 

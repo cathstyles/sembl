@@ -1,17 +1,17 @@
-#= require views/gameboard/nodes_view
-#= require views/gameboard/links_view
-#= require views/gameboard/players_view
-#= require views/gameboard/header_view
-#= require views/games/play/move_maker
-#= require views/games/play/selected_thing
+#= require views/games/gameboard/nodes_view
+#= require views/games/gameboard/links_view
+#= require views/games/gameboard/players_view
+#= require views/games/gameboard/header_view
+#= require views/games/move/move_maker
+#= require views/games/move/selected_thing
 #= require views/games/gallery
 
 ###* @jsx React.DOM ###
 
-{SelectedThing, MoveMaker, SelectedThing} = Sembl.Games.Play
+{SelectedThing, MoveMaker, SelectedThing} = Sembl.Games.Move
 {Gallery} = Sembl.Games
 
-Sembl.Gameboard.GameView = React.createBackboneClass 
+Sembl.Games.Gameboard.GameView = React.createBackboneClass 
   handleJoin: ->  
     $.post(
       "#{@model().url()}/join.json"
@@ -21,9 +21,9 @@ Sembl.Gameboard.GameView = React.createBackboneClass
     )
 
   render: ->
-    NodesView = Sembl.Gameboard.NodesView
-    LinksView = Sembl.Gameboard.LinksView
-    HeaderView = Sembl.Gameboard.HeaderView
+    NodesView = Sembl.Games.Gameboard.NodesView
+    LinksView = Sembl.Games.Gameboard.LinksView
+    HeaderView = Sembl.Games.Gameboard.HeaderView
     width = @model().width()
     height = @model().height()
     boardCSS = 

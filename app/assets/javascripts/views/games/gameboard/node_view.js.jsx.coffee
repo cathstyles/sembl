@@ -1,9 +1,9 @@
-#= require views/gameboard/placement_summary_view
-#= require views/gameboard/placement_detail_view
+#= require views/games/gameboard/placement_summary_view
+#= require views/games/gameboard/placement_detail_view
 
 ###* @jsx React.DOM ###
 
-Sembl.Gameboard.NodeView = React.createClass
+Sembl.Games.Gameboard.NodeView = React.createClass
   handleMouseEnter: ->
     $(@getDOMNode()).animate(width: 80, height: 80, margin: -40, 200)
 
@@ -16,17 +16,16 @@ Sembl.Gameboard.NodeView = React.createClass
       left: @props.node.get('x')
       top: @props.node.get('y')
 
-    PlacementSummaryView = Sembl.Gameboard.PlacementSummaryView
-    PlacementDetailView = Sembl.Gameboard.PlacementDetailView
+    PlacementSummaryView = Sembl.Games.Gameboard.PlacementSummaryView
+    PlacementDetailView = Sembl.Games.Gameboard.PlacementDetailView
     placement = @props.node.get('viewable_placement')
     state = @props.node.get('user_state')
     return `<div className="board__node"  
         style={style}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}>
-        <PlacementSummaryView state={state} placement={placement} />
-        <PlacementDetailView state={state} placement={placement} />
+        <PlacementSummaryView state={state} placement={placement} node={this.props.node.attributes} />
+        <PlacementDetailView state={state} placement={placement} node={this.props.node.attributes} />
       </div>`
-
 
 

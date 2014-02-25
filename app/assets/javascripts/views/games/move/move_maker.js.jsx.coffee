@@ -1,6 +1,6 @@
 ###* @jsx React.DOM ###
 
-@Sembl.Games.Play.MoveMaker = React.createClass
+@Sembl.Games.Move.MoveMaker = React.createClass
   className: "games__play__move-maker"
 
   getInitialState: () ->

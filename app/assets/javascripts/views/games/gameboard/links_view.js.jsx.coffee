@@ -1,6 +1,6 @@
 ###* @jsx React.DOM ###
 
-Sembl.Gameboard.LinksView = React.createClass
+Sembl.Games.Gameboard.LinksView = React.createClass
   componentDidMount: (rootNode) -> 
     canvas = rootNode.firstChild
     canvas.width = @props.width

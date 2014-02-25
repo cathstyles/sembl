@@ -1,6 +1,6 @@
 ###* @jsx React.DOM ###
 
-@Sembl.Games.Play.SelectedThing = React.createClass
+@Sembl.Games.Move.SelectedThing = React.createClass
   className: "games__play__selected_thing"
 
   render: () ->

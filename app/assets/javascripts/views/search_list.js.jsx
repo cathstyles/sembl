@@ -1,4 +1,4 @@
-//= require views/search_thing
+Sembl.Gameboard//= require views/search_thing
 /** @jsx React.DOM */
 window.Sembl.SearchList = React.createClass({
   render: function() {
