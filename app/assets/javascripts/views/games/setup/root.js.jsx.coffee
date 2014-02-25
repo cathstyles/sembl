@@ -37,6 +37,9 @@
     params.publish = publish
     this.updateGame(params)
 
+  handleSelectSeed: (seed) ->
+    this.refs.seed.handleNewSeed(seed)
+
   updateGame: (params) ->
     self = this
     if this.state.game.id
@@ -75,6 +78,9 @@
       boards: _.sortBy game.boards, 'title'
       filter: game.filter_content_by
 
+    thingHandlers = 
+      requestSelectSeed: this.handleSelectSeed
+
     `<div className={this.className}>
       {game.notice}
       {game.alert}
@@ -90,7 +96,7 @@
         <button onClick={this.handlePublish}>Publish</button>
       </div>
 
-      <Gallery filter={inputs.filter} SelectedClass={SelectedThing}/>
+      <Gallery filter={inputs.filter} SelectedClass={SelectedThing} thingHandlers={thingHandlers} />
     </div>`
 
 @Sembl.views.gamesSetup = ($el, el) ->

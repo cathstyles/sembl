@@ -6,16 +6,16 @@
   getInitialState: () ->
     id: this.props.seed.id
     title: this.props.seed.title || ""
-    image_url: this.props.seed.image_url || "http://placehold.it/100x100"
+    image_url: this.props.seed.image_admin_url || "http://placehold.it/100x100"
 
   componentWillMount: () ->
     self = this
     $.getJSON("/things/"+ this.state.id+".json", {}, (data) ->
       self.handleNewSeed(data);
-      console.log data
     )
 
   handleNewSeed: (seed) ->
+    console.log seed
     this.setState
       id: seed.id
       title: seed.title

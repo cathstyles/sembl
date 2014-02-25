@@ -25,9 +25,10 @@
       onProps:
         thing: this.props.thing
 
+    console.log thing
     `<div className={this.classString}>
       {thing.title}<br/>
-      <img src={thing.image.url} height="200" width="200" onClick={this.handleClick} />
+      <img src={thing.image_admin_url} height="200" width="200" onClick={this.handleClick} />
       {selectedModal}
     </div>`
 
@@ -44,11 +45,15 @@
 
   handleSearch: (query) ->
     self = this
+    thingHandlers = this.props.thingHandlers
     things = $.getJSON("/search.json", 
       this.state.filter,
-      (data) ->
+      (things) ->
+        if thingHandlers
+          things = things.map (thing) ->
+            _.extend(thing, thingHandlers)
         self.setState
-          things: data
+          things: things
     )
 
   render: () ->
