@@ -5,8 +5,8 @@
   className: "games-setup__player-confirmed"
 
   render: () ->
-    tick = "\u2713"
-    cross = "\u2718"
+    tick = `<i className='fa fa-check games-setup__players-tick'></i>`
+    cross = `<i className='fa fa-times games-setup__players-cross'></i>`
     `<div className={this.className}>{this.props.confirmed ? tick : cross}</div>`
 
 {PlayerConfirmed,PlayersSearch} = Sembl.Games.Setup
@@ -39,10 +39,12 @@
       )
 
     `<div className={this.className}>
-      <p>3 Players Required</p>
-      <table>
-        {players}
-        <PlayersSearch />
-      </table>
+      <h3 className="games-setup__players-title">3 Players Required</h3>
+      <div className="games-setup__players-inner">
+        <table className="games-setup__players-table">
+          {players}
+          <PlayersSearch />
+        </table>
+      </div>
     </div>`
 
