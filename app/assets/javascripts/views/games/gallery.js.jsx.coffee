@@ -25,7 +25,6 @@
       onProps:
         thing: this.props.thing
 
-    console.log thing
     `<div className={this.classString}>
       {thing.title}<br/>
       <img src={thing.image_admin_url} height="200" width="200" onClick={this.handleClick} />

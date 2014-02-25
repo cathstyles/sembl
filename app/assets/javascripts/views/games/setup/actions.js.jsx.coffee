@@ -10,6 +10,6 @@
         <button onClick={this.handleSave}>Save</button>
       </div>
       <div className="games-setup__actions-publish">
-        <button class="games-setup__actions-publish__button" onClick={this.handlePublish}>Publish</button>
+        <button className="games-setup__actions-publish__button" onClick={this.handlePublish}>Publish</button>
       </div>
     </div>`

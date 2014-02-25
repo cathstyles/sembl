@@ -15,7 +15,6 @@
     )
 
   handleNewSeed: (seed) ->
-    console.log seed
     this.setState
       id: seed.id
       title: seed.title
