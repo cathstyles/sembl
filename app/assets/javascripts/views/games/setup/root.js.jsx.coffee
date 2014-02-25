@@ -29,10 +29,10 @@
     console.log "params", params
     params
 
-  handleSave: (event) ->
+  handleSave: () ->
     this.updateGame(this.getGameParams())
 
-  handlePublish: (event) ->
+  handlePublish: () ->
     params = this.getGameParams()
     params.publish = publish
     this.updateGame(params)
@@ -78,7 +78,12 @@
       boards: _.sortBy game.boards, 'title'
       filter: game.filter_content_by
 
-    thingHandlers = 
+
+    actionRequests = 
+      requestSave: this.handleSave
+      requestPublish: this.handlePublish
+
+    galleryRequests = 
       requestSelectSeed: this.handleSelectSeed
 
     `<div className={this.className}>
@@ -93,9 +98,8 @@
         <Board ref="board" board={inputs.board} boards={inputs.boards} />
         <Players ref="players" />
       </div>
-      <Actions ref="actions" />
-      <Gallery filter={inputs.filter} SelectedClass={SelectedThing}/>
-      <Gallery filter={inputs.filter} SelectedClass={SelectedThing} thingHandlers={thingHandlers} />
+      <Actions ref="actions" requests={actionRequests} />
+      <Gallery filter={inputs.filter} SelectedClass={SelectedThing} requests={galleryRequests} />
     </div>`
 
 @Sembl.views.gamesSetup = ($el, el) ->

@@ -44,13 +44,13 @@
 
   handleSearch: (query) ->
     self = this
-    thingHandlers = this.props.thingHandlers
+    requests = this.props.requests
     things = $.getJSON("/search.json", 
       this.state.filter,
       (things) ->
-        if thingHandlers
+        if requests
           things = things.map (thing) ->
-            _.extend(thing, thingHandlers)
+            _.extend(thing, requests)
         self.setState
           things: things
     )
