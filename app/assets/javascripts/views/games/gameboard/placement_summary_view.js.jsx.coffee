@@ -7,7 +7,7 @@ Sembl.Games.Gameboard.PlacementSummaryView = React.createClass
       return null
     
     else if @props.state is 'filled' or @props.state is 'proposed'
-      return @props.placement.image_url
+      return @props.placement.image_thumb_url
     
     # Available
     else 

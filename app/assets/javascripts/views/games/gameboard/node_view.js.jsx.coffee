@@ -3,6 +3,8 @@
 
 ###* @jsx React.DOM ###
 
+{PlacementSummaryView, PlacementDetailView} = Sembl.Games.Gameboard
+
 Sembl.Games.Gameboard.NodeView = React.createClass
   handleMouseEnter: ->
     $(@getDOMNode()).animate(width: 80, height: 80, margin: -40, 200)
@@ -16,8 +18,6 @@ Sembl.Games.Gameboard.NodeView = React.createClass
       left: @props.node.get('x')
       top: @props.node.get('y')
 
-    PlacementSummaryView = Sembl.Games.Gameboard.PlacementSummaryView
-    PlacementDetailView = Sembl.Games.Gameboard.PlacementDetailView
     placement = @props.node.get('viewable_placement')
     state = @props.node.get('user_state')
     return `<div className="board__node"  

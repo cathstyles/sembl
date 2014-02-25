@@ -1,10 +1,10 @@
 #= require views/games/gameboard/node_view
 
 ###* @jsx React.DOM ###
+{NodeView} = Sembl.Games.Gameboard
 
 Sembl.Games.Gameboard.NodesView = React.createClass 
   render: ->
-    NodeView = Sembl.Games.Gameboard.NodeView
 
     nodes = @props.nodes.map((node) ->
       return `<NodeView key={node.cid} node={node}  />`

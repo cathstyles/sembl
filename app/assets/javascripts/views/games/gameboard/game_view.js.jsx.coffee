@@ -10,6 +10,8 @@
 
 {MoveMaker, SelectedThing} = Sembl.Games.Move
 {Gallery} = Sembl.Games
+{NodesView, LinksView, HeaderView, PlayersView} = Sembl.Games.Gameboard
+
 
 Sembl.Games.Gameboard.GameView = React.createBackboneClass 
   handleJoin: ->  
@@ -24,9 +26,6 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     this.refs.move_maker.handleSelectThing(thing)
 
   render: ->
-    NodesView = Sembl.Games.Gameboard.NodesView
-    LinksView = Sembl.Games.Gameboard.LinksView
-    HeaderView = Sembl.Games.Gameboard.HeaderView
     width = @model().width()
     height = @model().height()
     boardCSS = 
@@ -45,6 +44,8 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
           <LinksView width={width} height={height} links={this.model().links}/> 
           <NodesView nodes={this.model().nodes} /> 
         </div>
+        <PlayersView players={this.model().players} />
+
         <br />
         <br />
         <MoveMaker ref="move_maker" game={this.model()}/>
