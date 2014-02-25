@@ -150,9 +150,17 @@ describe Node do
         node.user_state(user).should == 'filled'
       end
 
+      it "is proposed if node is available to user but player has made a move" do
+        node.state = 'in_play'
+        node.stub(:available_to?).and_return(true)
+        node.stub(:player_placement).and_return(Placement.new)
+        node.user_state(user).should == 'proposed'
+      end
+
       it "is available if node is in play and available to user" do
         node.state = 'in_play'
         node.stub(:available_to?).and_return(true)
+        node.stub(:player_placement).and_return(nil)
         node.user_state(user).should == 'available'
       end
 

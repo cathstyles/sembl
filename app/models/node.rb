@@ -63,10 +63,20 @@ class Node < ActiveRecord::Base
   # == User States 
   #   locked
   #   available
+  #   proposed
   #   filled
   def user_state(user)
+    # Locked or filled for all
     return state if locked? || filled?
-    available_to?(user) ? 'available' : 'locked'
+
+    # Locked for this user 
+    return 'locked' unless available_to?(user) 
+
+    # Player has proposed a placement
+    return 'proposed' if player_placement(user) 
+
+    # Available to user
+    return 'available'
   end
 
   private 
