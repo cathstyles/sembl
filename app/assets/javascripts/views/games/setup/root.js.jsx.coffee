@@ -4,10 +4,11 @@
 #= require views/games/setup/board
 #= require views/games/setup/players
 #= require views/games/setup/settings
+#= require views/games/setup/selected_thing
 #= require views/games/gallery
 
 ###* @jsx React.DOM ###
-{Actions, Metadata, Seed, Board, Players, Settings} = @Sembl.Games.Setup
+{Actions, Metadata, Seed, Board, Players, Settings, SelectedThing} = @Sembl.Games.Setup
 {Gallery} = @Sembl.Games
 
 @Sembl.Games.Setup.Root = React.createClass
@@ -89,7 +90,7 @@
         <button onClick={this.handlePublish}>Publish</button>
       </div>
 
-      <Gallery filter={inputs.filter} />
+      <Gallery filter={inputs.filter} SelectedClass={SelectedThing}/>
     </div>`
 
 @Sembl.views.gamesSetup = ($el, el) ->

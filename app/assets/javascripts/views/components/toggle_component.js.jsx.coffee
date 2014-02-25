@@ -15,14 +15,22 @@
     this.setState
       toggle: false
 
+  handleToggle: () ->
+    this.setState
+      toggle: !this.state.toggle
+
+
   render: () ->
     OnClass = this.props.OnClass
     OffClass = this.props.OffClass
     
     child =
       if this.state.toggle
-      then OnClass this.props.onProps
-      else OffClass this.props.offProps
+        if OnClass
+          OnClass this.props.onProps
+      else 
+        if OffClass
+          OffClass this.props.offProps
 
     `<div className={this.className}>
       {child}

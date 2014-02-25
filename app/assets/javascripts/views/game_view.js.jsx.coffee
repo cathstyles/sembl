@@ -2,11 +2,12 @@
 #= require views/game_links_view
 #= require views/game_players_view
 #= require views/games/play/move_maker
+#= require views/games/play/selected_thing
 #= require views/games/gallery
 
 ###* @jsx React.DOM ###
 
-{MoveMaker} = Sembl.Games.Play
+{SelectedThing, MoveMaker, SelectedThing} = Sembl.Games.Play
 {Gallery} = Sembl.Games
 
 Sembl.GameView = React.createBackboneClass 
@@ -44,7 +45,7 @@ Sembl.GameView = React.createBackboneClass
         <br />
         <br />
         <MoveMaker game={this.model()}/>
-        <Gallery filter={filter} />
+        <Gallery filter={filter} SelectedClass={SelectedThing} />
       </div>`
     
 
