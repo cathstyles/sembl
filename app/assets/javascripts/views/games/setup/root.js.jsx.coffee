@@ -85,17 +85,16 @@
       {game.notice}
       {game.alert}
       <Seed ref="seed" seed={inputs.seed} />
-      <Metadata ref="metadata" title={inputs.title} description={inputs.description} />
-      <Settings ref="settings" invite_only={inputs.invite_only} allow_keyword_search={inputs.allow_keyword_search} />
-      <Board ref="board" board={inputs.board} boards={inputs.boards} />
-      <Players ref="players" />
-
-      <div>
-        <button>Clone another game</button>
-        <button onClick={this.handleSave}>Save</button>
-        <button onClick={this.handlePublish}>Publish</button>
+      <div className="games-setup__meta-and-settings">
+        <Metadata ref="metadata" title={inputs.title} description={inputs.description} />
+        <Settings ref="settings" invite_only={inputs.invite_only} allow_keyword_search={inputs.allow_keyword_search} />
       </div>
-
+      <div className="games-setup__board-and-players">
+        <Board ref="board" board={inputs.board} boards={inputs.boards} />
+        <Players ref="players" />
+      </div>
+      <Actions ref="actions" />
+      <Gallery filter={inputs.filter} SelectedClass={SelectedThing}/>
       <Gallery filter={inputs.filter} SelectedClass={SelectedThing} thingHandlers={thingHandlers} />
     </div>`
 

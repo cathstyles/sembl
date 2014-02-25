@@ -1,13 +1,10 @@
 // Create game/edit game
 
 .games-setup__seed {
+  @extend %highlight-box;
   @extend .small-tracked-out-heading;
   @include pad(all, smaller);
   @include inset(right, medium);
-  background-color: $highlight-background-color;
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  box-shadow: 0 0 10px 5px rgba(#888,.1);
   float: left;
   text-align: center;
 }
@@ -17,7 +14,7 @@
   background-color: $background-color;
   border: 3px solid #fff;
   box-shadow: 0 0 2px 2px rgba(#888,.1);
-  max-width: 106px;
+  max-width: 126px;
 }
 
 .games-setup__seed-randomise {
@@ -31,8 +28,27 @@
   }
 }
 
-.games-setup__metadata {
+.games-setup__meta-and-settings {
+  @extend %clearfix-micro;
   float: left;
+}
+
+.games-setup__metadata {
+  width: 200px;
+}
+
+.games-setup__metadata__title-input,
+.games-setup__metadata__description-textarea {
+  color: $text-color;
+  width: 100%;
+}
+
+.games-setup__metadata__title-input {
+  margin-bottom: 4px;
+}
+
+.games-setup__metadata__description-textarea {
+  height: 80px;
 }
 
 .games-setup__metadata__title {
@@ -40,10 +56,24 @@
   @include font-size(22);
   color: $link-color;
   font-weight: 500;
+  padding-bottom: .3em;
+}
+
+.games-setup__metadata-edit {
+  @extend .small-tracked-out-heading;
+  color: $link-color;
+  cursor: pointer;
+  display: inline-block;
+  padding-bottom: 12px;
+  i {
+    padding-left: 2px;
+    vertical-align: middle;
+  }
 }
 
 .games-setup__settings {
   @include pad(vert, small);
+  @include inset(top, normal);
   float: left;
   margin-right: 20px;
 }
@@ -65,17 +95,26 @@
   }
 }
 
-.games-setup__board,
-.games-setup__players {
-  background-color: $highlight-background-color;
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  box-shadow: 0 0 10px 5px rgba(#888,.1);
+.games-setup__board-and-players {
+  @extend %clearfix-micro;
+  @extend %highlight-box;
   float: left;
+  margin-right: 20px;
 }
 
 .games-setup__board {
+  border-top-left-radius: $border-radius-inner;
+  border-bottom-left-radius: $border-radius-inner;
+  border-right: 1px solid #f8f1e0;
   background-color: darken($highlight-background-color, 2%);
+  float: left;
+  height: 100%;
+}
+
+.games-setup__players {
+  border-top-right-radius: $border-radius-inner;
+  border-bottom-right-radius: $border-radius-inner;
+  float: left;
 }
 
 .games-setup__board-inner,
@@ -93,8 +132,23 @@
   text-align: center;
 }
 
+
+.games-setup__players {
+  width: 260px;
+}
+
+.games-setup__select-players-search {
+  input {
+    @include font-size(14);
+    @include inset(bottom, small);
+    color: $text-color;
+    width: 100%;
+  }
+}
+
 .games-setup__players-table {
   @include font-size(14);
+  width: 100%;
   td {
     padding: 3px;
   }
@@ -106,6 +160,38 @@
 
 .games-setup__players-cross {
   color: red;
+}
+
+.games-setup__actions {
+  @extend %highlight-box;
+  float: left;
+}
+
+.games-setup__actions-status {
+  @extend .small-tracked-out-heading;
+  @include pad(vert, small);
+  border-top-left-radius: $border-radius-inner;
+  border-top-right-radius: $border-radius-inner;
+  background-color: orange;
+  color: #fff;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(#000,.6);
+}
+
+.games-setup__actions-inner {
+  @include pad(all, smaller);
+}
+
+.games-setup__actions-publish {
+  @include pad(all, smaller);
+  background-color: darken($highlight-background-color, 2%);
+  border-radius-bottom-left: $border-radius-inner;
+  border-radius-bottom-right: $border-radius-inner;
+  text-align: center;
+}
+
+.games-setup__actions-publish-button {
+  @extend %button;
 }
 
 .games__gallery {

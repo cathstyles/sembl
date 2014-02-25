@@ -33,3 +33,13 @@ a {
   margin-right: auto;
   width: 100%;
 }
+
+input[type='text'],
+input[type='email'],
+input[type='password'],
+textarea {
+  background-color: #fff;
+  border: 1px solid #d8d0bf;
+  box-shadow: inset 1px 1px 1px 1px rgba(#666,.1);
+  padding: 3px;
+}
