@@ -7,8 +7,6 @@ html
       = stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", media: "all"
     = area :javascripts do
       = javascript_include_tag "application"
-      javascript:
-        Sembl.userB = new Sembl.User(#{raw current_user.to_json});
     = csrf_meta_tags
 
   body class=body_classes
