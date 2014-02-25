@@ -2,7 +2,8 @@
 
 .games-setup__seed {
   @extend .small-tracked-out-heading;
-  @include pad(all, small);
+  @include pad(all, smaller);
+  @include inset(right, medium);
   background-color: $highlight-background-color;
   border: 1px solid $border-color;
   border-radius: $border-radius;
@@ -30,20 +31,37 @@
   }
 }
 
+.games-setup__metadata {
+  float: left;
+}
+
+.games-setup__metadata__title {
+  @extend %white-drop-shadow;
+  @include font-size(22);
+  color: $link-color;
+  font-weight: 500;
+}
+
 .games-setup__settings {
   @include pad(vert, small);
   float: left;
   margin-right: 20px;
-  p {
-    @extend .small-tracked-out-heading;
-    margin-bottom: 10px;
+}
+
+.games-setup__settings-title {
+  @extend .small-tracked-out-heading;
+  @include inset(bottom, small);
+}
+
+.games-setup__settings-item {
+  margin-bottom: 6px;
+  input {
+    cursor: pointer;
+    margin-right: 6px;
   }
-  div {
-    padding-top: 4px;
-    padding-bottom: 4px;
-    input {
-      margin-right: 4px;
-    }
+  label {
+    @include font-size(14);
+    cursor: pointer;
   }
 }
 

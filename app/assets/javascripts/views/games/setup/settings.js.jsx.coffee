@@ -19,9 +19,11 @@
     inputId = className + "__input"
 
     `<div className={this.className}>
-      <input type="hidden" value={this.state.value} />
-      <input id={inputId} type="checkbox" checked={this.state.checked} onChange={this.handleChange} />
-      <label className="boolean optional control-label" htmlFor={inputId}>{this.props.label}</label>
+      <div className="games-setup__settings-item">
+        <input type="hidden" value={this.state.value} />
+        <input id={inputId} type="checkbox" checked={this.state.checked} onChange={this.handleChange} />
+        <label className="boolean optional control-label" htmlFor={inputId}>{this.props.label}</label>
+      </div>
     </div>`
 
 {SettingsCheckbox} = @Sembl.Games.Setup
@@ -35,7 +37,7 @@
   className: "games-setup__settings"
   render: () ->
     `<div className={this.className}>
-      <p>SETTINGS</p>
+      <h3 className="games-setup__settings-title">Settings</h3>
       <SettingsCheckbox 
         ref="invite_only" 
         value={this.props.invite_only}

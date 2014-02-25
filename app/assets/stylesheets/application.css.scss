@@ -1,4 +1,4 @@
-// Import Bourbon
+// Import dependencies
 
 @import "bourbon/bourbon";
 @import "font-awesome/_font-awesome";
@@ -13,36 +13,7 @@ $container-max-width: 1400px;
 $highlight-background-color: #fffdf9;
 $highlight-color: #a9b24b;
 $link-color: #2f7c87;
-$link-hover-color: #48676c;
-
-// Global
-
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-body {
-  background-color: $background-color;
-  color: $text-color;
-  font-family: "Archer", "museo-slab", "Georgia", "Hoefler Text", serif;
-}
-
-a {
-  color: $link-color;
-  text-decoration: none;
-  &:hover {
-    color: $link-hover-color;
-  }
-}
-
-.container {
-  width: 100%;
-  max-width: $container-max-width;
-  margin-left: auto;
-  margin-right: auto;
-}
+$link-hover-color: #111;
 
 // Placeholders
 
@@ -53,6 +24,7 @@ a {
 %uppercase-heading {
   -webkit-font-smoothing: antialiased;
   font-size: 12px;
+  font-size: 1.2rem;
   font-weight: bold;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -107,6 +79,7 @@ a {
 @import "patterns/_spacing-classes";
 @import "patterns/_touch";
 @import "patterns/_type";
+@import "components/base";
 @import "components/masthead";
 @import "components/game_form";
 @import "components/search";
