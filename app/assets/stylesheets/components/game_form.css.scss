@@ -4,9 +4,11 @@
   @extend %highlight-box;
   @extend .small-tracked-out-heading;
   @include pad(all, smaller);
-  @include inset(right, medium);
   float: left;
+  margin-right: 3%;
   text-align: center;
+  width: 12%;
+  min-width: 162px;
 }
 
 .games-setup__seed-image {
@@ -14,6 +16,8 @@
   background-color: $background-color;
   border: 3px solid #fff;
   box-shadow: 0 0 2px 2px rgba(#888,.1);
+  margin-left: auto;
+  margin-right: auto;
   max-width: 126px;
 }
 
@@ -31,10 +35,8 @@
 .games-setup__meta-and-settings {
   @extend %clearfix-micro;
   float: left;
-}
-
-.games-setup__metadata {
-  width: 200px;
+  margin-right: 3%;
+  width: 25%;
 }
 
 .games-setup__metadata__title-input,
@@ -44,11 +46,15 @@
 }
 
 .games-setup__metadata__title-input {
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .games-setup__metadata__description-textarea {
   height: 80px;
+}
+
+.games-setup__metadata__description {
+  line-height: 1.15;
 }
 
 .games-setup__metadata__title {
@@ -99,7 +105,7 @@
   @extend %clearfix-micro;
   @extend %highlight-box;
   float: left;
-  margin-right: 20px;
+  margin-right: 3%;
 }
 
 .games-setup__board {
@@ -122,6 +128,10 @@
   @include pad(all, smaller);
 }
 
+.games-setup__board-inner {
+  text-align: center;
+}
+
 .games-setup__board-title,
 .games-setup__players-title {
   @extend .small-tracked-out-heading;
@@ -132,6 +142,45 @@
   text-align: center;
 }
 
+.games-setup__board-anchor {
+  @extend .small-tracked-out-heading;
+  color: $link-color;
+  display: inline-block;
+  padding-bottom: 5px;
+  padding-left: 1em;
+}
+
+.setup__board__selection {
+  @include inset(top, small);
+  list-style: disc;
+  text-align: left;
+  margin-left: 1em;
+}
+
+.setup__board__selection-item {
+  display: list-item;
+  list-style: disc;
+  padding-bottom: 2px;
+  &:last-child {
+    padding-bottom: 0;
+  }
+  a {
+    @extend .small-tracked-out-heading;
+    color: $link-color;
+    text-decoration: underline;
+  }
+}
+.games-setup__board__selected-image {
+  @include inset(vert, small);
+  border-radius: $border-radius;
+  border: 1px dashed $border-color;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.games-setup__board__selected-title {
+  @extend .small-tracked-out-heading;
+}
 
 .games-setup__players {
   width: 260px;
@@ -218,6 +267,7 @@
 
 .games__gallery {
   clear: both;
+  padding-top: 60px; // Temporary
 }
 
 .seed {

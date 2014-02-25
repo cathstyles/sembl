@@ -5,8 +5,8 @@
 
   render: () ->
     `<div className={this.className} >
-      <div>{this.props.title}</div>
-      <img src="http://placehold.it/100x100" />
+      <img src="http://placehold.it/100x100" className="games-setup__board__selected-image" />
+      <span className="games-setup__board__selected-title">{this.props.title}</span>
     </div>`
 
 
@@ -22,7 +22,7 @@
       handleClick = (event) ->
         self.handleSelectBoard(board.id)
         event.preventDefault()
-      `<li>
+      `<li className="setup__board__selection-item">
         <a href="#" value={board.id} onClick={handleClick}>{board.title}</a>
       </li>`
     )
@@ -65,9 +65,9 @@
         requestChange: this.handleNewBoard
 
     `<div className={this.className}>
-      <h3 className="games-setup__board-title">Choose Gameboard</h3>
+      <h3 className="games-setup__board-title">Gameboard</h3>
       <div className="games-setup__board-inner"> 
-        <button onClick={this.handleChooseBoardToggle}>Choose</button>
+        <a className="games-setup__board-anchor" onClick={this.handleChooseBoardToggle} href="#">Select gameboard <i className="fa fa-caret-down"></i></a>
         {component}
       </div>
     </div>`
