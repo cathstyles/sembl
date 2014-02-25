@@ -60,7 +60,7 @@
         requestChange: this.handleNewDescription
 
     `<div className={this.className}>
-      <button onClick={this.handleEditToggle}>Edit</button>
+      <span className="games-setup__metadata-edit" onClick={this.handleEditToggle}>Edit <i className="fa fa-edit"></i></span>
       {editableTitle}
       {editableDescription}
     </div>`

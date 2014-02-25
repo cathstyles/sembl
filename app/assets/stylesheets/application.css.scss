@@ -31,6 +31,17 @@ $link-hover-color: #111;
   text-transform: uppercase;
 }
 
+%highlight-box {
+  background-color: $highlight-background-color;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px 5px rgba(#888,.1);
+}
+
+%button {
+  @include background(linear-gradient(#6c722e, #fffdf2));
+}
+
 .small-tracked-out-heading {
   @extend %uppercase-heading;
   @extend %white-drop-shadow;

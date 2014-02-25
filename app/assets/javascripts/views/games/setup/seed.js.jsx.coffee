@@ -6,7 +6,7 @@
   getInitialState: () ->
     id: this.props.seed.id
     title: this.props.seed.title || ""
-    image_url: this.props.seed.image_url || "http://placehold.it/100x100"
+    image_url: this.props.seed.image_url || "http://placehold.it/120x120"
 
   componentWillMount: () ->
     self = this
@@ -38,7 +38,7 @@
   render: () ->
     `<div className={this.className}>
       <h3 className="games-setup__seed-title">Seed Node</h3>
-      <img key={this.state.image_url} src={this.state.image_url} className="games-setup__seed-image" width="100" height="100" />
+      <img key={this.state.image_url} src={this.state.image_url} className="games-setup__seed-image" width="120" height="120" />
       <h3 className="games-setup__seed-randomise"><a href="#" onClick={this.handleRandomSeed}><i className="fa fa-random"></i> <span>Randomise</span></a></h3>
       <input type="hidden" name={this.props.seed.form_name} value={this.state.seed_id} />
     </div>`

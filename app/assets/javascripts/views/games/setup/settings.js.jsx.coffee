@@ -7,7 +7,6 @@
       value: if this.props.value then 1 else 0
     tmp
 
-
   handleChange: (event) ->
     this.setState 
       checked: event.target.checked
