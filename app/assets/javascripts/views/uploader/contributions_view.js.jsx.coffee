@@ -1,3 +1,5 @@
+#= require image_area_select
+
 ###* @jsx React.DOM ###
 NewContribution = React.createClass
   getInitialState: ->
@@ -13,10 +15,6 @@ NewContribution = React.createClass
     @transloaditInstance = apiHost
     @checkLoadComplete()
 
-  checkLoadComplete: ->
-    if @state.step is 0 and @transloaditTemplates and @transloaditInstance
-      @setState step: 1
-
   getTransloaditSignature: (templateName) ->
     $.ajax
       url: '/transloadit_signatures/' + templateName.camelToUnderscore()
@@ -26,14 +24,48 @@ NewContribution = React.createClass
         @transloaditTemplates[templateName] = data
         @checkLoadComplete()
 
+  checkLoadComplete: ->
+    if @transloaditInstance
+      switch @state.step
+        when 0
+          @setState step: 1 if @transloaditTemplates['thingsStoreOriginal']
+        when 3
+          @cropImage() if @transloaditTemplates['thingsCrop']
+
   setCropSrc: (url) ->
     @cropUrl = url
     @setState step: 2
 
+  setCropCoordinates: (coordinates) ->
+    @coordinates = coordinates
+    @setState step: 3
+    @transloaditInstance = null
+    new TransloaditBoredInstance(@foundBoredInstance)
+    @getTransloaditSignature 'thingsCrop'
+
+  cropImage: ->
+    @assemblyUrl = "#{PROTOCOL}://#{@transloaditInstance}/assemblies"
+
+    $.ajax
+      url: "#{@assemblyUrl}?redirect=false"
+      dataType: 'json'
+      contentType: 'application/json; charset=utf-8'
+      type: 'POST'
+      context: this
+      data:
+        JSON.stringify
+          params: $.extend @transloaditTemplates['thingsCrop'].params,
+            steps:
+              import: url: @cropUrl
+              crop: crop: @coordinates
+          signature: @transloaditTemplates['thingsCrop'].signature
+      success: (data) ->
+        console.log data
+
   render: ->
     currentComponent = switch @state.step
       when 0
-        `<div>loading…</div>`
+        `<div>Loading…</div>`
 
       when 1
         `<UploadComponent
@@ -45,9 +77,13 @@ NewContribution = React.createClass
       when 2
         `<CropComponent
           cropUrl={this.cropUrl}
+          setCropCoordinates={this.setCropCoordinates}
         />`
 
       when 3
+        `<div>Processing…</div>`
+
+      when 4
         `<ThingComponent />`
 
     `<div className="new-contribution">
@@ -55,10 +91,17 @@ NewContribution = React.createClass
     </div>`
 
 UploadComponent = React.createClass
+  getInitialState: ->
+    loading: false
+
   componentWillMount: ->
     @assemblyId  = genUUID()
     @assemblyUrl = "#{PROTOCOL}://#{@props.transloaditInstance}/assemblies/#{@assemblyId}"
     @postUrl     = "#{@assemblyUrl}?redirect=false"
+
+  handleSubmit: ->
+    @setState loading: true
+    @uploadPoll()
 
   uploadPoll: ->
     setTimeout @queryAssembly, 1000
@@ -77,25 +120,46 @@ UploadComponent = React.createClass
   render: ->
     hidden = display: 'none'
 
+    loadingStyle = if @state.loading then {} else hidden
+    formStyle    = if @state.loading then hidden else {}
+
     `<div>
       <iframe name="transloadit" style={hidden} />
       <form
         encType="multipart/form-data"
-        onSubmit={this.uploadPoll}
+        onSubmit={this.handleSubmit}
         action={this.postUrl}
         target="transloadit"
         method="POST"
+        style={formStyle}
       >
         <input name="params" type="hidden" value={JSON.stringify(this.props.transloaditTemplate.params)} />
         <input name="signature" type="hidden" value={this.props.transloaditTemplate.signature} />
         <input name="thing" type="file" />
         <input type="submit" value="Upload" />
       </form>
+      <span style={loadingStyle}>Uploading…</span>
     </div>`
 
 CropComponent = React.createClass
+  componentDidMount: ->
+    $('img').imgAreaSelect
+      handles: true
+      show: true
+      onSelectEnd: (img, coordinates) =>
+        @cropCoordinates = coordinates
+
+  componentWillUnmount: ->
+    $('img').imgAreaSelect remove: true
+
+  handleSubmit: ->
+    @props.setCropCoordinates @cropCoordinates
+
   render: ->
-    `<img src={this.props.cropUrl} />`
+    `<div>
+      <img src={this.props.cropUrl} />
+      <button onClick={this.handleSubmit} />
+    </div>`
 
 
 window.contributionsView = (el) ->
