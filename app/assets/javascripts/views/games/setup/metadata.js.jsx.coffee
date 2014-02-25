@@ -32,6 +32,7 @@
       description: newValue
 
   render: () ->
+
     editableTitle = ToggleComponent
       ref: "title"
       toggle: this.state.edit

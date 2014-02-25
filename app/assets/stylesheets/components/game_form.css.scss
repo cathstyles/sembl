@@ -1,32 +1,67 @@
-// New game
+// Create game/edit game
 
 .games-setup__seed {
   @extend .small-tracked-out-heading;
-  @include pad(all, small);
-  background-color: #fffdf7;
+  @include pad(all, smaller);
+  @include inset(right, medium);
+  background-color: $highlight-background-color;
   border: 1px solid $border-color;
   border-radius: $border-radius;
   box-shadow: 0 0 10px 5px rgba(#888,.1);
   float: left;
-  margin-right: 20px;
   text-align: center;
-  img {
-    @include inset(vert, small);
-    border: 3px solid #fff;
-    box-shadow: 0 0 2px 2px rgba(#888,.1);
-    max-width: 106px;
+}
+
+.games-setup__seed-image {
+  @include inset(vert, small);
+  background-color: $background-color;
+  border: 3px solid #fff;
+  box-shadow: 0 0 2px 2px rgba(#888,.1);
+  max-width: 106px;
+}
+
+.games-setup__seed-randomise {
+  color: $link-color;
+  span {
+    text-decoration: underline;
   }
+  i {
+    padding-right: 5px;
+    vertical-align: middle;
+  }
+}
+
+.games-setup__metadata {
+  float: left;
+}
+
+.games-setup__metadata__title {
+  @extend %white-drop-shadow;
+  @include font-size(22);
+  color: $link-color;
+  font-weight: 500;
 }
 
 .games-setup__settings {
   @include pad(vert, small);
   float: left;
-  p {
-    @extend .small-tracked-out-heading;
+  margin-right: 20px;
+}
+
+.games-setup__settings-title {
+  @extend .small-tracked-out-heading;
+  @include inset(bottom, small);
+}
+
+.games-setup__settings-item {
+  margin-bottom: 6px;
+  input {
+    cursor: pointer;
+    margin-right: 6px;
   }
-  div {
-    padding-top: 4px;
-    padding-bottom: 4px;
+  label {
+    @include font-size(14);
+    cursor: pointer;
   }
 }
 
