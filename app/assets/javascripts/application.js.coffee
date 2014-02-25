@@ -5,13 +5,11 @@
 #= require backbone
 #= require react
 #= require react.backbone
-#= require skim
 #= require_self
 #= require models/game
 #= require models/user
 #= require models/move
 #= require routers/game_router
-#= require game_form
 #= require viewloader
 #= require views/uploader/contributions_view
 
