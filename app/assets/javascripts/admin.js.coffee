@@ -7,7 +7,6 @@
 #= require raphael
 #= require backbone-raphael
 #= require models/board
-#= require views/board_view
 
 $ ->
   if $(document.body).is(".admin-boards-new, .admin-boards-create, .admin-boards-edit, .admin-boards-update, .admin-games-new, .admin-games-create, .admin-games-edit, .admin-games-update")
