@@ -182,16 +182,38 @@
   @include pad(all, smaller);
 }
 
+.games-setup__actions-list {
+  @extend %uppercase-heading;
+  color: $link-color;
+  list-style: disc;
+  margin-left: 1em;
+}
+
+.games-setup__actions-list-item {
+  display: list-item;
+  padding-bottom: 6px;
+  list-style: disc;
+}
+
+.games-setup__actions-list-anchor {
+  @include font-size(12);
+  color: $link-color;
+  text-decoration: underline;
+}
+
 .games-setup__actions-publish {
   @include pad(all, smaller);
   background-color: darken($highlight-background-color, 2%);
-  border-radius-bottom-left: $border-radius-inner;
-  border-radius-bottom-right: $border-radius-inner;
+  border-bottom-left-radius: $border-radius-inner;
+  border-bottom-right-radius: $border-radius-inner;
   text-align: center;
 }
 
-.games-setup__actions-publish-button {
+.games-setup__actions-publish__button {
   @extend %button;
+  i {
+    padding-right: 4px;
+  }
 }
 
 .games__gallery {

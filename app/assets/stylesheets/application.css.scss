@@ -39,7 +39,20 @@ $link-hover-color: #111;
 }
 
 %button {
-  @include background(linear-gradient(#6c722e, #fffdf2));
+  @extend .small-tracked-out-heading;
+  @include background(linear-gradient(#8b923b, #657220));
+  border-radius: $border-radius;
+  border: 1px solid #657220;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-size: 1.4rem;
+  text-shadow: 1px 1px 1px rgba(#000,.5);
+  padding: 6px 15px 5px;
+  &:hover {
+    @include background(none);
+    background-color: #657220;
+  }
 }
 
 .small-tracked-out-heading {
