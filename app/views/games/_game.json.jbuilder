@@ -22,10 +22,10 @@ json.nodes @game.nodes, partial: 'nodes/node', as: :node
 json.links @game.links, partial: 'links/link', as: :link
 
 json.player do 
-  unless @game.player(current_user).nil?
+  if @game.player(current_user).nil?
     json.nil!
   else
-    json.partial! 'players/player', user: @game.player
+    json.partial! 'players/player', player: @game.player(current_user)
   end
 end
 json.is_participating @game.participating?(current_user)

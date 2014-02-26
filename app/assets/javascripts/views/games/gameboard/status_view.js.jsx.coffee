@@ -6,30 +6,38 @@ Sembl.Games.Gameboard.StatusView = React.createClass
     
   handleContinueRating: -> 
 
-  getButtonForStatus(status): -> 
-    
-    if status is 'playing_turn'
+  getButtonForStatus: (state, move_state) -> 
+    disabled = ""
+    if state is 'playing_turn'
+      disabled = "disabled" if move_state == "open"
       buttonText = "End Turn"
       buttonClassName = "game__status__end-turn"
       buttonClickHandler = @handleEndTurn
-    else if status is 'waiting'
+    else if state is 'waiting'
+      disabled = "diabled"
       buttonText = "Waiting ..."
       buttonClassName = "game__status__waiting"
       buttonClickHandler = nil
-    else if status is 'rating'
+    else if state is 'rating'
       buttonText = "Continue Rating"
       buttonClassName = "game__status__rating"
       buttonClickHandler = @handleContinueRating
 
-    return `<button className={buttonClassName} onClick={buttonClickHandler}>
-      {buttonText}
-    </button>`
+    return `<button 
+      className={buttonClassName} 
+      onClick={buttonClickHandler}
+      disabled={disabled}>
+        {buttonText}
+      </button>`
 
   render: -> 
     game_status = @props.game.get('status')
+    player = @props.game.get('player')
+
+    console.log player
 
     if player
-      statusHTML = getButtonForStatus(player.get('status'))
+      statusHTML = @getButtonForStatus(player.state, player.move_state)
     else
       statusHTML = game_status
 
