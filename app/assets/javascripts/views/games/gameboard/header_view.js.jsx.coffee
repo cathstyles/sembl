@@ -32,24 +32,22 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
       {descriptionDiv}
       <div className="header__round">
         Round 
-        <span class="header__round__number">
+        <span className="header__round__number">
           {game.get('current_round')}
         </span>
       </div>
 
       {joinDiv}
       
-      <div class="header__admin">
+      <div className="header__admin">
         Admin
       </div>
-      <div class=header__round-results>
+      <div className="header__round-results">
         Round Results 
       </div> 
       <div className="header__help">
         Help
       </div>
-
-    
     </div>`
 
 

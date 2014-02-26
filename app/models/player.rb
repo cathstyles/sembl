@@ -20,10 +20,20 @@ class Player < ActiveRecord::Base
 
   validates :user_id, uniqueness: {scope: :game_id}, allow_nil: true
 
+  # == States
+  # draft 
+  # invited
+  # playing_turn
+  # waiting 
+  # rating 
+
   state_machine initial: :draft do 
     after_transition :playing_turn => :waiting, do: :check_turn_completion
     after_transition :rating => :wating, do: :check_rating_completion
     after_transition :draft => any, do: :send_invitation
+    after_transition any => :playing_turn do |player, transition|
+      player.begin_move
+    end
 
     event :invite do 
       transition :draft => :playing_turn, 
@@ -37,7 +47,7 @@ class Player < ActiveRecord::Base
 
     event :end_turn do 
       transition :playing_turn => :waiting,
-        if: lambda {|player|  player.completed_requirements? }
+        if: lambda {|player|  player.move_created? }
     end
 
     event :begin_rating do 
@@ -60,6 +70,20 @@ class Player < ActiveRecord::Base
       validates_presence_of :user
     end 
 
+  end
+
+  #== Move States
+  # open
+  # created
+  
+  state_machine :move_state, initial: :open, namespace: 'move' do 
+    event :create do 
+      transition :open => :created
+    end
+
+    event :begin do 
+      transition :created => :open
+    end
   end
 
   def self.playing 

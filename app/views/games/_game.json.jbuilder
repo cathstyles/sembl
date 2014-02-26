@@ -21,6 +21,13 @@ json.players @game.players.playing, partial: 'players/player', as: :player
 json.nodes @game.nodes, partial: 'nodes/node', as: :node
 json.links @game.links, partial: 'links/link', as: :link
 
+json.player do 
+  unless @game.player(current_user).nil?
+    json.nil!
+  else
+    json.partial! 'players/player', user: @game.player
+  end
+end
 json.is_participating @game.participating?(current_user)
 json.is_hosting @game.hosting?(current_user)
 json.errors @game.errors.full_messages

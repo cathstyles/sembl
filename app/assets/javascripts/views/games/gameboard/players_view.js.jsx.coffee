@@ -5,6 +5,6 @@ Sembl.Games.Gameboard.PlayersView = React.createClass
     players = @props.players.map((player) ->
       return `<li key={player.cid}>{player.get('user').email}</li>`
     )
-    return `<ul className="board__header__players">
+    return `<ul className="game__players">
         {players}
       </ul>`
