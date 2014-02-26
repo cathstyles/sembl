@@ -4,24 +4,26 @@
       h1 All games
 
   .home
+    .home__new-game-button-container
+      = link_to "Create new game", new_game_path, class: "home__new-game-button"
+
     .home__my-games
-      - @games[:participating].each do |game|
-        h1.home__my-games-heading My games
-        = render partial: "game", locals: {game: game}
+      h1.home__my-games-heading My games
+      .home__my-games-container
+        - @games[:participating].each do |game|
+          = render partial: "game", locals: {game: game}
 
     .home__games-hosting
       h1.home__games-hosting-heading Games I'm hosting
-
-      - @games[:hosted].each do |game|
-        = render partial: "game", locals: {game: game}
-
-      = link_to "New game", new_game_path
+      .home__games-hosting-container
+        - @games[:hosted].each do |game|
+          = render partial: "game", locals: {game: game}
 
     .home__all-games
       h1.home__all-games-heading Browse open games
-
-      - @games[:open].each do |game|
-        = render partial: "game", locals: {game: game}
+      .home__all-games-container
+        - @games[:open].each do |game|
+          = render partial: "game", locals: {game: game}
 
 
 

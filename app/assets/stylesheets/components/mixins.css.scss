@@ -30,8 +30,9 @@
   text-shadow: 1px 1px 1px rgba(#000,.5);
   padding: 6px 15px 5px;
   &:hover {
-    @include background(none);
+    @include background(linear-gradient(#657220, #657220));
     background-color: #657220;
+    color: #fff;
   }
 }
 

@@ -111,7 +111,7 @@
 .games-setup__board {
   border-top-left-radius: $border-radius-inner;
   border-bottom-left-radius: $border-radius-inner;
-  border-right: 1px solid #f8f1e0;
+  border-right: 1px solid $subtle-highlight;
   background-color: darken($highlight-background-color, 2%);
   float: left;
   height: 100%;
@@ -137,7 +137,7 @@
   @extend .small-tracked-out-heading;
   @include pad(horz, smaller);
   @include pad(vert, small);
-  background-color: #f8f1e0;
+  background-color: $subtle-highlight;
   border-radius: $border-radius-inner;
   text-align: center;
 }
