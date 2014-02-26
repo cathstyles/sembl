@@ -9,18 +9,6 @@ html
       = javascript_include_tag "application"
     = csrf_meta_tags
 
-  javascript:
-    Sembl.paths = {
-      admin_root_path: "#{admin_root_path}",
-      destroy_user_session_path: "#{destroy_user_session_path}",
-      new_user_session_path: "#{new_user_session_path}",
-      new_user_registration_path: "#{new_user_registration_path}"
-    }
-
-  - if user_signed_in?
-    javascript:
-      Sembl.user = #{raw(render(partial: "users/user", formats: :json, object: current_user))}
-    
   body class=body_classes
     .masthead
       = area :header do
@@ -47,6 +35,7 @@ html
       = area :content do
         = flashes
         = yield
+
     .footer.container
       = area :footer do
         p Made with ♥︎ by #{link_to "Icelab", "http://icelab.com.au"}

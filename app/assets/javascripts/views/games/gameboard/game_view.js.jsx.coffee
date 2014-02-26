@@ -3,13 +3,13 @@
 #= require views/games/gameboard/players_view
 #= require views/games/gameboard/header_view
 #= require views/games/gameboard/status_view
-
 #= require views/games/gallery
+#= require views/layouts/default
 
 ###* @jsx React.DOM ###
 
-
 {NodesView, LinksView, HeaderView, PlayersView, StatusView} = Sembl.Games.Gameboard
+Layout = Sembl.Layouts.Default
 
 Sembl.Games.Gameboard.GameView = React.createBackboneClass 
   handleJoin: ->  
@@ -27,7 +27,8 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
       width: width
       height: height
     
-    return `<div className="game">
+    `<Layout>
+      <div className="game">
         <HeaderView game={this.model()} handleJoin={this.handleJoin}/>
         <div className="messages">
         </div>
@@ -37,6 +38,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
         </div>
         <PlayersView players={this.model().players} />
         <StatusView game={this.model()} />
-      </div>`
-    
+      </div>
+    </Layout>`
+  
 

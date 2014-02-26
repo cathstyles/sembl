@@ -10,7 +10,7 @@ Sembl.Masthead.Link = React.createClass
     </li>`
 
 {Link} = Sembl.Masthead
-Sembl.Masthead.Root = React.createClass 
+Sembl.Masthead.Masthead = React.createClass 
   render: ->
     if Sembl.user
       if Sembl.user.admin

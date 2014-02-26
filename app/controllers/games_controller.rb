@@ -17,7 +17,7 @@ class GamesController < ApplicationController
 
   def show
     authorize @game
-    respond_with @game
+    respond_with @game, layout: "react"
   end
 
   def summary
