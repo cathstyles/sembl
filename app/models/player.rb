@@ -119,19 +119,6 @@ class Player < ActiveRecord::Base
     end
   end
 
-  #TODO: This logic is not right. 
-  # A player can end a turn when one more more placements are complete. 
-  # A placement is complete when all target sembls have been entered.
-  def completed_requirements?
-    game.links.
-    joins(:target).
-    joins(:resemblances).
-    where("nodes.round = ?", [game.current_round]).
-    where("resemblances.creator_id = ?", [user.id]).
-    present?
-    # true
-  end
-
   def send_invitation
     PlayerMailer.game_invitation(self).deliver
   end
