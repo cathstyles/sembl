@@ -87,10 +87,8 @@
 }
 
 .home__new-game-button-container {
-  @include pad(all, normal);
-  background-color: #f3e7ca;
-  border-radius: $border-radius;
-  float: right;
+  @include pad(vert, normal);
+  display: inline-block;
 }
 
 .home__new-game-button {
