@@ -23,6 +23,7 @@ _.extend Sembl, Backbone.Events
 @Sembl.Games.Setup = @Sembl.Games.Setup || {}
 @Sembl.Games.Gameboard = @Sembl.Games.Gameboard || {}
 @Sembl.Games.Move = @Sembl.Games.Move || {}
+@Sembl.Masthead = @Sembl.Masthead || {}
 @Sembl.views = @Sembl.views || {}
 
 
