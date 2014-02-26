@@ -1,9 +1,13 @@
 .game-individual
   a.game-individual__anchor href="#{game_path(game)}"
-    = image_tag game.seed_thing.try(:image).try(:admin_thumb).try(:url)
-  a.game-individual__title href="#{game_path(game)}"
-    = game.title
+    .game-individual__image-container
+      = image_tag game.seed_thing.try(:image).try(:admin_thumb).try(:url)
+      span.game-individual__play-button Play
+    h1.game-individual__title
+      = game.title
+    .game-individual__description
+      = game.description
   - if policy(game).edit?
     a.game-individual__edit href="#{edit_game_path(game)}"
-      | Edit
-  span.game-individual__theme = game.theme
+      | Edit game <i class="fa fa-edit"></i>
+    -# span.game-individual__theme = game.theme
