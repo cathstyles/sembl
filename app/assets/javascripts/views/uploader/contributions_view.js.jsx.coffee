@@ -6,61 +6,26 @@ NewContribution = React.createClass
     step: 0
 
   componentWillMount: ->
-    @transloaditTemplates = {}
-    @getTransloaditSignature 'thingsStoreOriginal'
-
     new TransloaditBoredInstance(@foundBoredInstance)
+    new TransloaditSignature('thingsStoreOriginal', @signatureLoaded)
 
   foundBoredInstance: (apiHost) ->
     @transloaditInstance = apiHost
     @checkLoadComplete()
 
-  getTransloaditSignature: (templateName) ->
-    $.ajax
-      url: '/transloadit_signatures/' + templateName.camelToUnderscore()
-      dataType: 'json'
-      context: this
-      success: (data) ->
-        @transloaditTemplates[templateName] = data
-        @checkLoadComplete()
+  signatureLoaded: (template) ->
+    @uploadTemplate = template
+    @checkLoadComplete()
 
   checkLoadComplete: ->
-    if @transloaditInstance
-      switch @state.step
-        when 0
-          @setState step: 1 if @transloaditTemplates['thingsStoreOriginal']
-        when 3
-          @cropImage() if @transloaditTemplates['thingsCrop']
+    @setState step: 1 if @transloaditInstance and @uploadTemplate
 
   setCropSrc: (url) ->
     @cropUrl = url
     @setState step: 2
 
-  setCropCoordinates: (coordinates) ->
-    @coordinates = coordinates
+  finishedCrop: ->
     @setState step: 3
-    @transloaditInstance = null
-    new TransloaditBoredInstance(@foundBoredInstance)
-    @getTransloaditSignature 'thingsCrop'
-
-  cropImage: ->
-    @assemblyUrl = "#{PROTOCOL}://#{@transloaditInstance}/assemblies"
-
-    $.ajax
-      url: "#{@assemblyUrl}?redirect=false"
-      dataType: 'json'
-      contentType: 'application/json; charset=utf-8'
-      type: 'POST'
-      context: this
-      data:
-        JSON.stringify
-          params: $.extend @transloaditTemplates['thingsCrop'].params,
-            steps:
-              import: url: @cropUrl
-              crop: crop: @coordinates
-          signature: @transloaditTemplates['thingsCrop'].signature
-      success: (data) ->
-        console.log data
 
   render: ->
     currentComponent = switch @state.step
@@ -69,7 +34,7 @@ NewContribution = React.createClass
 
       when 1
         `<UploadComponent
-          transloaditTemplate={this.transloaditTemplates.thingsStoreOriginal}
+          transloaditTemplate={this.uploadTemplate}
           transloaditInstance={this.transloaditInstance}
           setCropSrc={this.setCropSrc}
         />`
@@ -77,7 +42,7 @@ NewContribution = React.createClass
       when 2
         `<CropComponent
           cropUrl={this.cropUrl}
-          setCropCoordinates={this.setCropCoordinates}
+          finishedCrop={this.finishedCrop}
         />`
 
       when 3
@@ -153,7 +118,40 @@ CropComponent = React.createClass
     $('img').imgAreaSelect remove: true
 
   handleSubmit: ->
-    @props.setCropCoordinates @cropCoordinates
+    if @cropCoordinates and not @loading
+      @loading = true
+      new TransloaditBoredInstance(@foundBoredInstance)
+      new TransloaditSignature('thingsCrop', @signatureLoaded)
+
+  foundBoredInstance: (apiHost) ->
+    @transloaditInstance = apiHost
+    @checkLoadComplete()
+
+  signatureLoaded: (template) ->
+    @cropTemplate = template
+    @checkLoadComplete()
+
+  checkLoadComplete: ->
+    @cropImage() if @cropTemplate and @transloaditInstance
+
+  cropImage: ->
+    @assemblyUrl = "#{PROTOCOL}://#{@transloaditInstance}/assemblies"
+
+    $.ajax
+      url: "#{@assemblyUrl}?redirect=false"
+      dataType: 'json'
+      contentType: 'application/json; charset=utf-8'
+      type: 'POST'
+      context: this
+      data:
+        JSON.stringify
+          params: $.extend @cropTemplate.params,
+            steps:
+              import: url: @props.cropUrl
+              crop: crop: @coordinates
+          signature: @cropTemplate.signature
+      success: (data) ->
+        @props.finishedCrop()
 
   render: ->
     `<div>
@@ -186,6 +184,18 @@ class TransloaditBoredInstance
   getBoredInstanceAgain: ->
     setTimeout @getBoredInstance, 1000 # TODO debounce
 
+class TransloaditSignature
+  constructor: (@templateName, @successCallback) ->
+    @getTransloaditSignature()
+
+  getTransloaditSignature: ->
+    $.ajax
+      url: '/transloadit_signatures/' + @templateName.camelToUnderscore()
+      dataType: 'json'
+      context: this
+      success: (data) ->
+        @successCallback data
+
 genUUID = ->
   time = new Date().getTime()
 
@@ -199,4 +209,4 @@ genUUID = ->
 String.prototype.camelToUnderscore = ->
   @replace /([a-z][A-Z])/g, (g) -> g[0] + '_' + g[1].toLowerCase()
 
-PROTOCOL = 'http' # FIXME HTTPS if Sembl has SSL
+PROTOCOL = if document.location.protocol is 'https:' then 'https' else 'http'
