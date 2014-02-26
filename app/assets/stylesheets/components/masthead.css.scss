@@ -2,6 +2,7 @@
 
 .masthead {
   @include background(linear-gradient($highlight-background-color, #fffdf2));
+  @include inset(bottom, larger);
   background-color: $highlight-background-color;
   border-bottom: 1px solid $border-color;
   box-shadow: 0 0 5px 5px rgba(#888,.1);

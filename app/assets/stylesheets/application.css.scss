@@ -17,50 +17,6 @@ $highlight-color: #a9b24b;
 $link-color: #2f7c87;
 $link-hover-color: #111;
 
-// Placeholders
-
-%white-drop-shadow {
-  text-shadow: 1px 1px 1px #fff;
-}
-
-%uppercase-heading {
-  -webkit-font-smoothing: antialiased;
-  font-size: 12px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
-%highlight-box {
-  background-color: $highlight-background-color;
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  box-shadow: 0 0 10px 5px rgba(#888,.1);
-}
-
-%button {
-  @extend .small-tracked-out-heading;
-  @include background(linear-gradient(#8b923b, #657220));
-  border-radius: $border-radius;
-  border: 1px solid #657220;
-  color: #fff;
-  cursor: pointer;
-  font-size: 14px;
-  font-size: 1.4rem;
-  text-shadow: 1px 1px 1px rgba(#000,.5);
-  padding: 6px 15px 5px;
-  &:hover {
-    @include background(none);
-    background-color: #657220;
-  }
-}
-
-.small-tracked-out-heading {
-  @extend %uppercase-heading;
-  @extend %white-drop-shadow;
-}
-
 // Game
 
 .content {
@@ -105,11 +61,13 @@ $link-hover-color: #111;
 @import "patterns/_spacing-classes";
 @import "patterns/_touch";
 @import "patterns/_type";
+@import "components/mixins";
 @import "components/base";
 @import "components/masthead";
 @import "components/game_form";
 @import "components/search";
 @import "components/gameboard";
+@import "components/home";
 
 // Call patterns
 

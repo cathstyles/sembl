@@ -1,0 +1,55 @@
+// Placeholders
+
+%white-drop-shadow {
+  text-shadow: 1px 1px 1px #fff;
+}
+
+%uppercase-heading {
+  @include font-size(12);
+  -webkit-font-smoothing: antialiased;
+  font-weight: bold;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+%highlight-box {
+  background-color: $highlight-background-color;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px 5px rgba(#888,.1);
+}
+
+%button {
+  @extend .small-tracked-out-heading;
+  @include background(linear-gradient(#8b923b, #657220));
+  @include font-size(14);
+  border-radius: $border-radius;
+  border: 1px solid #657220;
+  color: #fff;
+  cursor: pointer;
+  text-shadow: 1px 1px 1px rgba(#000,.5);
+  padding: 6px 15px 5px;
+  &:hover {
+    @include background(none);
+    background-color: #657220;
+  }
+}
+
+.large-heading {
+  @extend %white-drop-shadow;
+  @include font-size(24);
+  @include pad(bottom, small);
+  color: $link-color;
+  font-weight: 500;
+}
+
+.medium-heading {
+  @extend %white-drop-shadow;
+  @include font-size(18);
+  font-weight: 500;
+}
+
+.small-tracked-out-heading {
+  @extend %uppercase-heading;
+  @extend %white-drop-shadow;
+}
