@@ -17,7 +17,8 @@ class PlayersController < ApplicationController
   end
 
   def end_turn
-    
+    player = @game.players.find(params[:id])
+    player.end_turn
   end
 
   private 
