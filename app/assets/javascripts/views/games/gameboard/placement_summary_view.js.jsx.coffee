@@ -14,7 +14,7 @@ Sembl.Games.Gameboard.PlacementSummaryView = React.createClass
       return null
     
   handleClick: -> 
-    Sembl.router.navigate("propose/#{@props.node.id}", trigger: true)
+    Sembl.router.navigate("move/#{@props.node.id}", trigger: true)
 
   render: ->
     className = "board__node__placement-summary state-#{@props.state}"

@@ -1,9 +1,10 @@
 #= require views/games/gameboard/game_view
+#= require views/games/move/move_view
 
 class Sembl.GameRouter extends Backbone.Router
   routes:
     "": "board"
-    "propose/:node_id": "propose"
+    "move/:node_id": "add_move"
 
   initialize: (@game) ->
 
@@ -13,11 +14,11 @@ class Sembl.GameRouter extends Backbone.Router
       document.getElementById('container')
     )
 
-  propose: (nodeID) -> 
-    # node = @game.findNode(nodeID)
-    node = Sembl.Node.new()
+  add_move: (nodeID) -> 
+    console.log @game
+    node = @game.nodes.get(nodeID)
     React.renderComponent(
-      Sembl.Games.Move.MoveView({model: @game, node: node})
+      Sembl.Games.Move.MoveView({game: @game, node: node})
       document.getElementById('container')
     )
 
