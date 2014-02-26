@@ -32,7 +32,5 @@ Sembl.Masthead.Root = React.createClass
       </div>
     </div>`
 
-Sembl.views.mastheadContainer = ($el, el) ->
-  React.renderComponent(Sembl.Masthead.Root(props), el)
 
 
