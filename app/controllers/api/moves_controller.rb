@@ -48,6 +48,7 @@ class Api::MovesController < ApplicationController
 
     if !error_record
       @result = result(status=:ok, notice='Move created')
+      game.player(current_user).move_created
       respond_with @result
     else
       @result = result(status=:fail, alert='Move could not be created', errors=error_record.errors.full_messages)
