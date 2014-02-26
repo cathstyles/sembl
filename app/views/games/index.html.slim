@@ -1,9 +1,12 @@
 - if user_signed_in?
-  .container.home
-    .home__my-games
-      h1.home__my-games-heading My games
+  .header
+    .heading
+      h1 All games
 
+  .home
+    .home__my-games
       - @games[:participating].each do |game|
+        h1.home__my-games-heading My games
         = render partial: "game", locals: {game: game}
 
     .home__games-hosting

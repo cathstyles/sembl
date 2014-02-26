@@ -5,3 +5,26 @@
 .home__all-games-heading {
   @extend .large-heading;
 }
+
+.game-individual {
+  width: 20%;
+  margin-right: 3%;
+  border: 1px solid red;
+}
+
+.game-individual__anchor {
+  img {
+    border-radius: $border-radius;
+    border: 3px solid #fff;
+    box-shadow: 0 0 2px 2px rgba(#888,.1);
+    margin-left: 0;
+    margin-right: 0;
+  }
+  &:hover {
+    img {
+      @include transition-property('border-color');
+      @include transition-duration(250ms);
+      border-color: $highlight-color;
+    }
+  }
+}
