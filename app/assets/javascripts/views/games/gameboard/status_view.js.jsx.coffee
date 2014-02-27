@@ -24,18 +24,16 @@ Sembl.Games.Gameboard.StatusView = React.createClass
       buttonClassName = "game__status__rating"
       buttonClickHandler = @handleContinueRating
 
-    return `<button 
+    `<button 
       className={buttonClassName} 
       onClick={buttonClickHandler}
       disabled={disabled}>
         {buttonText}
-      </button>`
+    </button>`
 
   render: -> 
     game_status = @props.game.get('status')
     player = @props.game.get('player')
-
-    console.log player
 
     if player
       statusHTML = @getButtonForStatus(player.state, player.move_state)

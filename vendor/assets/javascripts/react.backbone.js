@@ -57,7 +57,7 @@
             return this.getModel();
         };
         spec.el = function() {
-            return this.isMounted() && this.getDOMNode();
+                
         };
         return React.createClass(spec);
     };
