@@ -21,7 +21,6 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     )
 
   render: ->
-    console.log this.model().links
     width = @model().width()
     height = @model().height()
     boardCSS = 
@@ -29,7 +28,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
       height: height
     
     header = `<HeaderView game={this.model()} handleJoin={this.handleJoin}/>`
-    
+
     `<Layout header={header}>
       <div className="game">
         <div className="messages">

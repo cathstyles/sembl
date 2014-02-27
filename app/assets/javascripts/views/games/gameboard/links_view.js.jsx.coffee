@@ -1,29 +1,33 @@
 #= require d3
+#= require raphael.js
 
 ###* @jsx React.DOM ###
 
+class RaphaelLink
+  constructor: (link) ->
+    @source = 
+      x: link.source().get("x")
+      y: link.source().get("y")
+    @target =
+      x: link.target().get("x")
+      y: link.target().get("y")
+
+  render: (paper) ->
+    lineFunction = d3.svg.diagonal()
+    input = 
+      source: @source
+      target: @target
+    path_data = lineFunction(input)
+    paper.path(path_data)
 
 
 Sembl.Games.Gameboard.LinksView = React.createClass
   componentDidMount: () -> 
-    rootNode = @getDOMNode()
-    canvas = rootNode.firstChild
-    canvas.width = @props.width
-    canvas.height = @props.height
-    
-    context = canvas.getContext("2d")
-    context.clearRect(0, 0, @props.width, @props.height)
-    context.beginPath()
-    context.setLineWidth(2)
-    context.setStrokeColor("#c77e1a")
-
+    paper = Raphael(@getDOMNode(), @props.width, @props.height)
     @props.links.each (link) ->
-      context.moveTo(link.source().get("x"), link.source().get("y"))
-      context.lineTo(link.target().get("x"), link.target().get("y"))
-    context.stroke()
+      new RaphaelLink(link).render(paper)
 
   render: -> 
     return `<div className="board__links">
-        <canvas/>
       </div>`
 
