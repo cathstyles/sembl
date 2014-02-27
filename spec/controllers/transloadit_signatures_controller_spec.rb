@@ -28,6 +28,28 @@ describe TransloaditSignaturesController do
         end
       end
     end
+
+    describe "POST template" do
+      let(:params) {
+        {
+          steps: {
+            crop: {
+              crop: {
+                x1: 12,
+                x2: 44,
+                y1: 32,
+                y2: 54
+              }
+            }
+          }
+        }
+      }
+
+      it "takes the posted params and calculates its transloadit signature" do
+        post :template, { format: 'json', template_id: 'things_crop', params: params }
+        expect(JSON.parse(response.body).length).to eql(2)
+      end
+    end
   end
 
   context "when not logged in" do
