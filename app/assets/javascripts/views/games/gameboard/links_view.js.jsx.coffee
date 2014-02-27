@@ -18,7 +18,11 @@ class RaphaelLink
       source: @source
       target: @target
     path_data = lineFunction(input)
-    paper.path(path_data)
+    path = paper.path(path_data)
+
+    # resemblance nodes will go here.
+    midpoint = path.getPointAtLength(path.getTotalLength() / 2)
+    paper.circle(midpoint.x, midpoint.y, 5)
 
 
 Sembl.Games.Gameboard.LinksView = React.createClass
