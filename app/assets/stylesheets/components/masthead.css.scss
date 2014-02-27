@@ -1,5 +1,21 @@
 // Masthead
 
+%header-tab {
+  @include font-size(22);
+  background-color: #fffbf3;
+  border: {
+    left: 1px solid $border-color;
+    right: 1px solid $border-color;
+    bottom: 1px solid $border-color;
+  }
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 0 3px 3px rgba(#888,.1);
+  display: inline-block;
+  font-weight: 500;
+  padding: 25px 16px 20px;
+}
+
 .masthead {
   @include background(linear-gradient($highlight-background-color, #fffdf2));
   // @include inset(bottom, larger);
@@ -72,19 +88,7 @@
   position: relative;
   margin-top: -50px;
   h1 {
-    @include font-size(22);
-    background-color: #fffbf3;
-    border: {
-      left: 1px solid $border-color;
-      right: 1px solid $border-color;
-      bottom: 1px solid $border-color;
-    }
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    box-shadow: 0 0 3px 3px rgba(#888,.1);
-    display: inline-block;
-    font-weight: 500;
-    padding: 25px 16px 20px;
+    @extend %header-tab;
   }
 }
 
@@ -94,5 +98,58 @@
   @extend %white-drop-shadow;
   @include font-size(22);
   color: $link-color;
+  float: left;
   font-weight: 500;
+}
+
+.header__more-info {
+  float: left;
+  padding-left: 8px;
+  padding-top: 5px;
+  position: relative;
+  i {
+    @include font-size(16);
+    color: $highlight-color;
+    cursor: pointer;
+    &:hover {
+      color: $highlight-color-darker;
+    }
+  }
+}
+
+.header__description {
+  @extend %white-drop-shadow;
+  @include background(linear-gradient($highlight-background-color, #fbf3e2));
+  @include pad(all, small);
+  border: 1px solid #d7d5af;
+  border-radius: 5px;
+  box-shadow: 0 0 8px 3px rgba(#888,.1);
+  display: inline-block;
+  line-height: 1.15;
+  margin-left: -175px;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 350px;
+}
+
+.header__round {
+  @extend %header-tab;
+  @extend %white-drop-shadow;
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
+
+.header__round-word {
+  border-bottom: 1px dashed #3c7424;
+  padding-bottom: 2px;
+}
+
+.header__round-number {
+  @include font-size(36);
+  color: $highlight-color;
+  font-weight: 500;
+  line-height: 0;
+  padding-left: 4px;
 }

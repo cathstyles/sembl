@@ -31,7 +31,8 @@ Sembl::Application.routes.draw do
     resources :things, only: [:index]
   end
 
-  get 'transloadit_signatures/:template_id' => 'transloadit_signatures#template'
+  get  'transloadit_signatures/:template_id' => 'transloadit_signatures#template'
+  post 'transloadit_signatures/:template_id' => 'transloadit_signatures#template'
 
   root to: "games#index"
 
