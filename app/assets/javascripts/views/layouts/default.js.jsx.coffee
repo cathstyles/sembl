@@ -7,7 +7,7 @@ Sembl.Layouts.Default = React.createClass
   render: ->
     flashes = this.props.flashes
 
-    `<div>
+    `<div className={this.props.className}>
       <Masthead>{this.props.header}</Masthead>
       <div className="content container">
         {this.props.children}

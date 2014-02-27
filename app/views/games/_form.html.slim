@@ -1,4 +1,3 @@
 = javascript_include_tag "views/games/setup/root"
 
-#div data-view="gamesSetup" data-game="#{render(template: "games/show", formats: :json, object: @game)}"
-
+div data-view="gamesSetup" data-game="#{render(template: "api/games/show", formats: :json, object: @game)}"

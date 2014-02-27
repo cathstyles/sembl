@@ -7,6 +7,11 @@ class Api::MovesController < ApplicationController
     create
   end
 
+  def show
+    @node = Node.find(params[:id])
+    respond_with @node
+  end
+
   def create
     move_params
 

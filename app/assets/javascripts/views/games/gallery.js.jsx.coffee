@@ -58,7 +58,7 @@
       offset: this.state.offset
       limit: this.state.limit
     _.extend(params, query)
-    things = $.getJSON("/search.json", 
+    things = $.getJSON("/api/search.json", 
       params      
       (things) ->
         if requests

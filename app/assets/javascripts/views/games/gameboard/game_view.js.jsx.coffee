@@ -29,17 +29,15 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     
     header = `<HeaderView game={this.model()} handleJoin={this.handleJoin}/>`
 
-    `<Layout header={header}>
-      <div className="game">
-        <div className="messages">
-        </div>
-        <div className="board" style={boardCSS}>
-          <LinksView width={width} height={height} links={this.model().links}/> 
-          <NodesView nodes={this.model().nodes} /> 
-        </div>
-        <PlayersView players={this.model().players} />
-        <StatusView game={this.model()} />
+    `<Layout className="game" header={header}>
+      <div className="messages">
       </div>
+      <div className="board" style={boardCSS}>
+        <LinksView width={width} height={height} links={this.model().links}/> 
+        <NodesView nodes={this.model().nodes} /> 
+      </div>
+      <PlayersView players={this.model().players} />
+      <StatusView game={this.model()} />
     </Layout>`
   
 

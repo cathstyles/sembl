@@ -20,7 +20,8 @@ Sembl.Games.Gameboard.NodeView = React.createClass
 
     placement = @props.node.get('viewable_placement')
     state = @props.node.get('user_state')
-    return `<div className="board__node"  
+    
+    `<div className="board__node"  
         style={style}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}>

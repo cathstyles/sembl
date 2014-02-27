@@ -10,7 +10,7 @@
 
   componentWillMount: () ->
     self = this
-    $.getJSON("/things/"+ this.state.id+".json", {}, (data) ->
+    $.getJSON("/api/things/"+ this.state.id+".json", {}, (data) ->
       self.handleNewSeed(data);
     )
 
@@ -23,7 +23,7 @@
 
   handleRandomSeed: (event) ->
     self = this
-    $.getJSON("/things/random.json", {}, (data) ->
+    $.getJSON("/api/things/random.json", {}, (data) ->
       self.handleNewSeed(data);
     )
     event.preventDefault()

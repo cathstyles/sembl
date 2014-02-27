@@ -9,14 +9,14 @@ Sembl.Games.Gameboard.PlacementSummaryView = React.createClass
   getImageForState: ->
     #TODO Add image urls for states 
     if @props.state is 'locked'
-      return null
+      null
     
     else if @props.state is 'filled' or @props.state is 'proposed'
-      return @props.placement.image_thumb_url
+      @props.placement.image_thumb_url
     
     # Available
     else 
-      return null
+      null
     
   toggleDetailView: -> 
     $(@el()).next().toggleClass('hidden')
@@ -30,7 +30,8 @@ Sembl.Games.Gameboard.PlacementSummaryView = React.createClass
   render: ->
     className = "board__node__placement-summary state-#{@props.state}"
     imageUrl = @getImageForState()
-    return `<div className={className} onClick={this.handleClick}>
+    
+    `<div className={className} onClick={this.handleClick}>
         <img src={imageUrl} />
       </div>`
 

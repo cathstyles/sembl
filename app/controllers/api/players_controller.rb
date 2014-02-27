@@ -1,15 +1,10 @@
-class PlayersController < ApplicationController
+class Api::PlayersController < ApplicationController
   respond_to :json
 
-  after_filter :verify_authorized, except: [:index, :show]
+  after_filter :verify_authorized, except: [:show]
 
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :find_game
-
-  def index
-    @players = @game.players.playing
-    respond_with @players
-  end
 
   def show
     @player = @game.players.find(params[:id])
@@ -19,6 +14,7 @@ class PlayersController < ApplicationController
   def end_turn
     player = @game.players.find(params[:id])
     player.end_turn
+    respond_with @game
   end
 
   private 

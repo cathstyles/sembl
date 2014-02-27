@@ -32,6 +32,5 @@ Sembl.Games.Gameboard.LinksView = React.createClass
       new RaphaelLink(link).render(paper)
 
   render: -> 
-    return `<div className="board__links">
-      </div>`
+    `<div className="board__links" />`
 

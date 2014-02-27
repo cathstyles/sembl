@@ -42,10 +42,6 @@
         value={this.props.invite_only}
         label="Game is invite only" />
       <SettingsCheckbox 
-        ref="allow_keyword_search"
-        value={this.props.allow_keyword_search}
-        label="Allow keyword search" />
-      <SettingsCheckbox 
         ref="mature_allowed" 
         value={this.props.mature_allowed}
         label="Show mature images"/>

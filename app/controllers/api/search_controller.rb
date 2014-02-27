@@ -1,5 +1,5 @@
-class SearchController < ApplicationController
-  respond_to :html, :json
+class Api::SearchController < ApplicationController
+  respond_to :json
 
   def index
     if search_params[:type] == "user"
