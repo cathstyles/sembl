@@ -102,8 +102,28 @@
   float: left;
   padding-left: 8px;
   padding-top: 5px;
+  position: relative;
   i {
     @include font-size(16);
     color: $highlight-color;
+    cursor: pointer;
+    &:hover {
+      color: $highlight-color-darker;
+    }
   }
+}
+
+.header__description {
+  @extend %white-drop-shadow;
+  @include background(linear-gradient($highlight-background-color, #fbf3e2));
+  @include pad(all, small);
+  border: 1px solid #d7d5af;
+  border-radius: 5px;
+  box-shadow: 0 0 8px 3px rgba(#888,.1);
+  display: inline-block;
+  margin-left: -175px;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 350px;
 }
