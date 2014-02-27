@@ -23,7 +23,9 @@ class SearchController < ApplicationController
     @search_params ||= params.permit(
       :type, :email,
       :game_id,
-      :text, :place_filter, :access_filter, :date_from, :date_to, :created_to, :random_seed
+      :text, :place_filter, :access_filter, :date_from, :date_to, :created_to, :random_seed,
+      :offset, 
+      :limit
     ).delete_if do |k,v|
       v.strip.empty?
     end

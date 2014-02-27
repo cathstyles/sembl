@@ -25,9 +25,8 @@
       onProps:
         thing: this.props.thing
 
-    `<div className={this.classString}>
-      {thing.title}<br/>
-      <img src={thing.image_admin_url} height="200" width="200" onClick={this.handleClick} />
+    `<div className={this.className}>
+      <img src={thing.image_browse_url} onClick={this.handleClick} />
       {selectedModal}
     </div>`
 
@@ -38,15 +37,29 @@
   getInitialState: () ->
     filter: this.props.filter
     things: []
+    offset: 0
+    limit: 10
+
+  handleNextPage: (event) ->
+    console.log "next page!"
+    setState:
+      offset: this.state.offset + this.state.limit
+    this.handleSearch()
+    event.preventDefault()
 
   componentWillMount: () ->
-    this.handleSearch(this.props.query);
+    this.handleSearch()
 
-  handleSearch: (query) ->
+  handleSearch: () ->
+    query = this.state.filter
     self = this
     requests = this.props.requests
+    params = 
+      offset: this.state.offset
+      limit: this.state.limit
+    _.extend(params, query)
     things = $.getJSON("/search.json", 
-      this.state.filter,
+      params      
       (things) ->
         if requests
           things = things.map (thing) ->
@@ -61,5 +74,8 @@
       `<GalleryThing key={thing.id} thing={thing} SelectedClass={self.props.SelectedClass} />`
 
     `<div className={this.className}>
-      {things}
+      <button onClick={this.handleNextPage}>Next page</button>
+      <div className={this.className + "__row"}>
+        {things}
+      </div>
     </div>`

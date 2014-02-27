@@ -15,7 +15,7 @@ class Services
     end
 
     def search(clazz, search_query)
-      return clazz.all.limit(10)
+      return clazz.all.offset(search_query.offset).limit(search_query.limit)
     end
   end
 end

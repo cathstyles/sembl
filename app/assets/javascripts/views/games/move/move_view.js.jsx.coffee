@@ -15,7 +15,7 @@
     galleryRequests = 
       requestSelectThing: @handleSelectThing
 
-    return `<div class="move">
+    return `<div className="move">
         <MoveMaker ref="move_maker" game={this.props.game} node={this.props.node}/>
         <Gallery filter={filter} SelectedClass={SelectedThing} requests={galleryRequests} />
       </div>`

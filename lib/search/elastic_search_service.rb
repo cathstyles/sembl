@@ -13,7 +13,9 @@ class Search::ElasticSearchService
   def search(clazz, search_query)
     type = clazz.name.downcase
     body = {
-      query: search_query.build
+      query: search_query.build,
+      from: search_query.offset,
+      size: search_query.limit
     }
     result = @client.search index: 'sembl', type: type, body: body
     result_to_active_record(clazz, result)

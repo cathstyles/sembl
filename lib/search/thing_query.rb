@@ -1,5 +1,5 @@
 class Search::ThingQuery
-  attr_accessor :text, :place_filter, :access_filter, :date_from, :date_to, :created_to, :random_seed
+  attr_accessor :text, :place_filter, :access_filter, :date_from, :date_to, :created_to, :random_seed, :offset, :limit
 
   def initialize(params)
     @text = params[:text] || "*"
@@ -10,6 +10,8 @@ class Search::ThingQuery
     @created_to = Date.parse(params[:created_to]) unless not params[:created_to]
     @random_seed = params[:random_seed]
 
+    @offset = params[:offset] || 0
+    @limit = params[:limit] || 10
     @text_fields = ['title', 'description', 'general_attributes.Keywords']
     @date_field = 'general_attributes.Date/s'
     @place_field = 'general_attributes.Places'
