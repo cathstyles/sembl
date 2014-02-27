@@ -9,11 +9,10 @@ class Sembl.GameRouter extends Backbone.Router
   initialize: (@game) ->
 
   board: ->
-    layout = Sembl.Layouts.Default(
-      {} 
+    React.renderComponent(
       Sembl.Games.Gameboard.GameView({model: @game})
+      document.getElementsByTagName('body')[0]
     )
-    React.renderComponent(layout, document.getElementsByTagName('body')[0])
 
   add_move: (nodeID) -> 
     console.log @game

@@ -29,6 +29,7 @@ Sembl.Masthead.Masthead = React.createClass
           {sign_in}
           {sign_up}
         </ul>
+        {this.props.children}
       </div>
     </div>`
 
