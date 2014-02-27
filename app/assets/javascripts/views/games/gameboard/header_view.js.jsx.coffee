@@ -41,9 +41,9 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
 
     moreInfo = `<MoreInfoView game={this.props.game}/>` if  !!game.get('description')
 
-    admin = `<div className="header__admin">
-        Admin
-      </div>` if game.get('is_hosting') 
+    admin = `<li className="header__link">
+        <i className="fa fa-cog header__link-icon"></i><a href="#" className="header__link-anchor">Admin</a>
+      </li>` if game.get('is_hosting') 
 
     roundResults = `<li className="header__link">
         <i className="fa fa-trophy header__link-icon"></i><a href="#" className="header__link-anchor">Round Results</a> 
@@ -59,6 +59,7 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
       {round}
       <ul className="header__links">
         {join}
+        {admin}
         {roundResults}
         {help}
       </ul>
