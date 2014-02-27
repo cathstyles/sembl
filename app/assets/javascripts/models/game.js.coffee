@@ -3,7 +3,7 @@
 #= require collections/players
 
 class Sembl.Game extends Backbone.Model
-  urlRoot: "/games"
+  urlRoot: "/api/games"
 
   initialize: (options) ->
     @nodes = new Sembl.Nodes(@get("nodes"), game: this)

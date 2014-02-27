@@ -92,6 +92,7 @@ class Player < ActiveRecord::Base
 
   #TODO record locking.
   def allocate_first_node
+    return if game.nodes.where(allocated_to_id: user.id).present?
     node = game.nodes.with_state(:in_play).where(allocated_to_id: nil).take
     if node 
       node.allocated_to = self.user

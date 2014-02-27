@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  respond_to :html, :json
+  respond_to :html
 
   after_filter :verify_authorized, :except => :index
 
@@ -20,39 +20,7 @@ class GamesController < ApplicationController
     respond_with @game, layout: "react"
   end
 
-  def summary
-    authorize @game
-    respond_with @game
-  end
-
-  def join
-    authorize @game
-    # Skip to playing turn, no need for invitation workflow.
-    @game.players.build(user: current_user, state: 'playing_turn')
-    @game.join if @game.save
-    respond_with @game
-  end
-
-  def create
-    @game = Game.new(game_params)
-    @game.creator = current_user
-    @game.updator = current_user
-    @game.state_event = 'publish' if params[:publish]
-    @game.filter_content_by = clean_search_query_json(game_params[:filter_content_by])
-    
-    copy_board_to_game
-    update_seed_thing if game_params[:seed_thing_id].present? 
-
-    authorize @game
-
-    if @game.save
-      flash[:notice] = 'Game created.' if @game.save
-      redirect_to games_path
-    else
-      respond_with(@game)
-    end
-  end
-
+  # TODO: Move these into Backbone routes.
   def new
     @game = Game.new
     authorize @game
@@ -62,24 +30,6 @@ class GamesController < ApplicationController
   def edit
     authorize @game
     respond_with @game
-  end
-
-  def update
-    @game.assign_attributes(game_params)
-    @game.updator = current_user
-    @game.state_event = 'publish' if params[:publish]
-    @game.filter_content_by = clean_search_query_json(game_params[:filter_content_by])
-
-    copy_board_to_game
-    update_seed_thing if game_params[:seed_thing_id].present? 
-    authorize @game
-    
-    if @game.save
-      flash[:notice] = 'Game saved.' if @game.save
-      redirect_to games_path
-    else
-      respond_with(@game)
-    end
   end
 
   def destroy

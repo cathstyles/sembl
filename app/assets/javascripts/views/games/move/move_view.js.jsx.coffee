@@ -6,8 +6,8 @@
 {SelectedThing, MoveMaker} = Sembl.Games.Move
 {Gallery} = Sembl.Games
 
-@Sembl.Games.Move.MoveMaker = React.createClass
-   handleSelectThing: (thing) ->
+@Sembl.Games.Move.MoveView = React.createClass
+  handleSelectThing: (thing) ->
     @refs.move_maker.handleSelectThing(thing)
 
   render: -> 
@@ -15,5 +15,7 @@
     galleryRequests = 
       requestSelectThing: @handleSelectThing
 
-    return `<MoveMaker ref="move_maker" game={this.model()}/>
+    return `<div class="move">
+        <MoveMaker ref="move_maker" game={this.props.game} node={this.props.node}/>
         <Gallery filter={filter} SelectedClass={SelectedThing} requests={galleryRequests} />
+      </div>`

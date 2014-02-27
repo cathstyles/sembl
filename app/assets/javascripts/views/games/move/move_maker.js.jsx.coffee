@@ -1,7 +1,7 @@
 ###* @jsx React.DOM ###
 
 @Sembl.Games.Move.MoveMaker = React.createClass
-  className: "games__play__move-maker"
+  className: "move__move-maker"
 
   getInitialState: () ->
     move = new Sembl.Move()

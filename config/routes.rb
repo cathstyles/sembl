@@ -1,6 +1,11 @@
 Sembl::Application.routes.draw do
   namespace :api, module: :api do
-    resources :games, only: [:show, :create, :update]
+    resources :games, only: [:show, :create, :update] do 
+      member do 
+        post 'join'
+      end
+    end
+
     resources :moves, only: [:create, :index]
   end
 
@@ -14,13 +19,9 @@ Sembl::Application.routes.draw do
 
   devise_for :users
 
-  resources :games do
+  resources :games, only: [:index, :show, :new, :edit] do
     resources :things, only: [:index]
     resources :players, only: [:index]
-    member do 
-      post 'join'
-      get 'summary'
-    end
   end
 
   get 'things/random', to: 'things#random' 

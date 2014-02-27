@@ -4,6 +4,7 @@ Sembl.Games.Gameboard.StatusView = React.createClass
 
   handleEndTurn: -> 
     
+    
   handleContinueRating: -> 
 
   getButtonForStatus: (state, move_state) -> 
