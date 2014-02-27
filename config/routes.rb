@@ -7,6 +7,14 @@ Sembl::Application.routes.draw do
     end
 
     resources :moves, only: [:create, :index]
+
+    resources :things, only: [:index, :show] do 
+      collection do 
+        get 'random'
+      end
+    end
+
+    get 'search', to: 'search#index' 
   end
 
   namespace :admin, module: :admin, constraints: AdminConstraint do
@@ -21,13 +29,7 @@ Sembl::Application.routes.draw do
 
   resources :games, only: [:index, :show, :new, :edit] do
     resources :things, only: [:index]
-    resources :players, only: [:index]
   end
-
-  get 'things/random', to: 'things#random' 
-  resources :things, only: [:index, :show]
-
-  get 'search', to: 'search#index' 
 
   get 'transloadit_signatures/:template_id' => 'transloadit_signatures#template'
 

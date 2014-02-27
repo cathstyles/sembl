@@ -1,16 +1,10 @@
+#= require views/games/move/nodes_view 
+
 ###* @jsx React.DOM ###
+{NodesView, LinksView} = @Sembl.Games.Move
 
-@Sembl.Games.Move.MoveMaker = React.createClass
+@Sembl.Games.Move.MoveMaker = React.createBackboneClass
   className: "move__move-maker"
-
-  getInitialState: () ->
-    move = new Sembl.Move()
-    move.game_id = this.props.game.id
-
-    {
-      move: move
-      target: null
-    }
 
   handleSubmitMove: () ->
     params = {move: this.state.move}
@@ -26,12 +20,12 @@
     )
 
   handleSelectThing: (thing) ->
-    this.state.move.setTarget(1, thing.id)
-    this.setState
-      move: this.state.move
+    @model().set('thing', thing)
 
   render: () ->
     `<div className={this.className}>
+      <NodesView node={this.props.node} />
+      
       <button onClick={this.handleSubmitMove}>Submit Move</button>
     </div>`
     

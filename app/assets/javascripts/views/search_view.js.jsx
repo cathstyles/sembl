@@ -10,7 +10,7 @@ window.Sembl.SearchView = React.createClass({
   handleSearch: function() {
     var searchView = this;
     var query = this.props.query
-    var things = $.getJSON("/search.json", query, function(data){
+    var things = $.getJSON("/api/search.json", query, function(data){
       searchView.setState({things: data});
     });
   },

@@ -19,7 +19,7 @@ html
 
   - if user_signed_in?
     javascript:
-      Sembl.user = #{raw(render(partial: "users/user", formats: :json, object: current_user))}
+      Sembl.user = #{raw(render(partial: "api/users/user", formats: :json, object: current_user))}
     
   body class=body_classes
     = yield

@@ -1,6 +1,6 @@
 #container Loading game...
 
 javascript:
-  Sembl.game = new Sembl.Game(#{raw(render(template: "games/show", formats: :json, object: @game))});
+  Sembl.game = new Sembl.Game(#{raw(render(template: "api/games/show", formats: :json, object: @game))});
   Sembl.router = new Sembl.GameRouter(Sembl.game);
   Backbone.history.start();

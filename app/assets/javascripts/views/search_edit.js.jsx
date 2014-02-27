@@ -15,7 +15,7 @@ window.Sembl.SearchEdit = React.createClass({
 
     //TODO: Handle query errors.
     //TODO: Pagination.
-    var things = $.getJSON("/search.json", query, function(data){
+    var things = $.getJSON("/api/search.json", query, function(data){
       searchEdit.setState({things: data});
     });
   },

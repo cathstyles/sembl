@@ -10,7 +10,7 @@
   handleSearch: (event) ->
     playersSearch = this
     query_params = { type: "user", email: event.target.value}
-    $.getJSON("/search.json", query_params, (data) ->
+    $.getJSON("/api/search.json", query_params, (data) ->
       playersSearch.setState({users: data});
     )
     event.preventDefault()

@@ -45,7 +45,7 @@
   handleSearch: (query) ->
     self = this
     requests = this.props.requests
-    things = $.getJSON("/search.json", 
+    things = $.getJSON("/api/search.json", 
       this.state.filter,
       (things) ->
         if requests
