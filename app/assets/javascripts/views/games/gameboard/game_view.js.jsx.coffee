@@ -21,7 +21,6 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     )
 
   render: ->
-    console.log this.model().links
     width = @model().width()
     height = @model().height()
     boardCSS = 
