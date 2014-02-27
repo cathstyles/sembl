@@ -8,8 +8,8 @@ Sembl.Games.Gameboard.MoreInfoView = React.createClass
     description = $(el).find('.header__description').toggleClass('hidden')
 
   render: -> 
-    `<div>
-      <img className="header__more-info" onClick={this.toggleDescriptionPopup} />
+    `<div className="header__more-info">
+      <i className="fa fa-info-circle" onClick={this.toggleDescriptionPopup}></i>
       <div className="header__description hidden">
         {this.props.game.get('description')}
       </div>
@@ -24,9 +24,9 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
   render: -> 
     game = @props.game
 
-    headerTitle = `<div className="header__title">
+    headerTitle = `<h1 className="header__title">
         {game.get('title')}
-      </div>`
+      </h1>`
 
     join = `<a className='header__join' onClick={this.handleJoin}>
       Join Game

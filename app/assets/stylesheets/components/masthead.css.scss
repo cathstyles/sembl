@@ -94,5 +94,16 @@
   @extend %white-drop-shadow;
   @include font-size(22);
   color: $link-color;
+  float: left;
   font-weight: 500;
+}
+
+.header__more-info {
+  float: left;
+  padding-left: 8px;
+  padding-top: 5px;
+  i {
+    @include font-size(16);
+    color: $highlight-color;
+  }
 }
