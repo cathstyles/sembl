@@ -33,8 +33,8 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
     </a>` if game.canJoin()
 
     round = `<div className="header__round">
-        Round 
-        <span className="header__round__number">
+        <span className="header__round-word">Round</span> 
+        <span className="header__round-number">
           {game.get('current_round')}
         </span>
       </div>`
