@@ -45,21 +45,23 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
         Admin
       </div>` if game.get('is_hosting') 
 
-    roundResults = `<div className="header__round-results">
-        Round Results 
-      </div>`
+    roundResults = `<li className="header__link">
+        <a href="#">Round Results</a> 
+      </li>`
       
-    help = `<div className="header__help">
-        Help
-      </div>`
+    help = `<li className="header__link">
+        <a href="#">Help</a>
+      </li>`
 
-    return `<div className="header">
+    return `<div className="header__components">
       {headerTitle}
       {moreInfo}
       {round}
-      {join}
-      {roundResults}
-      {help}
+      <ul className="header__links">
+        {join}
+        {roundResults}
+        {help}
+      </ul>
     </div>`
 
 
