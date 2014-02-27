@@ -1,6 +1,8 @@
 class Api::GamesController < ApplicationController
   respond_to :json
 
+  after_filter :verify_authorized
+
   before_filter :authenticate_user!, except: [:show]
   before_filter :find_game, except: [:new, :create]
 
@@ -10,11 +12,11 @@ class Api::GamesController < ApplicationController
   end
 
   def join
-    # authorize @game
-    # # Skip to playing turn, no need for invitation workflow.
-    # @game.players.build(user: current_user, state: 'playing_turn')
-    # @game.join if @game.save
-    # respond_with @game
+    authorize @game
+    # Skip to playing turn, no need for invitation workflow.
+    @game.players.build(user: current_user, state: 'playing_turn')
+    @game.join if @game.save
+    respond_with @game
   end
 
   def create
@@ -27,7 +29,6 @@ class Api::GamesController < ApplicationController
     copy_board_to_game
     update_seed_thing if game_params[:seed_thing_id].present? 
 
-    authorize @game
     authorize @game
     if @game.save
       @result = result(status=:ok, notice='Game created')

@@ -5,7 +5,8 @@
 
 
 Sembl.Games.Gameboard.LinksView = React.createClass
-  componentDidMount: (rootNode) -> 
+  componentDidMount: () -> 
+    rootNode = @getDOMNode()
     canvas = rootNode.firstChild
     canvas.width = @props.width
     canvas.height = @props.height
