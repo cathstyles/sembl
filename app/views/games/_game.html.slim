@@ -3,10 +3,11 @@
     .game-individual__image-container
       = image_tag game.seed_thing.try(:image).try(:admin_thumb).try(:url)
       span.game-individual__play-button Play
-    h1.game-individual__title
-      = game.title
-    .game-individual__description
-      = game.description
+    .game-individual__details-container
+      h1.game-individual__title
+        = game.title
+      .game-individual__description
+        = game.description
   - if policy(game).edit?
     a.game-individual__edit href="#{edit_game_path(game)}"
       | Edit game <i class="fa fa-edit"></i>
