@@ -27,18 +27,16 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
       width: width
       height: height
     
-    `<Layout>
-      <div className="game">
-        <HeaderView game={this.model()} handleJoin={this.handleJoin}/>
-        <div className="messages">
-        </div>
-        <div className="board" style={boardCSS}>
-          <LinksView width={width} height={height} links={this.model().links}/> 
-          <NodesView nodes={this.model().nodes} /> 
-        </div>
-        <PlayersView players={this.model().players} />
-        <StatusView game={this.model()} />
+    `<div className="game">
+      <HeaderView game={this.model()} handleJoin={this.handleJoin}/>
+      <div className="messages">
       </div>
-    </Layout>`
+      <div className="board" style={boardCSS}>
+        <LinksView width={width} height={height} links={this.model().links}/> 
+        <NodesView nodes={this.model().nodes} /> 
+      </div>
+      <PlayersView players={this.model().players} />
+      <StatusView game={this.model()} />
+    </div>`
   
 

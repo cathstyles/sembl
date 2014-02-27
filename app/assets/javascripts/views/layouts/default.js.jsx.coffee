@@ -5,9 +5,7 @@
 {Masthead} = Sembl.Masthead
 Sembl.Layouts.Default = React.createClass 
   render: ->
-
     flashes = this.props.flashes
-    console.log flashes
 
     `<div>
       <Masthead />

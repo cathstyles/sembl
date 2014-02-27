@@ -8,10 +8,11 @@ class Sembl.GameRouter extends Backbone.Router
   initialize: (@game) ->
 
   board: ->
-    React.renderComponent(
+    layout = Sembl.Layouts.Default(
+      {} 
       Sembl.Games.Gameboard.GameView({model: @game})
-      document.getElementById('container')
     )
+    React.renderComponent(layout, document.getElementsByTagName('body')[0])
 
   propose: (nodeID) -> 
     # node = @game.findNode(nodeID)
