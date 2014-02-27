@@ -12,6 +12,7 @@
 .masthead__inner {
   @extend %clearfix-micro;
   @include pad(vert, smaller);
+  @include pad(horz, normal);
   max-width: $container-max-width;
   margin-left: auto;
   margin-right: auto;
@@ -62,6 +63,9 @@
   padding-right: 8px;
 }
 
+
+// Page header
+
 .heading {
   @include inset(bottom, larger);
   text-align: center;
@@ -82,4 +86,13 @@
     font-weight: 500;
     padding: 25px 16px 20px;
   }
+}
+
+// Gameplay header
+
+.header__title {
+  @extend %white-drop-shadow;
+  @include font-size(22);
+  color: $link-color;
+  font-weight: 500;
 }

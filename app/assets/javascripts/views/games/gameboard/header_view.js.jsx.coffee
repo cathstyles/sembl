@@ -58,7 +58,6 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
       {moreInfo}
       {round}
       {join}
-      {admin}
       {roundResults}
       {help}
     </div>`
