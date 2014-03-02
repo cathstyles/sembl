@@ -5,10 +5,11 @@
 #= require views/games/setup/players
 #= require views/games/setup/settings
 #= require views/games/setup/selected_thing
+#= require views/games/setup/filter
 #= require views/games/gallery
 
 ###* @jsx React.DOM ###
-{Actions, Metadata, Seed, Board, Players, Settings, SelectedThing} = @Sembl.Games.Setup
+{Actions, Metadata, Seed, Board, Players, Settings, SelectedThing, Filter} = @Sembl.Games.Setup
 {Gallery} = @Sembl.Games
 
 @Sembl.Games.Setup.Root = React.createClass
@@ -98,6 +99,7 @@
         <Players ref="players" />
       </div>
       <Actions ref="actions" requests={actionRequests} />
+      <Filter />
       <Gallery filter={inputs.filter} SelectedClass={SelectedThing} requests={galleryRequests} />
     </div>`
 

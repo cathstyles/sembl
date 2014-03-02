@@ -29,7 +29,6 @@
 @Sembl.Games.Setup.Settings = React.createClass
   getParams: () ->
     invite_only:          this.refs.invite_only.state.value
-    allow_keyword_search: this.refs.allow_keyword_search.state.value
     mature_allowed:       this.refs.mature_allowed.state.value
     uploads_allow:        this.refs.uploads_allow.state.value
 
