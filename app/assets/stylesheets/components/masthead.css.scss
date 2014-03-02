@@ -34,6 +34,7 @@
   margin-right: auto;
   z-index: 2;
   position: relative;
+  min-height: 53px;
 }
 
 .masthead__logo {
@@ -49,21 +50,24 @@
   z-index: 2;
 }
 
-.masthead__links {
+.masthead__links,
+.header__links {
   @extend %clearfix-micro;
   @extend .small-tracked-out-heading;
   float: right;
   list-style-type: none;
-  margin: 0;
+  padding-top: 6px;
 }
 
-.masthead__link {
+.masthead__link,
+.header__link {
   float: left;
   padding-left: 14px;
   padding-right: 14px;
 }
 
-.masthead__link-anchor {
+.masthead__link-anchor,
+.header__link-anchor {
   color: #9a875e;
   text-decoration: none;
   &:hover {
@@ -73,7 +77,8 @@
   }
 }
 
-.masthead__link-icon {
+.masthead__link-icon,
+.header__link-icon {
   @include font-size(12);
   color: $highlight-color;
   padding-right: 8px;
@@ -86,7 +91,7 @@
   @include inset(bottom, larger);
   text-align: center;
   position: relative;
-  margin-top: -50px;
+  margin-top: -55px;
   h1 {
     @extend %header-tab;
   }
@@ -139,6 +144,7 @@
   position: absolute;
   top: 0;
   left: 50%;
+  margin-left: -40px;
 }
 
 .header__round-word {
