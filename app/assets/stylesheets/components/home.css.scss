@@ -74,7 +74,7 @@
   overflow: hidden;
   position: relative;
   &:after {
-    background: linear-gradient(transparent, $background-color);
+    @include background-image(linear-gradient(transparent, $background-color));
     content: "";
     position: absolute;
     bottom: 0;

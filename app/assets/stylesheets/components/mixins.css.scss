@@ -22,7 +22,7 @@
 %button {
   @extend .small-tracked-out-heading;
   @include font-size(14);
-  background: linear-gradient(#8b923b, #657220);
+  @include background-image(linear-gradient(#8b923b, #657220));
   border-radius: $border-radius;
   border: 1px solid #657220;
   color: #fff;
@@ -30,7 +30,7 @@
   text-shadow: 1px 1px 1px rgba(#000,.5);
   padding: 6px 15px 5px;
   &:hover {
-    background: linear-gradient(#657220, #657220);
+    @include background-image(linear-gradient(#657220, #657220));
     background-color: #657220;
     color: #fff;
   }

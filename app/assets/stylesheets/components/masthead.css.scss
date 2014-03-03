@@ -40,7 +40,7 @@
 
 .masthead {
   background-color: $highlight-background-color;
-  background: linear-gradient($highlight-background-color, #fffdf2);
+  @include background-image(linear-gradient($highlight-background-color, #fffdf2));
   border-bottom: 1px solid $border-color;
   box-shadow: 0 0 5px 5px rgba(#888,.1);
   position: relative;
@@ -161,7 +161,7 @@
 .header__description {
   @extend %white-drop-shadow;
   @include pad(all, small);
-  background: linear-gradient($highlight-background-color, #fbf3e2);
+  @include background-image(linear-gradient($highlight-background-color, #fbf3e2));
   border: 1px solid #d7d5af;
   border-radius: 5px;
   box-shadow: 0 0 8px 3px rgba(#888,.1);
