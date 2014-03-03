@@ -2,17 +2,6 @@
 
 // Keyframing
 
-@-webkit-keyframes masthead {
-  0% {
-    -moz-opacity: 0;
-    opacity: 0;
-  }
-  100% {
-    -moz-opacity: 1;
-    opacity: 1;
-  }
-}
-
 @keyframes masthead {
   0% {
     -moz-opacity: 0;
@@ -21,15 +10,6 @@
   100% {
     -moz-opacity: 1;
     opacity: 1;
-  }
-}
-
-@-webkit-keyframes masthead-tab {
-  0% {
-    margin-top: -100%;
-  }
-  100% {
-    margin-top: 0;
   }
 }
 
@@ -56,27 +36,20 @@
   display: inline-block;
   font-weight: 500;
   padding: 20px 16px;
-
-  // Call animation
-  @include animation-name(masthead-tab);
-  @include animation-duration(500ms);
-  @include animation-timing-function(ease);
-  @include animation-iteration-count(1);
 }
 
 .masthead {
-  @include background(linear-gradient($highlight-background-color, #fffdf2));
-  // @include inset(bottom, larger);
   background-color: $highlight-background-color;
+  background: linear-gradient($highlight-background-color, #fffdf2);
   border-bottom: 1px solid $border-color;
   box-shadow: 0 0 5px 5px rgba(#888,.1);
   position: relative;
 
   // Call animation
-  @include animation-name(masthead);
-  @include animation-duration(500ms);
-  @include animation-timing-function(ease);
-  @include animation-iteration-count(1);
+  animation-name: masthead;
+  animation-duration: 500ms;
+  animation-timing-function: ease;
+  animation-iteration-coun: 1;
 }
 
 .masthead__inner {
@@ -187,8 +160,8 @@
 
 .header__description {
   @extend %white-drop-shadow;
-  @include background(linear-gradient($highlight-background-color, #fbf3e2));
   @include pad(all, small);
+  background: linear-gradient($highlight-background-color, #fbf3e2);
   border: 1px solid #d7d5af;
   border-radius: 5px;
   box-shadow: 0 0 8px 3px rgba(#888,.1);
@@ -210,6 +183,12 @@
   left: 50%;
   // Approximate the offset as a no-JS fallback
   margin-left: -72px;
+
+  // Call animation
+  animation-name: masthead-tab;
+  animation-duration: 500ms;
+  animation-timing-function: ease;
+  animation-iteration-count: 1;
 }
 
 .header__round-word {

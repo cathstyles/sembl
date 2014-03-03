@@ -34,13 +34,13 @@
   &:hover {
     background-color: $subtle-highlight;
     img {
-      @include transition-property('border-color');
-      @include transition-duration(250ms);
+      transition-property: border-color;
+      transition-duration: 250ms;
       border-color: $highlight-color;
     }
     .game-individual__play-button {
-      @include transition-property('bottom');
-      @include transition-duration(250ms);
+      transition-property: bottom;
+      transition-duration: 250ms;
       bottom: 40%;
     }
   }
@@ -74,7 +74,7 @@
   overflow: hidden;
   position: relative;
   &:after {
-    @include background(linear-gradient(transparent, $background-color));
+    background: linear-gradient(transparent, $background-color);
     content: "";
     position: absolute;
     bottom: 0;

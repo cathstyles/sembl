@@ -4,6 +4,7 @@ ruby '2.0.0'
 
 gem 'rails', '4.0.2'
 
+gem "autoprefixer-rails"
 gem 'asset_sync'
 gem 'bootstrap-sass'
 gem 'carrierwave'
