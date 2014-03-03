@@ -2,12 +2,12 @@
 
 ###* @jsx React.DOM ###
 
-Sembl.Games.Gameboard.MoreInfoView = React.createClass 
-  toggleDescriptionPopup: -> 
+Sembl.Games.Gameboard.MoreInfoView = React.createClass
+  toggleDescriptionPopup: ->
     el = @isMounted() && @getDOMNode()
     description = $(el).find('.header__description').toggleClass('hidden')
 
-  render: -> 
+  render: ->
     `<div className="header__more-info">
       <i className="fa fa-info-circle" onClick={this.toggleDescriptionPopup}></i>
       <div className="header__description hidden">
@@ -18,10 +18,11 @@ Sembl.Games.Gameboard.MoreInfoView = React.createClass
 {MoreInfoView} = Sembl.Games.Gameboard
 
 Sembl.Games.Gameboard.HeaderView = React.createClass
-  handleJoin: -> 
+
+  handleJoin: ->
     @props.handleJoin()
 
-  render: -> 
+  render: ->
     game = @props.game
 
     headerTitle = `<h1 className="header__title">
@@ -33,7 +34,7 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
     </a>` if game.canJoin()
 
     round = `<div className="header__round">
-        <span className="header__round-word">Round</span> 
+        <span className="header__round-word">Round</span>
         <span className="header__round-number">
           {game.get('current_round')}
         </span>
@@ -43,12 +44,12 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
 
     admin = `<li className="header__link">
         <i className="fa fa-cog header__link-icon"></i><a href="#" className="header__link-anchor">Admin</a>
-      </li>` if game.get('is_hosting') 
+      </li>` if game.get('is_hosting')
 
     roundResults = `<li className="header__link">
-        <i className="fa fa-trophy header__link-icon"></i><a href="#" className="header__link-anchor">Round Results</a> 
+        <i className="fa fa-trophy header__link-icon"></i><a href="#" className="header__link-anchor">Round Results</a>
       </li>`
-      
+
     help = `<li className="header__link">
         <i className="fa fa-question-circle header__link-icon"></i> <a href="#" className="header__link-anchor">Help</a>
       </li>`
@@ -64,5 +65,3 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
         {help}
       </ul>
     </div>`
-
-

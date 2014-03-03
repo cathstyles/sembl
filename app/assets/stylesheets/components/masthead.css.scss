@@ -13,7 +13,7 @@
   box-shadow: 0 0 3px 3px rgba(#888,.1);
   display: inline-block;
   font-weight: 500;
-  padding: 25px 16px 20px;
+  padding: 20px 16px;
 }
 
 .masthead {
@@ -35,6 +35,11 @@
   z-index: 2;
   position: relative;
   min-height: 53px;
+  @media screen and (max-width: 1550px) {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 100px;
+  }
 }
 
 .masthead__logo {
@@ -47,7 +52,7 @@
   position: absolute;
   top: -3px;
   left: -6px;
-  z-index: 2;
+  z-index: 10;
 }
 
 .masthead__links,
@@ -136,6 +141,7 @@
   top: 30px;
   left: 0;
   width: 350px;
+  z-index: 5;
 }
 
 .header__round {
@@ -144,12 +150,15 @@
   position: absolute;
   top: 0;
   left: 50%;
-  margin-left: -40px;
+  // Approximate the offset as a no–JS fallback
+  margin-left: -72px;
 }
 
 .header__round-word {
   border-bottom: 1px dashed #3c7424;
+  letter-spacing: .1em;
   padding-bottom: 2px;
+  text-transform: uppercase;
 }
 
 .header__round-number {
@@ -158,4 +167,8 @@
   font-weight: 500;
   line-height: 0;
   padding-left: 6px;
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: -10px;
+  background: red;
 }
