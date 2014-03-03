@@ -43,8 +43,8 @@
       <div className="games-setup__players-inner">
         <table className="games-setup__players-table">
           {players}
-          <PlayersSearch />
         </table>
+        <PlayersSearch />
       </div>
     </div>`
 

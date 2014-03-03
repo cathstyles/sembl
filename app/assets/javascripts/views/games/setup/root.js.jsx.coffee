@@ -9,6 +9,56 @@
 #= require views/games/gallery
 
 ###* @jsx React.DOM ###
+
+class GalleryFilterHandler
+  constructor: (@filter) ->
+    @offset = 0
+    @limit = 10
+    @listeners = 
+      'sembl.filter.change':        @listenerFilterChange
+      'sembl.gallery.nextPage':     @listenerNextPage
+      'sembl.gallery.previousPage': @listenerPreviousPage
+
+  bind: () ->  
+    @listeners
+    $.each(
+      @listeners
+      (event_name, listener) -> $(window).bind(event_name, listener)
+    )
+
+  unbind: () ->
+    $.each(
+      @listeners
+      (event_name, listener) -> $(window).unbind(event_name, listener)
+    )
+
+  handleSearch: () ->
+    self = this
+    params = 
+      offset: @offset
+      limit: @limit
+    _.extend(params, @filter)
+
+    things = $.getJSON("/api/search.json", 
+      params
+      (things) ->
+        $(window).trigger('sembl.gallery.setState', {things: things})
+    )
+
+  listenerFilterChange: (event, filter) =>
+    @filter = filter
+    @offset = 0
+    $.doTimeout('debounce.sembl.filter.change', 200, @handleSearch, filter)
+
+  listenerNextPage: (event) =>
+    @offset = @offset + @limit
+    @handleSearch()
+
+  listenerPreviousPage: (event) =>
+    @offset = Math.max(0, @offset - @limit)
+    @handleSearch()
+
+
 {Actions, Metadata, Seed, Board, Players, Settings, SelectedThing, Filter} = @Sembl.Games.Setup
 {Gallery} = @Sembl.Games
 
@@ -18,6 +68,18 @@
   getInitialState: () ->
     game: this.props.game
 
+  componentWillMount: () ->
+    console.log "WILL MOUNT"
+    @galleryFilterHandler = new GalleryFilterHandler()
+    @galleryFilterHandler.bind(this.props.game.filter)
+
+  componentDidMount: () ->
+    console.log "DID MOUNT"
+    @galleryFilterHandler.handleSearch()
+
+  componentWillUnmount: () ->
+    @galleryFilterHandler.unbind()
+
   getGameParams: (publish) ->
     params = 
       game:
@@ -25,6 +87,7 @@
         seed_thing_id: this.refs.seed.state.id
         title:         this.refs.metadata.state.title
         description:   this.refs.metadata.state.description
+        filter_content_by: this.refs.filter.state.filter    
       authenticity_token: this.props.authenticity_token
     _.extend(params.game, this.refs.settings.getParams())
     console.log "params", params
@@ -77,7 +140,7 @@
       invite_only: game.invite_only
       allow_keyword_search: game.allow_keyword_search
       boards: _.sortBy game.boards, 'title'
-      filter: game.filter_content_by
+      filter: game.filter
 
     actionRequests = 
       requestSave: this.handleSave
@@ -99,7 +162,7 @@
         <Players ref="players" />
       </div>
       <Actions ref="actions" requests={actionRequests} />
-      <Filter />
+      <Filter ref="filter" filter={inputs.filter} />
       <Gallery filter={inputs.filter} SelectedClass={SelectedThing} requests={galleryRequests} />
     </div>`
 

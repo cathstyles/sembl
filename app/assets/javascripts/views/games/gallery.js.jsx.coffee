@@ -35,59 +35,31 @@
   className: "games__gallery"
 
   getInitialState: () ->
-    filter: this.props.filter
     things: []
-    offset: 0
-    limit: 10
+
+  componentWillMount: () ->
+    $(window).bind('sembl.gallery.setState', @listenSetState)
+
+  componentWillUnmount: () ->
+    $(window).unbind('sembl.gallery.setState')
+
+  listenSetState: (event, subState) ->
+    @setState subState
 
   handleNextPage: (event) ->
-    console.log "next page!"
-    offset = this.state.offset + this.state.limit
-    limit  = this.state.limit
-    this.setState
-      offset: offset
-    this.handleSearch(this.state.filter, offset, limit)
+    $(window).trigger('sembl.gallery.nextPage')
     event.preventDefault()
 
   handlePreviousPage: (event) ->
-    console.log "previous page!"
-    offset = Math.max(0, this.state.offset - this.state.limit)
-    limit  = this.state.limit
-    this.setState
-      offset: offset
-    this.handleSearch(this.state.filter, offset, limit)
+    $(window).trigger('sembl.gallery.previousPage')
     event.preventDefault()
-
-  filterUpdateListener: (event, filter) ->
-    console.log event, data
-
-  componentWillMount: () ->
-    this.handleSearch(this.props.filter)
-    $(window).on(
-      "filter:update"
-      this.listenFilterUpdates
-    )
-
-  handleSearch: (query, offset, limit) ->
-    self = this
-    params = 
-      offset: offset
-      limit: limit
-    _.extend(params, query)
-    requests = this.props.requests
-    things = $.getJSON("/api/search.json", 
-      params      
-      (things) ->
-        if requests
-          things = things.map (thing) ->
-            _.extend(thing, requests)
-        self.setState
-          things: things
-    )
 
   render: () ->
     self = this
+    requests = this.props.requests
     things = this.state.things.map (thing) ->
+      if requests
+        _.extend(thing, requests)
       `<GalleryThing key={thing.id} thing={thing} SelectedClass={self.props.SelectedClass} />`
 
     `<div className={this.className}>
