@@ -12,6 +12,7 @@
 #= require routers/game_router
 #= require viewloader
 #= require views/uploader/contributions_view
+#= require views/games/setup/root
 
 @Sembl =
   version: "0.1"
