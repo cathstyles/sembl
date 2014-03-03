@@ -69,6 +69,5 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
         {join}
         {edit}
         {roundResults}
-        {help}
       </ul>
     </div>`
