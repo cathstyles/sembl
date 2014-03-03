@@ -189,7 +189,7 @@
 .games-setup__select-players-search {
   input {
     @include font-size(14);
-    @include inset(bottom, small);
+    @include inset(vert, small);
     color: $text-color;
     width: 100%;
   }
