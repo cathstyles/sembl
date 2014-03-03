@@ -19,6 +19,13 @@ Sembl.Games.Gameboard.MoreInfoView = React.createClass
 
 Sembl.Games.Gameboard.HeaderView = React.createClass
 
+  componentDidMount: ->
+    @offsetRoundTab();
+
+  offsetRoundTab: ->
+    headerTabWidth = $('.header__round').outerWidth()
+    $('.header__round').css 'margin-left', ((headerTabWidth / 2) * -1) + 'px'
+
   handleJoin: ->
     @props.handleJoin()
 
@@ -42,12 +49,12 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
 
     moreInfo = `<MoreInfoView game={this.props.game}/>` if  !!game.get('description')
 
-    admin = `<li className="header__link">
-        <i className="fa fa-cog header__link-icon"></i><a href="#" className="header__link-anchor">Admin</a>
+    edit = `<li className="header__link">
+        <i className="fa fa-pencil header__link-icon"></i><a href="#" className="header__link-anchor">Edit</a>
       </li>` if game.get('is_hosting')
 
     roundResults = `<li className="header__link">
-        <i className="fa fa-trophy header__link-icon"></i><a href="#" className="header__link-anchor">Round Results</a>
+        <i className="fa fa-trophy header__link-icon"></i><a href="#" className="header__link-anchor"><span className="header__link-truncate">Round&nbsp;</span>Results</a>
       </li>`
 
     help = `<li className="header__link">
@@ -60,7 +67,7 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
       {round}
       <ul className="header__links">
         {join}
-        {admin}
+        {edit}
         {roundResults}
         {help}
       </ul>
