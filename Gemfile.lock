@@ -32,6 +32,8 @@ GEM
       activemodel
       fog (>= 1.8.0)
     atomic (1.1.14)
+    autoprefixer-rails (1.1.20140302)
+      execjs
     bcrypt-ruby (3.1.2)
     better_errors (1.0.1)
       coderay (>= 1.0.0)
@@ -263,6 +265,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   asset_sync
+  autoprefixer-rails
   better_errors
   binding_of_caller
   bootstrap-sass
