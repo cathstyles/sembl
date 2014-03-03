@@ -18,7 +18,7 @@ class Sembl.GameRouter extends Backbone.Router
   add_move: (nodeID) -> 
     node = @game.nodes.get(nodeID)
     React.renderComponent(
-      Sembl.Games.Move.MoveView({node: node})
+      Sembl.Games.Move.MoveView({node: node, game: @game})
       document.getElementById('container')
     )
 

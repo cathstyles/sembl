@@ -14,15 +14,18 @@
   render: -> 
     move = new Sembl.Move({
       node: @props.node, 
-      thing: nil,
+      thing: null,
       resemblances: []
     })
+
+    node = @props.node
 
     filter = @props.game.filter()
     galleryRequests = 
       requestSelectThing: @handleSelectThing
 
-    return `<div class="move">
-        <MoveMaker ref="move_maker" model={move}/>
-        <Gallery filter={filter} SelectedClass={SelectedThing} requests={galleryRequests} />
-      </div>`
+    `<div className="move">
+      <p>{node.id}</p>
+      <p>{game.id}</p>
+      <Gallery filter={filter} SelectedClass={SelectedThing} requests={galleryRequests} />
+    </div>`
