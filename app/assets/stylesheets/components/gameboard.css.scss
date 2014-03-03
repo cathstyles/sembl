@@ -52,3 +52,10 @@
     background: green;
   }
 }
+
+.game__status__end-turn {
+  @extend %button;
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+}
