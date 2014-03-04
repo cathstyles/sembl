@@ -265,6 +265,10 @@
   }
 }
 
+.games-setup__filter {
+  clear: both;
+}
+
 .games__gallery {
   clear: both;
   padding-top: 60px; // Temporary
@@ -279,6 +283,7 @@
   @include pad(all, medium);
   background-color: rgba(#000,.8);
   border: 3px solid #fff;
+  border-radius: $border-radius;
   box-shadow: 0 0 20px 5px rgba(#000,.5);
   position: absolute;
   top: 0;
