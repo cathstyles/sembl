@@ -2,12 +2,6 @@
 ###* @jsx React.DOM ###
 
 Sembl.Components.Graph.Node = React.createClass
-  handleMouseEnter: ->
-    $(@getDOMNode()).animate(width: 80, height: 80, margin: -40, 200)
-
-  handleMouseLeave: ->
-    $(@getDOMNode()).animate(width: 60, height: 60, margin: -30, 200)
-
   handleClick: (event) ->
     $(window).trigger('graph.node.click', @props.node.model)
 
@@ -25,8 +19,6 @@ Sembl.Components.Graph.Node = React.createClass
     className = "graph__node state-#{userState}"
 
     `<div className={className} style={style} 
-      onMouseEnter={this.handleMouseEnter} 
-      onMouseLeave={this.handleMouseLeave}
       onClick={this.handleClick}>
       <img className='graph__node__image' src={image_url} />
     </div>`

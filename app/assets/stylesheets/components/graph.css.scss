@@ -1,21 +1,30 @@
 .graph {
-  padding: 60px;
+  padding: 80px;
   position: relative;
 }
+
 .graph__canvas {
-  height: 500px;
+  height: 300px;
   width: 100%;
   position: relative;
 }
-.graph__node, .graph__resemblance {
+.graph__node,
+.graph__links,
+.graph__resemblences,
+.graph__resemblance {
   position: absolute;
 }
+
 .graph__node {
-  width: 60px;
-  height: 60px;
-  margin: -30px;
-  background: #c77e1a;
-  border-radius: 15%;
+  background-color: #faf0dc;
+  border: 2px solid #fff;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px 5px rgba(#999,.1);
+  width: 120px;
+  height: 120px;
+  margin-left: -60px;
+  margin-top: -60px;
+  text-align: center;
 
   &.state-filled {
     background: red;
@@ -33,8 +42,62 @@
     background: green;
   }
 }
+
+.graph__node--playable {
+  border: 2px dashed #b99f7a;
+  &:before,
+  &:after {
+    @extend %white-drop-shadow;
+    font-family: "FontAwesome";
+    color: #b99f7a;
+  }
+  &:before {
+    @include font-size(40);
+    content: "\f030";
+    padding-top: 50%;
+    margin-top: -18px;
+    display: inline-block;
+  }
+  &:after {
+    @include font-size(20);
+    content: "\f067";
+    position: absolute;
+    top: 25px;
+    right: 25px;
+  }
+  img {
+    display: none;
+  }
+}
+
 .graph__node__image {
+  border-radius: $border-radius-inner;
   width: 100%;
   height: 100%;
-  border-radius: 15%;
+}
+
+@keyframes glow {
+  0%, 100%    { box-shadow: 0 0 3px 3px $highlight-color; }
+  50%         { box-shadow: 0 0 8px 8px $highlight-color; }
+}
+
+.graph__resemblance__filled {
+  position: relative;
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: $highlight-color;
+    position: absolute;
+    margin-left: -5px;
+    margin-top: -5px;
+    border-radius: 50%;
+    animation-name: glow;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+  }
 }

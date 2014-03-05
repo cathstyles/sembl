@@ -14,9 +14,21 @@ Sembl.Components.Graph.Resemblances = React.createClass
         left: link.midpoint.x
         top: link.midpoint.y
 
-      `<div key={link.model.id} className='graph__resemblance' style={style}>
-        Sembl
+      filled = true
+      emptySembl = 
+      `<div className='move__board__resemblance__empty'>
+        unfilled
       </div>`
+
+      filledSembl = 
+        `<div className='move__board__resemblance__filled'>
+          filled
+        </div>`
+
+      `<div key={link.model.id} className='graph__resemblance' style={style}>
+        {filled ? filledSembl : emptySembl}
+      </div>`
+
     `<div className="graph__resemblances">
       {sembls}
     </div>`
