@@ -16,12 +16,6 @@ class Link < ActiveRecord::Base
   belongs_to :target, class_name: Node
   has_many :resemblances, dependent: :destroy
 
-  # # Link becomes available when the target node has been filled
-  # def available_to?(user)
-  #   game.participating?(user) &&
-  #   target.placements.where(creator: user).present?
-  # end
-
   def round
     target.round
   end

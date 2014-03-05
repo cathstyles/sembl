@@ -20,7 +20,7 @@ class Api::RatingsController < ApplicationController
   private 
 
   def find_game
-    @game = Game.find(params[:id])
+    @game = Game.find(params[:game_id])
   end
 
 
