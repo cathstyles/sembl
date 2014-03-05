@@ -14,3 +14,9 @@ class Sembl.Link extends Backbone.Model
 
   target: ->
     @game.nodes.get(@get("target_id"))
+
+  source_id: ->
+    @source.id
+
+  target_id: ->
+    @target.id
