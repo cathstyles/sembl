@@ -10,13 +10,6 @@
 .move__board__node, .move__board__links, .move__board__resemblences, .move__board__resemblance {
   position: absolute;
 }
-.move__board__resemblance {
-  width: 60px;
-  height: 60px;
-  margin: -30px;
-  border-radius: 15%;
-  text-align: center;
-}
 .move__board__node {
   width: 60px;
   height: 60px;

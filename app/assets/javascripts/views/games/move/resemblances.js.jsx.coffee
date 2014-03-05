@@ -4,6 +4,8 @@
 ###* @jsx React.DOM ###
 
 Sembl.Games.Move.Resemblance = React.createClass
+  getInitialState: ->
+    filled: true
 
   render: ->
     link = @props.link
@@ -16,10 +18,18 @@ Sembl.Games.Move.Resemblance = React.createClass
       left: midpoint.x
       top: midpoint.y
 
-    description = 'I am a sembl'
+    emptySembl = 
+      `<div className='move__board__resemblance__empty'>
+        Beep! I am empty
+      </div>`
+
+    filledSembl = 
+      `<div className='move__board__resemblance__filled'>
+        Honk! I am filled
+      </div>`
 
     `<div className='move__board__resemblance' style={style} >
-      {description}
+      {this.state.filled ? filledSembl : emptySembl}
     </div>`
 
 {Resemblance} = Sembl.Games.Move
