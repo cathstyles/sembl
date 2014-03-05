@@ -80,7 +80,7 @@
   }
 
   &.state-proposed {
-    border: 2px dashed #b99f7a;
+    border: 2px dashed #fff;
   }
 }
 
@@ -91,8 +91,8 @@
 }
 
 @keyframes glow {
-  0%, 100%    { box-shadow: 0 0 3px 3px $highlight-color; }
-  50%         { box-shadow: 0 0 8px 8px $highlight-color; }
+  0%, 100%  { box-shadow: 0 0 3px 3px $highlight-color; }
+  50%       { box-shadow: 0 0 8px 8px $highlight-color; }
 }
 
 .graph__resemblance__filled {
