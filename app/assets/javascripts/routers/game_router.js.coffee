@@ -10,16 +10,18 @@ class Sembl.GameRouter extends Backbone.Router
   initialize: (@game) ->
 
   board: ->
+    React.unmountComponentAtNode(document.getElementsByTagName('body')[0])
     React.renderComponent(
       Sembl.Games.Gameboard.GameView({model: @game})
       document.getElementsByTagName('body')[0]
     )
 
-  add_move: (nodeID) -> 
+  add_move: (nodeID) ->
+    React.unmountComponentAtNode(document.getElementsByTagName('body')[0])
     node = @game.nodes.get(nodeID)
     React.renderComponent(
       Sembl.Games.Move.MoveView({node: node, game: @game})
-      document.getElementById('container')
+      document.getElementsByTagName('body')[0]
     )
 
   results: (round) ->

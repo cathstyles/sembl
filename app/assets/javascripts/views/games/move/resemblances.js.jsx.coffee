@@ -27,7 +27,7 @@ Sembl.Games.Move.Resemblance = React.createClass
 Sembl.Games.Move.Resemblances = React.createClass
   render: ->
     resemblances = @props.links.map (link) ->
-      `<Resemblance link={link} />`
+      `<Resemblance key={link.source.id+'.'+link.target.id} link={link} />`
     
     `<div>
       {resemblances}

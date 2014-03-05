@@ -37,7 +37,6 @@ Sembl.Games.Move.Board = React.createClass
     canvasStyle = {}
     if @state.width then canvasStyle.width = @state.width
     if @state.height then canvasStyle.height = @state.height
-    console.log canvasStyle
 
     nodes = @props.nodes
     links = @props.links

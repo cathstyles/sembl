@@ -21,17 +21,18 @@ Sembl.Games.Gameboard.PlacementSummaryView = React.createClass
   toggleDetailView: -> 
     $(@el()).next().toggleClass('hidden')
 
-  handleClick: -> 
+  handleClick: (event) -> 
     if @props.state is 'available'
       Sembl.router.navigate("move/#{@props.node.id}", trigger: true)
     else if @props.state is 'filled'
       @toggleDetailView()
+    event.preventDefault()
 
   render: ->
     className = "board__node__placement-summary state-#{@props.state}"
     imageUrl = @getImageForState()
     
     `<div className={className} onClick={this.handleClick}>
-        <img src={imageUrl} />
-      </div>`
+      <img src={imageUrl} />
+    </div>`
 
