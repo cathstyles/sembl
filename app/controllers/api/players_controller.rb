@@ -12,6 +12,7 @@ class Api::PlayersController < ApplicationController
   end
 
   def end_turn
+    authorize player
     player = @game.players.find(params[:id])
     player.end_turn
     respond_with @game
