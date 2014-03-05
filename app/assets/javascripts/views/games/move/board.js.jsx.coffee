@@ -1,11 +1,12 @@
 #= require d3
 #= require views/games/move/links
 #= require views/games/move/node
+#= require views/games/move/resemblances
 
 
 ###* @jsx React.DOM ###
 
-{Links, Node} =  Sembl.Games.Move
+{Links, Node, Resemblances} =  Sembl.Games.Move
 
 Sembl.Games.Move.Board = React.createClass 
   getInitialState: ->
@@ -50,10 +51,15 @@ Sembl.Games.Move.Board = React.createClass
     nodeComponents = scaledNodes.map (node) ->
       `<Node key={node.id} node={node} />`
 
+
+
     `<div className="move__board">
       <div className="move__board__canvas" style={canvasStyle}>
         <Links links={scaledLinks} width={this.state.width} height={this.state.height} />
-        {nodeComponents}
+        <Resemblances links={scaledLinks} />
+        <div className="move__board__nodes">
+          {nodeComponents}
+        </div>
       </div>
     </div>`
   
