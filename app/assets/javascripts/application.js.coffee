@@ -19,6 +19,7 @@
 
 _.extend Sembl, Backbone.Events
 
+@Sembl.Handlers = @Sembl.Handlers || {}
 @Sembl.Components = @Sembl.Components || {}
 @Sembl.Games = @Sembl.Games || {}
 @Sembl.Games.Setup = @Sembl.Games.Setup || {}

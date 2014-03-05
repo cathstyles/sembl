@@ -4,9 +4,9 @@ class Sembl.Move extends Backbone.Model
   initialize: (options) ->
     @game = @get('node')?.get('game')
 
-  addResemblance: (source, description) ->
+  addResemblance: (target, description) ->
     @resemblances.push {
-      source: source
+      target: target
       description
     } 
 

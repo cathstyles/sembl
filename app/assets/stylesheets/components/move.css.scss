@@ -1,0 +1,24 @@
+.move__board {
+  padding:60px;
+  position: relative;
+}
+.move__board__canvas {
+  height: 200px;
+  width: 100%;
+  position: relative;
+}
+.move__board__node, .move__board__links, .move__board__resemblences {
+  position: absolute;
+}
+.move__board__node {
+  width: 60px;
+  height: 60px;
+  margin: -30px;
+  background: #c77e1a;
+  border-radius: 15%;
+}
+.move__board__node__image {
+  width: 60px;
+  height: 60px;
+  border-radius: 15%;
+}
