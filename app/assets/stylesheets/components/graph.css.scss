@@ -1,0 +1,40 @@
+.graph {
+  padding: 60px;
+  position: relative;
+}
+.graph__canvas {
+  height: 500px;
+  width: 100%;
+  position: relative;
+}
+.graph__node, .graph__resemblance {
+  position: absolute;
+}
+.graph__node {
+  width: 60px;
+  height: 60px;
+  margin: -30px;
+  background: #c77e1a;
+  border-radius: 15%;
+
+  &.state-filled {
+    background: red;
+  }
+
+  &.state-locked {
+    background: black;
+  }
+
+  &.state-available {
+    background: #c77e1a;
+  }
+
+  &.state-proposed {
+    background: green;
+  }
+}
+.graph__node__image {
+  width: 100%;
+  height: 100%;
+  border-radius: 15%;
+}
