@@ -6,5 +6,5 @@ Sembl.Games.Gameboard.PlacementDetailView = React.createClass
     imageURL = @props.placement.image_url if @props.placement
     
     `<div className={className}>
-        <img src={imageURL} />
-      </div>`
+      <img src={imageURL} />
+    </div>`
