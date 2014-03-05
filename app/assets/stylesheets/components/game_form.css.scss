@@ -265,8 +265,24 @@
   }
 }
 
-.games-setup__filter {
+.games-setup__filters {
+  @extend %clearfix-micro;
+  @include pad(top, normal);
   clear: both;
+}
+
+.games-setup__filter {
+  @include pad(right, normal);
+  float: left;
+  &:last-child {
+    padding-right: 0;
+  }
+}
+
+.games-setup__filter-label {
+  @extend .small-tracked-out-heading;
+  cursor: pointer;
+  padding-right: 3px;
 }
 
 .games__gallery {
