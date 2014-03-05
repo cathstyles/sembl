@@ -1,23 +1,21 @@
-// Moves
-
-.move__board {
-  @include pad(top, large);
+.graph {
+  padding: 80px;
   position: relative;
 }
 
-.move__board__canvas {
+.graph__canvas {
   height: 300px;
   width: 100%;
   position: relative;
 }
-.move__board__node,
-.move__board__links,
-.move__board__resemblences,
-.move__board__resemblance {
+.graph__node,
+.graph__links,
+.graph__resemblences,
+.graph__resemblance {
   position: absolute;
 }
 
-.move__board__node {
+.graph__node {
   background-color: #faf0dc;
   border: 2px solid #fff;
   border-radius: $border-radius;
@@ -25,10 +23,27 @@
   width: 120px;
   height: 120px;
   margin-left: -60px;
+  margin-top: -60px;
   text-align: center;
+
+  &.state-filled {
+    background: red;
+  }
+
+  &.state-locked {
+    background: black;
+  }
+
+  &.state-available {
+    background: #c77e1a;
+  }
+
+  &.state-proposed {
+    background: green;
+  }
 }
 
-.move__board__node--playable {
+.graph__node--playable {
   border: 2px dashed #b99f7a;
   &:before,
   &:after {
@@ -55,7 +70,7 @@
   }
 }
 
-.move__board__node__image {
+.graph__node__image {
   border-radius: $border-radius-inner;
   width: 100%;
   height: 100%;
@@ -66,7 +81,7 @@
   50%         { box-shadow: 0 0 8px 8px $highlight-color; }
 }
 
-.move__board__resemblance__filled {
+.graph__resemblance__filled {
   position: relative;
   &:before {
     position: absolute;
@@ -84,16 +99,5 @@
     animation-duration: 1s;
     animation-timing-function: ease;
     animation-iteration-count: infinite;
-  }
-}
-
-.move__actions {
-  text-align: right;
-}
-
-.move__actions__button {
-  @extend %button;
-  i {
-    padding-right: 2px;
   }
 }

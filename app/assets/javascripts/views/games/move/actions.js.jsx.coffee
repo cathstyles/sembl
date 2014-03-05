@@ -4,6 +4,6 @@
   render: () ->
     `<div className="move__actions">
       <button className="move__actions__button">
-        Submit move
+        <i className="fa fa-thumbs-up"></i> Submit move
       </button>
     </div>`
