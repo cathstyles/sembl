@@ -25,6 +25,7 @@ class MoveGraphLayout
     @galleryFilterHandler = new Sembl.Handlers.GalleryFilterHandler(@props.game.get('filter'))
     @galleryFilterHandler.bind()
     $(window).on('graph.node.click', @handleNodeClick)
+    $(window).on('move.target.selectThing', @handleSelectTargetThing)
 
   componentDidMount: ->
     @galleryFilterHandler.handleSearch()
@@ -32,11 +33,28 @@ class MoveGraphLayout
   componentWillUnmount: ->
     @galleryFilterHandler.unbind()
     $(window).off('graph.node.click')
+    $(window).off('move.target.selectThing')
 
   handleNodeClick: (event, node) ->
     userState = node.get('user_state')
     if userState == 'available'
       console.log 'selected available'
+  
+  handleSelectTargetThing: (event, thing) ->
+    console.log 'selected thing', thing
+    target = @state.target
+    targetThing = thing
+    viewablePlacement = 
+      image_thumb_url: thing.image_admin_url
+      image_url: thing.image_browse_url
+      title: thing.title
+    target.set('viewable_placement', 
+      viewablePlacement
+    )
+
+    @setState
+      target: target
+      targetThing: targetThing
 
   getInitialState: () ->
     target: @props.node
