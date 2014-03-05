@@ -62,9 +62,8 @@
 }
 
 @keyframes glow {
-  0%    { box-shadow: 0 0 5px 5px #a8b42a; }
-  50%   { box-shadow: 0 0 10px 10px #a8b42a; }
-  100%  { box-shadow: 0 0 5px 5px #a8b42a; }
+  0%, 100%    { box-shadow: 0 0 3px 3px $highlight-color; }
+  50%         { box-shadow: 0 0 8px 8px $highlight-color; }
 }
 
 .move__board__resemblance__filled {
@@ -76,7 +75,7 @@
     content: "";
     width: 10px;
     height: 10px;
-    background-color: #a8b42a;
+    background-color: $highlight-color;
     position: absolute;
     margin-left: -5px;
     margin-top: -5px;
@@ -94,4 +93,7 @@
 
 .move__actions__button {
   @extend %button;
+  i {
+    padding-right: 2px;
+  }
 }
