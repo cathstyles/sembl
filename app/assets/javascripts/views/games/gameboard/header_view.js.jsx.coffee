@@ -50,15 +50,21 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
     moreInfo = `<MoreInfoView game={this.props.game}/>` if  !!game.get('description')
 
     edit = `<li className="header__link">
-        <i className="fa fa-pencil header__link-icon"></i><a href="#" className="header__link-anchor">Edit</a>
+        <i className="fa fa-pencil header__link-icon"></i>
+        <a href="#" className="header__link-anchor">Edit</a>
       </li>` if game.get('is_hosting')
 
     roundResults = `<li className="header__link">
-        <i className="fa fa-trophy header__link-icon"></i><a href="#" className="header__link-anchor"><span className="header__link-truncate">Round&nbsp;</span>Results</a>
+        <i className="fa fa-trophy header__link-icon"></i>
+        <a href="#" className="header__link-anchor">
+          <span className="header__link-truncate">Round&nbsp;</span>
+          Results
+        </a>
       </li>`
 
     help = `<li className="header__link">
-        <i className="fa fa-question-circle header__link-icon"></i> <a href="#" className="header__link-anchor">Help</a>
+        <i className="fa fa-question-circle header__link-icon"></i> 
+        <a href="#" className="header__link-anchor">Help</a>
       </li>`
 
     return `<div className="header__components">

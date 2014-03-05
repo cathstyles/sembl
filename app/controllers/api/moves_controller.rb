@@ -17,48 +17,60 @@ class Api::MovesController < ApplicationController
 
     game = Game.find(move_params.game_id)
 
-    target_params = move_params[:target]
-    target_placement = Placement.new(
-      creator: current_user, 
-      node: Node.find(target_params[:node_id]), 
-      thing: Thing.find(target_params[:thing_id])
-    )
+    # target_params = move_params[:target]
+    # target_placement = Placement.new(
+    #   creator: current_user, 
+    #   node: Node.find(target_params[:node_id]), 
+    #   thing: Thing.find(target_params[:thing_id])
+    # )
 
-    resemblances = []
-    move_params[:resemblances].each do |resemblance_params|
-      source_params = resemblance_params[:source]
-      source_placement = Placement.find_by(
-        node_id: source_params[:node_id],
-        thing_id: source_params[:thing_id]
-      )
-      Link.find_by(
-        source_id: source_placement.node.id,
-        target_id: target_placement.node.id,
-        game_id: game.id 
-      )
-      resemblances << Resemblance.new(
-        link: link,
-        description: resemblance_params[:description],
-        creator: current_user
-      )
-    end
-
-    error_record = nil
-    ActiveRecord::Base.transaction do
-      error_record = target_placement unless target_placement.save
-      resemblances.each do |sembl|
-        error_record = sembl unless sembl.save
-      end
-    end
-
-    if !error_record
+    move = Move.new(user: current_user)
+    move.placement = move_params[:target]
+    move.resemblances = move_params[:resemblances]
+    if move.save
       @result = result(status=:ok, notice='Move created')
       game.player(current_user).move_created
       respond_with @result
     else
-      @result = result(status=:fail, alert='Move could not be created', errors=error_record.errors.full_messages)
+      @result = result(status=:fail, alert='Move could not be created', errors=move.errors.full_messages)
       respond_with @result
     end
+
+    # resemblances = []
+    # move_params[:resemblances].each do |resemblance_params|
+    #   source_params = resemblance_params[:source]
+    #   source_placement = Placement.find_by(
+    #     node_id: source_params[:node_id],
+    #     thing_id: source_params[:thing_id]
+    #   )
+    #   Link.find_by(
+    #     source_id: source_placement.node.id,
+    #     target_id: target_placement.node.id,
+    #     game_id: game.id 
+    #   )
+    #   resemblances << Resemblance.new(
+    #     link: link,
+    #     description: resemblance_params[:description],
+    #     creator: current_user
+    #   )
+    # end
+
+    # error_record = nil
+    # ActiveRecord::Base.transaction do
+    #   error_record = target_placement unless target_placement.save
+    #   resemblances.each do |sembl|
+    #     error_record = sembl unless sembl.save
+    #   end
+    # end
+
+    # if !error_record
+    #   @result = result(status=:ok, notice='Move created')
+    #   game.player(current_user).move_created
+    #   respond_with @result
+    # else
+    #   @result = result(status=:fail, alert='Move could not be created', errors=error_record.errors.full_messages)
+    #   respond_with @result
+    # end
   end
 
   private

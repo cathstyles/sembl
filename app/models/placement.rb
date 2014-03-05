@@ -30,6 +30,11 @@ class Placement < ActiveRecord::Base
     end
   end
 
+  def self.for_round(game, round = nil)
+    round  = round || game.current_round
+    joins(:node).where("nodes.game_id = ? and nodes.round = ?", game.id, round)
+  end
+
   def fill_node
     node.fill
   end
