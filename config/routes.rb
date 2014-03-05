@@ -5,11 +5,9 @@ Sembl::Application.routes.draw do
         post 'join'
       end
 
-      resources :ratings, only: [:create] do 
-        collection do 
-          get 'round'
-        end
-      end
+      resources :ratings, only: [:create] 
+
+      get 'moves/round', to: 'moves#round'
     end
 
     # this probably should be under a game uri

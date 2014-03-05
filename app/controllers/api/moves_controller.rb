@@ -2,11 +2,22 @@ class Api::MovesController < ApplicationController
   respond_to :json
 
   before_filter :authenticate_user!
+  before_filter :find_game, only: [:round]
 
+  # TODO remove once we turn this back into a post in react.
   def index
     create
   end
 
+  # List of moves to rate. 
+  # for_round defaults to current round
+  def round
+    placements = Placement.for_round(@game)
+    @moves = placements.collect{|p| Move.new(placement: p)}
+    respond_with @moves
+  end
+
+  #TODO is this being used?
   def show
     @node = Node.find(params[:id])
     respond_with @node
@@ -100,4 +111,9 @@ class Api::MovesController < ApplicationController
 
     move
   end
+
+  def find_game
+    @game = Game.find(params[:game_id])
+  end
+
 end

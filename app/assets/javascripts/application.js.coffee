@@ -25,6 +25,7 @@ _.extend Sembl, Backbone.Events
 @Sembl.Games.Setup = @Sembl.Games.Setup || {}
 @Sembl.Games.Gameboard = @Sembl.Games.Gameboard || {}
 @Sembl.Games.Move = @Sembl.Games.Move || {}
+@Sembl.Games.Rate = @Sembl.Games.Rate || {}
 @Sembl.Layouts = @Sembl.Layouts || {}
 @Sembl.Masthead = @Sembl.Masthead || {}
 @Sembl.views = @Sembl.views || {}
