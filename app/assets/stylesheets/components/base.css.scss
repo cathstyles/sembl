@@ -42,6 +42,11 @@ textarea {
   border: 1px solid #d8d0bf;
   box-shadow: inset 1px 1px 1px 1px rgba(#666,.1);
   padding: 3px;
+  &:focus {
+    background-color: lighten($border-color,22%);
+    transition-property: background-color;
+    transition-duration: 100ms;
+  }
 }
 
 .flash-message {
