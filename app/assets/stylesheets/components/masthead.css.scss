@@ -179,7 +179,7 @@
   z-index: 5;
 }
 
-.header__round {
+.header__centre-title {
   @extend %header-tab;
   @extend %white-drop-shadow;
   position: absolute;
@@ -195,14 +195,14 @@
   animation-iteration-count: 1;
 }
 
-.header__round-word {
+.header__centre-title-word {
   border-bottom: 1px dashed #3c7424;
   letter-spacing: .1em;
   padding-bottom: 2px;
   text-transform: uppercase;
 }
 
-.header__round-number {
+.header__centre-title-number {
   @include font-size(36);
   color: $highlight-color;
   font-weight: 500;
