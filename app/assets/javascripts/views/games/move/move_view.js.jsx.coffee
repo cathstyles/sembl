@@ -1,8 +1,10 @@
+#= require d3
 #= require views/games/move/actions
 #= require views/games/move/board
 #= require views/games/move/selected_thing
 #= require views/layouts/default
 #= require views/games/gallery
+#= require views/games/header_view
 #= require handlers/gallery_filter_handler
 #= require views/components/graph/graph
 
@@ -92,7 +94,7 @@ class MoveGraphLayout
       Your Move
     </HeaderView>`
 
-    `<Layout header="header">
+    `<Layout className="game" header="header">
       <div className="move">
         <Graph nodes={nodes} links={links} />
         <Actions />

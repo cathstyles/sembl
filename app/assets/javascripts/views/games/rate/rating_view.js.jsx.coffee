@@ -1,12 +1,14 @@
+#= require d3
 #= require views/layouts/default
-#= require views/games/rate/move_view
 #= require views/games/rate/update_rating_view
 #= require views/games/rate/navigation_view
+#= require views/games/header_view
 #= require views/components/graph/graph
 
 
 ###* @jsx React.DOM ###
-{MoveView, UpdateRatingView, NavigationView} = Sembl.Games.Rate
+{UpdateRatingView, NavigationView} = Sembl.Games.Rate
+HeaderView = Sembl.Games.HeaderView
 Graph = Sembl.Components.Graph.Graph
 Layout = Sembl.Layouts.Default
 
@@ -33,12 +35,13 @@ Layout = Sembl.Layouts.Default
     @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, progress: @state.progress
 
   currentMove: -> 
-    @props.moves.at(@moveIndex)
+    @props.moves.at(@state.moveIndex)
 
   currentResemblance: -> 
-    @props.moves.at(@moveIndex).resemblanceAt(@linkIndex)
+    @props.moves.at(@state.moveIndex).resemblanceAt(@state.linkIndex)
 
   render: ->
+    console.log @props.game
     game = @props.game
     move = @currentMove()
 
@@ -48,7 +51,11 @@ Layout = Sembl.Layouts.Default
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
 
-    `<Layout>
+    header = `<HeaderView game={game} >
+      Rating
+    </HeaderView>`
+
+    `<Layout className="game" header={header}>
       <div className="move">
         <Graph nodes={nodes} links={move.links} />
         <NavigationView moves={this.props.moves} handleNext={this.incrementIndexes}/>

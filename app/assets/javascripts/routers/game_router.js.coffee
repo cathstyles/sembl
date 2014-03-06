@@ -28,11 +28,12 @@ class Sembl.GameRouter extends Backbone.Router
     )
 
   rate: -> 
+    _this = @
     moves = new Sembl.Moves([], {for_round: true, game: @game})
     res = moves.fetch()
     res.done -> 
       React.renderComponent(
-        Sembl.Games.Rate.RatingView({moves: moves, game: @game}), 
+        Sembl.Games.Rate.RatingView({moves: moves, game: _this.game}), 
         document.getElementsByTagName('body')[0]
       )
 
