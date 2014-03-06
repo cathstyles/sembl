@@ -30,6 +30,7 @@
     border-radius: $border-radius;
     border: 3px solid #fff;
     box-shadow: 0 0 2px 2px rgba(#888,.1);
+    width: 100%;
   }
   &:hover {
     background-color: $subtle-highlight;
@@ -52,6 +53,7 @@
   position: relative;
   float: left;
   overflow: hidden;
+  width: 30%;
 }
 
 .game-individual__play-button {

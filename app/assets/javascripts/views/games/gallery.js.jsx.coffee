@@ -13,7 +13,7 @@
     this.refs.selected_modal.handleToggle()
     console.log "selected"
     event.preventDefault();
-    
+
   render: () ->
     thing = this.props.thing;
 
@@ -63,8 +63,8 @@
       `<GalleryThing key={thing.id} thing={thing} SelectedClass={self.props.SelectedClass} />`
 
     `<div className={this.className}>
-      <button onClick={this.handlePreviousPage}>Previous page</button>
-      <button onClick={this.handleNextPage}>Next page</button>
+      <button onClick={this.handlePreviousPage} className={this.className + "__previous"}><i className="fa fa-chevron-left"></i> Previous page</button>
+      <button onClick={this.handleNextPage} className={this.className + "__next"}>Next page <i className="fa fa-chevron-right"></i></button>
       <div className={this.className + "__row"}>
         {things}
       </div>

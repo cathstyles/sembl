@@ -2,7 +2,7 @@
 
 ###* @jsx React.DOM ###
 
-Sembl.Games.Gameboard.MoreInfoView = React.createClass
+Sembl.Games.MoreInfoView = React.createClass
   toggleDescriptionPopup: ->
     el = @isMounted() && @getDOMNode()
     description = $(el).find('.header__description').toggleClass('hidden')
@@ -15,9 +15,9 @@ Sembl.Games.Gameboard.MoreInfoView = React.createClass
       </div>
     </div>`
 
-{MoreInfoView} = Sembl.Games.Gameboard
+{MoreInfoView} = Sembl.Games
 
-Sembl.Games.Gameboard.HeaderView = React.createClass
+Sembl.Games.HeaderView = React.createClass
 
   componentDidMount: ->
     @offsetRoundTab();
@@ -40,12 +40,6 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
       Join Game
     </a>` if game.canJoin()
 
-    round = `<div className="header__round">
-        <span className="header__round-word">Round</span>
-        <span className="header__round-number">
-          {game.get('current_round')}
-        </span>
-      </div>`
 
     moreInfo = `<MoreInfoView game={this.props.game}/>` if  !!game.get('description')
 
@@ -70,7 +64,9 @@ Sembl.Games.Gameboard.HeaderView = React.createClass
     return `<div className="header__components">
       {headerTitle}
       {moreInfo}
-      {round}
+      <div className="header__centre-title">
+        {this.props.children}
+      </div>
       <ul className="header__links">
         {join}
         {edit}

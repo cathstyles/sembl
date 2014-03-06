@@ -1,3 +1,8 @@
+@keyframes pulse {
+  0%, 100%  { transform: scale(1); }
+  50%       { transform: scale(1.1); }
+}
+
 .graph {
   padding: 80px;
   position: relative;
@@ -27,46 +32,72 @@
   text-align: center;
 
   &.state-filled {
-    background: red;
+    background-color: $highlight-background-color;
   }
 
   &.state-locked {
-    background: black;
+    background-color: $background-color;
+    border: 2px solid #ecdcc6;
+    box-shadow: none;
+    &:before {
+      @extend %white-drop-shadow;
+      @include font-size(50);
+      font-family: "FontAwesome";
+      color: #ecdcc6;
+      content: "\f023";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -16px;
+      margin-top: -22px;
+    }
+    img {
+      display: none;
+    }
   }
 
   &.state-available {
-    background: #c77e1a;
+    border: 2px dashed #b99f7a;
+    &:before,
+    &:after {
+      @extend %white-drop-shadow;
+      font-family: "FontAwesome";
+      color: #b99f7a;
+      position: absolute;
+    }
+    &:before {
+      @include font-size(40);
+      content: "\f030";
+      top: 50%;
+      left: 50%;
+      margin-top: -18px;
+      margin-left: -22px;
+    }
+    &:after {
+      @include font-size(20);
+      content: "\f067";
+      top: 25px;
+      right: 25px;
+    }
+    img {
+      display: none;
+    }
+    &:hover {
+      box-shadow: 0 0 10px 5px rgba(#000,.1);
+      border-color: darken(#b99f7a, 10%);
+      &:before,
+      &:after {
+        color: darken(#b99f7a, 10%);
+        animation-name: pulse;
+        animation-duration: 500ms;
+        animation-timing-function: ease;
+        animation-iteration-count: infinite;
+      }
+    }
   }
 
   &.state-proposed {
-    background: green;
-  }
-}
-
-.graph__node--playable {
-  border: 2px dashed #b99f7a;
-  &:before,
-  &:after {
-    @extend %white-drop-shadow;
-    font-family: "FontAwesome";
-    color: #b99f7a;
-  }
-  &:before {
-    @include font-size(40);
-    content: "\f030";
-    padding-top: 50%;
-    margin-top: -18px;
-    display: inline-block;
-  }
-  &:after {
-    @include font-size(20);
-    content: "\f067";
-    position: absolute;
-    top: 25px;
-    right: 25px;
-  }
-  img {
-    display: none;
+    border: 2px dashed #fff;
   }
 }
 
@@ -74,30 +105,4 @@
   border-radius: $border-radius-inner;
   width: 100%;
   height: 100%;
-}
-
-@keyframes glow {
-  0%, 100%    { box-shadow: 0 0 3px 3px $highlight-color; }
-  50%         { box-shadow: 0 0 8px 8px $highlight-color; }
-}
-
-.graph__resemblance__filled {
-  position: relative;
-  &:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: "";
-    width: 10px;
-    height: 10px;
-    background-color: $highlight-color;
-    position: absolute;
-    margin-left: -5px;
-    margin-top: -5px;
-    border-radius: 50%;
-    animation-name: glow;
-    animation-duration: 1s;
-    animation-timing-function: ease;
-    animation-iteration-count: infinite;
-  }
 }

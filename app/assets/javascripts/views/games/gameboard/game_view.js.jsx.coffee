@@ -1,15 +1,15 @@
 #= require views/games/gameboard/nodes_view
 #= require views/games/gameboard/links_view
 #= require views/games/gameboard/players_view
-#= require views/games/gameboard/header_view
 #= require views/games/gameboard/status_view
-#= require views/games/gallery
+#= require views/games/header_view
 #= require views/layouts/default
 #= require views/components/graph/graph
 
 ###* @jsx React.DOM ###
 
-{NodesView, LinksView, HeaderView, PlayersView, StatusView} = Sembl.Games.Gameboard
+{NodesView, LinksView, PlayersView, StatusView} = Sembl.Games.Gameboard
+HeaderView = Sembl.Games.HeaderView
 Layout = Sembl.Layouts.Default
 Graph = Sembl.Components.Graph.Graph
 
@@ -39,8 +39,15 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     boardCSS = 
       width: width
       height: height
+
+    round = `<div>
+        <span className="header__centre-title-word">Round</span>
+        <span className="header__centre-title-number">
+          {this.model().get('current_round')}
+        </span>
+      </div>`
     
-    header = `<HeaderView game={this.model()} handleJoin={this.handleJoin}/>`
+    header = `<HeaderView game={this.model()} handleJoin={this.handleJoin}>{round}</HeaderView>`
 
     nodes = @model().nodes.models
     links = @model().links.models
