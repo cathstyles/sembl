@@ -42,7 +42,7 @@
   background-color: $highlight-background-color;
   @include background-image(linear-gradient($highlight-background-color, #fffdf2));
   border-bottom: 1px solid $border-color;
-  box-shadow: 0 0 5px 5px rgba(#888,.1);
+  box-shadow: 0 0 10px 5px rgba(#888,.1);
   position: relative;
 
   // Call animation

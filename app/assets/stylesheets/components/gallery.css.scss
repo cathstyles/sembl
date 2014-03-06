@@ -82,10 +82,15 @@
   }
 }
 
+.games__gallery__next {
+  float: right;
+}
+
 .games__gallery__previous i {
   padding-right: 2px;
 }
 
 .games__gallery__next i {
+  text-align: right;
   padding-left: 2px;
 }

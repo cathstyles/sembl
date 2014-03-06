@@ -106,29 +106,3 @@
   width: 100%;
   height: 100%;
 }
-
-@keyframes glow {
-  0%, 100%  { box-shadow: 0 0 3px 3px $highlight-color; }
-  50%       { box-shadow: 0 0 8px 8px $highlight-color; }
-}
-
-.graph__resemblance__filled {
-  position: relative;
-  &:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: "";
-    width: 10px;
-    height: 10px;
-    background-color: $highlight-color;
-    position: absolute;
-    margin-left: -5px;
-    margin-top: -5px;
-    border-radius: 50%;
-    animation-name: glow;
-    animation-duration: 1s;
-    animation-timing-function: ease;
-    animation-iteration-count: infinite;
-  }
-}

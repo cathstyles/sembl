@@ -67,23 +67,27 @@
 }
 
 .move__board__resemblance__filled {
-  position: relative;
+  @extend %button;
+  @include font-size(16);
+  letter-spacing: 0;
+  text-transform: none;
   &:before {
     position: absolute;
     top: 0;
     left: 0;
     content: "";
-    width: 10px;
-    height: 10px;
+    width: 30px;
+    height: 30px;
     background-color: $highlight-color;
     position: absolute;
-    margin-left: -5px;
-    margin-top: -5px;
+    margin-left: -15px;
+    margin-top: -15px;
     border-radius: 50%;
     animation-name: glow;
     animation-duration: 1s;
     animation-timing-function: ease;
     animation-iteration-count: infinite;
+    z-index: -1;
   }
 }
 
