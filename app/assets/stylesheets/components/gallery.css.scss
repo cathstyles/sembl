@@ -73,3 +73,19 @@
   color: #fff;
   display: block;
 }
+
+.games__gallery__previous,
+.games__gallery__next {
+  @extend %button;
+  i {
+    @include font-size(12);
+  }
+}
+
+.games__gallery__previous i {
+  padding-right: 2px;
+}
+
+.games__gallery__next i {
+  padding-left: 2px;
+}
