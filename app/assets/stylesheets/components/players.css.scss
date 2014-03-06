@@ -1,1 +1,56 @@
 // Players
+
+.players {
+  position: absolute;
+  // top: 0;
+  // right: 0;
+
+//   // Animation
+//   animation-name: players;
+//   animation-duration: 250ms;
+//   animation-timing-function: ease;
+//   animation-iteration-count: 1;
+//   animation-direction: normal;
+}
+
+.player {
+  background-color: #f3e7cf;
+  padding: 6px 10px;
+  cursor: pointer;
+  img {
+    background-color: $highlight-background-color;
+    border-radius: 50%;
+    border: 2px solid $border-color;
+    box-shadow: 0 0 3px 3px rgba(#fff,.4);
+    &:hover {
+      -webkit-transform: scale(1.1);
+      -webkit-transition-property: scale;
+      -webkit-transition-duration: 250ms;
+    }
+  }
+  span {
+    @extend .small-tracked-out-heading;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    i {
+      color: #e0c21c;
+      font-size: 12px;
+    }
+  }
+  &:first-child {
+    border-top-left-radius: 4px;
+    padding-top: 10px;
+  }
+  &:last-child {
+    border-bottom-left-radius: 4px;
+    padding-top: 10px;
+  }
+}
+
+.player--highlighted {
+  background-color: #fef0d4;
+  img {
+    border: 2px solid darken($border-color, 10%);
+  }
+}
