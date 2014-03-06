@@ -14,4 +14,11 @@ class Sembl.Move extends Backbone.Model
       description: description
     } 
 
+  linksByXDimension: -> 
+    @links.sortBy (link) ->
+      link.source().get('x')
+
+  resemblanceAt: (index) -> 
+    linksByXDimension.at(index)
+
   toJson: -> 

@@ -5,7 +5,6 @@ class Api::RatingsController < ApplicationController
 
   before_filter :find_game
 
- 
   def create 
 
   end

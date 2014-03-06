@@ -5,3 +5,5 @@ class Sembl.Links extends Backbone.Collection
 
   initialize: (models, options) ->
     @game = options?.game
+
+  

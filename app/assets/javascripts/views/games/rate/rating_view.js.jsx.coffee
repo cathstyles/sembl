@@ -12,10 +12,31 @@ Layout = Sembl.Layouts.Default
 
 @Sembl.Games.Rate.RatingView = React.createClass
 
-  moveIndex: 0
+  getInitialState: -> 
+    {
+      moveIndex: 0
+      linkIndex: 0
+      progress: 'rating'
+    }
+
+  incrementIndexes: -> 
+    move = @currentMove()
+    linkCount = move.links.length()
+    moveCount = @moves.length()
+
+    if linkCount % @state.linkIndex == 0
+      @state.linkIndex = 0
+      if moveCount % @state.moveIndex == 0 then @state.progress = "finished" else @state.moveIndex++
+    else
+      @state.linkIndex++
+
+    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, progress: @state.progress
 
   currentMove: -> 
     @props.moves.at(@moveIndex)
+
+  currentResemblance: -> 
+    @props.moves.at(@moveIndex).resemblanceAt(@linkIndex)
 
   render: ->
     game = @props.game
@@ -30,5 +51,7 @@ Layout = Sembl.Layouts.Default
     `<Layout>
       <div className="move">
         <Graph nodes={nodes} links={move.links} />
-      </div>
+        <NavigationView moves={this.props.moves} handleNext={this.incrementIndexes}/>
+        <UpdateRatingView move={this.currentMove()} resemblance={this.currentResemblance()}/>
+      </div>  
     </Layout>`
