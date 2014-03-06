@@ -10,7 +10,7 @@ Sembl::Application.routes.draw do
       get 'moves/round', to: 'moves#round'
     end
 
-    # this probably should be under a game uri
+    # TODO: this probably should be scoped under a game resource
     resources :moves, only: [:create, :index]
 
     resources :things, only: [:index, :show] do 

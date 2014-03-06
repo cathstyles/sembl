@@ -28,7 +28,6 @@ class Sembl.GameRouter extends Backbone.Router
     )
 
   rate: -> 
-    console.log @game
     moves = new Sembl.Moves([], {for_round: true, game: @game})
     res = moves.fetch()
     res.done -> 

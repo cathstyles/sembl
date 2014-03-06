@@ -2,12 +2,16 @@
 
 class Sembl.Move extends Backbone.Model
   initialize: (options) ->
-    @game = @get('node')?.get('game')
+    @game = @collection.game
+    console.log @game
+    @target_node = new Sembl.Node(@get("target_node"), game: @game)
+    @links = new Sembl.Links(@get("links"), game: @game)
+    @resemblances = []
 
   addResemblance: (target, description) ->
     @resemblances.push {
       target: target
-      description
+      description: description
     } 
 
   toJson: -> 
