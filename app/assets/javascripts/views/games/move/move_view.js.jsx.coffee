@@ -88,7 +88,11 @@ class MoveGraphLayout
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
 
-    `<Layout>
+    header = `<HeaderView game={this.model()} >
+      Your Move
+    </HeaderView>`
+
+    `<Layout header="header">
       <div className="move">
         <Graph nodes={nodes} links={links} />
         <Actions />
