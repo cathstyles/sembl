@@ -1,3 +1,8 @@
+@keyframes pulse {
+  0%, 100%  { transform: scale(1); }
+  50%       { transform: scale(1.1); }
+}
+
 .graph {
   padding: 80px;
   position: relative;
@@ -76,6 +81,18 @@
     }
     img {
       display: none;
+    }
+    &:hover {
+      box-shadow: 0 0 10px 5px rgba(#000,.1);
+      border-color: darken(#b99f7a, 10%);
+      &:before,
+      &:after {
+        color: darken(#b99f7a, 10%);
+        animation-name: pulse;
+        animation-duration: 500ms;
+        animation-timing-function: ease;
+        animation-iteration-count: infinite;
+      }
     }
   }
 
