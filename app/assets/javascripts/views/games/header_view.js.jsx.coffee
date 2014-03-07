@@ -43,9 +43,10 @@ Sembl.Games.HeaderView = React.createClass
 
     moreInfo = `<MoreInfoView game={this.props.game}/>` if  !!game.get('description')
 
+    editUrl = "/games/" + game.get('id') + "/edit"
     edit = `<li className="header__link">
         <i className="fa fa-pencil header__link-icon"></i>
-        <a href="#" className="header__link-anchor">Edit</a>
+        <a href={editUrl} className="header__link-anchor">Edit</a>
       </li>` if game.get('is_hosting')
 
     roundResults = `<li className="header__link">
