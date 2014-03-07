@@ -21,10 +21,11 @@ Graph = Sembl.Components.Graph.Graph
     @galleryFilterHandler.bind()
     $(window).on('graph.node.click', @handleNodeClick)
     $(window).on('graph.resemblance.click', @handleResemblanceClick)
-    $(window).on('move.gallery.selectTargetThing', @handleSelectTargetThing)
+    $(window).on('move.actions.submitMove', @handleSubmitMove)
     $(window).on('move.editResemblance.change', @handleEditResemblanceChange)
     $(window).on('move.editResemblance.close', @handleEditResemblanceClose)
-
+    $(window).on('move.gallery.selectTargetThing', @handleSelectTargetThing)
+    
   componentDidMount: ->
     @galleryFilterHandler.handleSearch()
 
@@ -32,9 +33,10 @@ Graph = Sembl.Components.Graph.Graph
     @galleryFilterHandler.unbind()
     $(window).off('graph.node.click')
     $(window).off('graph.resemblance.click')
-    $(window).off('move.gallery.selectTargetThing')
+    $(window).off('move.actions.submitMove')
     $(window).off('move.editResemblance.change')
     $(window).off('move.editResemblance.close')
+    $(window).off('move.gallery.selectTargetThing')
 
   handleNodeClick: (event, node) ->
     userState = node.get('user_state')
@@ -81,12 +83,28 @@ Graph = Sembl.Components.Graph.Graph
       targetThing: targetThing
 
   handleSubmitMove: () ->
-    params = {move: this.state.move}
+    move = 
+      game_id: @props.game.id
+      target:
+        node_id: if @state.target then @state.target.id else null
+        thing_id: if @state.targetThing then @state.targetThing.id else null
+      resemblances:
+        for link in @state.links
+          viewablePlacement = link.source().get('viewable_placement')
+          viewableResemblance = link.get('viewable_resemblance') || {}
+          resemblance =
+            source: 
+              node_id: link.source().id
+              thing_id: viewablePlacement.thing_id
+            description: viewableResemblance.description
+
+    data = {move: move}
+    console.log 'Submitting move', move
     url = "/api/moves.json"
     # TODO: this should be POST, but get is helpful for debugging.
     $.get(
       url
-      params,
+      data,
       (move_status) ->
         console.log move_status
       "json"

@@ -96,20 +96,14 @@ class Api::MovesController < ApplicationController
   end
 
   def move_params
-    move = params.require(:move)
-    move.require(:game_id)
-
-    target = move.require(:target)
-    target.require(:node_id)
-    target.require(:thing_id)
-
-    resemblances = move.require(:resemblances)
-    resemblances.require(:description)
-    source = resemblances.require(:source)
-    source.require(:node_id)
-    source.require(:thing_id)
-
-    move
+    params.require(:move).permit(
+      :game_id,
+      {resemblances: [
+        :description, 
+        { source: [:node_id, :thing_id]}
+      ]},
+      target: [:node_id, :thing_id]
+    )
   end
 
   def find_game

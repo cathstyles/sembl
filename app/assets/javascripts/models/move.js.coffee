@@ -3,7 +3,7 @@
 class Sembl.Move extends Backbone.Model
   initialize: (options) ->
     @game = options?.game or @collection?.game
-    @target_node = new Sembl.Node(@get("target_node"), game: @game)
+    @targetNode = new Sembl.Node(@get("targetNode"), game: @game)
     @links = new Sembl.Links(@get("links"), game: @game)
     @resemblances = []
 

@@ -11,11 +11,12 @@
     $(window).trigger('move.editResemblance.close')
     event.preventDefault()
 
-  render: () ->
-    console.log @props
+  getInitialState: ->
     resemblance = @props.link.get('viewable_resemblance')
     description = if !!resemblance then resemblance.description
+    return {description: description}
 
+  render: () ->
     sourceNode = @props.link.source()
     sourcePlacement = sourceNode.get('viewable_placement')
     targetNode = @props.link.target()
@@ -24,7 +25,7 @@
     `<div className="move__edit__resemblance">
       <p>What's the resemblance between {sourcePlacement.title} and {targetPlacement ? targetPlacement.title : 'placeholder'}?</p>
       <form onSubmit={this.handleSubmit}>
-        <input type="text" onChange={this.handleChange} value={description}/>
-        <button>Close</button>
+        <input type="text" onChange={this.handleChange} value={this.state.description}/>
+        <input type="submit" value="Close" />
       </form>
     </div>`
