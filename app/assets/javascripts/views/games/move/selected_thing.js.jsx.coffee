@@ -3,7 +3,7 @@
 @Sembl.Games.Move.SelectedThing = React.createClass
 
   handleSelectThing: (event) ->
-    $(window).trigger('move.target.selectThing', @props.thing)
+    $(window).trigger('move.gallery.selectTargetThing', @props.thing)
     event.preventDefault()
 
   render: () ->

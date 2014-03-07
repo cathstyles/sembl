@@ -26,7 +26,8 @@ class MoveGraphLayout
     @galleryFilterHandler = new Sembl.Handlers.GalleryFilterHandler(@props.game.get('filter'))
     @galleryFilterHandler.bind()
     $(window).on('graph.node.click', @handleNodeClick)
-    $(window).on('move.target.selectThing', @handleSelectTargetThing)
+    $(window).on('graph.resemblance.click', @handleResemblanceClick)
+    $(window).on('move.gallery.selectTargetThing', @handleSelectTargetThing)
 
   componentDidMount: ->
     @galleryFilterHandler.handleSearch()
@@ -34,15 +35,20 @@ class MoveGraphLayout
   componentWillUnmount: ->
     @galleryFilterHandler.unbind()
     $(window).off('graph.node.click')
-    $(window).off('move.target.selectThing')
+    $(window).off('graph.resemblance.click')
+    $(window).off('move.gallery.selectTargetThing')
 
   handleNodeClick: (event, node) ->
     userState = node.get('user_state')
     if userState == 'available'
       console.log 'selected available'
-  
+
+  handleResemblanceClick: (event, link) ->
+    userState = node.get('user_state')
+    if userState == 'available'
+      console.log 'selected available'
+
   handleSelectTargetThing: (event, thing) ->
-    console.log 'selected thing', thing
     target = @state.target
     targetThing = thing
     viewablePlacement = 
@@ -52,13 +58,21 @@ class MoveGraphLayout
     target.set('viewable_placement', 
       viewablePlacement
     )
+    target.set('user_state', 'proposed')
 
     @setState
       target: target
       targetThing: targetThing
 
   getInitialState: () ->
-    target: @props.node
+    target = _.extend({}, @props.node)
+    links = 
+      for link in @props.game.links.where({target_id: target.id})
+        console.log link
+        _.extend({}, link)
+    state =
+      target: target
+      links: links
 
   handleSubmitMove: () ->
     params = {move: this.state.move}
@@ -81,16 +95,15 @@ class MoveGraphLayout
       resemblances: []
     })
 
-    game = @props.game
     target = @state.target
-    links = game.links.where({target_id: target.id})
+    links = @state.links
     sources = (link.source() for link in links)
 
     rootNode = _.extend({children: sources}, target)
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
 
-    header = `<HeaderView game={game} >
+    header = `<HeaderView game={this.props.game} >
       Your Move
     </HeaderView>`
 
@@ -101,3 +114,4 @@ class MoveGraphLayout
         <Gallery SelectedClass={SelectedThing} />
       </div>
     </Layout>`
+
