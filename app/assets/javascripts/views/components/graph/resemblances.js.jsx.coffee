@@ -16,12 +16,12 @@ Sembl.Components.Graph.Resemblances = React.createClass
 
       filled = true
       emptySembl = 
-      `<div className='move__board__resemblance__empty'>
+      `<div className='graph__resemblance__empty'>
         unfilled
       </div>`
 
       filledSembl = 
-        `<div className='move__board__resemblance__filled'>
+        `<div className='graph__resemblance__filled'>
           filled
         </div>`
 
