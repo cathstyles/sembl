@@ -1,12 +1,11 @@
 #= require d3
-#= require views/games/move/actions
-#= require views/games/move/board
-#= require views/games/move/selected_thing
-#= require views/layouts/default
-#= require views/games/gallery
-#= require views/games/header_view
 #= require handlers/gallery_filter_handler
 #= require views/components/graph/graph
+#= require views/games/gallery
+#= require views/games/header_view
+#= require views/games/move/actions
+#= require views/games/move/selected_thing
+#= require views/layouts/default
 
 ###* @jsx React.DOM ###
 
@@ -44,7 +43,7 @@ class MoveGraphLayout
       console.log 'selected available'
 
   handleResemblanceClick: (event, link) ->
-    userState = node.get('user_state')
+    placement = link.get('viewable_placement')
     if userState == 'available'
       console.log 'selected available'
 
@@ -68,7 +67,6 @@ class MoveGraphLayout
     target = _.extend({}, @props.node)
     links = 
       for link in @props.game.links.where({target_id: target.id})
-        console.log link
         _.extend({}, link)
     state =
       target: target
@@ -76,7 +74,6 @@ class MoveGraphLayout
 
   handleSubmitMove: () ->
     params = {move: this.state.move}
-    console.log params
     url = "/api/moves.json"
     # TODO: this should be POST, but get is helpful for debugging.
     $.get(
