@@ -4,21 +4,16 @@
 #= require views/games/gallery
 #= require views/games/header_view
 #= require views/games/move/actions
+#= require views/games/move/edit_resemblance
 #= require views/games/move/selected_thing
 #= require views/layouts/default
 
 ###* @jsx React.DOM ###
 
-{Actions, Board, SelectedThing} = Sembl.Games.Move
+{Actions, Board, EditResemblance, SelectedThing} = Sembl.Games.Move
 {Gallery, HeaderView} = Sembl.Games
 Layout = Sembl.Layouts.Default
 Graph = Sembl.Components.Graph.Graph
-
-class MoveGraphLayout 
-  constructor: (sources, targets) ->
-    rootNode = _.extend({children: sources}, targets)
-    tree = d3.layout.tree()
-    nodes = tree.nodes(rootNode)
 
 @Sembl.Games.Move.MoveView = React.createClass
   componentWillMount: ->
@@ -27,6 +22,7 @@ class MoveGraphLayout
     $(window).on('graph.node.click', @handleNodeClick)
     $(window).on('graph.resemblance.click', @handleResemblanceClick)
     $(window).on('move.gallery.selectTargetThing', @handleSelectTargetThing)
+    $(window).on('move.editResemblance.change', @handleEditResemblanceChange)
 
   componentDidMount: ->
     @galleryFilterHandler.handleSearch()
@@ -36,6 +32,7 @@ class MoveGraphLayout
     $(window).off('graph.node.click')
     $(window).off('graph.resemblance.click')
     $(window).off('move.gallery.selectTargetThing')
+    $(window).off('move.editResemblance.change')
 
   handleNodeClick: (event, node) ->
     userState = node.get('user_state')
@@ -43,9 +40,23 @@ class MoveGraphLayout
       console.log 'selected available'
 
   handleResemblanceClick: (event, link) ->
-    placement = link.get('viewable_placement')
-    if userState == 'available'
-      console.log 'selected available'
+    console.log 'clicked on sembl', link
+    @setState
+      editResemblance:
+        link: link
+
+  handleEditResemblanceChange: (event, resemblance) ->
+    if resemblance.description
+      resemblance.link.set('viewable_placement', 
+        {
+          description: resemblance.description
+        }
+      )
+    else
+      resemblance.link.set('viewable_placement', null)
+      
+    @setState
+      links: this.state.links
 
   handleSelectTargetThing: (event, thing) ->
     target = @state.target
@@ -71,6 +82,7 @@ class MoveGraphLayout
     state =
       target: target
       links: links
+      editResemblance: null
 
   handleSubmitMove: () ->
     params = {move: this.state.move}
@@ -104,9 +116,13 @@ class MoveGraphLayout
       Your Move
     </HeaderView>`
 
+    editResemblanceModal = if @state.editResemblance
+      `<EditResemblance link={this.state.editResemblance.link} />`
+
     `<Layout className="game" header={header}>
       <div className="move">
         <Graph nodes={nodes} links={links} />
+        {editResemblanceModal}
         <Actions />
         <Gallery SelectedClass={SelectedThing} />
       </div>
