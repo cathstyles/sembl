@@ -2,7 +2,7 @@
 
 class Sembl.Move extends Backbone.Model
   initialize: (options) ->
-    @game = @collection.game
+    @game = options?.game or @collection?.game
     console.log @game
     @target_node = new Sembl.Node(@get("target_node"), game: @game)
     @links = new Sembl.Links(@get("links"), game: @game)

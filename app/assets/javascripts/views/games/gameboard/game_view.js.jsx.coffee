@@ -34,11 +34,9 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
       Sembl.router.navigate("move/#{node.id}", trigger: true)
 
   render: ->
+    # this width and height will be used to scale the x,y values of the nodes into the width and height of the graph div.
     width = @model().width()
     height = @model().height()
-    boardCSS = 
-      width: width
-      height: height
 
     round = `<div>
         <span className="header__centre-title-word">Round</span>
@@ -59,11 +57,6 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     `<Layout className="game" header={header}>
       <div className="messages">
       </div>
-      <div className="board" style={boardCSS}>
-        <LinksView width={width} height={height} links={this.model().links}/> 
-        <NodesView nodes={this.model().nodes} /> 
-      </div>  
-
       <Graph nodes={nodes} links={links} width={width} height={height} />
       <PlayersView players={this.model().players} />
       <StatusView game={this.model()} />

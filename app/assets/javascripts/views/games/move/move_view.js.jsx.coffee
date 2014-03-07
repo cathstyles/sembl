@@ -11,7 +11,7 @@
 ###* @jsx React.DOM ###
 
 {Actions, Board, SelectedThing} = Sembl.Games.Move
-{Gallery} = Sembl.Games
+{Gallery, HeaderView} = Sembl.Games
 Layout = Sembl.Layouts.Default
 Graph = Sembl.Components.Graph.Graph
 
@@ -22,7 +22,6 @@ class MoveGraphLayout
     nodes = tree.nodes(rootNode)
 
 @Sembl.Games.Move.MoveView = React.createClass
-  
   componentWillMount: ->
     @galleryFilterHandler = new Sembl.Handlers.GalleryFilterHandler(@props.game.get('filter'))
     @galleryFilterHandler.bind()
@@ -76,6 +75,7 @@ class MoveGraphLayout
 
   render: -> 
     move = new Sembl.Move({
+      game: @props.game
       node: @props.node, 
       thing: null,
       resemblances: []
@@ -90,11 +90,11 @@ class MoveGraphLayout
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
 
-    header = `<HeaderView game={this.model()} >
+    header = `<HeaderView game={game} >
       Your Move
     </HeaderView>`
 
-    `<Layout className="game" header="header">
+    `<Layout className="game" header={header}>
       <div className="move">
         <Graph nodes={nodes} links={links} />
         <Actions />
