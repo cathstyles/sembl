@@ -23,6 +23,7 @@ Graph = Sembl.Components.Graph.Graph
     $(window).on('graph.resemblance.click', @handleResemblanceClick)
     $(window).on('move.gallery.selectTargetThing', @handleSelectTargetThing)
     $(window).on('move.editResemblance.change', @handleEditResemblanceChange)
+    $(window).on('move.editResemblance.close', @handleEditResemblanceClose)
 
   componentDidMount: ->
     @galleryFilterHandler.handleSearch()
@@ -33,6 +34,7 @@ Graph = Sembl.Components.Graph.Graph
     $(window).off('graph.resemblance.click')
     $(window).off('move.gallery.selectTargetThing')
     $(window).off('move.editResemblance.change')
+    $(window).off('move.editResemblance.close')
 
   handleNodeClick: (event, node) ->
     userState = node.get('user_state')
@@ -47,7 +49,7 @@ Graph = Sembl.Components.Graph.Graph
 
   handleEditResemblanceChange: (event, resemblance) ->
     if resemblance.description
-      resemblance.link.set('viewable_placement', 
+      resemblance.link.set('viewable_resemblance', 
         {
           description: resemblance.description
         }
@@ -57,6 +59,10 @@ Graph = Sembl.Components.Graph.Graph
       
     @setState
       links: this.state.links
+
+  handleEditResemblanceClose: () ->
+    @setState
+      editResemblance: null
 
   handleSelectTargetThing: (event, thing) ->
     target = @state.target
@@ -74,16 +80,6 @@ Graph = Sembl.Components.Graph.Graph
       target: target
       targetThing: targetThing
 
-  getInitialState: () ->
-    target = _.extend({}, @props.node)
-    links = 
-      for link in @props.game.links.where({target_id: target.id})
-        _.extend({}, link)
-    state =
-      target: target
-      links: links
-      editResemblance: null
-
   handleSubmitMove: () ->
     params = {move: this.state.move}
     url = "/api/moves.json"
@@ -95,6 +91,16 @@ Graph = Sembl.Components.Graph.Graph
         console.log move_status
       "json"
     )
+
+  getInitialState: () ->
+    target = _.extend({}, @props.node)
+    links = 
+      for link in @props.game.links.where({target_id: target.id})
+        _.extend({}, link)
+    state =
+      target: target
+      links: links
+      editResemblance: null
 
   render: -> 
     move = new Sembl.Move({

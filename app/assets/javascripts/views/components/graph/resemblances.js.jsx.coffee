@@ -19,8 +19,8 @@ Sembl.Components.Graph.Resemblance = React.createClass
       left: link.midpoint.x
       top: link.midpoint.y
 
-    viewablePlacement = link.model.get('viewable_placement')
-    filled = !!viewablePlacement
+    viewableResemblance = link.model.get('viewable_resemblance')
+    filled = !!viewableResemblance
 
     emptySembl = 
       `<div className='graph__resemblance__empty'>
@@ -28,7 +28,7 @@ Sembl.Components.Graph.Resemblance = React.createClass
       </div>`
     filledSembl = 
       `<div className='graph__resemblance__filled'>
-        {filled ? viewablePlacement.description : 'filled'}
+        {filled ? viewableResemblance.description : 'filled'}
       </div>`
 
     `<div key={link.model.id} className='graph__resemblance' style={style} onClick={this.handleClick}>

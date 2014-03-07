@@ -7,13 +7,24 @@
   handleChange: (event)->
     $.doTimeout('timeout.move.editResemblance.change', 200, @triggerChange, event.target.value);
 
+  handleSubmit: (event) ->
+    $(window).trigger('move.editResemblance.close')
+    event.preventDefault()
+
   render: () ->
+    console.log @props
+    resemblance = @props.link.get('viewable_resemblance')
+    description = if !!resemblance then resemblance.description
+
     sourceNode = @props.link.source()
     sourcePlacement = sourceNode.get('viewable_placement')
     targetNode = @props.link.target()
     targetPlacement = targetNode.get('viewable_placement')
+    
     `<div className="move__edit__resemblance">
       <p>What's the resemblance between {sourcePlacement.title} and {targetPlacement ? targetPlacement.title : 'placeholder'}?</p>
-      <input type="text" onChange={this.handleChange}/>
-      <button>Close</button>
+      <form onSubmit={this.handleSubmit}>
+        <input type="text" onChange={this.handleChange} value={description}/>
+        <button>Close</button>
+      </form>
     </div>`
