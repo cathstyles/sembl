@@ -23,7 +23,7 @@
     targetPlacement = targetNode.get('viewable_placement')
     
     `<div className="move__edit__resemblance">
-      <p>What's the resemblance between {sourcePlacement.title} and {targetPlacement ? targetPlacement.title : 'placeholder'}?</p>
+      <p>What&rsquo;s the resemblance between <strong>{sourcePlacement.title}</strong> and <strong>{targetPlacement ? targetPlacement.title : 'placeholder'}</strong>?</p>
       <form onSubmit={this.handleSubmit}>
         <input type="text" onChange={this.handleChange} value={this.state.description}/>
         <input type="submit" value="Close" />

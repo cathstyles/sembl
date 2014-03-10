@@ -118,22 +118,26 @@
   @include font-size(16);
   letter-spacing: 0;
   text-transform: none;
-  &:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: "";
-    width: 30px;
-    height: 30px;
-    background-color: $highlight-color;
-    position: absolute;
-    margin-left: -15px;
-    margin-top: -15px;
-    border-radius: 50%;
-    animation-name: glow;
-    animation-duration: 1s;
-    animation-timing-function: ease;
-    animation-iteration-count: infinite;
-    z-index: -1;
-  }
+  width: 220px;
+  margin-left: -110px;
+  margin-top: -20%;
+  text-align: center;
+  // &:before {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   content: "";
+  //   width: 30px;
+  //   height: 30px;
+  //   background-color: $highlight-color;
+  //   position: absolute;
+  //   margin-left: -15px;
+  //   margin-top: -15px;
+  //   border-radius: 50%;
+  //   animation-name: glow;
+  //   animation-duration: 1s;
+  //   animation-timing-function: ease;
+  //   animation-iteration-count: infinite;
+  //   z-index: -1;
+  // }
 }
