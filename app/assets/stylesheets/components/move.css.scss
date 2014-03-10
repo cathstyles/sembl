@@ -1,5 +1,33 @@
 // Moves
 
+.move__gallery__selected {
+  @include pad(all, medium);
+  background-color: rgba(#000,.8);
+  border: 3px solid #fff;
+  border-radius: $border-radius;
+  box-shadow: 0 0 20px 5px rgba(#000,.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.move__gallery__selected-heading {
+  @include font-size(18);
+  @include pad(bottom, medium);
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+}
+
+.move__gallery__selected-button {
+  @extend %button;
+  i {
+    padding-right: 2px;
+  }
+}
+
 .move__actions {
   text-align: right;
 }

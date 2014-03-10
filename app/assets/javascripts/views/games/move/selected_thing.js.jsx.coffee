@@ -10,5 +10,6 @@
     thing = this.props.thing
 
     `<div className='move__gallery__selected'>
-      <button onClick={this.handleSelectThing}>Place "{thing.title}"</button>
+      <h1 className='move__gallery__selected-heading'>&ldquo;{thing.title}&rdquo;</h1>
+      <a onClick={this.handleSelectThing} className='move__gallery__selected-button'><i className='fa fa-check'></i> Place image</a>
     </div>`
