@@ -9,7 +9,7 @@
 Sembl.Components.Graph.Graph = React.createClass 
   getInitialState: ->
     # we use the @props.nodes as the authoritive source on x and y values, so links defer their sources/targets to these.
-    nodeIndex: {}
+    nodeIndex = {}
     for n in @props.nodes
       nodeIndex[n.id] = n
 
@@ -69,7 +69,7 @@ Sembl.Components.Graph.Graph = React.createClass
     `<div className="graph">
       <div ref="canvas" className="graph__canvas" style={canvasStyle}>
         <Links nodes={scaledLinks} links={scaledLinks} width={this.state.width} height={this.state.height} />
-        <Resemblances links={scaledLinks} width={this.state.width} height={this.state.height} />
+        <Resemblances links={scaledLinks} width={this.state.width} height={this.state.height} classes={this.props.classes || {}} />
         <Nodes nodes={scaledNodes} />
       </div>
     </div>`
