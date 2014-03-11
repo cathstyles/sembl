@@ -5,7 +5,7 @@
   className: "toggle-component"
 
   getInitialState: () ->
-    _.extend {toggle: false}
+    {toggle: false}
 
   handleToggleOn: () ->
     this.setState

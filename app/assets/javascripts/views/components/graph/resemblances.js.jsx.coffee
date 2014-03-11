@@ -22,24 +22,29 @@ Sembl.Components.Graph.Resemblance = React.createClass
     viewableResemblance = link.model.get('viewable_resemblance')
     filled = !!viewableResemblance
 
-    emptySembl = 
-      `<div className='graph__resemblance__empty'>
-        Unfilled
-      </div>`
-    filledSembl = 
+    defaultChild = if filled
       `<div className='graph__resemblance__filled'>
         {filled ? viewableResemblance.description : 'filled'}
       </div>`
+    else
+      `<div className='graph__resemblance__empty'>
+        unfilled
+      </div>`
 
+    child = this.props.children || defaultChild
     `<div key={link.model.id} className='graph__resemblance' style={style} onClick={this.handleClick}>
-      {filled ? filledSembl : emptySembl}
+      {child}
     </div>`
 
 Resemblance = Sembl.Components.Graph.Resemblance
 Sembl.Components.Graph.Resemblances = React.createClass
   render: ->
     sembls = for link in @props.links
-      `<Resemblance key={link.model.id} link={link} />`
+      if @props.childClasses.resemblance
+        child = @props.childClasses.resemblance({link: link.model})
+      `<Resemblance key={link.model.id} link={link}>
+        {child}
+      </Resemblance>`
 
     `<div className="graph__resemblances">
       {sembls}

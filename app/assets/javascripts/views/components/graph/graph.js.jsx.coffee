@@ -70,7 +70,7 @@ Sembl.Components.Graph.Graph = React.createClass
     `<div className="graph">
       <div ref="canvas" className="graph__canvas" style={canvasStyle}>
         <Links nodes={scaledLinks} links={scaledLinks} width={this.state.width} height={this.state.height} />
-        <Resemblances links={scaledLinks} width={this.state.width} height={this.state.height} classes={this.props.classes || {}} />
+        <Resemblances links={scaledLinks} width={this.state.width} height={this.state.height} childClasses={this.props.childClasses || {}} />
         <Nodes nodes={scaledNodes} />
       </div>
     </div>`
