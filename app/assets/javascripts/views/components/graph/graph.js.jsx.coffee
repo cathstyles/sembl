@@ -31,7 +31,7 @@ Sembl.Components.Graph.Graph = React.createClass
 
   scaleNode: (node) ->
     node = @lookupNode(node)
-    
+
     xScale = d3.scale.linear().range([0, @state.width || 1])
     if @props.width then  xScale.domain([0, @props.width])
     

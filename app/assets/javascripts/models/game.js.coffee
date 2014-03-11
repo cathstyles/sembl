@@ -18,11 +18,9 @@ class Sembl.Game extends Backbone.Model
 
   updatePlayers: -> 
     @players.reset(@get("players"))
-    console.log 'reset players'
 
   updateNodes: -> 
     @nodes.reset(@get("nodes"))
-    console.log 'reset nodes'
     
   width: ->
     _(@nodes.pluck("x")).max() + 30 + 50

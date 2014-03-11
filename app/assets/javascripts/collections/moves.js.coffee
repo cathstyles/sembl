@@ -9,6 +9,12 @@ class Sembl.Moves extends Backbone.Collection
 
   initialize: (models, options) ->
     @game = options?.game
-    console.log options
 
     @for_round = options?.for_round
+
+  resemblances: -> 
+    out = []
+    _.each @models, (move) ->
+      out = out.concat move.resemblances
+
+    out

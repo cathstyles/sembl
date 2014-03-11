@@ -1,3 +1,3 @@
 json.array! (
-  json.things @moves, partial: 'api/moves/move', as: :move
+  json.moves @moves, partial: 'api/moves/move', as: :move
 )
