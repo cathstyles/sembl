@@ -39,7 +39,7 @@ Resemblance = Sembl.Components.Graph.Resemblance
 Sembl.Components.Graph.Resemblances = React.createClass
   render: ->
     sembls = for link in @props.links
-      `<Resemblance link={link} />`
+      `<Resemblance key={link.model.id} link={link} />`
 
     `<div className="graph__resemblances">
       {sembls}
