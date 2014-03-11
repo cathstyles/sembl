@@ -12,9 +12,9 @@ class Sembl.Moves extends Backbone.Collection
 
     @for_round = options?.for_round
 
+  # TODO: this is an ugly way to get the full list of resemblances
   resemblances: -> 
-    out = []
-    _.each @models, (move) ->
-      out = out.concat move.resemblances
-
-    out
+    _.flatten( @map (move) ->
+       move.links.map (link) -> link.get('viewable_resemblance')
+    )
+    

@@ -9,8 +9,9 @@
     currentResemblance = @props.currentLink.get('viewable_resemblance')
     console.log currentResemblance
     console.log resemblances
-    
+
     spots = _.map resemblances, (sembl) ->
+      console.log sembl.id
       className = if currentResemblance.id == sembl.id  then "current" else ""
       `<li className={className} key={sembl.id}>*</li>`
     
