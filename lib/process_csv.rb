@@ -6,7 +6,7 @@ class ProcessCSV
 
   def initialize(filepath, map = {}, options = {})
     @options = options.reverse_merge!(remote: true)
-    @map = map 
+    @map = map
     @filepath = filepath
   end
 
@@ -34,14 +34,14 @@ class ProcessCSV
     out = {general_attributes: {}}
     row.each do |key, value|
 
-      mapped_key = map[key.try(:strip)] 
+      mapped_key = map[key.try(:strip)]
 
       if mapped_key
-        out[mapped_key] = value  
-      else 
+        out[mapped_key] = value
+      else
         # key not mapped, add to general attributes
         unless key.nil?
-          key = key.strip 
+          key = key.strip
           values = value.try(:split, ',') || []
           out[:general_attributes][key] = values.map(&:strip)
         end
@@ -49,5 +49,4 @@ class ProcessCSV
     end
     out
   end
-
 end
