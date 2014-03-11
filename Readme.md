@@ -1,6 +1,6 @@
 # Sembl
 
-* [https://basecamp.com/1782196/projects/3404831-sembl](https://basecamp.com/1782196/projects/3404831-sembl)
+* <https://basecamp.com/1782196/projects/3404831-sembl>
 
 ## Development
 
