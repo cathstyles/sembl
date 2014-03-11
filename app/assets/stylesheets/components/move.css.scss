@@ -45,3 +45,7 @@
     font-weight: bold;
   }
 }
+
+.move__edit__resemblance__close-button {
+  @extend %button--alternate;
+}
