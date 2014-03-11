@@ -4,13 +4,13 @@
 #= require views/games/gallery
 #= require views/games/header_view
 #= require views/games/move/actions
-#= require views/games/move/edit_resemblance
+#= require views/games/move/resemblance
 #= require views/games/move/selected_thing
 #= require views/layouts/default
 
 ###* @jsx React.DOM ###
 
-{Actions, Board, EditResemblance, SelectedThing} = Sembl.Games.Move
+{Actions, Board, Resemblance, SelectedThing} = Sembl.Games.Move
 {Gallery, HeaderView} = Sembl.Games
 Layout = Sembl.Layouts.Default
 Graph = Sembl.Components.Graph.Graph
@@ -22,8 +22,7 @@ Graph = Sembl.Components.Graph.Graph
     $(window).on('graph.node.click', @handleNodeClick)
     $(window).on('graph.resemblance.click', @handleResemblanceClick)
     $(window).on('move.actions.submitMove', @handleSubmitMove)
-    $(window).on('move.editResemblance.change', @handleEditResemblanceChange)
-    $(window).on('move.editResemblance.close', @handleEditResemblanceClose)
+    $(window).on('move.resemblance.change', @handleResemblanceChange)
     $(window).on('move.gallery.selectTargetThing', @handleSelectTargetThing)
     
   componentDidMount: ->
@@ -34,8 +33,7 @@ Graph = Sembl.Components.Graph.Graph
     $(window).off('graph.node.click')
     $(window).off('graph.resemblance.click')
     $(window).off('move.actions.submitMove')
-    $(window).off('move.editResemblance.change')
-    $(window).off('move.editResemblance.close')
+    $(window).off('move.resemblance.change')
     $(window).off('move.gallery.selectTargetThing')
 
   handleNodeClick: (event, node) ->
@@ -43,27 +41,15 @@ Graph = Sembl.Components.Graph.Graph
     if userState == 'available'
       console.log 'selected available'
 
-  handleResemblanceClick: (event, link) ->
-    console.log 'clicked on sembl', link
-    @setState
-      editResemblance:
-        link: link
-
-  handleEditResemblanceChange: (event, resemblance) ->
+  handleResemblanceChange: (event, resemblance) ->
     if resemblance.description
       resemblance.link.set('viewable_resemblance', 
         {
           description: resemblance.description
         }
       )
-    else
-      resemblance.link.set('viewable_placement', null)
-
-    @state.move.addResemblance(resemblance.link, resemblance.description)
-    @setState
-      links: this.state.links
-
-
+      @state.move.addResemblance(resemblance.link, resemblance.description)
+    
   handleEditResemblanceClose: () ->
     @setState
       editResemblance: null
@@ -127,13 +113,13 @@ Graph = Sembl.Components.Graph.Graph
       Your Move
     </HeaderView>`
 
-    editResemblanceModal = if @state.editResemblance
-      `<EditResemblance link={this.state.editResemblance.link} />`
+    graphChildClasses = {
+      resemblance: Resemblance
+    }
 
     `<Layout className="game" header={header}>
       <div className="move">
-        <Graph nodes={nodes} links={links} />
-        {editResemblanceModal}
+        <Graph nodes={nodes} links={links} childClasses={graphChildClasses}/>
         <Actions />
         <Gallery SelectedClass={SelectedThing} />
       </div>

@@ -4,11 +4,6 @@ class Api::MovesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_game, only: [:round]
 
-  # TODO remove once we turn this back into a post in react.
-  def index
-    create
-  end
-
   # List of moves to rate. 
   # for_round defaults to current round
   def round
@@ -27,6 +22,7 @@ class Api::MovesController < ApplicationController
     game = Game.find(move_params[:game_id])
 
     move = Move.new(user: current_user)
+    move.errors << "placement required" unless move_params[:placement] 
     move.placement = move_params[:placement]
     move.resemblances = move_params[:resemblances]
     if move.save
@@ -56,6 +52,10 @@ class Api::MovesController < ApplicationController
       },
       placement: [:node_id, :thing_id]
     )
+    move.require(:placement)
+    move.require(:resemblances)
+    move.require(:game_id)
+    move
   end
 
   def find_game
