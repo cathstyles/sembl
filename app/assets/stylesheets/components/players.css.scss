@@ -1,20 +1,14 @@
 // Players
 
-.players {
+.game__players {
   position: absolute;
-  // top: 0;
-  // right: 0;
-
-//   // Animation
-//   animation-name: players;
-//   animation-duration: 250ms;
-//   animation-timing-function: ease;
-//   animation-iteration-count: 1;
-//   animation-direction: normal;
+  top: 20px;
+  right: 0;
 }
 
-.player {
+.game__player {
   background-color: #f3e7cf;
+  border-radius: $border-radius;
   padding: 6px 10px;
   cursor: pointer;
   img {
@@ -38,13 +32,28 @@
       font-size: 12px;
     }
   }
-  &:first-child {
-    border-top-left-radius: 4px;
-    padding-top: 10px;
-  }
-  &:last-child {
-    border-bottom-left-radius: 4px;
-    padding-top: 10px;
+
+  .game__player__details {
+    cursor: pointer;
+    position: relative;
+    em {
+      @extend %white-drop-shadow;
+      background-color: $highlight-background-color;
+      @include background-image(linear-gradient($highlight-background-color, #fffdf2));
+      border: 1px solid #eee0c1;
+      box-shadow: 0 0 10px 5px rgba(#888,.1);
+      border-radius: $border-radius;
+      padding: 6px;
+      display: none;
+    }
+    &:hover {
+      em {
+        display: inline-block;
+        position: absolute;
+        bottom: -20px;
+        left: -35px;
+      }
+    }
   }
 }
 
