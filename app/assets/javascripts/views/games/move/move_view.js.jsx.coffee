@@ -58,9 +58,11 @@ Graph = Sembl.Components.Graph.Graph
       )
     else
       resemblance.link.set('viewable_placement', null)
-      
+
+    @state.move.addResemblance(resemblance.link, resemblance.description)
     @setState
       links: this.state.links
+
 
   handleEditResemblanceClose: () ->
     @setState
@@ -78,44 +80,28 @@ Graph = Sembl.Components.Graph.Graph
     )
     target.set('user_state', 'proposed')
 
+    @state.move.addPlacementThing(targetThing)
     @setState
       target: target
-      targetThing: targetThing
 
   handleSubmitMove: () ->
-    move = 
-      game_id: @props.game.id
-      target:
-        node_id: if @state.target then @state.target.id else null
-        thing_id: if @state.targetThing then @state.targetThing.id else null
-      resemblances:
-        for link in @state.links
-          viewablePlacement = link.source().get('viewable_placement')
-          viewableResemblance = link.get('viewable_resemblance') || {}
-          resemblance =
-            source: 
-              node_id: link.source().id
-              thing_id: viewablePlacement.thing_id
-            description: viewableResemblance.description
-
-    data = {move: move}
-    console.log 'Submitting move', move
+    console.log 'Submitting move', JSON.stringify(@state.move)
     url = "/api/moves.json"
-    # TODO: this should be POST, but get is helpful for debugging.
-    $.get(
-      url
-      data,
-      (move_status) ->
-        console.log move_status
-      "json"
-    )
+    Sembl.move = @state.move
+    @state.move.save()
 
   getInitialState: () ->
     target = _.extend({}, @props.node)
     links = 
       for link in @props.game.links.where({target_id: target.id})
         _.extend({}, link)
+    move = new Sembl.Move({
+      game: @props.game
+      targetNode: @props.node
+    })
+
     state =
+      move: move
       target: target
       links: links
       editResemblance: null
@@ -127,6 +113,7 @@ Graph = Sembl.Components.Graph.Graph
       thing: null,
       resemblances: []
     })
+    Sembl.move = move
 
     target = @state.target
     links = @state.links
