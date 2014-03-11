@@ -24,7 +24,7 @@ Sembl.Components.Graph.Resemblance = React.createClass
 
     emptySembl = 
       `<div className='graph__resemblance__empty'>
-        unfilled
+        Unfilled
       </div>`
     filledSembl = 
       `<div className='graph__resemblance__filled'>

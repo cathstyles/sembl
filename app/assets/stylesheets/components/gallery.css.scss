@@ -17,10 +17,11 @@
   cursor: pointer;
   display: inline-block;
   position: relative;
+  border: 3px solid transparent;
   &:hover {
     border: 3px solid #fff;
     border-radius: $border-radius;
-    transform: scale(1.1);
+    // transform: scale(1.1);
     z-index: 5;
   }
 }
