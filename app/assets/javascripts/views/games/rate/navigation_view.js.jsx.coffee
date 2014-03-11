@@ -6,10 +6,12 @@
     
   render: -> 
     resemblances = @props.moves.resemblances()
-    currentResemblance = @props.currentResemblance
+    currentResemblance = @props.currentLink.get('viewable_resemblance')
+    console.log currentResemblance
+    console.log resemblances
     
     spots = _.map resemblances, (sembl) ->
-      className = currentResemblance.id == sembl.id ? "current" : ""
+      className = if currentResemblance.id == sembl.id  then "current" else ""
       `<li className={className} key={sembl.id}>*</li>`
     
 

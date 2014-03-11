@@ -9,17 +9,14 @@
 Sembl.Components.Graph.Graph = React.createClass 
   getInitialState: ->
     # we use the @props.nodes as the authoritive source on x and y values, so links defer their sources/targets to these.
-    nodeIndex = {}
-    for n in @props.nodes
-      nodeIndex[n.id] = n
+    console.log "getInitialState"
 
     state =
       width: null
       height: null
-      nodeIndex: nodeIndex
 
   lookupNode: (node) ->
-    @state.nodeIndex[node.id]    
+    @nodeIndex[node.id]    
 
   componentDidMount: ->
     @handleResize()
@@ -54,6 +51,10 @@ Sembl.Components.Graph.Graph = React.createClass
     return newLink
 
   render: ->
+    @nodeIndex = {}
+    for n in @props.nodes
+      @nodeIndex[n.id] = n
+    
     canvasStyle = {}
     if @state.width then canvasStyle.width = @state.width
     if @state.height then canvasStyle.height = @state.height

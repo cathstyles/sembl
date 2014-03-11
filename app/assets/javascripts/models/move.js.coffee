@@ -19,9 +19,8 @@ class Sembl.Move extends Backbone.Model
     @links.sortBy (link) ->
       link.source().get('x')
 
-  resemblanceAt: (index) -> 
+  linkAt: (index) -> 
     link = @linksByXDimension()[index]
-    link?.get('viewable_resemblance')
 
   toJSON: -> 
     move:

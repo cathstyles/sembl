@@ -42,19 +42,22 @@ Layout = Sembl.Layouts.Default
   currentMove: -> 
     @props.moves.at(@state.moveIndex)
 
-  currentResemblance: -> 
-    @props.moves.at(@state.moveIndex).resemblanceAt(@state.linkIndex)
+  currentLink: -> 
+    @props.moves.at(@state.moveIndex).linkAt(@state.linkIndex)
 
   render: ->
     game = @props.game
     move = @currentMove()
-    resemblance = @currentResemblance()
+    link = @currentLink()
 
     sources = (link.source() for link in move.links.models)
 
+    console.log move.targetNode
     rootNode = _.extend({children: sources}, move.targetNode)
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
+
+    console.log nodes
 
     header = `<HeaderView game={game} >
       Rating
@@ -63,7 +66,7 @@ Layout = Sembl.Layouts.Default
     `<Layout className="game" header={header}>
       <div className="move">
         <Graph nodes={nodes} links={move.links} />
-        <NavigationView moves={this.props.moves} currentResemblance={resemblance} handleNext={this.incrementIndexes}/>
-        <UpdateRatingView move={this.currentMove()} resemblance={this.currentResemblance()}/>
+        <NavigationView moves={this.props.moves} currentLink={link} handleNext={this.incrementIndexes}/>
+        <UpdateRatingView move={this.currentMove()} resemblance={this.currentLink()}/>
       </div>  
     </Layout>`
