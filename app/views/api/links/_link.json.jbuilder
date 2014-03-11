@@ -1,4 +1,4 @@
-json.(link, :source_id, :target_id, :round)
+json.(link, :id, :source_id, :target_id, :round)
 json.viewable_resemblance do 
   if link.viewable_resemblance(current_user).nil?
     json.nil!
