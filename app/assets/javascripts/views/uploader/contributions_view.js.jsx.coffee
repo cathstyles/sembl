@@ -55,7 +55,6 @@ NewContribution = React.createClass
       {currentComponent}
     </div>`
 
-
 UploadComponent = React.createClass
   getInitialState: ->
     loading: false
@@ -107,7 +106,6 @@ UploadComponent = React.createClass
       <span style={loadingStyle}>Uploading…</span>
     </div>`
 
-
 CropComponent = React.createClass
   componentDidMount: ->
     $('img').imgAreaSelect
@@ -146,15 +144,23 @@ CropComponent = React.createClass
     @assemblyId  = genUUID()
     @assemblyUrl = "#{PROTOCOL}://#{@transloaditInstance}/assemblies/#{@assemblyId}"
 
-    # The Transloadit API requires a multipart/form-data POST
-    # FIXME browser support
-    formPost = new FormData
-    formPost.append 'params', JSON.stringify(@cropTemplate.params)
-    formPost.append 'signature', @cropTemplate.signature
+    boundary = '----TransloaditBoundaryc7IhCATk2lNuFcR'
+
+    formPost = """
+      --#{boundary}
+      Content-Disposition: form-data; name="params"
+
+      #{JSON.stringify(@cropTemplate.params)}
+      --#{boundary}
+      Content-Disposition: form-data; name="signature"
+
+      #{@cropTemplate.signature}
+      --#{boundary}--
+    """.replace /\n/g, "\r\n"
 
     $.ajax
       cache: false
-      contentType: false
+      contentType: "multipart/form-data; boundary=#{boundary}"
       context: this
       data: formPost
       dataType: 'json'
@@ -184,15 +190,12 @@ CropComponent = React.createClass
       <button onClick={this.handleSubmit}>Crop</button>
     </div>`
 
-
 ThingComponent = React.createClass
   render: ->
     `<img src={this.props.croppedUrl} />`
 
-
 window.contributionsView = (el) ->
   React.renderComponent NewContribution(), el
-
 
 class TransloaditBoredInstance
   constructor: (@successCallback) ->
@@ -215,7 +218,6 @@ class TransloaditBoredInstance
   getBoredInstanceAgain: ->
     setTimeout @getBoredInstance, 1000 # TODO debounce
 
-
 class TransloaditSignature
   constructor: (@templateName, @successCallback, @postData) ->
     @getTransloaditSignature()
@@ -233,7 +235,6 @@ class TransloaditSignature
       success: (data) ->
         @successCallback data
 
-
 genUUID = ->
   time = new Date().getTime()
 
@@ -244,9 +245,7 @@ genUUID = ->
 
   uuid
 
-
 String.prototype.camelToUnderscore = ->
   @replace /([a-z][A-Z])/g, (g) -> g[0] + '_' + g[1].toLowerCase()
-
 
 PROTOCOL = if document.location.protocol is 'https:' then 'https' else 'http'
