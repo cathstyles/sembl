@@ -5,6 +5,8 @@
     $(window).trigger('move.editResemblance.change', { link: @props.link, description: description  })
 
   handleChange: (event)->
+    @setState
+      description: event.target.value
     $.doTimeout('timeout.move.editResemblance.change', 200, @triggerChange, event.target.value);
 
   handleSubmit: (event) ->
