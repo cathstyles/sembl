@@ -37,7 +37,7 @@ Layout = Sembl.Layouts.Default
         @state.moveIndex--
         @state.progress = "finsihed" 
         
-    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex
+    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, progress: @state.progress
 
   currentMove: -> 
     @props.moves.at(@state.moveIndex)
@@ -67,6 +67,6 @@ Layout = Sembl.Layouts.Default
       <div className="move">
         <Graph nodes={nodes} links={move.links} />
         <NavigationView moves={this.props.moves} currentLink={link} handleNext={this.incrementIndexes}/>
-        <UpdateRatingView move={this.currentMove()} resemblance={this.currentLink()}/>
+        <UpdateRatingView move={this.currentMove()} link={this.currentLink()}/>
       </div>  
     </Layout>`
