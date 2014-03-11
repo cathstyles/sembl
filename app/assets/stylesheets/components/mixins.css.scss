@@ -36,6 +36,15 @@
   }
 }
 
+%button--alternate {
+  @extend %button;
+  @include background-image(linear-gradient(#b04848, #862b2b));
+  border: 1px solid #862b2b;
+  &:hover {
+    @include background-image(linear-gradient(#862b2b, #862b2b));
+  }
+}
+
 .large-heading {
   @extend %white-drop-shadow;
   @include font-size(24);

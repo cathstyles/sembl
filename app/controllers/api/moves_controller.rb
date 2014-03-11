@@ -24,64 +24,17 @@ class Api::MovesController < ApplicationController
   end
 
   def create
-    move_params
-
-    game = Game.find(move_params.game_id)
-
-    # target_params = move_params[:target]
-    # target_placement = Placement.new(
-    #   creator: current_user, 
-    #   node: Node.find(target_params[:node_id]), 
-    #   thing: Thing.find(target_params[:thing_id])
-    # )
+    game = Game.find(move_params[:game_id])
 
     move = Move.new(user: current_user)
-    move.placement = move_params[:target]
+    move.placement = move_params[:placement]
     move.resemblances = move_params[:resemblances]
     if move.save
-      @result = result(status=:ok, notice='Move created')
-      game.player(current_user).move_created
-      respond_with @result
+      game.player(current_user).create_move
+      render json: @move
     else
-      @result = result(status=:fail, alert='Move could not be created', errors=move.errors.full_messages)
-      respond_with @result
+      render json: @move
     end
-
-    # resemblances = []
-    # move_params[:resemblances].each do |resemblance_params|
-    #   source_params = resemblance_params[:source]
-    #   source_placement = Placement.find_by(
-    #     node_id: source_params[:node_id],
-    #     thing_id: source_params[:thing_id]
-    #   )
-    #   Link.find_by(
-    #     source_id: source_placement.node.id,
-    #     target_id: target_placement.node.id,
-    #     game_id: game.id 
-    #   )
-    #   resemblances << Resemblance.new(
-    #     link: link,
-    #     description: resemblance_params[:description],
-    #     creator: current_user
-    #   )
-    # end
-
-    # error_record = nil
-    # ActiveRecord::Base.transaction do
-    #   error_record = target_placement unless target_placement.save
-    #   resemblances.each do |sembl|
-    #     error_record = sembl unless sembl.save
-    #   end
-    # end
-
-    # if !error_record
-    #   @result = result(status=:ok, notice='Move created')
-    #   game.player(current_user).move_created
-    #   respond_with @result
-    # else
-    #   @result = result(status=:fail, alert='Move could not be created', errors=error_record.errors.full_messages)
-    #   respond_with @result
-    # end
   end
 
   private
@@ -96,13 +49,12 @@ class Api::MovesController < ApplicationController
   end
 
   def move_params
-    params.require(:move).permit(
+    move = params.require(:move).permit(
       :game_id,
-      {resemblances: [
-        :description, 
-        { source: [:node_id, :thing_id]}
-      ]},
-      target: [:node_id, :thing_id]
+      {
+        resemblances: [ :description, :link_id ]
+      },
+      placement: [:node_id, :thing_id]
     )
   end
 

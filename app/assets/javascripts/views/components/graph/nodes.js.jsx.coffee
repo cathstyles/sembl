@@ -27,7 +27,7 @@ Node = Sembl.Components.Graph.Node
 Sembl.Components.Graph.Nodes = React.createClass
   render: ->
     nodes = for node in @props.nodes
-      `<Node node={node}/>`
+      `<Node key={node.model.id} node={node}/>`
 
     `<div className='graph__nodes'>
       {nodes}

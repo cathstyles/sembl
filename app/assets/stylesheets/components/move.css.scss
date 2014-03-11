@@ -38,3 +38,14 @@
     padding-right: 2px;
   }
 }
+
+.move__edit__resemblance {
+  strong {
+    color: $highlight-color-darker;
+    font-weight: bold;
+  }
+}
+
+.move__edit__resemblance__close-button {
+  @extend %button--alternate;
+}

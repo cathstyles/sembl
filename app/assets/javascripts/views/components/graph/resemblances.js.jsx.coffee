@@ -24,7 +24,7 @@ Sembl.Components.Graph.Resemblance = React.createClass
 
     emptySembl = 
       `<div className='graph__resemblance__empty'>
-        unfilled
+        Unfilled
       </div>`
     filledSembl = 
       `<div className='graph__resemblance__filled'>
@@ -39,7 +39,7 @@ Resemblance = Sembl.Components.Graph.Resemblance
 Sembl.Components.Graph.Resemblances = React.createClass
   render: ->
     sembls = for link in @props.links
-      `<Resemblance link={link} />`
+      `<Resemblance key={link.model.id} link={link} />`
 
     `<div className="graph__resemblances">
       {sembls}

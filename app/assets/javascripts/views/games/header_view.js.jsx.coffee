@@ -36,9 +36,10 @@ Sembl.Games.HeaderView = React.createClass
         {game.get('title')}
       </h1>`
 
-    join = `<a className='header__join' onClick={this.handleJoin}>
-      Join Game
-    </a>` if game.canJoin()
+    join = `<li className="header__link">
+        <i className="fa fa-plus header__link-icon"></i>
+        <a className='header__link-anchor' onClick={this.handleJoin}>Join Game</a>
+      </li>` if game.canJoin()
 
 
     moreInfo = `<MoreInfoView game={this.props.game}/>` if  !!game.get('description')
