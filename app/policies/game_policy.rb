@@ -14,7 +14,7 @@ class GamePolicy < ApplicationPolicy
   end
 
   def update?
-    !!user && user.id == record.creator_id 
+    !!user && (user.id == record.creator_id || user.admin?)
   end
 
   def destroy?
