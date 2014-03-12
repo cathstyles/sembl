@@ -65,6 +65,9 @@ Layout = Sembl.Layouts.Default
 
     `<Layout className="game" header={header}>
       <div className="move">
+        <div className="rating__info">
+          <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
+        </div>
         <div className="move__graph">
           <Graph nodes={nodes} links={move.links} />
         </div>

@@ -38,6 +38,17 @@
             if (this.props.model !== nextProps.model) {
                 this._unsubscribe(this.props.model);
                 this._subscribe(nextProps.model);
+
+                if (typeof this.componentWillChangeModel === 'function') {
+                    this.componentWillChangeModel();
+                }
+            }
+        },
+        componentDidUpdate: function(prevProps, prevState) {
+            if (this.props.model !== prevProps.model) {
+                if (typeof this.componentDidChangeModel === 'function') {
+                    this.componentDidChangeModel();
+                }
             }
         },
         componentWillUnmount: function() {
@@ -57,7 +68,7 @@
             return this.getModel();
         };
         spec.el = function() {
-                
+            return this.isMounted() && this.getDOMNode();
         };
         return React.createClass(spec);
     };
