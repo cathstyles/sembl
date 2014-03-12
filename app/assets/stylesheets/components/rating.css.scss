@@ -1,4 +1,42 @@
 // Rating
+
+.rating__nav {
+  text-align: center;
+  position: relative;
+}
+
+.rating__nav__links {
+  display: inline-block;
+  text-align: center;
+}
+
+.rating__nav__link {
+  color: $border-color;
+  float: left;
+  padding-left: 1px;
+  padding-right: 1px;
+  &:hover {
+    a {
+      color: $highlight-color;
+    }
+  }
+}
+
+.rating__nav__link--current {
+  color: $highlight-color;
+}
+
+.rating__nav__next {
+  @extend %button;
+  position: absolute;
+  top: 0;
+  right: 0;
+  i {
+    @include font-size(12);
+    padding-left: 2px;
+  }
+}
+
 .rating__rate {
   .slider {
     width: 300px;
