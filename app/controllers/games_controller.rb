@@ -17,6 +17,7 @@ class GamesController < ApplicationController
 
   def show
     authorize @game
+    @game.crop_board
     respond_with @game, layout: "react"
   end
 

@@ -222,6 +222,24 @@ class Game < ActiveRecord::Base
 
   # == Stuff that shouln't be here
   
+  def crop_board
+    xarr = nodes.map {|n| n.x}
+    yarr = nodes.map {|n| n.y}
+
+    min_x, max_x = xarr.min, xarr.max
+    min_y, max_y = yarr.min, yarr.max
+
+    width = max_x - min_x
+    height = max_y - min_y
+
+    scaleX = 800.0/width
+    scaleY = 600.0/height
+
+    nodes.each do |node| 
+      node.x = (node.x - min_x) * scaleX
+      node.y = (node.y - min_y) * scaleY
+    end
+  end
 
 
   private 

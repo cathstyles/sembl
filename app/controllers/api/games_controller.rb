@@ -8,6 +8,7 @@ class Api::GamesController < ApplicationController
 
   def show
     authorize @game
+    @game.crop_board
     respond_with @game
   end
 
