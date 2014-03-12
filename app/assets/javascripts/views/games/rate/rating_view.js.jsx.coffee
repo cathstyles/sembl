@@ -65,7 +65,9 @@ Layout = Sembl.Layouts.Default
 
     `<Layout className="game" header={header}>
       <div className="move">
-        <Graph nodes={nodes} links={move.links} />
+        <div className="move__graph">
+          <Graph nodes={nodes} links={move.links} />
+        </div>
         <NavigationView moves={this.props.moves} currentLink={link} handleNext={this.incrementIndexes}/>
         <UpdateRatingView move={this.currentMove()} link={this.currentLink()}/>
       </div>  
