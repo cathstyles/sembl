@@ -8,9 +8,6 @@
 {Links, Nodes, Resemblances} =  Sembl.Components.Graph
 Sembl.Components.Graph.Graph = React.createClass 
   getInitialState: ->
-    # we use the @props.nodes as the authoritive source on x and y values, so links defer their sources/targets to these.
-    console.log "getInitialState"
-
     state =
       width: null
       height: null
@@ -51,6 +48,7 @@ Sembl.Components.Graph.Graph = React.createClass
     return newLink
 
   render: ->
+    # we use the @props.nodes as the authoritive source on x and y values, so links defer their sources/targets to these.
     @nodeIndex = {}
     for n in @props.nodes
       @nodeIndex[n.id] = n

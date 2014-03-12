@@ -42,11 +42,13 @@
 
 @Sembl.Games.Move.DisplayResemblance = React.createClass
   render: ->
-    filled = if @props.description 
+    child = if @props.description 
       `<div className="graph__resemblance__filled">{this.props.description}</div>`
+    else
+      `<div className="graph__resemblance__empty" />`
 
     `<div className="move__resemblance__display">
-      {filled}
+      {child}
     </div>`
 
 {EditResemblance, DisplayResemblance} = Sembl.Games.Move
