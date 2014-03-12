@@ -19,8 +19,6 @@ Graph = Sembl.Components.Graph.Graph
   componentWillMount: ->
     @galleryFilterHandler = new Sembl.Handlers.GalleryFilterHandler(@props.game.get('filter'))
     @galleryFilterHandler.bind()
-    $(window).on('graph.node.click', @handleNodeClick)
-    $(window).on('graph.resemblance.click', @handleResemblanceClick)
     $(window).on('move.actions.submitMove', @handleSubmitMove)
     $(window).on('move.resemblance.change', @handleResemblanceChange)
     $(window).on('move.gallery.selectTargetThing', @handleSelectTargetThing)
@@ -30,16 +28,9 @@ Graph = Sembl.Components.Graph.Graph
 
   componentWillUnmount: ->
     @galleryFilterHandler.unbind()
-    $(window).off('graph.node.click')
-    $(window).off('graph.resemblance.click')
     $(window).off('move.actions.submitMove')
     $(window).off('move.resemblance.change')
     $(window).off('move.gallery.selectTargetThing')
-
-  handleNodeClick: (event, node) ->
-    userState = node.get('user_state')
-    if userState == 'available'
-      console.log 'selected available'
 
   handleResemblanceChange: (event, resemblance) ->
     if resemblance.description
@@ -50,10 +41,6 @@ Graph = Sembl.Components.Graph.Graph
       )
       @state.move.addResemblance(resemblance.link, resemblance.description)
     
-  handleEditResemblanceClose: () ->
-    @setState
-      editResemblance: null
-
   handleSelectTargetThing: (event, thing) ->
     target = @state.target
     targetThing = thing

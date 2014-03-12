@@ -35,11 +35,10 @@
       game:
         board_id:      this.refs.board.state.id
         seed_thing_id: this.refs.seed.state.id
-        title:         this.refs.metadata.state.title
-        description:   this.refs.metadata.state.description
         filter_content_by: this.refs.filter.state.filter    
       authenticity_token: this.props.authenticity_token
     _.extend(params.game, this.refs.settings.getParams())
+    _.extend(params.game, this.refs.metadata.getParams())
     console.log "params", params
     params
 

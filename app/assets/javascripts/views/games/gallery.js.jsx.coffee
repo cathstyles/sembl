@@ -10,20 +10,17 @@
     selected: false
 
   handleClick: (event) ->
-    this.refs.selected_modal.handleToggle()
-    console.log "selected"
-    event.preventDefault();
+    $(window).trigger('toggle.gallery.thing.' + @props.thing.id, {flag: on})
 
   render: () ->
     thing = this.props.thing;
 
     selectedModal = ToggleComponent
       ref: "selected_modal"
-      toggle: this.state.selected
       OffClass: null
       OnClass: this.props.SelectedClass
-      onProps:
-        thing: this.props.thing
+      thing: this.props.thing
+      toggleEvent: 'toggle.gallery.thing.' + thing.id
 
     `<div className={this.className}>
       <img src={thing.image_browse_url} onClick={this.handleClick} />
