@@ -4,14 +4,6 @@ class Api::MovesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_game, only: [:round]
 
-  # List of moves to rate. 
-  # for_round defaults to current round
-  def round
-    placements = Placement.for_round(@game)
-    @moves = placements.collect{|p| Move.new(placement: p)}
-    respond_with @moves
-  end
-
   #TODO is this being used?
   def show
     @node = Node.find(params[:id])
