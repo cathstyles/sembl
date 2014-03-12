@@ -30,13 +30,8 @@ class Api::GamesController < ApplicationController
     update_seed_thing if game_params[:seed_thing_id].present? 
 
     authorize @game
-    if @game.save
-      @result = result(status=:ok, notice='Game created')
-      respond_with @result
-    else
-      @result = result(status=:fail, alert='Game could not be updated', errors=@game.errors.full_messages)
-      respond_with @result
-    end
+    @game.save
+    respond_with @game
   end
 
   def update
@@ -51,13 +46,15 @@ class Api::GamesController < ApplicationController
     update_seed_thing if game_params[:seed_thing_id].present? 
 
     authorize @game
-    if @game.save
-      @result = result(status=:ok, notice='Game updated')
-      respond_with @result
-    else
-      @result = result(status=:fail, alert='Game could not be updated', errors=@game.errors.full_messages)
-      respond_with @result
-    end
+    @game.save 
+    respond_with @game
+    # if @game.save
+    #   @result = result(status=:ok, notice='Game updated')
+    #   respond_with @result
+    # else
+    #   @result = result(status=:fail, alert='Game could not be updated', errors=@game.errors.full_messages)
+    #   respond_with @result
+    # end
   end
 
 private

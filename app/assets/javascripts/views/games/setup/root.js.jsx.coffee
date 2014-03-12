@@ -48,7 +48,7 @@
 
   handlePublish: () ->
     params = this.getGameParams()
-    params.publish = publish
+    params.publish = true
     this.updateGame(params)
 
   handleSelectSeed: (seed) ->
