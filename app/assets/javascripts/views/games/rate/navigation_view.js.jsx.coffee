@@ -4,7 +4,7 @@
   handleNext: -> 
     @props.handleNext()
     
-  render: -> 
+  render: ->
     resemblances = @props.moves.resemblances()
     currentResemblance = @props.currentLink.get('viewable_resemblance')
     console.log currentResemblance

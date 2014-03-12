@@ -1,5 +1,28 @@
 // Rating
 
+.rating__info {
+  @include pad(top, medium);
+  text-align: center;
+}
+
+.rating__info__inner {
+  @extend %white-drop-shadow;
+  background-color: $highlight-background-color;
+  @include background-image(linear-gradient($highlight-background-color, #fffdf2));
+  @include font-size(20);
+  @include pad(all, smaller);
+  border: 1px solid #d7d5af;
+  box-shadow: 0 0 10px 5px rgba(#888,.1);
+  border-radius: $border-radius;
+  font-weight: 500;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  em {
+    color: $link-color;
+  }
+}
+
 .rating__nav {
   text-align: center;
   position: relative;
