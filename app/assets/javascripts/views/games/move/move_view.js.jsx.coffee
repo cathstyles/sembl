@@ -119,7 +119,9 @@ Graph = Sembl.Components.Graph.Graph
 
     `<Layout className="game" header={header}>
       <div className="move">
-        <Graph nodes={nodes} links={links} childClasses={graphChildClasses}/>
+        <div className="move__graph">
+          <Graph nodes={nodes} links={links} childClasses={graphChildClasses}/>
+        </div>
         <Actions />
         <Gallery SelectedClass={SelectedThing} />
       </div>

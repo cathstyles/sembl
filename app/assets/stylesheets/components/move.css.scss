@@ -1,4 +1,8 @@
 // Moves
+.move__graph {
+  width: 100%;
+  height: 500px;
+}
 
 .move__gallery__selected {
   @include pad(all, medium);

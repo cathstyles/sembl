@@ -57,7 +57,9 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     `<Layout className="game" header={header}>
       <div className="messages">
       </div>
-      <Graph nodes={nodes} links={links} width={width} height={height} />
+      <div className="game__graph">
+        <Graph nodes={nodes} links={links} width={width} height={height} />
+      </div>
       <PlayersView players={this.model().players} />
       <StatusView game={this.model()} />
     </Layout>`
