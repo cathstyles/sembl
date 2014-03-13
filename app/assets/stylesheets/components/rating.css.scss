@@ -1,58 +1,133 @@
 // Rating
+
+.rating__info {
+  @include pad(top, medium);
+  text-align: center;
+}
+
+.rating__info__inner {
+  @extend %white-drop-shadow;
+  background-color: $highlight-background-color;
+  @include background-image(linear-gradient($highlight-background-color, #fffdf2));
+  @include font-size(20);
+  @include pad(all, smaller);
+  border: 1px solid #d7d5af;
+  box-shadow: 0 0 10px 5px rgba(#888,.1);
+  border-radius: $border-radius;
+  font-weight: 500;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  em {
+    color: $link-color;
+  }
+}
+
 .rating__rate {
+  @include pad(top, medium);
+  @include pad(bottom, small);
+}
+
+.rating__nav {
+  text-align: center;
+  position: relative;
+}
+
+.rating__nav__links {
+  display: inline-block;
+  text-align: center;
+}
+
+.rating__nav__link {
+  color: $border-color;
+  float: left;
+  padding-left: 1px;
+  padding-right: 1px;
+  &:hover {
+    a {
+      color: $highlight-color;
+    }
+  }
+}
+
+.rating__nav__link--current {
+  color: $highlight-color;
+}
+
+.rating__nav__next {
+  @extend %button;
+  position: absolute;
+  top: 0;
+  right: 0;
+  i {
+    @include font-size(12);
+    padding-left: 2px;
+  }
+}
+
+.rating__rate {
+  text-align: center;
+  width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:before,
+  &:after {
+    @extend %white-drop-shadow;
+    background-color: $highlight-background-color;
+    @include background-image(linear-gradient($highlight-background-color, #fffdf2));
+    border: 1px solid #d7d5af;
+    box-shadow: 0 0 10px 5px rgba(#888,.1);
+    border-radius: $border-radius;
+    color: $link-color;
+    font-weight: 500;
+    display: block;
+    margin-top: -2px;
+    padding: 4px 6px;
+  }
+  &:before {
+    content: "Meh";
+    float: left;
+  }
+  &:after {
+    content: "Love it!";
+    float: right;
+  }
+
   .slider {
     width: 300px;
+    display: inline-block;
   }
 
   .slider > .dragger {
-    background: #8DCA09;
-    background: -webkit-linear-gradient(top, #8DCA09, #72A307);
-    background: -moz-linear-gradient(top, #8DCA09, #72A307);
-    background: linear-gradient(top, #8DCA09, #72A307);
-
-    -webkit-box-shadow: inset 0 2px 2px rgba(255,255,255,0.5), 0 2px 8px rgba(0,0,0,0.2);
-    -moz-box-shadow: inset 0 2px 2px rgba(255,255,255,0.5), 0 2px 8px rgba(0,0,0,0.2);
+    background-color: #8b923b;
+    @include background-image(linear-gradient(#8b923b, #657220));
+    border-radius: 50%;
+    border: 1px solid #657220;
     box-shadow: inset 0 2px 2px rgba(255,255,255,0.5), 0 2px 8px rgba(0,0,0,0.2);
-
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-
-    border: 1px solid #496805;
-    width: 16px;
-    height: 16px;
+    width: 22px;
+    height: 22px;
   }
 
   .slider > .dragger:hover {
-    background: -webkit-linear-gradient(top, #8DCA09, #8DCA09);
+    @include background-image(linear-gradient(lighten(#8b923b,10%), lighten(#657220, 10%)));
   }
 
 
   .slider > .track, .slider > .highlight-track {
-    background: #ccc;
-    background: -webkit-linear-gradient(top, #bbb, #ddd);
-    background: -moz-linear-gradient(top, #bbb, #ddd);
-    background: linear-gradient(top, #bbb, #ddd);
+    background: $background-color;
 
-    -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-    -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: $border-radius;
 
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-
-    border: 1px solid #aaa;
-    height: 4px;
+    border: 1px solid $border-color;
+    height: 10px;
   }
 
   .slider > .highlight-track {
-    background-color: #8DCA09;
-    background: -webkit-linear-gradient(top, #8DCA09, #72A307);
-    background: -moz-linear-gradient(top, #8DCA09, #72A307);
-    background: linear-gradient(top, #8DCA09, #72A307);
-    
-    border-color: #496805;
+    background-color: $highlight-color;
+    border-color: darken($highlight-color, 10%);
+    @include background-image(linear-gradient(left, $highlight-color, darken($highlight-color, 10%)));
   }
 
 

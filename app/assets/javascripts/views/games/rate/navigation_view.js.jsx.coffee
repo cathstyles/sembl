@@ -4,16 +4,18 @@
   handleNext: -> 
     @props.handleNext()
     
-  render: -> 
+  render: ->
     resemblances = @props.moves.resemblances()
     currentResemblance = @props.currentLink.get('viewable_resemblance')
 
     spots = _.map resemblances, (sembl) ->
-      className = if currentResemblance.id == sembl.id  then "current" else ""
-      `<li className={className} key={sembl.id}>*</li>`
+      className = if currentResemblance.id == sembl.id  then "rating__nav__link--current" else ""
+      `<li className={'rating__nav__link ' + className} key={sembl.id}>
+        <a href="#"><i className="fa fa-circle"></i></a>
+      </li>`
     
 
     `<div className="rating__nav">
       <ul className="rating__nav__links">{spots}</ul>
-      <div className="rating__nav__next" onClick={this.handleNext}>Next</div>
+      <div className="rating__nav__next" onClick={this.handleNext}>Next <i className="fa fa-chevron-right"></i></div>
     </div>`

@@ -4,16 +4,17 @@
 
 {ToggleComponent} = Sembl.Components
 @Sembl.Games.Move.EditResemblance = React.createClass
-  triggerChange: (description)->
+  triggerChange: (description) ->
     $(window).trigger('move.resemblance.change', { link: @props.link, description: description  })
 
-  handleChange: (event)->
+  handleChange: (event) ->
     @setState
       description: event.target.value
     $.doTimeout('timeout.move.resemblance.change', 200, @triggerChange, event.target.value);
 
   handleSubmit: (event) ->
     $(window).trigger('move.resemblance.close', @props.link)
+    $(window).trigger(@props.toggleEvent)
     event.preventDefault()
 
   getInitialState: ->
@@ -41,40 +42,31 @@
     </div>`
 
 @Sembl.Games.Move.DisplayResemblance = React.createClass
+  handleClick: (event, link) ->
+    $(window).trigger(@props.toggleEvent)
+
   render: ->
     child = if @props.description 
       `<div className="graph__resemblance__filled">{this.props.description}</div>`
     else
       `<div className="graph__resemblance__empty" />`
 
-    `<div className="move__resemblance__display">
+    `<div className="move__resemblance__display" onClick={this.handleClick}>
       {child}
     </div>`
 
 {EditResemblance, DisplayResemblance} = Sembl.Games.Move
 @Sembl.Games.Move.Resemblance = React.createClass
   componentWillMount: ->
-    $(window).on('graph.resemblance.click', @handleResemblanceClick)
-    $(window).on('move.resemblance.close', @handleResemblanceClose)
     $(window).on('move.resemblance.change', @handleResemblanceChange)
 
   componentWillUnmount: ->
-    $(window).off('graph.resemblance.click')
-    $(window).off('move.resemblance.close')
     $(window).off('move.resemblance.change')
-
-  handleResemblanceClick: (event, link) ->
-    if link.id == @props.link.id && @refs.toggle.state.toggle == false
-      @refs.toggle.handleToggle()
 
   handleResemblanceChange: (event, resemblance) ->
     if resemblance.link.id == @props.link.id
       @setState
         description: resemblance.description
-
-  handleResemblanceClose: (event, link) ->
-    if link.id == @props.link.id && @refs.toggle.state.toggle == true
-      @refs.toggle.handleToggleOff()
 
   getInitialState: ->
     link = @props.link
@@ -87,12 +79,9 @@
       ref: "toggle"
       OnClass: EditResemblance
       OffClass: DisplayResemblance
-      onProps:
-        description: @state.description
-        link: @props.link
-      offProps:
-        description: @state.description
-        link: @props.link
+      description: @state.description
+      link: @props.link
+      toggleEvent: 'toggle.graph.resemblance.'+@props.link.id
     `<div className="move__resemblance">
       {toggle}
     </div>`

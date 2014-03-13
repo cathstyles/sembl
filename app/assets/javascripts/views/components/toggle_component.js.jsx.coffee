@@ -1,36 +1,40 @@
-#= require views/components/autofocus_input
 ###* @jsx React.DOM ###
 
 @Sembl.Components.ToggleComponent = React.createClass 
-  className: "toggle-component"
+  className: "toggle"
+
+  componentDidMount: ->
+    $(window).on(@props.toggleEvent, @handleToggle)
+
+  componentWillUnmount: ->
+    $(window).off(@props.toggleEvent)  
 
   getInitialState: () ->
-    {toggle: false}
+    flag: false
 
   handleToggleOn: () ->
-    this.setState
-      toggle: true
+    @setState
+      flag: true
 
   handleToggleOff: () ->
-    this.setState
-      toggle: false
+    @setState
+      flag: false
 
-  handleToggle: () ->
-    this.setState
-      toggle: !this.state.toggle
-
-
-  render: () ->
-    OnClass = this.props.OnClass
-    OffClass = this.props.OffClass
+  handleToggle: (event, data) ->
+    flag = if (data && data.flag) then data.flag else !@state.flag
+    @setState
+      flag: flag
     
+  render: () ->
+    OnClass = @props.OnClass
+    OffClass = @props.OffClass
     child =
-      if this.state.toggle
+      if @state.flag
         if OnClass
-          OnClass this.props.onProps
+          if typeof(OnClass) == "function" then OnClass @props else OnClass
       else 
         if OffClass
-          OffClass this.props.offProps
+          if typeof(OffClass) == "function" then OffClass @props else OffClass
 
     `<div className={this.className}>
       {child}
