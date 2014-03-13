@@ -1,4 +1,5 @@
 #= require jquery
+#= require underscore
 #= require simple-slider
 
 ###* @jsx React.DOM ###
@@ -10,8 +11,11 @@
 
   saveRating: (ratio) -> 
     sembl = @props.link.get('viewable_resemblance')
-    data = rating: {resemblance_id: sembl.id, rating: ratio}
-    $.post '/api/ratings', data, -> 
+    data = 
+      rating: {resemblance_id: sembl.id, rating: ratio}
+      authenticity_token: @props.move.game.get('auth_token')
+
+    $.post "#{@props.move.collection.url()}.json", data, -> 
       console.log "saved rating"
 
   componentDidMount: -> 
@@ -19,11 +23,12 @@
     slider = $el.find('input.rating__rate__slider') 
     slider.simpleSlider highlight: true
     
-    _this = @
+    slider.simpleSlider("setRatio", @currentRating());
+    saveRatingDebounced = _.debounce(@saveRating, 500)
     slider.on "slider:changed", (event, data) ->
-      _.throttle(_this.saveRating, data.ratio)
+      saveRatingDebounced(data.ratio)
 
   render: ->
     `<div className="rating__rate">
-      <input className="rating__rate__slider" type="text" value={this.currentRating}/>
+      <input className="rating__rate__slider" type="text"/>
     </div>`

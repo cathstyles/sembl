@@ -29,7 +29,7 @@ class Sembl.GameRouter extends Backbone.Router
 
   rate: -> 
     _this = @
-    moves = new Sembl.Moves([], {for_round: true, game: @game})
+    moves = new Sembl.Moves([], {rating: true, game: @game})
     res = moves.fetch()
     res.done -> 
       React.renderComponent(

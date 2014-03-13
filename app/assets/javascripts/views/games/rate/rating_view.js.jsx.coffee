@@ -52,12 +52,9 @@ Layout = Sembl.Layouts.Default
 
     sources = (link.source() for link in move.links.models)
 
-    console.log move.targetNode
     rootNode = _.extend({children: sources}, move.targetNode)
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
-
-    console.log nodes
 
     header = `<HeaderView game={game} >
       Rating

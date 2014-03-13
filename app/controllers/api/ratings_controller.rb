@@ -1,13 +1,14 @@
 class Api::RatingsController < ApplicationController
   respond_to :json
 
+  after_filter :verify_authorized
   before_filter :authenticate_user!
-
   before_filter :find_game
 
   # List of moves to rate. 
   # for_round defaults to current round
   def index
+    authorize @game
     placements = Placement.for_round(@game)
     @moves = placements.collect{|p| Move.new(placement: p)}
     respond_with @moves
@@ -16,13 +17,13 @@ class Api::RatingsController < ApplicationController
 
   def create 
     sembl = Resemblance.find(rating_params[:resemblance_id])
-    rating = sembl.rating_for(current_user)
-    rating.destroy if rating
+    @rating = sembl.rating_by(current_user) || Rating.new(resemblance: sembl, creator: current_user)
+    authorize @rating 
 
-    rating = Rating.new(resemblance: sembl, creator: current_user, rating: rating_params[:rating])
-    rating.save
+    @rating.assign_attributes(rating: rating_params[:rating])
+    @rating.save
 
-    respond_with rating
+    render json: @rating
   end
 
   private 
