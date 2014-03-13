@@ -56,6 +56,8 @@ Layout = Sembl.Layouts.Default
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
 
+    semblID = link.get('viewable_resemblance').id
+
     header = `<HeaderView game={game} >
       Rating
     </HeaderView>`
@@ -65,7 +67,7 @@ Layout = Sembl.Layouts.Default
         <div className="rating__info">
           <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
         </div>
-        <UpdateRatingView move={this.currentMove()} link={this.currentLink()}/>
+        <UpdateRatingView move={this.currentMove()} link={this.currentLink()} key={semblID}/>
         <div className="move__graph">
           <Graph nodes={nodes} links={move.links} />
         </div>
