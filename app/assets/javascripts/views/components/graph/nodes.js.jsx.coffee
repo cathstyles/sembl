@@ -11,23 +11,29 @@ Sembl.Components.Graph.Node = React.createClass
       left: node.x
       top: node.y
 
+    userState = node.model.get('user_state')
+    className = "graph__node state-#{userState}"
+    
     placement = node.model.get('viewable_placement')
     if placement != null
       image_url = placement.image_thumb_url
+    
+    if this.props.children
+      child = this.props.children
+    else
+      child = `<img className="graph__node__image" src={image_url} />`
 
-    userState = node.model.get('user_state')
-    className = "graph__node state-#{userState}"
-
-    `<div className={className} style={style} 
-      onClick={this.handleClick}>
-      <img className='graph__node__image' src={image_url} />
+    `<div className={className} style={style} onClick={this.handleClick}>
+      {child}
     </div>`
 
-Node = Sembl.Components.Graph.Node
+{Node} = Sembl.Components.Graph
 Sembl.Components.Graph.Nodes = React.createClass
   render: ->
     nodes = for node in @props.nodes
-      `<Node key={node.model.id} node={node}/>`
+      if @props.childClasses.node
+        child = @props.childClasses.node({node: node.model})
+      `<Node key={node.model.id} node={node}>{child}</Node>`
 
     `<div className='graph__nodes'>
       {nodes}
