@@ -5,7 +5,7 @@ Sembl::Application.routes.draw do
         post 'join'
       end
 
-      resources :ratings, only: [:create] 
+      resources :ratings, only: [:create, :index] 
 
       get 'moves/round', to: 'moves#round'
     end

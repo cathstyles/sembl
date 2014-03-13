@@ -12,14 +12,18 @@ HeaderView = Sembl.Games.HeaderView
 Graph = Sembl.Components.Graph.Graph
 Layout = Sembl.Layouts.Default
 
-@Sembl.Games.Rate.RatingView = React.createClass
+@Sembl.Games.Rate.RatingView = React.createBackboneClass
 
   getInitialState: -> 
     {
       moveIndex: 0
       linkIndex: 0
       progress: 'rating'
+      currentLink: @props.moves.at(0).linkAt(0)
     }
+
+  updateRated: (link) -> 
+    @setState currentLink: link
 
   finishedRating: -> 
     console.log "finishedRating"
@@ -48,16 +52,14 @@ Layout = Sembl.Layouts.Default
   render: ->
     game = @props.game
     move = @currentMove()
-    link = @currentLink()
+    link = @state.currentLink
+    semblID = link.get('viewable_resemblance').id
 
     sources = (link.source() for link in move.links.models)
 
-    console.log move.targetNode
     rootNode = _.extend({children: sources}, move.targetNode)
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
-
-    console.log nodes
 
     header = `<HeaderView game={game} >
       Rating
@@ -68,7 +70,7 @@ Layout = Sembl.Layouts.Default
         <div className="rating__info">
           <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
         </div>
-        <UpdateRatingView move={this.currentMove()} link={this.currentLink()}/>
+        <UpdateRatingView move={this.currentMove()} handleRated={this.updateRated} link={this.state.currentLink} key={semblID}/>
         <div className="move__graph">
           <Graph nodes={nodes} links={move.links} />
         </div>

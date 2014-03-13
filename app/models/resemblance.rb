@@ -34,6 +34,8 @@ class Resemblance < ActiveRecord::Base
     end
   end
 
-  
+  def rating_by(user)
+    ratings.where(creator: user).take
+  end
 
 end
