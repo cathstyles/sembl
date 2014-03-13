@@ -24,12 +24,10 @@ class Api::MovesController < ApiController
     game = Game.find(move_params[:game_id])
 
     move = Move.new(user: current_user)
-    move.errors << "placement required" unless move_params[:placement] 
     move.placement = move_params[:placement]
     move.resemblances = move_params[:resemblances]
-
     authorize move
-    if move.save
+    if move.valid? and move.save
       game.player(current_user).create_move
       render json: move
     else

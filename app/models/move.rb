@@ -2,10 +2,18 @@ class Move
   attr_accessor :user, :placement
 
   include ActiveModel::Validations
+  
+  # validate :associations_valid
+  validate :placement, presence: true
+  validate :target_node, presence: true
+  validate :expected_number_of_resemblances
+
+  def expected_number_of_resemblances
+    errors.add(:resemblances, 'not enough for this move') if @resemblances.size != links.size
+  end
 
   def initialize(options)
     @user = options[:user]
-
     if options[:placement]
       @placement = options[:placement]
       @user = @placement.creator
@@ -17,7 +25,7 @@ class Move
   end
 
   def links 
-    @links ||= Link.where(target: target_node)
+    @links ||= Link.where(target_id: target_node.id)
   end 
 
   def resemblances

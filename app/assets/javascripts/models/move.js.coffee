@@ -8,6 +8,7 @@ class Sembl.Move extends Backbone.Model
     @targetNode = new Sembl.Node(@get("target_node"), game: @game)
     @links = new Sembl.Links(@get("links"), game: @game)
     @resemblances = {}
+    @placement = {node_id: @targetNode?.id}
 
   addPlacementThing: (@thing) ->
     @placement = {node_id: @targetNode.id, thing_id: @thing.id}
