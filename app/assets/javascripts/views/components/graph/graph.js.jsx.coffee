@@ -15,6 +15,12 @@ Sembl.Components.Graph.Graph = React.createClass
   lookupNode: (node) ->
     @nodeIndex[node.id]    
 
+  componentWillMount: ->
+    $(window).on('resize',@handleResize)
+
+  componentWillUnount: ->
+    $(window).off('resize')
+    
   componentDidMount: ->
     @handleResize()
 
