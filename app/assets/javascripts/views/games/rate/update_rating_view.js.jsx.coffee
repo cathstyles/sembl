@@ -6,7 +6,7 @@
 
   componentDidMount: -> 
     $el = $(@getDOMNode())
-    $el.find('.rating__rate__slider').simpleSlider()
+    $el.find('.rating__rate__slider').simpleSlider({highlight:'true'})
 
   render: ->
     `<div className="rating__rate">

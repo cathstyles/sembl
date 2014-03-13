@@ -24,12 +24,12 @@
   }
   span {
     @extend .small-tracked-out-heading;
-    font-size: 16px;
+    @include font-size(16);
     display: block;
     text-align: center;
     i {
+      @include font-size(12);
       color: #e0c21c;
-      font-size: 12px;
     }
   }
 
