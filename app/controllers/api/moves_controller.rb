@@ -1,5 +1,7 @@
-class Api::MovesController < ApplicationController
+class Api::MovesController < ApiController
   respond_to :json
+
+  after_filter :verify_authorized, except: [:round, :show]
 
   before_filter :authenticate_user!
   before_filter :find_game, only: [:round]
@@ -14,14 +16,14 @@ class Api::MovesController < ApplicationController
     game = Game.find(move_params[:game_id])
 
     move = Move.new(user: current_user)
-    move.errors << "placement required" unless move_params[:placement] 
     move.placement = move_params[:placement]
     move.resemblances = move_params[:resemblances]
-    if move.save
+    authorize move
+    if move.valid? and move.save
       game.player(current_user).create_move
-      render json: @move
+      render json: move
     else
-      render json: @move
+      render json: move, status: 400
     end
   end
 
@@ -44,7 +46,9 @@ class Api::MovesController < ApplicationController
       },
       placement: [:node_id, :thing_id]
     )
-    move.require(:placement)
+    placement = move.require(:placement)
+    placement.require(:node_id)
+    placement.require(:thing_id)
     move.require(:resemblances)
     move.require(:game_id)
     move

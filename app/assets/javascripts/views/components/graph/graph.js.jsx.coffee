@@ -64,12 +64,12 @@ Sembl.Components.Graph.Graph = React.createClass
     scaleLink = @scaleLink
     scaledNodes = nodes.map (node) -> scaleNode(node)
     scaledLinks = links.map (link) -> scaleLink(link)
-
+    childClasses = this.props.childClasses || {}
     `<div className="graph">
       <div ref="canvas" className="graph__canvas" style={canvasStyle}>
         <Links nodes={scaledLinks} links={scaledLinks} width={this.state.width} height={this.state.height} />
-        <Resemblances links={scaledLinks} width={this.state.width} height={this.state.height} childClasses={this.props.childClasses || {}} />
-        <Nodes nodes={scaledNodes} />
+        <Resemblances links={scaledLinks} width={this.state.width} height={this.state.height} childClasses={childClasses} />
+        <Nodes nodes={scaledNodes} childClasses={childClasses} />
       </div>
     </div>`
   

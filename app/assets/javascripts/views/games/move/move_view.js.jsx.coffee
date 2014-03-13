@@ -6,11 +6,12 @@
 #= require views/games/move/actions
 #= require views/games/move/resemblance
 #= require views/games/move/selected_thing
+#= require views/games/move/node
 #= require views/layouts/default
 
 ###* @jsx React.DOM ###
 
-{Actions, Board, Resemblance, SelectedThing} = Sembl.Games.Move
+{Actions, Board, Node, Resemblance, SelectedThing} = Sembl.Games.Move
 {Gallery, HeaderView} = Sembl.Games
 Layout = Sembl.Layouts.Default
 Graph = Sembl.Components.Graph.Graph
@@ -42,35 +43,34 @@ Graph = Sembl.Components.Graph.Graph
       @state.move.addResemblance(resemblance.link, resemblance.description)
     
   handleSelectTargetThing: (event, thing) ->
-    target = @state.target
-    targetThing = thing
-    viewablePlacement = 
-      image_thumb_url: thing.image_admin_url
-      image_url: thing.image_browse_url
-      title: thing.title
-    target.set('viewable_placement', 
-      viewablePlacement
-    )
-    target.set('user_state', 'proposed')
-
-    @state.move.addPlacementThing(targetThing)
+    $(window).trigger('move.node.setThing', {node: @state.target, thing: thing})
+    @state.move.addPlacementThing(thing)
     @setState
-      target: target
+      move: @state.move
 
-  handleSubmitMove: () ->
+  handleSubmitMove: (event) ->
     console.log 'Submitting move', JSON.stringify(@state.move)
     url = "/api/moves.json"
     Sembl.move = @state.move
-    @state.move.save()
+    self = this
+    @state.move.save({}, {
+      success: -> 
+        console.log "move success"
+        self.handleMoveComplete()
+      error: -> console.log "move error"
+    })
+
+  handleMoveComplete: () ->
+    Sembl.router.navigate("/", trigger: true)
 
   getInitialState: () ->
-    target = _.extend({}, @props.node)
+    target = @props.node
     links = 
       for link in @props.game.links.where({target_id: target.id})
         _.extend({}, link)
     move = new Sembl.Move({
       game: @props.game
-      targetNode: @props.node
+      target_node: @props.node
     })
 
     state =
@@ -80,14 +80,6 @@ Graph = Sembl.Components.Graph.Graph
       editResemblance: null
 
   render: -> 
-    move = new Sembl.Move({
-      game: @props.game
-      node: @props.node, 
-      thing: null,
-      resemblances: []
-    })
-    Sembl.move = move
-
     target = @state.target
     links = @state.links
     sources = (link.source() for link in links)
@@ -101,6 +93,7 @@ Graph = Sembl.Components.Graph.Graph
     </HeaderView>`
 
     graphChildClasses = {
+      node: Node
       resemblance: Resemblance
     }
 
