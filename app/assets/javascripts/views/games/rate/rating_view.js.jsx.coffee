@@ -35,7 +35,7 @@ Layout = Sembl.Layouts.Default
       @state.moveIndex++
       if (@state.moveIndex+moveCount) % moveCount == 0 
         @state.moveIndex--
-        @state.progress = "finsihed" 
+        @state.progress = "finished" 
         
     @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, progress: @state.progress
 
@@ -68,10 +68,10 @@ Layout = Sembl.Layouts.Default
         <div className="rating__info">
           <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
         </div>
+        <UpdateRatingView move={this.currentMove()} link={this.currentLink()}/>
         <div className="move__graph">
           <Graph nodes={nodes} links={move.links} />
         </div>
         <NavigationView moves={this.props.moves} currentLink={link} handleNext={this.incrementIndexes}/>
-        <UpdateRatingView move={this.currentMove()} link={this.currentLink()}/>
       </div>  
     </Layout>`
