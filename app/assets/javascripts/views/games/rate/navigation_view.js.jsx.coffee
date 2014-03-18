@@ -2,10 +2,10 @@
 
 @Sembl.Games.Rate.NavigationView = React.createClass
   handleNext: -> 
-    # $el = $(@getDOMNode())
-    # if !$el.find('.rating__nav__next').hasClass('rating__nav__next--disabled')
     @props.handleNext()
 
+  handleBack: -> 
+    @props.handleBack()
 
   
   # handleRatingSaved: -> 
@@ -29,6 +29,11 @@
         <a href="#"><i className="fa fa-circle"></i></a>
       </li>`
     
+    backBtn = `<div className="rating__nav__back" onClick={this.handleBack}>
+        <i className="fa fa-chevron-left"></i>
+        Back 
+     </div>`
+
     if currentResemblance.rating? 
       nextBtn = `<div className="rating__nav__next" onClick={this.handleNext}>
         Next 
@@ -41,6 +46,7 @@
        </div>`
   
     `<div className="rating__nav">
+      {backBtn}
       <ul className="rating__nav__links">{spots}</ul>
       {nextBtn}
     </div>`

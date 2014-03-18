@@ -65,6 +65,17 @@
   }
 }
 
+.rating__nav__back {
+  @extend %button;
+  position: absolute;
+  top: 0;
+  left: 0;
+  i {
+    @include font-size(12);
+    padding-left: 2px;
+  }
+}
+
 .rating__nav__next--disabled {
 }
 

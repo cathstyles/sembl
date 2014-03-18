@@ -1,4 +1,3 @@
-#= require d3
 #= require views/layouts/default
 #= require views/games/rate/update_rating_view
 #= require views/games/rate/navigation_view
@@ -43,6 +42,20 @@ Layout = Sembl.Layouts.Default
         
     @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: @currentLink()
 
+  decrementIndexes: -> 
+    moveCount = @props.moves.length
+
+    if @state.linkIndex == 0
+      if @state.moveIndex > 0
+        @state.moveIndex--
+        move = @currentMove()
+        linkCount = move.links.length
+        @state.linkIndex = linkCount-1
+    else 
+      @state.linkIndex--
+  
+    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: @currentLink()
+
   currentMove: -> 
     @props.moves.at(@state.moveIndex)
 
@@ -74,6 +87,6 @@ Layout = Sembl.Layouts.Default
         <div className="move__graph">
           <Graph nodes={nodes} links={move.links} />
         </div>
-        <NavigationView moves={this.props.moves} currentLink={link} handleNext={this.incrementIndexes}/>
+        <NavigationView moves={this.props.moves} currentLink={link} handleNext={this.incrementIndexes} handleBack={this.decrementIndexes}/>
       </div>  
     </Layout>`
