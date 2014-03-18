@@ -41,7 +41,7 @@ Layout = Sembl.Layouts.Default
         @state.moveIndex--
         @state.progress = "finished" 
         
-    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, progress: @state.progress
+    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: @currentLink()
 
   currentMove: -> 
     @props.moves.at(@state.moveIndex)
@@ -70,7 +70,7 @@ Layout = Sembl.Layouts.Default
         <div className="rating__info">
           <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
         </div>
-        <UpdateRatingView move={this.currentMove()} handleRated={this.updateRated} link={this.state.currentLink} key={semblID}/>
+        <UpdateRatingView move={this.currentMove()} handleRated={this.updateRated} link={link} key={semblID}/>
         <div className="move__graph">
           <Graph nodes={nodes} links={move.links} />
         </div>
