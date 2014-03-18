@@ -9,11 +9,10 @@ class Api::RatingsController < ApplicationController
   # for_round defaults to current round
   def index
     authorize @game
-    placements = Placement.for_round(@game)
+    placements = Placement.for_round(@game).where('creator_id != ?', current_user.id)
     @moves = placements.collect{|p| Move.new(placement: p)}
     respond_with @moves
   end
-
 
   def create 
     sembl = Resemblance.find(rating_params[:resemblance_id])
@@ -23,7 +22,7 @@ class Api::RatingsController < ApplicationController
     @rating.assign_attributes(rating: rating_params[:rating])
     @rating.save
 
-    render json: @rating
+    respond_with :api, @game, @rating
   end
 
   private 
