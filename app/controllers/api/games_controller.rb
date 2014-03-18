@@ -17,6 +17,7 @@ class Api::GamesController < ApplicationController
     # Skip to playing turn, no need for invitation workflow.
     @game.players.build(user: current_user, state: 'playing_turn')
     @game.join if @game.save
+    @game.crop_board
     respond_with @game
   end
 
@@ -32,6 +33,7 @@ class Api::GamesController < ApplicationController
 
     authorize @game
     @game.save
+    @game.crop_board
     respond_with @game
   end
 
@@ -48,6 +50,7 @@ class Api::GamesController < ApplicationController
 
     authorize @game
     @game.save 
+    @game.crop_board
     respond_with @game
     # if @game.save
     #   @result = result(status=:ok, notice='Game updated')
