@@ -9,6 +9,8 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  state      :string(255)      not null
+#  email      :string(255)
+#  move_state :string(255)
 #
 
 class Player < ActiveRecord::Base

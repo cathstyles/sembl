@@ -1,3 +1,4 @@
+# TODO this shoould be removed I think and replaced with a users_controller show action.
 class Api::PlayersController < ApplicationController
   respond_to :json
 
@@ -11,12 +12,6 @@ class Api::PlayersController < ApplicationController
     respond_with @player
   end
 
-  def end_turn
-    authorize player
-    player = @game.players.find(params[:id])
-    player.end_turn
-    respond_with @game
-  end
 
   private 
   def find_game

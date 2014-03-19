@@ -1,4 +1,4 @@
-class Api::RatingsController < ApplicationController
+class Api::RatingsController < ApiController
   respond_to :json
 
   after_filter :verify_authorized

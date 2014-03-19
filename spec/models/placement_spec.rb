@@ -10,6 +10,7 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  title      :string(255)
+#  score      :float
 #
 
 require 'spec_helper'

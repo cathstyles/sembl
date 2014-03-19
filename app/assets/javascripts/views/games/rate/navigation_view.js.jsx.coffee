@@ -7,18 +7,6 @@
   handleBack: -> 
     @props.handleBack()
 
-  
-  # handleRatingSaved: -> 
-  #   $el = $(@getDOMNode())
-  #   $el.find('.rating__nav__next').removeClass('rating__nav__next--disabled')
-  #   console.log 'rating saved'
-
-  # componentWillMount: ->
-  #   $(window).on('ratings:rating_saved', @handleRatingSaved)
-
-  # componentWillUnmount: ->
-  #   $(window).off('ratings:rating_saved')
-    
   render: ->
     resemblances = @props.moves.resemblances()
     currentResemblance = @props.currentLink.get('viewable_resemblance')

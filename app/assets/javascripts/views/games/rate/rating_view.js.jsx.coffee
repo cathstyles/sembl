@@ -24,8 +24,11 @@ Layout = Sembl.Layouts.Default
   updateRated: (link) -> 
     @setState currentLink: link
 
-  finishedRating: -> 
-    console.log "finishedRating"
+  endRating: -> 
+    data = authenticity_token: @props.game.get('auth_token')
+    $.post "#{@props.game.url()}/end_rating.json", data, -> 
+      Sembl.router.navigate("", trigger: true)
+      Sembl.game.set(data)
 
   incrementIndexes: -> 
     move = @currentMove()
@@ -74,6 +77,16 @@ Layout = Sembl.Layouts.Default
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
 
+    if @state.progress == 'finished'
+      finishedDiv = `<div className="finished">
+        Finished rating! 
+      </div>`
+      _this = @
+      setTimeout -> 
+        _this.endRating()
+      , 1000
+      
+
     header = `<HeaderView game={game} >
       Rating
     </HeaderView>`
@@ -83,6 +96,7 @@ Layout = Sembl.Layouts.Default
         <div className="rating__info">
           <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
         </div>
+        {finishedDiv}
         <UpdateRatingView move={this.currentMove()} handleRated={this.updateRated} link={link} key={semblID}/>
         <div className="move__graph">
           <Graph nodes={nodes} links={move.links} />
