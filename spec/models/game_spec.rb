@@ -280,15 +280,15 @@ describe Game do
 
       it "should call calculate_score on instance of Move class" do
         Move.any_instance.should_receive(:calculate_score)
+        Move.any_instance.stub(:reify)
         game.calculate_scores
       end
 
       it "should transition placement in current_round to final" do
         game.nodes.where(round: game.current_round) do |node|
-          Move.any_instance.stub(:calculate_score)
-          placement = node.placements.order("score DESC").take
-          placement.should_receive(:reify)
-          placement.should be_final
+          Move.any_instance.stub(:calculate_score).and_return(1)
+          Move.any_instance.stub(:score).and_return(1)
+          Move.any_instance.should_receive(:reify)
           game.calculate_scores
         end
       end

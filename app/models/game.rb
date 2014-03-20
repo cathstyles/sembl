@@ -200,12 +200,14 @@ class Game < ActiveRecord::Base
 
   def calculate_scores 
     nodes.where(round: current_round).each do |node|
+      winning_move = nil
       node.placements.with_state('proposed').each do |placement|
         move = Move.new(placement: placement)
         move.calculate_score
+        winning_move = move if move.score >= (winning_move.try(:score) || 0)
       end
-      # Reify the placement with the highest score to the final placement
-      node.placements.order("score DESC").first.try(:reify)
+      # Reify the move with the highest score to the final placement/resemblences
+      winning_move.reify
     end
   end
 

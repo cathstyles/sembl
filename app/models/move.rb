@@ -73,6 +73,17 @@ class Move
     placement.save
   end 
 
+  def score
+    @score ||= @placement.try(:score) || 0
+  end
+
+  def reify
+    @placement.reify
+    @resemblances.each do |resemblance|
+      resemblance.reify
+    end
+  end
+
 
   #TODO handle errors
   def save
