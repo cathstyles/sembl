@@ -287,10 +287,13 @@ describe Game do
         game.nodes.where(round: game.current_round) do |node|
           Move.any_instance.stub(:calculate_score)
           placement = node.placements.order("score DESC").take
+          placement.should_receive(:reify)
           placement.should be_final
           game.calculate_scores
         end
       end
+
+      xit "should transition the placement with the highest rating to final" 
     end
   end
 
