@@ -192,7 +192,7 @@ class Game < ActiveRecord::Base
   def increment_round
     round_complete = true
     nodes.where(round: current_round).each do |node|
-      round_complete = false unless node.final_placement.exists?
+      round_complete = false unless node.final_placement.present?
     end
 
     self.current_round += 1 if round_complete
@@ -201,7 +201,7 @@ class Game < ActiveRecord::Base
   def calculate_scores 
     nodes.where(round: current_round).each do |node|
       node.placements.with_state('proposed').each do |placement|
-        move = new Move(placement: placement)
+        move = Move.new(placement: placement)
         move.calculate_score
       end
       # Reify the placement with the highest score to the final placement

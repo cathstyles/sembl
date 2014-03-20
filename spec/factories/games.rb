@@ -31,5 +31,26 @@ FactoryGirl.define do
         end
       end
     end
+
+    factory :game_with_completed_nodes do 
+      after(:create) do |game|
+        (0..1).each do |i|
+          FactoryGirl.create(:node_with_final_placements, game: game, round: i)
+        end
+        (2..4).each do |i|
+          FactoryGirl.create(:node, game: game, round: i)
+        end
+      end
+    end
+
+    factory :game_with_proposed_nodes do 
+      after(:create) do |game|
+        FactoryGirl.create(:node_with_final_placements, game: game, round: 0)
+        FactoryGirl.create(:node_with_proposed_placements, game: game, round: 1)
+        (2..4).each do |i|
+          FactoryGirl.create(:node, game: game, round: i)
+        end
+      end
+    end
   end
 end
