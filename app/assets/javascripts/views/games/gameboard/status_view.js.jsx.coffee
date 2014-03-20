@@ -3,22 +3,26 @@
 Sembl.Games.Gameboard.StatusView = React.createClass
 
   handleEndTurn: -> 
-    
-    
+    console.log "ending turn"
+    @props.handleEndTurn()
+      
   handleContinueRating: -> 
+    Sembl.router.navigate("rate", trigger: true)
 
+  #TODO handle disabled state
   getButtonForStatus: (state, move_state) -> 
-    disabled = ""
+    console.log move_state
+    disabled = false
     if state is 'playing_turn'
-      disabled = "disabled" if move_state == "open"
+      disabled = true if move_state == "open"
       buttonText = "End Turn"
       buttonClassName = "game__status__end-turn"
       buttonClickHandler = @handleEndTurn
     else if state is 'waiting'
-      disabled = "diabled"
+      disabled = true
       buttonText = "Waiting ..."
       buttonClassName = "game__status__waiting"
-      buttonClickHandler = nil
+      buttonClickHandler = null
     else if state is 'rating'
       buttonText = "Continue Rating"
       buttonClassName = "game__status__rating"
@@ -26,8 +30,7 @@ Sembl.Games.Gameboard.StatusView = React.createClass
 
     `<button 
       className={buttonClassName} 
-      onClick={buttonClickHandler}
-      disabled={disabled}>
+      onClick={buttonClickHandler}>
         {buttonText}
     </button>`
 

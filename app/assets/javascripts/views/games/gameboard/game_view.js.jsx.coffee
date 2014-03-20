@@ -15,12 +15,15 @@ Graph = Sembl.Components.Graph.Graph
 
 Sembl.Games.Gameboard.GameView = React.createBackboneClass 
   handleJoin: ->  
-    $.post(
-      "#{@model().url()}/join.json"
-      {authenticity_token: @model().get('auth_token')}
-      (data) =>
-        @model().set(data)
-    )
+    postData = authenticity_token: @model().get('auth_token')
+    $.post "#{@model().url()}/join.json", postData, (data) =>
+      @model().set(data)
+
+  handleEndTurn: -> 
+    postData = authenticity_token: @model().get('auth_token')
+    $.post "#{@model().url()}/end_turn.json", postData, (data) =>
+      @model().set(data)
+    
 
   componentWillMount: ->
     $(window).on('graph.node.click', @handleNodeClick)
@@ -61,7 +64,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
         <Graph nodes={nodes} links={links} width={width} height={height} />
       </div>
       <PlayersView players={this.model().players} />
-      <StatusView game={this.model()} />
+      <StatusView game={this.model()} handleEndTurn={this.handleEndTurn} />
     </Layout>`
   
 

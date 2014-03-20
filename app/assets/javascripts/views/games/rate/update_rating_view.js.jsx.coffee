@@ -13,16 +13,15 @@
     sembl?.rating 
 
   saveRating: (ratio) -> 
-    _this = @
     sembl = @props.link.get('viewable_resemblance')
-    data = 
+    postData = 
       rating: {resemblance_id: sembl.id, rating: ratio}
       authenticity_token: @props.move.game.get('auth_token')
 
-    $.post "#{@props.move.collection.url()}.json", data, -> 
+    $.post "#{@props.move.collection.url()}.json", postData, (data) => 
       sembl.rating = ratio
-      link = _this.props.link.set('viewable_resemblance', sembl)
-      _this.props.handleRated(link)
+      link = @props.link.set('viewable_resemblance', sembl)
+      @props.handleRated(link)
 
   componentDidMount: -> 
     $el = $(@getDOMNode())

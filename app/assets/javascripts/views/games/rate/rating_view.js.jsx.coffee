@@ -81,9 +81,8 @@ Layout = Sembl.Layouts.Default
       finishedDiv = `<div className="finished">
         Finished rating! 
       </div>`
-      _this = @
-      setTimeout -> 
-        _this.endRating()
+      setTimeout => 
+        @endRating()
       , 1000
       
 
