@@ -18,7 +18,7 @@ Sembl.Components.Graph.Links = React.createClass
     paper = @paper
 
     $.each(@props.links, (i, link) ->
-      paper.path(lineFunction(link))
+      paper.path(lineFunction(link)).attr({stroke:'#a9b14a',"stroke-width":2});
     )
 
   render: ->
