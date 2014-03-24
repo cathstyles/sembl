@@ -2,7 +2,7 @@
 class Sembl.Handlers.GalleryFilterHandler
   constructor: (@filter) ->
     @offset = 0
-    @limit = 10
+    @limit = 20
     @listeners = 
       'sembl.filter.change':        @listenerFilterChange
       'sembl.gallery.nextPage':     @listenerNextPage
