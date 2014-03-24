@@ -23,10 +23,10 @@ class Sembl.Game extends Backbone.Model
     @nodes.reset(@get("nodes"))
     
   width: ->
-    _(@nodes.pluck("x")).max() + 30 + 50
+    _(@nodes.pluck("x")).max()
 
   height: ->
-    _(@nodes.pluck("y")).max() + 30 + 50
+    _(@nodes.pluck("y")).max()
 
   hasErrors: -> 
     @get('errors') is not null and @get('errors').length > 0
