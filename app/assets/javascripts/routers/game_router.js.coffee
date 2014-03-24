@@ -2,6 +2,7 @@
 #= require views/games/move/move_view
 #= require collections/moves
 #= require views/games/rate/rating_view
+#= require views/games/results/results_view
 
 class Sembl.GameRouter extends Backbone.Router
   routes:
@@ -39,5 +40,11 @@ class Sembl.GameRouter extends Backbone.Router
       )
 
   results: (round) ->
-
+    console.log 'results'
+    React.unmountComponentAtNode(document.getElementsByTagName('body')[0])
+    results = {}
+    React.renderComponent(
+      Sembl.Games.Results.ResultsView({results: results, game: @game})
+      document.getElementsByTagName('body')[0]
+    )
 
