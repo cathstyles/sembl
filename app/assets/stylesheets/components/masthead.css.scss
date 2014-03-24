@@ -131,7 +131,8 @@
   @include inset(bottom, larger);
   text-align: center;
   position: relative;
-  margin-top: -55px;
+  // Disabling this offset for now. TODO: refactor
+  // margin-top: -55px;
   h1 {
     @extend %header-tab;
   }
