@@ -22,6 +22,12 @@ Sembl.Components.Graph.Graph = React.createClass
     $(window).off('resize')
     
   componentDidMount: ->
+    setGameboardHeight = ->
+      mastheadHeight = $('.masthead').height()
+      windowHeight = $(window).height()
+      $('.game__graph').css('height', (windowHeight - mastheadHeight) + 'px')
+
+    $(window).on('resize', setGameboardHeight).trigger('resize')
     @handleResize()
 
   handleResize: ->
