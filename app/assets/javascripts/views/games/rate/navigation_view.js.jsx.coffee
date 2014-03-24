@@ -26,7 +26,7 @@
     spots = _.map resemblances, (sembl) ->
       className = if currentResemblance.id == sembl.id  then "rating__nav__link--current" else ""
       `<li className={'rating__nav__link ' + className} key={sembl.id}>
-        <a href="#"><i className="fa fa-circle"></i></a>
+        <span><i className="fa fa-circle"></i></span>
       </li>`
     
     if currentResemblance.rating? 
