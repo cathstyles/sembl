@@ -16,18 +16,12 @@ Sembl.Components.Graph.Graph = React.createClass
     @nodeIndex[node.id]    
 
   componentWillMount: ->
-    $(window).on('resize',@handleResize)
+    $(window).on('graph.resize', @handleResize)
 
   componentWillUnount: ->
-    $(window).off('resize')
+    $(window).off('graph.resize')
     
   componentDidMount: ->
-    setGameboardHeight = ->
-      mastheadHeight = $('.masthead').height()
-      windowHeight = $(window).height()
-      $('.game__graph').css('height', (windowHeight - mastheadHeight) + 'px')
-
-    $(window).on('resize', setGameboardHeight).trigger('resize')
     @handleResize()
 
   handleResize: ->
@@ -65,10 +59,6 @@ Sembl.Components.Graph.Graph = React.createClass
     for n in @props.nodes
       @nodeIndex[n.id] = n
     
-    canvasStyle = {}
-    if @state.width then canvasStyle.width = @state.width
-    if @state.height then canvasStyle.height = @state.height
-
     nodes = @props.nodes
     links = @props.links
 
@@ -78,7 +68,7 @@ Sembl.Components.Graph.Graph = React.createClass
     scaledLinks = links.map (link) -> scaleLink(link)
     childClasses = this.props.childClasses || {}
     `<div className="graph">
-      <div ref="canvas" className="graph__canvas" style={canvasStyle}>
+      <div ref="canvas" className="graph__canvas">
         <Links nodes={scaledLinks} links={scaledLinks} width={this.state.width} height={this.state.height} />
         <Resemblances links={scaledLinks} width={this.state.width} height={this.state.height} childClasses={childClasses} />
         <Nodes nodes={scaledNodes} childClasses={childClasses} />

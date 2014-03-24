@@ -24,9 +24,20 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
 
   componentWillMount: ->
     $(window).on('graph.node.click', @handleNodeClick)
+    $(window).on('resize', @handleResize)
+
+  componentDidMount: ->
+    @handleResize()
 
   componentWillUnmount: ->
     $(window).off('graph.node.click')
+    $(window).off('resize')
+
+  handleResize: ->
+    mastheadHeight = $('.masthead').height()
+    windowHeight = $(window).height()
+    $(@refs.graph.getDOMNode()).css('height', (windowHeight - mastheadHeight) + 'px')
+    $(window).trigger('graph.resize')
 
   handleNodeClick: (event, node) ->
     userState = node.get('user_state')
@@ -35,6 +46,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
 
   render: ->
     # this width and height will be used to scale the x,y values of the nodes into the width and height of the graph div.
+
     width = @model().width()
     height = @model().height()
 
@@ -57,7 +69,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     `<Layout className="game" header={header}>
       <div className="messages">
       </div>
-      <div className="game__graph">
+      <div ref="graph" className="game__graph">
         <Graph nodes={nodes} links={links} width={width} height={height} />
       </div>
       <PlayersView players={this.model().players} />
