@@ -166,7 +166,7 @@ class Game < ActiveRecord::Base
   end
 
   def player(current_user)
-    players.where(user: current_user).take
+    players.where(user: current_user).take unless !current_user
   end
 
   # == Transition callbacks

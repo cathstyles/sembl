@@ -40,7 +40,7 @@ class Node < ActiveRecord::Base
   end
 
   def player_placement(user)
-    placements.with_state(:proposed).where(creator: user).take
+    placements.with_state(:proposed).where(creator: user).take unless !user
   end
 
   def final_placement
