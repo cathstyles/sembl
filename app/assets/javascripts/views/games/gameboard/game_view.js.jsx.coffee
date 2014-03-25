@@ -28,7 +28,9 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
 
   componentDidMount: ->
     @handleResize()
-
+  componentDidUpdate: ->
+    @handleResize()
+    
   componentWillUnmount: ->
     $(window).off('graph.node.click')
     $(window).off('resize')
