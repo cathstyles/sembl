@@ -1,6 +1,6 @@
 ###* @jsx React.DOM ###
 
-Sembl.Masthead.Link = React.createClass 
+Sembl.Masthead.Link = React.createClass
   render: ->
     url = @props.href 
     iconClassName = @props.icon
@@ -11,6 +11,15 @@ Sembl.Masthead.Link = React.createClass
 
 {Link} = Sembl.Masthead
 Sembl.Masthead.Masthead = React.createClass 
+  componentDidMount: ->
+    # TODO: Need to call this function on every page.
+    # Currently only applies to gameplay screens and not, for example, index.
+    @offsetHeaderTab();
+
+  offsetHeaderTab: ->
+    headerTabWidth = $('.heading h1').outerWidth()
+    $('.heading h1').css 'margin-left', ((headerTabWidth / 2) * -1) + 'px'
+
   render: ->
     if Sembl.user
       if Sembl.user.admin
