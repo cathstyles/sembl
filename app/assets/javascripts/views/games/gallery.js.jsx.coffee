@@ -18,7 +18,6 @@
 
   componentDidMount: ->
     imagesLoaded(@getDOMNode(), =>
-      $(@getDOMNode()).css({width: $(@getDOMNode()).width()})
       $(window).trigger('gallery.thing.loaded')
     )
 
@@ -53,14 +52,13 @@
     $(window).on('gallery.thing.loaded', @handleThingLoaded)
 
   handleThingLoaded: ->
-    $(@refs.things.getDOMNode()).isotope({
-      itemSelector : '.games__gallery__thing'
-      layoutMode: 'cellsByRow',
-      cellsByRow: {
-        columnWidth: 240,
-        rowHeight: 360
-      }
-    })
+    $.doTimeout('debounce.gallery.isotope', 50, =>
+      console.log 'isotoping'
+      $(@refs.things.getDOMNode()).isotope({
+        itemSelector : '.games__gallery__thing'
+        layoutMode: 'fitRows',
+      })
+    )
 
   componentWillUnmount: () ->
     $(window).off('sembl.gallery.setState')
