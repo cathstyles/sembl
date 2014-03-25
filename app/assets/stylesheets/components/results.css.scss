@@ -109,6 +109,18 @@
     color: #ffdc52;
     text-shadow: 1px 1px 1px darken(#f5cd2e,10%);
     padding-top: 2px;
+    position: relative;
+    &:after {
+      position: absolute;
+      top: 8px;
+      left: 6px;
+      content: "";
+      width: 1px;
+      height: 3px;
+      background-color: #fff788;
+      box-shadow: 0 0 2px 2px #fff788;
+      border-radius: 50%;
+    }
   }
   em {
     display: block;

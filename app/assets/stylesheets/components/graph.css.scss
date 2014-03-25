@@ -16,11 +16,16 @@
   position: relative;
 }
 
-.graph__node,
+.graph__node-wrapper,
 .graph__links,
 .graph__resemblences,
 .graph__resemblance {
   position: absolute;
+}
+
+.graph__node-wrapper {
+  margin-left: -60px;
+  margin-top: -60px;
 }
 
 .graph__node {
@@ -30,8 +35,6 @@
   box-shadow: 0 0 10px 5px rgba(#999,.1);
   width: 120px;
   height: 120px;
-  margin-left: -60px;
-  margin-top: -60px;
   text-align: center;
 
   &.state-filled {

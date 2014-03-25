@@ -4,14 +4,15 @@
 #= require views/games/gallery
 #= require views/games/header_view
 #= require views/games/move/actions
+#= require views/games/move/gallery_thing_modal
+#= require views/games/move/node
 #= require views/games/move/resemblance
 #= require views/games/move/selected_thing
-#= require views/games/move/node
 #= require views/layouts/default
 
 ###* @jsx React.DOM ###
 
-{Actions, Board, Node, Resemblance, SelectedThing} = Sembl.Games.Move
+{Actions, Board, Node, Resemblance, SelectedThing, GalleryThingModal, PlacementModal} = Sembl.Games.Move
 {Gallery, HeaderView} = Sembl.Games
 Layout = Sembl.Layouts.Default
 Graph = Sembl.Components.Graph.Graph
@@ -23,6 +24,8 @@ Graph = Sembl.Components.Graph.Graph
     $(window).on('move.actions.submitMove', @handleSubmitMove)
     $(window).on('move.resemblance.change', @handleResemblanceChange)
     $(window).on('move.gallery.selectTargetThing', @handleSelectTargetThing)
+    $(window).on('gallery.thing.click', @handleGalleryClick)
+    $(window).on('gallery.thing.click', @handleGalleryClick)
     
   componentDidMount: ->
     @galleryFilterHandler.handleSearch()
@@ -32,16 +35,20 @@ Graph = Sembl.Components.Graph.Graph
     $(window).off('move.actions.submitMove')
     $(window).off('move.resemblance.change')
     $(window).off('move.gallery.selectTargetThing')
+    $(window).off('gallery.thing.click')
 
   handleResemblanceChange: (event, resemblance) ->
     if resemblance.description
-      resemblance.link.set('viewable_resemblance', 
+      resemblance.link.set('viewable_resemblance',
         {
           description: resemblance.description
         }
       )
       @state.move.addResemblance(resemblance.link, resemblance.description)
-    
+  
+  handleGalleryClick: (event, thing) ->
+    $(window).trigger('modal.open', `<GalleryThingModal thing={thing} />`)
+
   handleSelectTargetThing: (event, thing) ->
     $(window).trigger('move.node.setThing', {node: @state.target, thing: thing})
     @state.move.addPlacementThing(thing)

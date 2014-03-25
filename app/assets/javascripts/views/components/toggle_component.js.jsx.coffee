@@ -10,7 +10,7 @@
     $(window).off(@props.toggleEvent)  
 
   getInitialState: () ->
-    flag: false
+    flag: @props.flag || false
 
   handleToggleOn: () ->
     @setState

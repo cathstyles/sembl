@@ -9,7 +9,6 @@
 .game__player {
   background-color: #f3e7cf;
   padding: 6px 10px;
-  cursor: pointer;
   &:last-child {
     border-bottom-left-radius: $border-radius;
     border-bottom-right-radius: $border-radius;
@@ -37,6 +36,14 @@
         z-index: 10;
       }
     }
+  }
+}
+
+.game__player--icon {
+  text-align: center;
+  i {
+    @include font-size(20);
+    color: $highlight-color;
   }
 }
 

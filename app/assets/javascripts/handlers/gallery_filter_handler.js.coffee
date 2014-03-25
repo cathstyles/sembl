@@ -12,13 +12,13 @@ class Sembl.Handlers.GalleryFilterHandler
     @listeners
     $.each(
       @listeners
-      (event_name, listener) -> $(window).bind(event_name, listener)
+      (event_name, listener) -> $(window).on(event_name, listener)
     )
 
   unbind: () ->
     $.each(
       @listeners
-      (event_name, listener) -> $(window).unbind(event_name, listener)
+      (event_name, listener) -> $(window).off(event_name)
     )
 
   handleSearch: () ->
