@@ -53,7 +53,6 @@
 
   handleThingLoaded: ->
     $.doTimeout('debounce.gallery.isotope', 50, =>
-      console.log 'isotoping'
       $(@refs.things.getDOMNode()).isotope({
         itemSelector : '.games__gallery__thing'
         layoutMode: 'fitRows',
