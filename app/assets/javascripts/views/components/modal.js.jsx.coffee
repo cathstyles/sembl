@@ -20,10 +20,12 @@ ESC_KEY = 27
   handleBackgroundClick: (event) ->
     if not $.contains(@getDOMNode(), event.target)
       @handleClose()
+      $('body').addClass('modal-is-active');
 
   handleClose: ->
     @setState
       modalChild: null
+    $('body').removeClass('modal-is-active')
 
   getInitialState: ->
     modalChild: null

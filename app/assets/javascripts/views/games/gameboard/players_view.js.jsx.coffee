@@ -15,7 +15,7 @@ Sembl.Games.Gameboard.PlayersView = React.createClass
     
     `<ul className="game__players">
         <li className="game__player game__player--icon">
-          <i className="fa fa-users"></i>
+          <i className="fa fa-smile-o"></i>
         </li>
         {players}
       </ul>`

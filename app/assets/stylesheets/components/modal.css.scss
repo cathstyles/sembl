@@ -1,5 +1,11 @@
+// Modal
+
 .modal {
-  position: absolute;
-  background-color: white;
-  z-index: 11;
+  position: fixed;
+  background-color: rgba(#fff,.5);
+  //background-color: rgba(#000,.8);
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
 }

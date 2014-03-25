@@ -9,7 +9,6 @@
 .game__player {
   background-color: #f3e7cf;
   padding: 6px 10px;
-  cursor: pointer;
   &:last-child {
     border-bottom-left-radius: $border-radius;
     border-bottom-right-radius: $border-radius;
