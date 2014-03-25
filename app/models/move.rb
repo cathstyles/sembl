@@ -30,8 +30,8 @@ class Move
 
   def resemblances
     #One sembl per user per link
-    @resemblances ||= Resemblance.joins(:link).where(links: {target_id: target_node.id}, creator: user)
-    # @resemblances ||= @links.collect{|l| resemblance_for_link(l) }
+    # @resemblances ||= Resemblance.joins(:link).where(links: {target_id: target_node.id}, creator: user)
+    @resemblances ||= links.collect{|l| resemblance_for_link(l) }
   end
 
   def resemblance_for_link(link)
@@ -67,7 +67,7 @@ class Move
   end
 
   def calculate_score 
-    sembl_ratings = resemblances.map { |r| r.ratings.sum(rating)/r.ratings.size }
+    sembl_ratings = resemblances.map { |r| r.ratings.sum(:rating)/r.ratings.size }
     avg = sembl_ratings.inject(0.0) { |sum, el| sum + el } / sembl_ratings.size
     placement.score = avg
     placement.save

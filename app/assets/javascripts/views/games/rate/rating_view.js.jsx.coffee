@@ -25,10 +25,13 @@ Layout = Sembl.Layouts.Default
     @setState currentLink: link
 
   endRating: -> 
-    data = authenticity_token: @props.game.get('auth_token')
-    $.post "#{@props.game.url()}/end_rating.json", data, -> 
-      Sembl.router.navigate("", trigger: true)
+    postData = authenticity_token: @props.game.get('auth_token')
+    $.post "#{@props.game.url()}/end_rating.json", postData, (data) -> 
       Sembl.game.set(data)
+      console.log data
+      setTimeout -> 
+        Sembl.router.navigate("", trigger: true)
+      , 800
 
   incrementIndexes: -> 
     move = @currentMove()
@@ -81,11 +84,9 @@ Layout = Sembl.Layouts.Default
       finishedDiv = `<div className="finished">
         Finished rating! 
       </div>`
-      setTimeout => 
-        @endRating()
-      , 1000
-      
+      @endRating()
 
+      
     header = `<HeaderView game={game} >
       Rating
     </HeaderView>`

@@ -22,8 +22,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     postData = authenticity_token: @model().get('auth_token')
     $.post "#{@model().url()}/end_turn.json", postData, (data) =>
       @model().set(data)
-    
-
+      
   componentWillMount: ->
     $(window).on('resize', @handleResize)
 

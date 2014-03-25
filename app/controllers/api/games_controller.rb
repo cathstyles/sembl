@@ -39,6 +39,7 @@ class Api::GamesController < ApiController
     # * Transition game to next round or end of game.
 
     player.end_rating if player
+    @game.reload
     respond_with @game
   end
 

@@ -31,7 +31,7 @@ class Player < ActiveRecord::Base
 
   state_machine initial: :draft do 
     after_transition :playing_turn => :waiting, do: :check_turn_completion
-    after_transition :rating => :wating, do: :check_rating_completion
+    after_transition :rating => :waiting, do: :check_rating_completion
     after_transition :draft => any, do: :send_invitation
     after_transition any => :playing_turn do |player, transition|
       player.begin_move

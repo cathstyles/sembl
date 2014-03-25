@@ -11,6 +11,7 @@ class Api::RatingsController < ApiController
     authorize @game
     placements = Placement.for_round(@game).where('creator_id != ?', current_user.id)
     @moves = placements.collect{|p| Move.new(placement: p)}
+    logger.debug(@moves.inspect)
     respond_with @moves
   end
 
