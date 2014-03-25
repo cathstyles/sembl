@@ -1,4 +1,3 @@
-#= require views/components/toggle_component
 #= require jquery.isotope
 #= require imagesloaded.pkgd
 
@@ -14,7 +13,7 @@
     width: null
 
   handleClick: (event) ->
-    $(window).trigger('toggle.gallery.thing.' + @props.thing.id, {flag: on})
+    $(window).trigger('gallery.thing.click', @props.thing)
 
   componentDidMount: ->
     imagesLoaded(@getDOMNode(), =>
@@ -23,17 +22,6 @@
 
   render: () ->
     thing = this.props.thing;
-
-    selectedModal = ToggleComponent
-      ref: "selected_modal"
-      OffClass: null
-      OnClass: this.props.SelectedClass
-      thing: this.props.thing
-      toggleEvent: 'toggle.gallery.thing.' + thing.id
-    
-    # `<div className={this.className}>
-    #    {selectedModal}
-    # </div>`
     `<img className={this.className} 
         height="150px" width={this.state.width}
         src={thing.image_browse_url}

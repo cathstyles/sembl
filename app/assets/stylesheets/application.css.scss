@@ -62,19 +62,20 @@ $subtle-highlight: #f8f1e0;
 @import "patterns/_spacing-classes";
 @import "patterns/_touch";
 @import "patterns/_type";
-@import "components/mixins";
 @import "components/base";
-@import "components/graph";
-@import "components/masthead";
-@import "components/move";
-@import "components/game_form";
-@import "components/search";
-@import "components/gameboard";
-@import "components/home";
 @import "components/gallery";
+@import "components/game_form";
+@import "components/gameboard";
+@import "components/graph";
+@import "components/home";
+@import "components/masthead";
+@import "components/mixins";
+@import "components/modal";
+@import "components/move";
 @import "components/players";
 @import "components/rating";
 @import "components/results";
+@import "components/search";
 
 // Call patterns
 
