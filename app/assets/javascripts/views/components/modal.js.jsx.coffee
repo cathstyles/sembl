@@ -16,7 +16,7 @@ ESC_KEY = 27
   handleOpen: (event, modalChild) ->
     @setState
       modalChild: if typeof(modalChild) == "function" then modalChild() else modalChild
-    $('body').addClass('modal-is-active');
+    $('html').addClass('modal-is-active');
 
   handleBackgroundClick: (event) ->
     if not $.contains(@getDOMNode(), event.target)
@@ -25,7 +25,7 @@ ESC_KEY = 27
   handleClose: ->
     @setState
       modalChild: null
-    $('body').removeClass('modal-is-active')
+    $('html').removeClass('modal-is-active')
 
   getInitialState: ->
     modalChild: null
