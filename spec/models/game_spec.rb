@@ -275,13 +275,13 @@ describe Game do
     end
 
     
-    describe "#calculate_scores" do 
+    describe "#calculate_placement_scores" do 
       subject(:game) {FactoryGirl.create(:game_with_proposed_nodes, current_round: 1)}
 
       it "should call calculate_score on instance of Move class" do
         Move.any_instance.should_receive(:calculate_score)
         Move.any_instance.stub(:reify)
-        game.calculate_scores
+        game.calculate_placement_scores
       end
 
       it "should transition placement in current_round to final" do
@@ -289,11 +289,22 @@ describe Game do
           Move.any_instance.stub(:calculate_score).and_return(1)
           Move.any_instance.stub(:score).and_return(1)
           Move.any_instance.should_receive(:reify)
-          game.calculate_scores
+          game.calculate_placement_scores
         end
       end
 
       xit "should transition the placement with the highest rating to final" 
+    end
+
+    describe "#calculate_player_scores" do 
+      subject(:game) {FactoryGirl.create(:game_with_proposed_nodes, current_round: 1)}
+
+      xit "should call calculate_score on instance of Player class" do
+        3.times { game.players.build(state: 'rating').stub(:allocate_first_node).should_receive(:calculate_score) }
+        game.save!
+        game.calculate_player_scores
+      end
+
     end
   end
 
@@ -397,6 +408,8 @@ describe Game do
     describe ":rating" do 
       before do 
         game.state = 'rating'
+        Player.any_instance.stub(:calculate_score)
+        Player.any_instance.stub(:allocate_first_node)
         game.stub(:players) { Array.new(3, Player.new(state: 'rating')) }
       end
 

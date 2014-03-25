@@ -199,6 +199,11 @@ class Game < ActiveRecord::Base
   end
 
   def calculate_scores 
+    calculate_placement_scores
+    calculate_player_scores
+  end
+
+  def calculate_placement_scores 
     nodes.where(round: current_round).each do |node|
       winning_move = nil
       node.placements.with_state('proposed').each do |placement|
@@ -208,6 +213,13 @@ class Game < ActiveRecord::Base
       end
       # Reify the move with the highest score to the final placement/resemblences
       winning_move.reify
+    end
+  end
+
+  def calculate_player_scores
+    players.each do |player|
+      player.calculate_score
+      player.save
     end
   end
 

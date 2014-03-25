@@ -125,4 +125,9 @@ class Player < ActiveRecord::Base
   def send_invitation
     PlayerMailer.game_invitation(self).deliver
   end
+
+  # Average of all placement scores for game
+  def calculate_score 
+    self.score = Placement.joins(:node).where("nodes.game_id = ? AND creator_id = ? AND score IS NOT NULL", game.id, user.id).average(:score)
+  end
 end

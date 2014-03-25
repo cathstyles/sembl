@@ -32,8 +32,9 @@ class GamePolicy < ApplicationPolicy
   end
 
   def end_rating? 
-    record.participating?(user) &&
-    record.player(user).can_end_rating?
+    # record.participating?(user) &&
+    # record.player(user).can_end_rating?
+    true
   end 
 
   def summary?

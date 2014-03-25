@@ -77,7 +77,7 @@ describe Player do
         player.state = 'playing_turn'
       end
       it "transitions to waiting on end_turn" do 
-        player.stub(:completed_requirements?).and_return(true)
+        player.stub(:move_created?).and_return(true)
         player.end_turn
         player.should be_waiting
       end
@@ -192,5 +192,28 @@ describe Player do
         player.check_rating_completion
       end
     end
+
+    describe "#calculate_score" do 
+      before do 
+
+        player.user = FactoryGirl.create(:user)
+        player.game = FactoryGirl.create(:game_with_completed_nodes)
+
+        player.game.nodes.each_with_index do |node, i|
+          node.placements.each do |placement|
+            placement.score = i+1
+            placement.creator = player.user
+            placement.save!
+          end
+        end 
+        
+      end
+
+      it "should caclulate the average of the placement scores" do 
+        player.calculate_score
+        player.score.should > 0
+      end
+    end
+
   end
 end
