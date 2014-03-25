@@ -1,8 +1,11 @@
-#= require views/games/move/placement_modal
+#= require views/components/graph/node
+#= require views/components/thing_modal
 
 ###* @jsx React.DOM ###
 
-{PlacementModal} = Sembl.Games.Move
+{ThingModal} = Sembl.Components
+{Node} = Sembl.Components.Graph
+
 @Sembl.Games.Move.Node = React.createClass
   componentWillMount: ->
     $(window).on('move.node.setThing', @handleSetThing)
@@ -11,12 +14,15 @@
     $(window).off('move.node.setThing')
 
   handleClick: (event, data) ->
-    $(window).trigger('modal.open', `<PlacementModal thing={this.state.thing} />`)
+    if @state.thing
+      $(window).trigger('modal.open', `<ThingModal thing={this.state.thing} />`)
 
   handleSetThing: (event, data) ->
+    console.log 'handle set thing', event, data
     if data.node.id == @props.node.id
       @setState
         thing: data.thing
+        userState: 'proposed'
 
   getInitialState: ->
     node = @props.node
@@ -28,8 +34,8 @@
 
   render: () ->
     image_url = @state.thing?.image_admin_url
-    `<div className='move__node' onClick={this.handleClick} >
-      <img className='graph__node__image' src={image_url} />
+    `<div onClick={this.handleClick}>
+      <Node node={this.props.node} image_url={image_url} userState={this.state.userState} />
     </div>`
 
 

@@ -1,5 +1,4 @@
-#= require views/games/gameboard/nodes_view
-#= require views/games/gameboard/links_view
+#= require views/games/gameboard/node
 #= require views/games/gameboard/players_view
 #= require views/games/gameboard/status_view
 #= require views/games/header_view
@@ -8,7 +7,7 @@
 
 ###* @jsx React.DOM ###
 
-{NodesView, LinksView, PlayersView, StatusView} = Sembl.Games.Gameboard
+{Node, PlayersView, StatusView} = Sembl.Games.Gameboard
 HeaderView = Sembl.Games.HeaderView
 Layout = Sembl.Layouts.Default
 Graph = Sembl.Components.Graph.Graph
@@ -26,7 +25,6 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     
 
   componentWillMount: ->
-    $(window).on('graph.node.click', @handleNodeClick)
     $(window).on('resize', @handleResize)
 
   componentDidMount: ->
@@ -35,7 +33,6 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     @handleResize()
     
   componentWillUnmount: ->
-    $(window).off('graph.node.click')
     $(window).off('resize')
 
   handleResize: ->
@@ -43,11 +40,6 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     windowHeight = $(window).height()
     $(@refs.graph.getDOMNode()).css('height', (windowHeight - mastheadHeight) + 'px')
     $(window).trigger('graph.resize')
-
-  handleNodeClick: (event, node) ->
-    userState = node.get('user_state')
-    if userState == 'available'
-      Sembl.router.navigate("move/#{node.id}", trigger: true)
 
   render: ->
     # this width and height will be used to scale the x,y values of the nodes into the width and height of the graph div.
@@ -71,11 +63,15 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
       node.x = node.get('x')
       node.y = node.get('y')
 
+    graphChildClasses = {
+      node: Node
+    }
+
     `<Layout className="game" header={header}>
       <div className="messages">
       </div>
       <div ref="graph" className="game__graph">
-        <Graph nodes={nodes} links={links} width={width} height={height} />
+        <Graph nodes={nodes} links={links} width={width} height={height} childClasses={graphChildClasses} />
       </div>
       <PlayersView players={this.model().players} />
       <StatusView game={this.model()} handleEndTurn={this.handleEndTurn} />
