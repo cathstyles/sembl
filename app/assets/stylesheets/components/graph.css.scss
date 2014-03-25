@@ -6,7 +6,7 @@
 .graph {
   height: 100%;
   width: 100%;
-  padding: 80px;
+  padding: 80px 150px;
   position: relative;
 }
 
@@ -100,7 +100,11 @@
   }
 
   &.state-proposed {
-    border: 2px solid $highlight-color;
+    border-color: #4f570f;
+    box-shadow: 0 0 12px 6px rgba(#999,.4);
+    img {
+      border: 1px solid #fff;
+    }
   }
 }
 
