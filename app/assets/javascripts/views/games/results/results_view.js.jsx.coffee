@@ -11,14 +11,16 @@ Layout = Sembl.Layouts.Default
     result = @props.result
     key = result.source.node.id+"."+result.target.node.id
     `<div className="results__player__move" key={key}>
+      <div className="results__player__move__node-wrapper">
+        <div className="results__player__move__source">
+          <img className="results__player__move__thing" src={result.source.thing.image_admin_url} />
+        </div>
+        <div className="results__player__move__target">
+          <img className="results__player__move__thing" src={result.target.thing.image_admin_url} />
+        </div>
+      </div>
       <div className="results__player__move__sembl">{result.description}</div>
-      <div className="results__player__move__score">{result.score}</div>
-      <div className="results__player__move__source">
-        <img className="results__player__move__thing" src={result.source.thing.image_admin_url} />
-      </div>
-      <div className="results__player__move__target">
-        <img className="results__player__move__thing" src={result.target.thing.image_admin_url} />
-      </div>
+      <div className="results__player__move__score"><i className="fa fa-star"></i><em>{result.score}</em></div>
     </div>`
 
 {PlayerMove} = @Sembl.Games.Results
@@ -37,7 +39,7 @@ Layout = Sembl.Layouts.Default
           target:
             node: Sembl.game.nodes.last()
             thing: things[1]
-          description: "Foobar"
+          description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros."
           score: Math.floor(Math.random() * 100)
         }
       )
@@ -55,7 +57,7 @@ Layout = Sembl.Layouts.Default
     user = player.get('user')
 
     `<div className="results__player">
-      <h1>{user.email}</h1>
+      <h1 className="results__player__email"><i className="fa fa-user"></i> {user.email}</h1>
       <div className="results__player__moves">
         {playerMoves}
       </div>

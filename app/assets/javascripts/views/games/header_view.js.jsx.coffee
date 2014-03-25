@@ -23,8 +23,8 @@ Sembl.Games.HeaderView = React.createClass
     @offsetRoundTab();
 
   offsetRoundTab: ->
-    headerTabWidth = $('.header__round').outerWidth()
-    $('.header__round').css 'margin-left', ((headerTabWidth / 2) * -1) + 'px'
+    gameplayTabWidth = $('.header__round').outerWidth()
+    $('.header__round').css 'margin-left', ((gameplayTabWidth / 2) * -1) + 'px'
 
   handleJoin: ->
     @props.handleJoin()
