@@ -66,6 +66,25 @@ class Move
     end 
   end
 
+  def calculate_score 
+    sembl_ratings = resemblances.map { |r| r.ratings.sum(rating)/r.ratings.size }
+    avg = sembl_ratings.inject(0.0) { |sum, el| sum + el } / sembl_ratings.size
+    placement.score = avg
+    placement.save
+  end 
+
+  def score
+    @score ||= @placement.try(:score) || 0
+  end
+
+  def reify
+    @placement.reify
+    @resemblances.each do |resemblance|
+      resemblance.reify
+    end
+  end
+
+
   #TODO handle errors
   def save
     @placement.save

@@ -1,4 +1,4 @@
-class Api::ThingsController < ApplicationController
+class Api::ThingsController < ApiController
   before_filter :find_game, except: [:random, :show]
   respond_to :json
 

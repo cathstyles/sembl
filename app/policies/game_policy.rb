@@ -26,6 +26,16 @@ class GamePolicy < ApplicationPolicy
     !!user && record.open_to_join? && record.creator_id != user.id
   end
 
+  def end_turn? 
+    record.participating?(user) &&
+    record.player(user).can_end_turn?
+  end
+
+  def end_rating? 
+    record.participating?(user) &&
+    record.player(user).can_end_rating?
+  end 
+
   def summary?
     show?
   end

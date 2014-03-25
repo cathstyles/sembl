@@ -3,9 +3,11 @@ Sembl::Application.routes.draw do
     resources :games, only: [:show, :create, :update] do 
       member do 
         post 'join'
+        post 'end_turn'
+        post 'end_rating'
       end
-
-      resources :ratings, only: [:create, :index] 
+      # Need a show route for the create route _url method to work when calling respond_with. 
+      resources :ratings, only: [:create, :index, :show] 
 
       get 'moves/round', to: 'moves#round'
     end

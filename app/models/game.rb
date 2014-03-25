@@ -13,12 +13,12 @@
 #  invite_only          :boolean          default(FALSE)
 #  uploads_allowed      :boolean          default(FALSE)
 #  theme                :string(255)
-#  filter_content_by    :text
 #  allow_keyword_search :boolean          default(FALSE)
 #  state                :string(255)
 #  current_round        :integer          default(1)
 #  random_seed          :integer
 #  number_of_players    :integer
+#  filter_content_by    :json
 #
 
 # == States 
@@ -64,6 +64,7 @@ class Game < ActiveRecord::Base
     after_transition :draft => :open, do: :remove_draft_players
     after_transition :draft => :playing, do: :invite_players
     after_transition :rating => :playing, do: :increment_round
+    before_transition :rating => [:playing, :completed], do: :calculate_scores
     after_transition :playing => :rating, do: :players_begin_rating
     after_transition :rating => :playing, do: :players_begin_playing
 
@@ -187,8 +188,27 @@ class Game < ActiveRecord::Base
     players.with_state(:draft).destroy_all 
   end
 
+  # Increment round if all placements have been finalised
   def increment_round
-    self.current_round += 1
+    round_complete = true
+    nodes.where(round: current_round).each do |node|
+      round_complete = false unless node.final_placement.present?
+    end
+
+    self.current_round += 1 if round_complete
+  end
+
+  def calculate_scores 
+    nodes.where(round: current_round).each do |node|
+      winning_move = nil
+      node.placements.with_state('proposed').each do |placement|
+        move = Move.new(placement: placement)
+        move.calculate_score
+        winning_move = move if move.score >= (winning_move.try(:score) || 0)
+      end
+      # Reify the move with the highest score to the final placement/resemblences
+      winning_move.reify
+    end
   end
 
   # == Validations

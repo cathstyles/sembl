@@ -29,6 +29,7 @@ class Sembl.GameRouter extends Backbone.Router
     )
 
   rate: -> 
+    React.unmountComponentAtNode(document.getElementsByTagName('body')[0])
     _this = @
     moves = new Sembl.Moves([], {rating: true, game: @game})
     res = moves.fetch()

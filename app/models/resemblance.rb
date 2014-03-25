@@ -10,6 +10,8 @@
 #  creator_id  :integer
 #  created_at  :datetime
 #  updated_at  :datetime
+#  source_id   :integer
+#  target_id   :integer
 #
 
 class Resemblance < ActiveRecord::Base

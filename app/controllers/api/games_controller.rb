@@ -1,4 +1,4 @@
-class Api::GamesController < ApplicationController
+class Api::GamesController < ApiController
   respond_to :json
 
   after_filter :verify_authorized
@@ -20,6 +20,28 @@ class Api::GamesController < ApplicationController
     @game.crop_board
     respond_with @game
   end
+
+  def end_turn
+    authorize @game
+    player = @game.player(current_user)
+    player.end_turn if player
+    respond_with @game
+  end
+
+  def end_rating 
+    authorize @game
+    player = @game.player(current_user)
+
+    # State transition callbacks handle: 
+    # * Check whether all players are in waiting state now 
+    # * For each placement calculate the score as average of all sembl ratings
+    # * Reify winning placement
+    # * Transition game to next round or end of game.
+
+    player.end_rating if player
+    respond_with @game
+  end
+
 
   def create
     @game = Game.new(game_params)
@@ -52,13 +74,6 @@ class Api::GamesController < ApplicationController
     @game.save 
     @game.crop_board
     respond_with @game
-    # if @game.save
-    #   @result = result(status=:ok, notice='Game updated')
-    #   respond_with @result
-    # else
-    #   @result = result(status=:fail, alert='Game could not be updated', errors=@game.errors.full_messages)
-    #   respond_with @result
-    # end
   end
 
 private

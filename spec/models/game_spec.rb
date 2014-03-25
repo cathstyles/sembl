@@ -13,12 +13,12 @@
 #  invite_only          :boolean          default(FALSE)
 #  uploads_allowed      :boolean          default(FALSE)
 #  theme                :string(255)
-#  filter_content_by    :text
 #  allow_keyword_search :boolean          default(FALSE)
 #  state                :string(255)
 #  current_round        :integer          default(1)
 #  random_seed          :integer
 #  number_of_players    :integer
+#  filter_content_by    :json
 #
 
 require 'spec_helper'
@@ -190,7 +190,8 @@ describe Game do
 
       # Skip validations so we don't have to upload an image
       let(:thing) { 
-        t = FactoryGirl.build(:thing) 
+        t = FactoryGirl.build(:thing)
+        t.stub(:add_to_search_index) 
         t.save(validate: false)
         t
       }
@@ -240,15 +241,15 @@ describe Game do
     
     describe "#remove_draft_players" do 
       it "should remove all draft players" do 
-        3.times { game.players.build(state: 'draft') }
+        3.times { game.players.build(state: 'draft').stub(:allocate_first_node) }
         game.save!
         game.remove_draft_players
         game.players.count.should == 0
       end
 
       it "should not remove players in non-draft state" do 
-        3.times { game.players.build(state: 'draft') }
-        1.times { game.players.build(state: 'invited', email: 'xx') }
+        3.times { game.players.build(state: 'draft').stub(:allocate_first_node) }
+        1.times { game.players.build(state: 'invited', email: 'xx').stub(:allocate_first_node) }
         game.save!
         game.remove_draft_players
         game.players.count.should == 1
@@ -256,11 +257,43 @@ describe Game do
     end
 
     describe "#increment_round" do
-      it "should increment current round by one" do
-        game.current_round = 1
-        -> { game.increment_round }.should change(game, :current_round).by(1)
-        game.increment_round
+      context "all nodes have final placements" do 
+        it "should increment current round by one" do
+          game = FactoryGirl.create(:game_with_completed_nodes, current_round: 1)
+          -> { game.increment_round }.should change(game, :current_round).by(1)
+          game.increment_round
+        end
       end
+
+      context "a node has not been filled" do 
+        it "should not increment current round by one" do
+          game = FactoryGirl.create(:game_with_nodes, current_round: 1) 
+          -> { game.increment_round }.should_not change(game, :current_round).by(1)
+          game.increment_round
+        end
+      end
+    end
+
+    
+    describe "#calculate_scores" do 
+      subject(:game) {FactoryGirl.create(:game_with_proposed_nodes, current_round: 1)}
+
+      it "should call calculate_score on instance of Move class" do
+        Move.any_instance.should_receive(:calculate_score)
+        Move.any_instance.stub(:reify)
+        game.calculate_scores
+      end
+
+      it "should transition placement in current_round to final" do
+        game.nodes.where(round: game.current_round) do |node|
+          Move.any_instance.stub(:calculate_score).and_return(1)
+          Move.any_instance.stub(:score).and_return(1)
+          Move.any_instance.should_receive(:reify)
+          game.calculate_scores
+        end
+      end
+
+      xit "should transition the placement with the highest rating to final" 
     end
   end
 

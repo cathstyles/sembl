@@ -1,4 +1,3 @@
-#= require d3
 #= require views/layouts/default
 #= require views/games/rate/update_rating_view
 #= require views/games/rate/navigation_view
@@ -25,8 +24,11 @@ Layout = Sembl.Layouts.Default
   updateRated: (link) -> 
     @setState currentLink: link
 
-  finishedRating: -> 
-    console.log "finishedRating"
+  endRating: -> 
+    data = authenticity_token: @props.game.get('auth_token')
+    $.post "#{@props.game.url()}/end_rating.json", data, -> 
+      Sembl.router.navigate("", trigger: true)
+      Sembl.game.set(data)
 
   incrementIndexes: -> 
     move = @currentMove()
@@ -41,7 +43,21 @@ Layout = Sembl.Layouts.Default
         @state.moveIndex--
         @state.progress = "finished" 
         
-    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, progress: @state.progress
+    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: @currentLink()
+
+  decrementIndexes: -> 
+    moveCount = @props.moves.length
+
+    if @state.linkIndex == 0
+      if @state.moveIndex > 0
+        @state.moveIndex--
+        move = @currentMove()
+        linkCount = move.links.length
+        @state.linkIndex = linkCount-1
+    else 
+      @state.linkIndex--
+  
+    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: @currentLink()
 
   currentMove: -> 
     @props.moves.at(@state.moveIndex)
@@ -61,6 +77,15 @@ Layout = Sembl.Layouts.Default
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
 
+    if @state.progress == 'finished'
+      finishedDiv = `<div className="finished">
+        Finished rating! 
+      </div>`
+      setTimeout => 
+        @endRating()
+      , 1000
+      
+
     header = `<HeaderView game={game} >
       Rating
     </HeaderView>`
@@ -70,10 +95,11 @@ Layout = Sembl.Layouts.Default
         <div className="rating__info">
           <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
         </div>
-        <UpdateRatingView move={this.currentMove()} handleRated={this.updateRated} link={this.state.currentLink} key={semblID}/>
+        {finishedDiv}
+        <UpdateRatingView move={this.currentMove()} handleRated={this.updateRated} link={link} key={semblID}/>
         <div className="move__graph">
           <Graph nodes={nodes} links={move.links} />
         </div>
-        <NavigationView moves={this.props.moves} currentLink={link} handleNext={this.incrementIndexes}/>
+        <NavigationView moves={this.props.moves} currentLink={link} handleNext={this.incrementIndexes} handleBack={this.decrementIndexes}/>
       </div>  
     </Layout>`

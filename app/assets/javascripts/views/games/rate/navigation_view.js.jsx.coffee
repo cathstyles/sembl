@@ -2,23 +2,11 @@
 
 @Sembl.Games.Rate.NavigationView = React.createClass
   handleNext: -> 
-    # $el = $(@getDOMNode())
-    # if !$el.find('.rating__nav__next').hasClass('rating__nav__next--disabled')
     @props.handleNext()
 
+  handleBack: -> 
+    @props.handleBack()
 
-  
-  # handleRatingSaved: -> 
-  #   $el = $(@getDOMNode())
-  #   $el.find('.rating__nav__next').removeClass('rating__nav__next--disabled')
-  #   console.log 'rating saved'
-
-  # componentWillMount: ->
-  #   $(window).on('ratings:rating_saved', @handleRatingSaved)
-
-  # componentWillUnmount: ->
-  #   $(window).off('ratings:rating_saved')
-    
   render: ->
     resemblances = @props.moves.resemblances()
     currentResemblance = @props.currentLink.get('viewable_resemblance')
@@ -29,6 +17,11 @@
         <span><i className="fa fa-circle"></i></span>
       </li>`
     
+    backBtn = `<div className="rating__nav__back" onClick={this.handleBack}>
+        <i className="fa fa-chevron-left"></i>
+        Back 
+     </div>`
+
     if currentResemblance.rating? 
       nextBtn = `<div className="rating__nav__next" onClick={this.handleNext}>
         Next 
@@ -41,6 +34,7 @@
        </div>`
   
     `<div className="rating__nav">
+      {backBtn}
       <ul className="rating__nav__links">{spots}</ul>
       {nextBtn}
     </div>`

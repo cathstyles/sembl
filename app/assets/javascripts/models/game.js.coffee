@@ -12,6 +12,7 @@ class Sembl.Game extends Backbone.Model
     
     @listenTo(@, 'change:players', @updatePlayers)
     @listenTo(@, 'change:nodes', @updateNodes)
+    @listenTo(@, 'change:links', @updateLinks)
 
   filter: ->
     @.attributes.filter
@@ -20,7 +21,11 @@ class Sembl.Game extends Backbone.Model
     @players.reset(@get("players"))
 
   updateNodes: -> 
+    console.log 'updating nodes'
     @nodes.reset(@get("nodes"))
+
+  updateLinks: -> 
+    @links.reset(@get("links"))
     
   width: ->
     _(@nodes.pluck("x")).max()
