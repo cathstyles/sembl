@@ -40,6 +40,14 @@
   }
 }
 
+.game__player--icon {
+  text-align: center;
+  i {
+    @include font-size(20);
+    color: $highlight-color;
+  }
+}
+
 .game__player__details__avatar {
   @extend %white-drop-shadow;
   @include font-size(28);
