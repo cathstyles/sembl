@@ -9,6 +9,7 @@ Layout = Sembl.Layouts.Default
 @Sembl.Games.Results.SemblResult = React.createClass
   render: ->
     {source, target, description, score} = @props
+    score = Math.floor(score * 100)
     key = "#{source.node.id}.#{target.node.id}"
     `<div className="results__player__move" key={key}>
       <div className="results__player__move__node-wrapper">
@@ -28,12 +29,14 @@ Layout = Sembl.Layouts.Default
   render: ->
     result = @props.result
     target = result.get('target')
+    Sembl.results = Sembl.results || []
+    Sembl.results.push(result)
     semblResults = for resemblance in result.get('resemblances')
       params = 
         source: resemblance.source
         target: target
         description: resemblance.description
-        score: Math.floor(Math.random() * 100)
+        score: result.get('score') || 0 # TODO: This should be the Resemblance score as for multi sembl moves there is a score for each sembl.
       SemblResult(params)
     `<div className="results__move-result">
       {semblResults}
