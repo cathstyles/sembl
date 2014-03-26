@@ -42,7 +42,7 @@
 .game__player--icon {
   text-align: center;
   i {
-    @include font-size(20);
+    @include font-size(40);
     color: $highlight-color;
   }
 }
