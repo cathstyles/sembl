@@ -8,14 +8,17 @@
     @props.handleBack()
 
   render: ->
-    resemblances = @props.moves.resemblances()
+    # resemblances = @props.moves.resemblances()
     currentResemblance = @props.currentLink.get('viewable_resemblance')
 
-    spots = _.map resemblances, (sembl) ->
-      className = if currentResemblance.id == sembl.id  then "rating__nav__link--current" else ""
-      `<li className={'rating__nav__link ' + className} key={sembl.id}>
-        <span><i className="fa fa-circle"></i></span>
-      </li>`
+    spots = []
+    @props.moves.each (move, i) ->
+      move.links.each (link, i) -> 
+        sembl = link.get('viewable_resemblance')
+        className = if link.active  then "rating__nav__link--current" else ""
+        spots.push `<li className={'rating__nav__link ' + className} key={sembl.id}>
+          <span><i className="fa fa-circle"></i></span>
+        </li>`
     
     backBtn = `<div className="rating__nav__back" onClick={this.handleBack}>
         <i className="fa fa-chevron-left"></i>

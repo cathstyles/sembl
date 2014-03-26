@@ -9,6 +9,8 @@ class Sembl.Link extends Backbone.Model
       @trigger "change:target"
       @trigger "change"
 
+    @active = false
+
   source: ->
     @game.nodes.get(@get("source_id"))
 
