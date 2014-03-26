@@ -15,7 +15,7 @@
     event.preventDefault()
 
   getInitialState: ->
-    return {description: this.props.description}
+    return {description: @props.description}
   
   componentDidMount: () ->
     @refs.input.getDOMNode().focus()
@@ -24,9 +24,7 @@
     sourceNode = @props.link.source()
     sourcePlacement = sourceNode.get('viewable_placement')
     sourceTitle = if sourcePlacement then sourcePlacement.title else 'placeholder'
-    targetNode = @props.link.target()
-    targetPlacement = targetNode.get('viewable_placement')
-    targetTitle = if targetPlacement then targetPlacement.title else 'placeholder'
+    targetTitle = @props.targetThing?.title || 'placeholder'
     
     `<div className="move__resemblance__edit">
       <p>What&rsquo;s the resemblance between <strong>{sourceTitle}</strong> and <strong>{targetTitle}</strong>?</p>

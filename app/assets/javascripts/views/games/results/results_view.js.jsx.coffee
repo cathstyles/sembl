@@ -68,7 +68,6 @@ Layout = Sembl.Layouts.Default
     userGroupedResults = {}
     for result in @props.results.models
       email = result.get('user').email
-      console.log 'user', result.get('user')
       userGroupedResults[email] = userGroupedResults[email] || []
       userGroupedResults[email].push(result)
 
