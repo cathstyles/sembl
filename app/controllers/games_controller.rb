@@ -17,7 +17,6 @@ class GamesController < ApplicationController
 
   def show
     authorize @game
-    @game.crop_board
     respond_with @game, layout: "react"
   end
 
@@ -43,6 +42,7 @@ private
 
   def find_game
     @game = Game.find(params[:id])
+    @game.crop_board
   end
 
   def game_params
