@@ -34,7 +34,7 @@ Sembl.Games.Gameboard.StatusView = React.createClass
     `<button 
       className={buttonClassName} 
       onClick={buttonClickHandler}>
-        <i className={buttonIcon}></i>
+        {<i className={buttonIcon}></i>}
         {buttonText}
     </button>`
 
