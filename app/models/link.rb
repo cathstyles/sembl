@@ -21,7 +21,7 @@ class Link < ActiveRecord::Base
   end
 
   def player_resemblance(user)
-    resemblances.with_state(:proposed).where(creator: user).take
+    resemblances.with_state(:proposed).where(creator: user).take unless !user
   end
 
   def final_resemblance

@@ -8,7 +8,6 @@ class Api::GamesController < ApiController
 
   def show
     authorize @game
-    @game.crop_board
     respond_with @game
   end
 
@@ -17,7 +16,6 @@ class Api::GamesController < ApiController
     # Skip to playing turn, no need for invitation workflow.
     @game.players.build(user: current_user, state: 'playing_turn')
     @game.join if @game.save
-    @game.crop_board
     respond_with @game
   end
 
@@ -73,7 +71,6 @@ class Api::GamesController < ApiController
 
     authorize @game
     @game.save 
-    @game.crop_board
     respond_with @game
   end
 
@@ -129,6 +126,7 @@ private
 
   def find_game
     @game = Game.find(params[:id])
+    @game.crop_board
   end
 
   def clean_search_query_json(search_query_json)

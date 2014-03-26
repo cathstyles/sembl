@@ -26,7 +26,7 @@ Sembl.Masthead.Masthead = React.createClass
         admin = `<Link href={Sembl.paths.admin_root_path} icon="fa-cog">Admin</Link>`
       sign_out = `<Link href={Sembl.paths.destroy_user_session_path} icon="fa-power-off ">Sign out</Link>`
     else
-      sign_in = `<Link href={Sembl.paths.new_user_session_path} icon="fa-key">Sign out</Link>`
+      sign_in = `<Link href={Sembl.paths.new_user_session_path} icon="fa-key">Sign in</Link>`
       sign_up = `<Link href={Sembl.paths.new_user_registration_path} icon="fa-user">Sign up</Link>`
 
     `<div className="masthead">

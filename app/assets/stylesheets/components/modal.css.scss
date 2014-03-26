@@ -1,6 +1,6 @@
 // Modal
 
-// Class applied to the .body {} element to stop scrolling
+// Class applied to the html element to stop background scrolling
 .modal-is-active {
   overflow: hidden;
   & > body { overflow: hidden; }
@@ -20,10 +20,78 @@
 .modal__inner {
   @include pad(all, medium);
   background-color: $background-color;
-  border: 1px solid $border-color;
-  box-shadow: 0 0 100px 10px rgba(#000, .5);
-  max-width: 1000px;
+  box-shadow: 0 0 100px 10px rgba(#000,.5);
+  border-radius: $border-radius;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 8%;
+  margin-top: 6%;
+  position: relative;
+}
+
+.move__thing__modal__button {
+  @include font-size(14);
+  @include pad(all, small);
+  background-color: $highlight-color;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  top: -11px;
+  right: -11px;
+  width: 22px;
+  height: 22px;
+  i {
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(#000,.5);
+    position: absolute;
+    top: 3px;
+    left: 5px;
+  }
+}
+
+.move__thing-modal {
+  text-align: center;
+}
+
+.move__thing-modal__image {
+  @include inset(bottom, mid);
+  border: 3px solid #fff;
+  box-shadow: 0 0 10px 5px rgba(#000,.1);
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+
+.move__thing-modal__title {
+  @extend .large-heading;
+  @include font-size(22);
+  @include pad(bottom, mid);
+}
+
+.move__thing-modal__description {
+  text-align: left;
+}
+
+.move__thing-modal__place-button {
+  @include inset(top, mid);
+}
+
+.move__resemblance__edit {
+  text-align: center;
+  p {
+    @include font-size(18);
+    @extend %white-drop-shadow;
+    font-weight: 600;
+  }
+  strong {
+    color: $link-color;
+  }
+}
+
+.move__resemblance__edit-form {
+  @include pad(top, mid);
+  text-align: center;
+  input {
+    width: 80%;
+  }
 }
