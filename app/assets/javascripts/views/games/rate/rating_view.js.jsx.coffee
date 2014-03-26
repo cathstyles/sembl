@@ -17,15 +17,12 @@ Layout = Sembl.Layouts.Default
   getInitialState: -> 
     link = @props.moves.at(0).links.at(0)
     link.active = true
-    console.log "link in initial state"
-    console.log link
     {
       moveIndex: 0
       linkIndex: 0
       progress: 'rating'
       currentLink: link
     }
-
 
   updateRated: (link) -> 
     @setState currentLink: link
@@ -53,8 +50,8 @@ Layout = Sembl.Layouts.Default
         @state.progress = "finished" 
         
     @props.moves.deactivateLinks()
-    @currentMove().activateLinkAt(@state.linkIndex)
-    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: @currentLink()
+    link = @currentMove().activateLinkAt(@state.linkIndex)
+    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: link
 
   decrementIndexes: -> 
     moveCount = @props.moves.length
@@ -69,8 +66,8 @@ Layout = Sembl.Layouts.Default
       @state.linkIndex--
   
     @props.moves.deactivateLinks()
-    @currentMove().activateLinkAt(@state.linkIndex)
-    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: @currentLink()
+    link = @currentMove().activateLinkAt(@state.linkIndex)
+    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: link
 
   currentMove: -> 
     @props.moves.at(@state.moveIndex)
@@ -79,18 +76,14 @@ Layout = Sembl.Layouts.Default
     @currentMove().links.at(@state.linkIndex)
 
   render: ->
-    game = @props.game
     move = @currentMove()
-
     sources = (link.source() for link in move.links.models)
 
     rootNode = _.extend({children: sources}, move.targetNode)
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
 
-    graphChildClasses = {
-      resemblance: Resemblance
-    }
+    graphChildClasses = resemblance: Resemblance
 
     if @state.progress == 'finished'
       finishedDiv = `<div className="flash finished">
@@ -99,7 +92,7 @@ Layout = Sembl.Layouts.Default
       @endRating()
 
       
-    header = `<HeaderView game={game} >
+    header = `<HeaderView game={this.props.game} >
       Rating
     </HeaderView>`
 
@@ -109,10 +102,23 @@ Layout = Sembl.Layouts.Default
           <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
         </div>
         {finishedDiv}
-        <UpdateRatingView move={this.currentMove()} handleRated={this.updateRated} link={this.state.currentLink} key={this.state.currentLink.cid}/>
+        <UpdateRatingView 
+          move={this.currentMove()} 
+          link={this.state.currentLink} 
+          key={this.state.currentLink.cid}
+          handleRated={this.updateRated} 
+          />
         <div className="move__graph">
-          <Graph nodes={nodes} links={move.links} childClasses={graphChildClasses} />
+          <Graph 
+            nodes={nodes} 
+            links={move.links} 
+            childClasses={graphChildClasses} 
+            />
         </div>
-        <NavigationView moves={this.props.moves} currentLink={this.state.currentLink} handleNext={this.incrementIndexes} handleBack={this.decrementIndexes}/>
+        <NavigationView 
+          moves={this.props.moves} 
+          currentLink={this.state.currentLink} 
+          handleNext={this.incrementIndexes} 
+          handleBack={this.decrementIndexes}/>
       </div>  
     </Layout>`
