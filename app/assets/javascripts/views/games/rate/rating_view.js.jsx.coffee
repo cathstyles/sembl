@@ -81,7 +81,7 @@ Layout = Sembl.Layouts.Default
     nodes = tree.nodes(rootNode)
 
     if @state.progress == 'finished'
-      finishedDiv = `<div className="finished">
+      finishedDiv = `<div className="flash finished">
         Finished rating! 
       </div>`
       @endRating()
