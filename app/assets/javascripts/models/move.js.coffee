@@ -16,12 +16,8 @@ class Sembl.Move extends Backbone.Model
   addResemblance: (link, description) ->
     @resemblances[link.id] = description || null
 
-  linksByXDimension: -> 
-    @links.sortBy (link) ->
-      link.source().get('x')
-
-  linkAt: (index) -> 
-    link = @linksByXDimension()[index]
+  activateLinkAt: (index) -> 
+    @links.at(index).active = true
 
   toJSON: -> 
     move:

@@ -14,6 +14,7 @@
 
   saveRating: (ratio) -> 
     sembl = @props.link.get('viewable_resemblance')
+    console.log sembl
     postData = 
       rating: {resemblance_id: sembl.id, rating: ratio}
       authenticity_token: @props.move.game.get('auth_token')
@@ -33,7 +34,8 @@
       saveRatingDebounced(data.ratio)
 
   render: ->
-    rating = @currentRating()
+    console.log @props.link
+    rating = @currentRating() or 0
     `<div className="rating__rate">
       <input className="rating__rate__slider" type="text" defaultValue={rating} />
     </div>`
