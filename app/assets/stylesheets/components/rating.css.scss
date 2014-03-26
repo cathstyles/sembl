@@ -54,29 +54,33 @@
   color: $highlight-color;
 }
 
-.rating__nav__next {
+.rating__nav__next,
+.rating__nav__back {
   @extend %button;
   position: absolute;
   top: 0;
   right: 0;
   i {
     @include font-size(12);
-    padding-left: 2px;
+    padding-left: 4px;
   }
 }
 
 .rating__nav__back {
-  @extend %button;
-  position: absolute;
-  top: 0;
   left: 0;
+  right: auto;
   i {
-    @include font-size(12);
-    padding-left: 2px;
+    padding-left: 0;
+    padding-right: 4px;
   }
 }
 
 .rating__nav__next--disabled {
+  filter:          alpha(opacity=30);
+  -webkit-opacity: 0.3;
+  -moz-opacity:    0.3;
+  opacity:         0.3;
+  pointer-events: none;
 }
 
 .rating__rate {
