@@ -77,5 +77,21 @@
 }
 
 .move__resemblance__edit {
-  border: 1px solid red;
+  text-align: center;
+  p {
+    @include font-size(18);
+    @extend %white-drop-shadow;
+    font-weight: 600;
+  }
+  strong {
+    color: $link-color;
+  }
+}
+
+.move__resemblance__edit-form {
+  @include pad(top, mid);
+  text-align: center;
+  input {
+    width: 80%;
+  }
 }

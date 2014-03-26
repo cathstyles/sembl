@@ -30,10 +30,10 @@
     
     `<div className="move__resemblance__edit">
       <p>What&rsquo;s the resemblance between <strong>{sourceTitle}</strong> and <strong>{targetTitle}</strong>?</p>
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className="move__resemblance__edit-form">
         <input ref="input" type="text" onChange={this.handleChange} value={this.state.description}/>
         <button type="submit" className="move__edit__resemblance__close-button">
-          <i className="fa fa-times"></i> Close
+          <i className="fa fa-thumbs-up"></i> Add Sembl
         </button>
       </form>
     </div>`

@@ -43,13 +43,18 @@
   }
 }
 
-.move__edit__resemblance {
-  strong {
-    color: $highlight-color-darker;
-    font-weight: bold;
-  }
-}
+// .move__edit__resemblance {
+//   strong {
+//     color: $highlight-color-darker;
+//     font-weight: bold;
+//   }
+// }
 
 .move__edit__resemblance__close-button {
-  @extend %button--alternate;
+  @extend %button;
+  @include inset(top, small);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
 }
