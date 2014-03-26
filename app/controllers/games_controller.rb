@@ -10,7 +10,8 @@ class GamesController < ApplicationController
     @games = {
       open: Game.open_to_join,
       participating:  Game.participating(current_user),
-      hosted: Game.hosted_by(current_user)
+      hosted: Game.hosted_by(current_user), 
+      browse: Game.where(invite_only: false).without_states(:open, :joining)
     }
     respond_with @games
   end

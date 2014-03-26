@@ -195,7 +195,19 @@ class Game < ActiveRecord::Base
       round_complete = false unless node.final_placement.present?
     end
 
-    self.current_round += 1 if round_complete
+    if round_complete
+      self.current_round += 1 
+      save!
+      unlock_nodes_for_round
+    end
+  end
+
+  def unlock_nodes_for_round 
+    nodes.where(round: current_round).each do |node|
+      puts node.can_unlock?
+      puts current_round
+      node.unlock
+    end 
   end
 
   def calculate_scores 
@@ -212,7 +224,7 @@ class Game < ActiveRecord::Base
         winning_move = move if move.score >= (winning_move.try(:score) || 0)
       end
       # Reify the move with the highest score to the final placement/resemblences
-      winning_move.reify
+      winning_move.reify unless winning_move.nil?
     end
   end
 
