@@ -8,6 +8,7 @@ Sembl::Application.routes.draw do
       end
       # Need a show route for the create route _url method to work when calling respond_with. 
       resources :ratings, only: [:create, :index, :show] 
+      resources :results, only: [:create, :index, :show] 
 
       get 'moves/round', to: 'moves#round'
     end

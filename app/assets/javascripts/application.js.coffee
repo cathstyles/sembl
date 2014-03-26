@@ -9,6 +9,8 @@
 #= require models/game
 #= require models/user
 #= require models/move
+#= require models/result
+#= require collections/results
 #= require routers/game_router
 #= require viewloader
 #= require views/uploader/contributions_view
