@@ -1,10 +1,11 @@
 #= require views/masthead/masthead
 #= require views/components/modal
+#= require views/components/flash
 
 ###* @jsx React.DOM ###
 
 {Masthead} = Sembl.Masthead
-{Modal} = Sembl.Components
+{Modal, Flash} = Sembl.Components
 Sembl.Layouts.Default = React.createClass 
   render: ->
     flashes = this.props.flashes
@@ -13,6 +14,7 @@ Sembl.Layouts.Default = React.createClass
       <Modal />
       <Masthead>{this.props.header}</Masthead>
       <div className="content container">
+        <Flash />
         {this.props.children}
       </div>
       <div className="footer container">

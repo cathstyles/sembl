@@ -56,18 +56,23 @@ Graph = Sembl.Components.Graph.Graph
       move: @state.move
 
   handleSubmitMove: (event) ->
-    console.log 'Submitting move', JSON.stringify(@state.move)
-    url = "/api/moves.json"
     Sembl.move = @state.move
     self = this
     @state.move.save({}, {
       success: -> 
-        console.log "move success"
         self.handleMoveComplete()
-      error: -> console.log "move error"
+      error: (model, response) -> 
+        responseObj = JSON.parse response.responseText;
+        
+        if response.status == 422 
+          msgs = (value for key, value of responseObj.errors)
+          $(window).trigger('flash.error', msgs.join(", "))   
+        else
+          $(window).trigger('flash.error', "Error saving move: #{responseObj.errors}")
     })
 
   handleMoveComplete: () ->
+    Sembl.game.fetch()
     Sembl.router.navigate("/", trigger: true)
 
   getInitialState: () ->

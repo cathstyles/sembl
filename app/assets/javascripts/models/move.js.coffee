@@ -1,7 +1,8 @@
 # Attributes: node, thing, resemblances 
 
 class Sembl.Move extends Backbone.Model
-  urlRoot: "/api/moves"
+  url: -> 
+    "/api/games/#{@game.id}/moves"
 
   initialize: (options) ->
     @game = options?.game or @collection?.game

@@ -4,27 +4,23 @@ class Api::MovesController < ApiController
   after_filter :verify_authorized, except: [:round, :show]
 
   before_filter :authenticate_user!
-  before_filter :find_game, only: [:round]
+  before_filter :find_game
 
-  #TODO is this being used?
+  # #TODO is this being used?
   def show
-    @node = Node.find(params[:id])
-    respond_with @node
+    # @node = Node.find(params[:id])
+    # respond_with @node
   end
 
   def create
-    game = Game.find(move_params[:game_id])
-
-    move = Move.new(user: current_user)
-    move.placement = move_params[:placement]
-    move.resemblances = move_params[:resemblances]
-    authorize move
-    if move.valid? and move.save
-      game.player(current_user).create_move
-      render json: move
-    else
-      render json: move, status: 400
+    @move = Move.new(user: current_user)
+    @move.placement = move_params[:placement]
+    @move.resemblances = move_params[:resemblances]
+    authorize @move
+    if @move.valid? and @move.save
+      @game.player(current_user).create_move
     end
+    respond_with @move, :location => api_game_moves_url
   end
 
   private
@@ -46,11 +42,6 @@ class Api::MovesController < ApiController
       },
       placement: [:node_id, :thing_id]
     )
-    placement = move.require(:placement)
-    placement.require(:node_id)
-    placement.require(:thing_id)
-    move.require(:resemblances)
-    move.require(:game_id)
     move
   end
 
