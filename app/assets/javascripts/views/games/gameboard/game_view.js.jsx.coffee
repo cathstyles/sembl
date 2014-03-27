@@ -4,6 +4,7 @@
 #= require views/games/header_view
 #= require views/layouts/default
 #= require views/components/graph/graph
+#= require jquery.timer
 
 ###* @jsx React.DOM ###
 
@@ -28,11 +29,19 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
 
   componentDidMount: ->
     @handleResize()
+
+    @timer = $.timer =>
+      @model().fetch()
+    @timer.set
+      time: 10000
+      autostart: true
+
   componentDidUpdate: ->
     @handleResize()
     
   componentWillUnmount: ->
     $(window).off('resize')
+    @timer.stop()
 
   handleResize: ->
     mastheadHeight = $('.masthead').height()
