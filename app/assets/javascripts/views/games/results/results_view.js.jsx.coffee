@@ -6,79 +6,78 @@
 Layout = Sembl.Layouts.Default
 {HeaderView} = Sembl.Games
 
-@Sembl.Games.Results.PlayerMove = React.createClass
+@Sembl.Games.Results.SemblResult = React.createClass
   render: ->
-    result = @props.result
-    key = result.source.node.id+"."+result.target.node.id
+    {source, target, description, score} = @props
+    score = Math.floor(score * 100)
+    key = "#{source.node.id}.#{target.node.id}"
     `<div className="results__player__move" key={key}>
       <div className="results__player__move__node-wrapper">
         <div className="results__player__move__source">
-          <img className="results__player__move__thing" src={result.source.thing.image_admin_url} />
+          <img className="results__player__move__thing" src={source.thing.image_admin_url} />
         </div>
         <div className="results__player__move__target">
-          <img className="results__player__move__thing" src={result.target.thing.image_admin_url} />
+          <img className="results__player__move__thing" src={target.thing.image_admin_url} />
         </div>
       </div>
-      <div className="results__player__move__sembl">{result.description}</div>
-      <div className="results__player__move__score"><i className="fa fa-star"></i><em>{result.score}</em></div>
+      <div className="results__player__move__sembl">{description}</div>
+      <div className="results__player__move__score"><i className="fa fa-star"></i><em>{score}</em></div>
     </div>`
 
-{PlayerMove} = @Sembl.Games.Results
-@Sembl.Games.Results.Player = React.createClass
-  componentWillMount: ->
-    # TODO: This is just random data argh!
-
-    randomThing = ->
-      Promise.resolve($.ajax({url :'/api/things/random.json', cache: false}));
-    resultPromises = for i in [0..2]
-      Promise.all([randomThing(), randomThing()]).then((things) =>
-        return {
-          source:
-            node: Sembl.game.nodes.first()
-            thing: things[0]
-          target:
-            node: Sembl.game.nodes.last()
-            thing: things[1]
-          description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros."
-          score: Math.floor(Math.random() * 100)
-        }
-      )
-    Promise.all(resultPromises).then((results) =>
-      @setState 
-        results: results
-    )
-
+{SemblResult} = @Sembl.Games.Results
+@Sembl.Games.Results.MoveResult = React.createClass
   render: ->
-    player = @props.player
-    console.log 'state', @state
-    playerMoves = for result in @state?.results || []
-      `<PlayerMove result={result} />`
+    result = @props.result
+    target = result.get('target')
+    Sembl.results = Sembl.results || []
+    Sembl.results.push(result)
+    semblResults = for resemblance in result.get('resemblances')
+      params = 
+        source: resemblance.source
+        target: target
+        description: resemblance.description
+        score: result.get('score') || 0 # TODO: This should be the Resemblance score as for multi sembl moves there is a score for each sembl.
+      SemblResult(params)
+    `<div className="results__move-result">
+      {semblResults}
+    </div>`
 
-    user = player.get('user')
+{MoveResult} = @Sembl.Games.Results
+@Sembl.Games.Results.PlayerResults = React.createClass
+  render: ->
+    user = @props.results[0].get('user')
+    moveResults = for result in @props.results
+      `<MoveResult result={result} />`
 
     `<div className="results__player">
       <h1 className="results__player__email"><i className="fa fa-user"></i> {user.email}</h1>
       <div className="results__player__moves">
-        {playerMoves}
+        {moveResults}
       </div>
     </div>`
 
 
 
-{Player} = @Sembl.Games.Results
+{PlayerResults} = @Sembl.Games.Results
 @Sembl.Games.Results.ResultsView = React.createClass
   render: -> 
     header = `<HeaderView game={this.props.game} >
       Results
     </HeaderView>`
 
-    players = for player in @props.game.players.models
-      `<Player key={player.id} player={player} />`
+    userGroupedResults = {}
+    for result in @props.results.models
+      email = result.get('user').email
+      userGroupedResults[email] = userGroupedResults[email] || []
+      userGroupedResults[email].push(result)
 
-    console.log players
+    playerResults = for email, results of userGroupedResults
+      key = email
+      `<PlayerResults key={key} results={results} />`
+
     `<Layout className="game" header={header}>
       <div className="results__players">
-        {players}
+        {playerResults}
       </div>
     </Layout>`
 

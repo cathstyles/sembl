@@ -1,3 +1,4 @@
+json.score placement.score
 json.(placement, :created_at)
 json.thing_id placement.try(:thing).try(:id)
 json.image_url placement.try(:thing).try(:image).try(:url)

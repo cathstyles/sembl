@@ -18,7 +18,6 @@
       $(window).trigger('modal.open', `<ThingModal thing={this.state.thing} />`)
 
   handleSetThing: (event, data) ->
-    console.log 'handle set thing', event, data
     if data.node.id == @props.node.id
       @setState
         thing: data.thing

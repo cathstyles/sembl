@@ -40,11 +40,12 @@ class Sembl.GameRouter extends Backbone.Router
       )
 
   results: (round) ->
-    console.log 'results'
     React.unmountComponentAtNode(document.getElementsByTagName('body')[0])
-    results = {}
-    React.renderComponent(
-      Sembl.Games.Results.ResultsView({results: results, game: @game})
-      document.getElementsByTagName('body')[0]
-    )
+    results = new Sembl.Results([], {game: @game, round: round})
+    res = results.fetch()
+    res.done =>
+      React.renderComponent(
+        Sembl.Games.Results.ResultsView({results: results, game: @game})
+        document.getElementsByTagName('body')[0]
+      )
 

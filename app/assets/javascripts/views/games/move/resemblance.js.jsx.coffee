@@ -1,4 +1,3 @@
-#= require views/games/move/resemblance_modal
 
 ###* @jsx React.DOM ###
 
@@ -11,7 +10,7 @@
     $(window).off('move.resemblance.change')
 
   handleClick: (event, link) ->
-    $(window).trigger('modal.open', `<ResemblanceModal link={this.props.link} />`)
+    $(window).trigger('move.resemblance.click', {link: @props.link, description: @state.description})
 
   handleResemblanceChange: (event, resemblance) ->
     if resemblance.link.id == @props.link.id
