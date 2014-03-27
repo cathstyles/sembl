@@ -38,7 +38,7 @@ Sembl.Games.HeaderView = React.createClass
 
     join = `<li className="header__link">
         <i className="fa fa-plus header__link-icon"></i>
-        <a className='header__link-anchor' onClick={this.handleJoin}>Join Game</a>
+        <a href="#" className='header__link-anchor' onClick={this.handleJoin}>Join Game</a>
       </li>` if game.canJoin()
 
 
