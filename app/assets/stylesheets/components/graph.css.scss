@@ -140,13 +140,14 @@
 
 .graph__resemblance__filled {
   @extend %button;
-  @include font-size(16);
+  font-size: 16px !important;
+  font-size: 1.6rem !important;
   width: 220px;
   margin-top: -20px;
   margin-left: -110px;
   text-align: center;
-  letter-spacing: 0;
-  text-transform: none;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
   // &:before {
   //   content: "";
   //   position: absolute;

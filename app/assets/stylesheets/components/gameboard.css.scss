@@ -3,15 +3,20 @@
     display: none;
   }
 }
+
 .game__graph {
   width: 100%;
   position: relative;
 }
-.game__status__end-turn {
+
+.game__status__button {
   @extend %button;
   position: absolute;
   bottom: 20px;
   right: 20px;
+  i {
+    padding-right: 6px;
+  }
 }
 
 /* TODO: I think we can delete everything below because we use the graph component instead now */
