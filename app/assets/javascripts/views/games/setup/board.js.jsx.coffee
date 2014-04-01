@@ -17,7 +17,6 @@
     self = this
     boards = this.props.boards.map((board) -> 
       handleClick = (event) ->
-        console.log self.props, self.props.selectBoardEvent, {board_id: board.id}
         $(window).trigger(self.props.selectBoardEvent, {board_id: board.id})
         $(window).trigger(self.props.toggleEvent)
         event.preventDefault()
@@ -43,7 +42,6 @@
     title: this.props.board.title
 
   handleNewBoard: (event, data) ->
-    console.log 'handle new board'
     board_id = data.board_id
     for board in this.props.boards
       if board.id == board_id

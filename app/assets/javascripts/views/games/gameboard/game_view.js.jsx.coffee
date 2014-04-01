@@ -80,7 +80,6 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
 
   redirectOnStateChange: (previousState) -> 
     currentState = @model().get('player')?.state
-    console.log currentState
     if currentState == "rating" and currentState != previousState
       Sembl.router.navigate("rate", trigger: true)
 

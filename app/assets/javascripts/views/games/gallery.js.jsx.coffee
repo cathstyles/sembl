@@ -65,7 +65,6 @@
     # ensure we render twice, so that the gallery things exist as 
     # they don't exist yet in componentDidMount, but they do exist in componentDidUpdate
     if not @state.first
-      console.log @state
       @setState 
         first: true
     

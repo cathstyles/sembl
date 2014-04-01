@@ -39,7 +39,6 @@
       authenticity_token: this.props.authenticity_token
     _.extend(params.game, this.refs.settings.getParams())
     _.extend(params.game, this.refs.metadata.getParams())
-    console.log "params", params
     params
 
   handleSave: () ->

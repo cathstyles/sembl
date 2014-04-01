@@ -31,7 +31,6 @@ Layout = Sembl.Layouts.Default
     postData = authenticity_token: @props.game.get('auth_token')
     result = $.post "#{@props.game.url()}/end_rating.json", postData, (data) -> 
       Sembl.game.set(data)
-      console.log Sembl.game.get('player')
       if Sembl.game.get('player')?.state == 'playing_turn'
         navigateTo = "results/#{Sembl.game.resultsAvailableForRound()}"
       else

@@ -41,7 +41,6 @@ Graph = Sembl.Components.Graph.Graph
 
   handleResemblanceClick: (event, data) ->
     link = data.link
-    console.log 'move view state', @state
     $(window).trigger('modal.open', `<ResemblanceModal description={data.description} link={link} targetThing={this.state.targetThing}/>`)
 
   handleResemblanceChange: (event, resemblance) ->
