@@ -11,17 +11,22 @@ Sembl.Layouts.Default = React.createClass
   getInitialState: -> 
     newBody: null,
     body: null, 
-    header: null
+    header: null,
+    className: null
 
   render: ->
     $(window).trigger('flash.hide')
 
-    `<div className={this.props.className}>
+    `<div className={this.state.className}>
       <Modal />
       <Masthead>{this.state.header}</Masthead>
       <div className="content container">
         <Flash />
         {this.state.body}
+      </div>
+      <div className="content container transition-in">
+        <Flash />
+        {this.state.newBody}
       </div>
       <div className="footer container">
         <p>
