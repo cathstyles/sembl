@@ -1,16 +1,12 @@
-#= require views/layouts/default
 #= require views/games/rate/update_rating_view
 #= require views/games/rate/navigation_view
 #= require views/games/rate/resemblance
-#= require views/games/header_view
 #= require views/components/graph/graph
 
 
 ###* @jsx React.DOM ###
 {UpdateRatingView, NavigationView, Resemblance} = Sembl.Games.Rate
-HeaderView = Sembl.Games.HeaderView
 Graph = Sembl.Components.Graph.Graph
-Layout = Sembl.Layouts.Default
 
 @Sembl.Games.Rate.RatingView = React.createBackboneClass
 
@@ -103,34 +99,28 @@ Layout = Sembl.Layouts.Default
       </div>`
       @endRating()
 
-      
-    header = `<HeaderView game={this.props.game} >
-      Rating
-    </HeaderView>`
 
-    `<Layout className="game" header={header}>
-      <div className="move">
-        <div className="rating__info">
-          <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
-        </div>
-        {finishedDiv}
-        <UpdateRatingView 
-          move={this.currentMove()} 
-          link={this.state.currentLink} 
-          key={this.state.currentLink.cid}
-          handleRated={this.updateRated} 
+    `<div className="move">
+      <div className="rating__info">
+        <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
+      </div>
+      {finishedDiv}
+      <UpdateRatingView 
+        move={this.currentMove()} 
+        link={this.state.currentLink} 
+        key={this.state.currentLink.cid}
+        handleRated={this.updateRated} 
+        />
+      <div className="move__graph">
+        <Graph 
+          nodes={nodes} 
+          links={move.links} 
+          childClasses={graphChildClasses} 
           />
-        <div className="move__graph">
-          <Graph 
-            nodes={nodes} 
-            links={move.links} 
-            childClasses={graphChildClasses} 
-            />
-        </div>
-        <NavigationView 
-          moves={this.props.moves} 
-          currentLink={this.state.currentLink} 
-          handleNext={this.incrementIndexes} 
-          handleBack={this.decrementIndexes}/>
-      </div>  
-    </Layout>`
+      </div>
+      <NavigationView 
+        moves={this.props.moves} 
+        currentLink={this.state.currentLink} 
+        handleNext={this.incrementIndexes} 
+        handleBack={this.decrementIndexes}/>
+    </div>`

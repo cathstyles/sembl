@@ -55,7 +55,7 @@ Sembl.Games.HeaderView = React.createBackboneClass
     if resultsAvailableForRound
       roundResults = `<li className="header__link">
           <i className="fa fa-trophy header__link-icon"></i>
-          <a href="#results/{resultsAvailableForRound}" className="header__link-anchor">
+          <a href={'#results/' + resultsAvailableForRound} className="header__link-anchor">
             <span className="header__link-truncate">Round&nbsp;</span>
             Results
           </a>

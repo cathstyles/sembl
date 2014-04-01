@@ -6,12 +6,16 @@
 
 {Masthead} = Sembl.Masthead
 {Modal, Flash} = Sembl.Components
+
 Sembl.Layouts.Default = React.createClass 
   getInitialState: -> 
+    newBody: null,
     body: null, 
     header: null
-    
+
   render: ->
+    $(window).trigger('flash.hide')
+
     `<div className={this.props.className}>
       <Modal />
       <Masthead>{this.state.header}</Masthead>
@@ -25,7 +29,5 @@ Sembl.Layouts.Default = React.createClass
         </p>
       </div>
     </div>`
-
-
 
     

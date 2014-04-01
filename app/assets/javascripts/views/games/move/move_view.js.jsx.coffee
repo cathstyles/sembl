@@ -2,21 +2,18 @@
 #= require handlers/gallery_filter_handler
 #= require views/components/graph/graph
 #= require views/games/gallery
-#= require views/games/header_view
 #= require views/games/move/actions
 #= require views/games/move/gallery_thing_modal
 #= require views/games/move/node
 #= require views/games/move/resemblance
 #= require views/games/move/resemblance_modal
 #= require views/games/move/selected_thing
-#= require views/layouts/default
 
 ###* @jsx React.DOM ###
 
 {Actions, Board, Node, Resemblance, SelectedThing, GalleryThingModal, ResemblanceModal, PlacementModal} = Sembl.Games.Move
-{Gallery, HeaderView} = Sembl.Games
-Layout = Sembl.Layouts.Default
 Graph = Sembl.Components.Graph.Graph
+Gallery = @Sembl.Games.Gallery
 
 @Sembl.Games.Move.MoveView = React.createClass
   componentWillMount: ->
@@ -108,22 +105,16 @@ Graph = Sembl.Components.Graph.Graph
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
 
-    header = `<HeaderView game={this.props.game} >
-      Your Move
-    </HeaderView>`
-
     graphChildClasses = {
       node: Node
       resemblance: Resemblance
     }
 
-    `<Layout className="game" header={header}>
-      <div className="move">
-        <div className="move__graph">
-          <Graph nodes={nodes} links={links} childClasses={graphChildClasses}/>
-        </div>
-        <Actions />
-        <Gallery SelectedClass={SelectedThing} />
+    `<div className="move">
+      <div className="move__graph">
+        <Graph nodes={nodes} links={links} childClasses={graphChildClasses}/>
       </div>
-    </Layout>`
+      <Actions />
+      <Gallery SelectedClass={SelectedThing} />
+    </div>`
 
