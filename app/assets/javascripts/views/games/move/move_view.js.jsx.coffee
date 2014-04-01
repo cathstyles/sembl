@@ -69,6 +69,7 @@ Graph = Sembl.Components.Graph.Graph
     @state.move.save({}, {
       success: -> 
         self.handleMoveComplete()
+        # $(window).trigger('flash.notice', "Move submitted!")
       error: (model, response) -> 
         responseObj = JSON.parse response.responseText;
         

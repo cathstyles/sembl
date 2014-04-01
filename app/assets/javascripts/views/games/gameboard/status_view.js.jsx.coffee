@@ -42,9 +42,6 @@ Sembl.Games.Gameboard.StatusView = React.createClass
     game_status = @props.game.get('status')
     player = @props.game.get('player')
 
-    console.log "rendering status"
-    console.log "player state: #{player?.state}"
-
     if player
       statusHTML = @getButtonForStatus(player.state, player.move_state)
     else

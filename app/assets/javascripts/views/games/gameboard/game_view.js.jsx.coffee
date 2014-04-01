@@ -16,13 +16,38 @@ Graph = Sembl.Components.Graph.Graph
 Sembl.Games.Gameboard.GameView = React.createBackboneClass 
   handleJoin: ->  
     postData = authenticity_token: @model().get('auth_token')
-    $.post "#{@model().url()}/join.json", postData, (data) =>
+    result = $.post "#{@model().url()}/join.json", postData, (data) =>
       @model().set(data)
+      $(window).trigger('flash.notice', "You have joined! You can start adding images and Sembls to open nodes.") 
+
+    result.fail (response) -> 
+      responseObj = JSON.parse response.responseText;
+      if response.status == 422 
+        msgs = (value for key, value of responseObj.errors)
+        $(window).trigger('flash.error', msgs.join(", "))   
+      else
+        $(window).trigger('flash.error', "Error joining game: #{responseObj.errors}")
 
   handleEndTurn: -> 
     postData = authenticity_token: @model().get('auth_token')
-    $.post "#{@model().url()}/end_turn.json", postData, (data) =>
+    result = $.post "#{@model().url()}/end_turn.json", postData, (data) =>
       @model().set(data)
+      if @model().get('player')?.state == 'rating'
+        $(window).trigger('flash.notice', "Round complete! Beginning rating...")
+        setTimeout => 
+          @redirectOnStateChange('playing_turn')
+        , 1000
+      else
+        $(window).trigger('flash.notice', "Turn ended. You will be redirected to rating when your opponents have added their moves.") 
+
+    result.fail (response) -> 
+      responseObj = JSON.parse response.responseText;
+      if response.status == 422 
+        msgs = (value for key, value of responseObj.errors)
+        $(window).trigger('flash.error', msgs.join(", "))   
+      else
+        $(window).trigger('flash.error', "Error ending turn: #{responseObj.errors}")
+
       
   componentWillMount: ->
     $(window).on('resize', @handleResize)
@@ -31,7 +56,11 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     @handleResize()
 
     @timer = $.timer =>
-      @model().fetch()
+      previousState = @model().get('player')?.state
+      res = @model().fetch()
+      res.done => 
+        @redirectOnStateChange(previousState)
+
     @timer.set
       time: 10000
       autostart: true
@@ -49,9 +78,15 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     $(@refs.graph.getDOMNode()).css('height', (windowHeight - mastheadHeight) + 'px')
     $(window).trigger('graph.resize')
 
+  redirectOnStateChange: (previousState) -> 
+    currentState = @model().get('player')?.state
+    console.log currentState
+    if currentState == "rating" and currentState != previousState
+      Sembl.router.navigate("rate", trigger: true)
+
   render: ->
     # this width and height will be used to scale the x,y values of the nodes into the width and height of the graph div.
-
+      
     width = @model().width()
     height = @model().height()
 
