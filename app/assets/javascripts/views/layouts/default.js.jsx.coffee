@@ -7,15 +7,17 @@
 {Masthead} = Sembl.Masthead
 {Modal, Flash} = Sembl.Components
 Sembl.Layouts.Default = React.createClass 
+  getInitialState: -> 
+    body: null, 
+    header: null
+    
   render: ->
-    flashes = this.props.flashes
-
     `<div className={this.props.className}>
       <Modal />
-      <Masthead>{this.props.header}</Masthead>
+      <Masthead>{this.state.header}</Masthead>
       <div className="content container">
         <Flash />
-        {this.props.children}
+        {this.state.body}
       </div>
       <div className="footer container">
         <p>

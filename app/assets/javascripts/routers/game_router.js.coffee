@@ -1,4 +1,5 @@
 #= require views/games/gameboard/game_view
+#= require views/games/gameboard/game_header_view
 #= require views/games/move/move_view
 #= require collections/moves
 #= require views/games/rate/rating_view
@@ -12,16 +13,17 @@ class Sembl.GameRouter extends Backbone.Router
     "rate": "rate"
 
   initialize: (@game) ->
-
-  board: ->
-    React.unmountComponentAtNode(document.getElementsByTagName('body')[0])
-    React.renderComponent(
-      Sembl.Games.Gameboard.GameView({model: @game})
+    Sembl.layout = React.renderComponent(
+      Sembl.Layouts.Default()
       document.getElementsByTagName('body')[0]
     )
 
+  board: ->
+    Sembl.layout.setState 
+      body: Sembl.Games.Gameboard.GameView({model: @game}),
+      header: Sembl.Games.Gameboard.GameHeaderView(model: @game)
+
   add_move: (nodeID) ->
-    React.unmountComponentAtNode(document.getElementsByTagName('body')[0])
     node = @game.nodes.get(nodeID)
     React.renderComponent(
       Sembl.Games.Move.MoveView({node: node, game: @game})

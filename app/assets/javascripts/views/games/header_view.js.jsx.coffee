@@ -17,7 +17,7 @@ Sembl.Games.MoreInfoView = React.createClass
 
 {MoreInfoView} = Sembl.Games
 
-Sembl.Games.HeaderView = React.createClass
+Sembl.Games.HeaderView = React.createBackboneClass
 
   componentDidMount: ->
     @offsetRoundTab();
@@ -27,11 +27,12 @@ Sembl.Games.HeaderView = React.createClass
     $('.header__centre-title').css 'margin-left', ((gameplayTabWidth / 2) * -1) + 'px'
 
   handleJoin: ->
-    @props.handleJoin()
+    # @props.handleJoin()
+    $(window).trigger('header.joinGame')
 
   render: ->
-    game = @props.game
-    resultsAvailableForRound = @props.game.resultsAvailableForRound() 
+    game = @model()
+    resultsAvailableForRound = game.resultsAvailableForRound() 
 
     headerTitle = `<h1 className="header__title">
         {game.get('title')}
@@ -43,7 +44,7 @@ Sembl.Games.HeaderView = React.createClass
       </li>` if game.canJoin()
 
 
-    moreInfo = `<MoreInfoView game={this.props.game}/>` if  !!game.get('description')
+    moreInfo = `<MoreInfoView game={this.model()}/>` if  !!game.get('description')
 
     editUrl = "/games/" + game.get('id') + "/edit"
     edit = `<li className="header__link">
@@ -69,7 +70,7 @@ Sembl.Games.HeaderView = React.createClass
       {headerTitle}
       {moreInfo}
       <div className="header__centre-title">
-        {this.props.children}
+        {this.props.title}
       </div>
       <ul className="header__links">
         {join}
