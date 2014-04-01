@@ -38,3 +38,6 @@ class Sembl.Game extends Backbone.Model
 
   canJoin: -> 
     !@get('is_participating') and !@get('is_hosting') and (@get('state') is 'open' or @get('state') is 'joining') 
+
+  resultsAvailableForRound: -> 
+    if @get('state') == 'complete' then @get('current_round') else @get('current_round')-1

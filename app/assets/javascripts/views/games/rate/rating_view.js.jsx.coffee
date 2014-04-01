@@ -29,12 +29,25 @@ Layout = Sembl.Layouts.Default
 
   endRating: -> 
     postData = authenticity_token: @props.game.get('auth_token')
-    $.post "#{@props.game.url()}/end_rating.json", postData, (data) -> 
+    result = $.post "#{@props.game.url()}/end_rating.json", postData, (data) -> 
       Sembl.game.set(data)
-      console.log data
+      console.log Sembl.game.get('player')
+      if Sembl.game.get('player')?.state == 'playing_turn'
+        navigateTo = "results/#{Sembl.game.resultsAvailableForRound()}"
+      else
+        navigateTo = ""
+
       setTimeout -> 
-        Sembl.router.navigate("", trigger: true)
+        Sembl.router.navigate(navigateTo, trigger: true)
       , 800
+
+    result.fail (response) -> 
+      responseObj = JSON.parse response.responseText;
+      if response.status == 422 
+        msgs = (value for key, value of responseObj.errors)
+        $(window).trigger('flash.error', msgs.join(", "))   
+      else
+        $(window).trigger('flash.error', "Error rating: #{responseObj.errors}")
 
   incrementIndexes: -> 
     move = @currentMove()

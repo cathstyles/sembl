@@ -31,6 +31,7 @@ Sembl.Games.HeaderView = React.createClass
 
   render: ->
     game = @props.game
+    resultsAvailableForRound = @props.game.resultsAvailableForRound() 
 
     headerTitle = `<h1 className="header__title">
         {game.get('title')}
@@ -50,13 +51,14 @@ Sembl.Games.HeaderView = React.createClass
         <a href={editUrl} className="header__link-anchor">Edit</a>
       </li>` if game.get('is_hosting')
 
-    roundResults = `<li className="header__link">
-        <i className="fa fa-trophy header__link-icon"></i>
-        <a href="#" className="header__link-anchor">
-          <span className="header__link-truncate">Round&nbsp;</span>
-          Results
-        </a>
-      </li>`
+    if resultsAvailableForRound
+      roundResults = `<li className="header__link">
+          <i className="fa fa-trophy header__link-icon"></i>
+          <a href="#results/{resultsAvailableForRound}" className="header__link-anchor">
+            <span className="header__link-truncate">Round&nbsp;</span>
+            Results
+          </a>
+        </li>`
 
     help = `<li className="header__link">
         <i className="fa fa-question-circle header__link-icon"></i> 
