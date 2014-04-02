@@ -1,39 +1,38 @@
 #= require d3
 #= require handlers/gallery_filter_handler
 #= require views/components/graph/graph
+#= require views/components/searcher
 #= require views/games/gallery
 #= require views/games/move/actions
 #= require views/games/move/gallery_thing_modal
 #= require views/games/move/node
 #= require views/games/move/resemblance
 #= require views/games/move/resemblance_modal
-#= require views/games/move/selected_thing
 
 ###* @jsx React.DOM ###
 
 {Actions, Board, Node, Resemblance, SelectedThing, GalleryThingModal, ResemblanceModal, PlacementModal} = Sembl.Games.Move
 Graph = Sembl.Components.Graph.Graph
+{Searcher} = Sembl.Components
 Gallery = @Sembl.Games.Gallery
 
 @Sembl.Games.Move.MoveView = React.createClass
+  searcherPrefix: 'move.searcher'
+  galleryPrefix: 'move.gallery'
+
   componentWillMount: ->
-    @galleryFilterHandler = new Sembl.Handlers.GalleryFilterHandler(@props.game.get('filter'))
-    @galleryFilterHandler.bind()
     $(window).on('move.actions.submitMove', @handleSubmitMove)
     $(window).on('move.resemblance.change', @handleResemblanceChange)
-    $(window).on('move.gallery.selectTargetThing', @handleSelectTargetThing)
-    $(window).on('gallery.thing.click', @handleGalleryClick)
+    $(window).on("#{@galleryPrefix}.selectTargetThing", @handleSelectTargetThing)
+    $(window).on("#{@galleryPrefix}.thing.click", @handleGalleryClick)
     $(window).on('move.resemblance.click', @handleResemblanceClick)
-
-  componentDidMount: ->
-    @galleryFilterHandler.handleSearch()
 
   componentWillUnmount: ->
     @galleryFilterHandler.unbind()
     $(window).off('move.actions.submitMove')
     $(window).off('move.resemblance.change')
-    $(window).off('move.gallery.selectTargetThing')
-    $(window).off('gallery.thing.click')
+    $(window).off("#{@galleryPrefix}.selectTargetThing")
+    $(window).off("#{@galleryPrefix}.thing.click")
     $(window).off('move.resemblance.click')
 
   handleResemblanceClick: (event, data) ->
@@ -111,10 +110,11 @@ Gallery = @Sembl.Games.Gallery
     }
 
     `<div className="move">
+      <Searcher filter={this.props.game.get('filter')} prefix={this.searcherPrefix} />
       <div className="move__graph">
         <Graph nodes={nodes} links={links} childClasses={graphChildClasses}/>
       </div>
       <Actions />
-      <Gallery SelectedClass={SelectedThing} />
+        <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
     </div>`
 
