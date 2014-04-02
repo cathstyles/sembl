@@ -1,14 +1,14 @@
 // Results
 
-.results__players {
+.results__player-moves {
   @include pad(top, mid);
 }
 
-.results__player {
+.results__player-move {
   @include pad(bottom, medium);
 }
 
-.results__player__email {
+.results__player-move__email {
   @extend .medium-heading;
   @include pad(bottom, small);
   border-bottom: 1px solid $border-color;
@@ -18,7 +18,7 @@
   }
 }
 
-.results__player__move {
+.results__player-move__move {
   @extend %clearfix-micro;
   @include pad(vert, small);
   border-bottom: 1px solid $border-color;
@@ -27,7 +27,7 @@
   }
 }
 
-.results__player__move__node-wrapper {
+.results__player-move__move__node-wrapper {
   @extend %clearfix-micro;
   float: left;
   position: relative;
@@ -45,7 +45,7 @@
   }
 }
 
-.results__player__move__source,
+.results__player-move__move__source,
 .results__player__move__target {
   background-color: #faf0dc;
   border: 2px solid #fff;
@@ -62,7 +62,7 @@
   }
 }
 
-.results__player__move__target {
+.results__player-move__move__target {
   border-color: #4f570f;
   box-shadow: 0 0 12px 6px rgba(#999,.4);
   float: right;
@@ -71,7 +71,7 @@
   }
 }
 
-.results__player__move__sembl {
+.results__player-move__move__sembl {
   @extend %white-drop-shadow;
   @include font-size(18);
   @include pad(all, small);
@@ -90,7 +90,7 @@
   }
 }
 
-.results__player__move__score {
+.results__player-move__move__score {
   @include inset(left, large);
   @include pad(all, small);
   background-color: #c6cc8a;

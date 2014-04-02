@@ -23,6 +23,7 @@ class Api::GamesController < ApiController
     authorize @game
     player = @game.player(current_user)
     player.end_turn if player
+    @game.reload
     respond_with @game
   end
 
