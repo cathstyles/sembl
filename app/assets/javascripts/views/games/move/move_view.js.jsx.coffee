@@ -3,21 +3,18 @@
 #= require views/components/graph/graph
 #= require views/components/searcher
 #= require views/games/gallery
-#= require views/games/header_view
 #= require views/games/move/actions
 #= require views/games/move/gallery_thing_modal
 #= require views/games/move/node
 #= require views/games/move/resemblance
 #= require views/games/move/resemblance_modal
-#= require views/layouts/default
 
 ###* @jsx React.DOM ###
 
 {Actions, Board, Node, Resemblance, SelectedThing, GalleryThingModal, ResemblanceModal, PlacementModal} = Sembl.Games.Move
-{Gallery, HeaderView} = Sembl.Games
-Layout = Sembl.Layouts.Default
 Graph = Sembl.Components.Graph.Graph
 {Searcher} = Sembl.Components
+Gallery = @Sembl.Games.Gallery
 
 @Sembl.Games.Move.MoveView = React.createClass
   searcherPrefix: 'move.searcher'
@@ -40,7 +37,6 @@ Graph = Sembl.Components.Graph.Graph
 
   handleResemblanceClick: (event, data) ->
     link = data.link
-    console.log 'move view state', @state
     $(window).trigger('modal.open', `<ResemblanceModal description={data.description} link={link} targetThing={this.state.targetThing}/>`)
 
   handleResemblanceChange: (event, resemblance) ->
@@ -63,18 +59,24 @@ Graph = Sembl.Components.Graph.Graph
       move: @state.move
 
   handleSubmitMove: (event) ->
-    console.log 'Submitting move', JSON.stringify(@state.move)
-    url = "/api/moves.json"
     Sembl.move = @state.move
     self = this
     @state.move.save({}, {
       success: -> 
-        console.log "move success"
         self.handleMoveComplete()
-      error: -> console.log "move error"
+        # $(window).trigger('flash.notice', "Move submitted!")
+      error: (model, response) -> 
+        responseObj = JSON.parse response.responseText;
+        
+        if response.status == 422 
+          msgs = (value for key, value of responseObj.errors)
+          $(window).trigger('flash.error', msgs.join(", "))   
+        else
+          $(window).trigger('flash.error', "Error saving move: #{responseObj.errors}")
     })
 
   handleMoveComplete: () ->
+    Sembl.game.fetch()
     Sembl.router.navigate("/", trigger: true)
 
   getInitialState: () ->
@@ -102,23 +104,17 @@ Graph = Sembl.Components.Graph.Graph
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
 
-    header = `<HeaderView game={this.props.game} >
-      Your Move
-    </HeaderView>`
-
     graphChildClasses = {
       node: Node
       resemblance: Resemblance
     }
 
-    `<Layout className="game" header={header}>
-      <div className="move">
-        <Searcher filter={this.props.game.get('filter')} prefix={this.searcherPrefix} />
-        <div className="move__graph">
-          <Graph nodes={nodes} links={links} childClasses={graphChildClasses}/>
-        </div>
-        <Actions />
-        <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
+    `<div className="move">
+      <Searcher filter={this.props.game.get('filter')} prefix={this.searcherPrefix} />
+      <div className="move__graph">
+        <Graph nodes={nodes} links={links} childClasses={graphChildClasses}/>
       </div>
-    </Layout>`
+      <Actions />
+        <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
+    </div>`
 

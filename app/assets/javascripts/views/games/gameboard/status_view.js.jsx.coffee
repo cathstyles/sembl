@@ -3,7 +3,6 @@
 Sembl.Games.Gameboard.StatusView = React.createClass
 
   handleEndTurn: -> 
-    console.log "ending turn"
     @props.handleEndTurn()
       
   handleContinueRating: -> 
@@ -11,7 +10,6 @@ Sembl.Games.Gameboard.StatusView = React.createClass
 
   #TODO handle disabled state
   getButtonForStatus: (state, move_state) -> 
-    console.log move_state
     disabled = false
     if state is 'playing_turn'
       disabled = true if move_state == "open"
@@ -41,9 +39,6 @@ Sembl.Games.Gameboard.StatusView = React.createClass
   render: -> 
     game_status = @props.game.get('status')
     player = @props.game.get('player')
-
-    console.log "rendering status"
-    console.log "player state: #{player?.state}"
 
     if player
       statusHTML = @getButtonForStatus(player.state, player.move_state)

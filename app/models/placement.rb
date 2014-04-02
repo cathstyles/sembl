@@ -18,6 +18,12 @@ class Placement < ActiveRecord::Base
   belongs_to :thing
   belongs_to :creator, class_name: "User"
 
+  HUMANIZED_ATTRIBUTES = {
+    :thing => "Image"
+  }
+
+  validates_presence_of :thing
+
   after_create :reify_seed_node
 
   # == States 
@@ -30,6 +36,11 @@ class Placement < ActiveRecord::Base
       transition :proposed => :final
     end
   end
+
+  def self.human_attribute_name(attr, default: attr)
+    HUMANIZED_ATTRIBUTES[attr.to_sym] || super
+  end
+
 
   def self.for_round(game, round = nil)
     round  = round || game.current_round

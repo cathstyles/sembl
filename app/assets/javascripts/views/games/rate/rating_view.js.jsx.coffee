@@ -1,24 +1,18 @@
-#= require views/layouts/default
 #= require views/games/rate/update_rating_view
 #= require views/games/rate/navigation_view
 #= require views/games/rate/resemblance
-#= require views/games/header_view
 #= require views/components/graph/graph
 
 
 ###* @jsx React.DOM ###
 {UpdateRatingView, NavigationView, Resemblance} = Sembl.Games.Rate
-HeaderView = Sembl.Games.HeaderView
 Graph = Sembl.Components.Graph.Graph
-Layout = Sembl.Layouts.Default
 
 @Sembl.Games.Rate.RatingView = React.createBackboneClass
 
   getInitialState: -> 
     link = @props.moves.at(0).links.at(0)
     link.active = true
-    console.log "link in initial state"
-    console.log link
     {
       moveIndex: 0
       linkIndex: 0
@@ -26,18 +20,29 @@ Layout = Sembl.Layouts.Default
       currentLink: link
     }
 
-
   updateRated: (link) -> 
     @setState currentLink: link
 
   endRating: -> 
     postData = authenticity_token: @props.game.get('auth_token')
-    $.post "#{@props.game.url()}/end_rating.json", postData, (data) -> 
+    result = $.post "#{@props.game.url()}/end_rating.json", postData, (data) -> 
       Sembl.game.set(data)
-      console.log data
+      if Sembl.game.get('player')?.state == 'playing_turn'
+        navigateTo = "results/#{Sembl.game.resultsAvailableForRound()}"
+      else
+        navigateTo = ""
+
       setTimeout -> 
-        Sembl.router.navigate("", trigger: true)
+        Sembl.router.navigate(navigateTo, trigger: true)
       , 800
+
+    result.fail (response) -> 
+      responseObj = JSON.parse response.responseText;
+      if response.status == 422 
+        msgs = (value for key, value of responseObj.errors)
+        $(window).trigger('flash.error', msgs.join(", "))   
+      else
+        $(window).trigger('flash.error', "Error rating: #{responseObj.errors}")
 
   incrementIndexes: -> 
     move = @currentMove()
@@ -53,8 +58,8 @@ Layout = Sembl.Layouts.Default
         @state.progress = "finished" 
         
     @props.moves.deactivateLinks()
-    @currentMove().activateLinkAt(@state.linkIndex)
-    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: @currentLink()
+    link = @currentMove().activateLinkAt(@state.linkIndex)
+    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: link
 
   decrementIndexes: -> 
     moveCount = @props.moves.length
@@ -69,8 +74,8 @@ Layout = Sembl.Layouts.Default
       @state.linkIndex--
   
     @props.moves.deactivateLinks()
-    @currentMove().activateLinkAt(@state.linkIndex)
-    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: @currentLink()
+    link = @currentMove().activateLinkAt(@state.linkIndex)
+    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: link
 
   currentMove: -> 
     @props.moves.at(@state.moveIndex)
@@ -79,18 +84,14 @@ Layout = Sembl.Layouts.Default
     @currentMove().links.at(@state.linkIndex)
 
   render: ->
-    game = @props.game
     move = @currentMove()
-
     sources = (link.source() for link in move.links.models)
 
     rootNode = _.extend({children: sources}, move.targetNode)
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
 
-    graphChildClasses = {
-      resemblance: Resemblance
-    }
+    graphChildClasses = resemblance: Resemblance
 
     if @state.progress == 'finished'
       finishedDiv = `<div className="flash finished">
@@ -98,21 +99,28 @@ Layout = Sembl.Layouts.Default
       </div>`
       @endRating()
 
-      
-    header = `<HeaderView game={game} >
-      Rating
-    </HeaderView>`
 
-    `<Layout className="game" header={header}>
-      <div className="move">
-        <div className="rating__info">
-          <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
-        </div>
-        {finishedDiv}
-        <UpdateRatingView move={this.currentMove()} handleRated={this.updateRated} link={this.state.currentLink} key={this.state.currentLink.cid}/>
-        <div className="move__graph">
-          <Graph nodes={nodes} links={move.links} childClasses={graphChildClasses} />
-        </div>
-        <NavigationView moves={this.props.moves} currentLink={this.state.currentLink} handleNext={this.incrementIndexes} handleBack={this.decrementIndexes}/>
-      </div>  
-    </Layout>`
+    `<div className="move">
+      <div className="rating__info">
+        <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
+      </div>
+      {finishedDiv}
+      <UpdateRatingView 
+        move={this.currentMove()} 
+        link={this.state.currentLink} 
+        key={this.state.currentLink.cid}
+        handleRated={this.updateRated} 
+        />
+      <div className="move__graph">
+        <Graph 
+          nodes={nodes} 
+          links={move.links} 
+          childClasses={graphChildClasses} 
+          />
+      </div>
+      <NavigationView 
+        moves={this.props.moves} 
+        currentLink={this.state.currentLink} 
+        handleNext={this.incrementIndexes} 
+        handleBack={this.decrementIndexes}/>
+    </div>`

@@ -2,6 +2,22 @@
 
 ###* @jsx React.DOM ###
 
+@Sembl.Games.Setup.BoardSelection = React.createClass
+  className: "setup__board__selection"
+
+  render: () ->
+    self = this
+    boards = this.props.boards.map((board) -> 
+      handleClick = (event) ->
+        $(window).trigger(self.props.selectBoardEvent, {board_id: board.id})
+        $(window).trigger(self.props.toggleEvent)
+        event.preventDefault()
+      `<li className="setup__board__selection-item">
+        <a href="#" value={board.id} onClick={handleClick}>{board.title}</a>
+      </li>`
+    )
+    `<ul className={this.className}>{boards}</ul>`
+
 {SelectGameboardModal} = @Sembl.Games.Setup
 @Sembl.Games.Setup.Board = React.createClass
   className: "games-setup__board"

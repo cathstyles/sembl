@@ -14,15 +14,22 @@
 
   saveRating: (ratio) -> 
     sembl = @props.link.get('viewable_resemblance')
-    console.log sembl
     postData = 
       rating: {resemblance_id: sembl.id, rating: ratio}
       authenticity_token: @props.move.game.get('auth_token')
 
-    $.post "#{@props.move.collection.url()}.json", postData, (data) => 
+    result = $.post "#{@props.move.collection.url()}.json", postData, (data) => 
       sembl.rating = ratio
       link = @props.link.set('viewable_resemblance', sembl)
       @props.handleRated(link)
+
+    result.fail (response) -> 
+      responseObj = JSON.parse response.responseText;
+      if response.status == 422 
+        msgs = (value for key, value of responseObj.errors)
+        $(window).trigger('flash.error', msgs.join(", "))   
+      else
+        $(window).trigger('flash.error', "Error rating: #{responseObj.errors}")
 
   componentDidMount: -> 
     $el = $(@getDOMNode())
@@ -34,7 +41,6 @@
       saveRatingDebounced(data.ratio)
 
   render: ->
-    console.log @props.link
     rating = @currentRating() or 0
     `<div className="rating__rate">
       <input className="rating__rate__slider" type="text" defaultValue={rating} />

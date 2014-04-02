@@ -1,7 +1,8 @@
 # Attributes: node, thing, resemblances 
 
 class Sembl.Move extends Backbone.Model
-  urlRoot: "/api/moves"
+  url: -> 
+    "/api/games/#{@game.id}/moves"
 
   initialize: (options) ->
     @game = options?.game or @collection?.game
@@ -17,7 +18,9 @@ class Sembl.Move extends Backbone.Model
     @resemblances[link.id] = description || null
 
   activateLinkAt: (index) -> 
-    @links.at(index).active = true
+    link = @links.at(index)
+    link.active = true 
+    link
 
   toJSON: -> 
     move:

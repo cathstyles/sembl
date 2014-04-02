@@ -1,19 +1,32 @@
 #= require views/masthead/masthead
 #= require views/components/modal
+#= require views/components/flash
 
 ###* @jsx React.DOM ###
 
 {Masthead} = Sembl.Masthead
-{Modal} = Sembl.Components
-Sembl.Layouts.Default = React.createClass 
-  render: ->
-    flashes = this.props.flashes
+{Modal, Flash} = Sembl.Components
 
-    `<div className={this.props.className}>
+Sembl.Layouts.Default = React.createClass 
+  getInitialState: -> 
+    newBody: null,
+    body: null, 
+    header: null,
+    className: null
+
+  render: ->
+    $(window).trigger('flash.hide')
+
+    `<div className={this.state.className}>
       <Modal />
-      <Masthead>{this.props.header}</Masthead>
+      <Masthead>{this.state.header}</Masthead>
       <div className="content container">
-        {this.props.children}
+        <Flash />
+        {this.state.body}
+      </div>
+      <div className="content container transition-in">
+        <Flash />
+        {this.state.newBody}
       </div>
       <div className="footer container">
         <p>
@@ -21,7 +34,5 @@ Sembl.Layouts.Default = React.createClass
         </p>
       </div>
     </div>`
-
-
 
     

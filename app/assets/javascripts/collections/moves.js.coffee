@@ -23,7 +23,6 @@ class Sembl.Moves extends Backbone.Collection
     @rating = options?.rating
 
   deactivateLinks: -> 
-    console.log "deactivateLinks"
     @each (move) -> 
       move.links.each (link) -> 
         link.active = false

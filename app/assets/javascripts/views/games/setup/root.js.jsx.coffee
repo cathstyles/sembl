@@ -40,7 +40,6 @@ Layout = Sembl.Layouts.Default
     _.extend(params.game, this.refs.metadata.getParams())
     if @props.user.power
       params.filter_content_by = this.refs.filter.state.filter
-    console.log "params", params
     params
 
   handleGameSave: () ->

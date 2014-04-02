@@ -1,10 +1,4 @@
-#= require views/layouts/default
-#= require views/games/header_view
-
 ###* @jsx React.DOM ###
-
-Layout = Sembl.Layouts.Default
-{HeaderView} = Sembl.Games
 
 @Sembl.Games.Results.SemblResult = React.createClass
   render: ->
@@ -61,10 +55,6 @@ Layout = Sembl.Layouts.Default
 {PlayerResults} = @Sembl.Games.Results
 @Sembl.Games.Results.ResultsView = React.createClass
   render: -> 
-    header = `<HeaderView game={this.props.game} >
-      Results
-    </HeaderView>`
-
     userGroupedResults = {}
     for result in @props.results.models
       email = result.get('user').email
@@ -75,9 +65,8 @@ Layout = Sembl.Layouts.Default
       key = email
       `<PlayerResults key={key} results={results} />`
 
-    `<Layout className="game" header={header}>
-      <div className="results__players">
-        {playerResults}
-      </div>
-    </Layout>`
+    `<div className="results__players">
+      {playerResults}
+    </div>`
+
 

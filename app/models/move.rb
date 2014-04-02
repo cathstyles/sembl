@@ -6,10 +6,17 @@ class Move
   # validate :associations_valid
   validate :placement, presence: true
   validate :target_node, presence: true
+  validate :placement_exists
   validate :expected_number_of_resemblances
 
   def expected_number_of_resemblances
-    errors.add(:resemblances, 'not enough for this move') if @resemblances.size != links.size
+    errors.add(:base, 'All resemblances must be added to complete this move.') if @resemblances.size != links.size
+  end
+
+  def placement_exists
+    if @placement.nil? 
+      errors.add(:placement, "must be entered in target node.")
+    end
   end
 
   def initialize(options)
@@ -47,10 +54,10 @@ class Move
   end
 
   # Pass link_id, and description in sembl_attributes
-  def resemblances=(resemblances)
+  def resemblances=(resemblances_params)
     @resemblances ||= []
 
-    resemblances.each do |sembl_attributes|
+    resemblances_params.each do |sembl_attributes|
       link = Link.find(sembl_attributes[:link_id])
       link.resemblances.where(creator: @user).map(&:destroy) 
       
@@ -63,7 +70,7 @@ class Move
       sembl_attributes[:target] = @placement
       sembl_attributes[:source] = link.source.final_placement
       @resemblances << Resemblance.new(sembl_attributes)
-    end 
+    end if resemblances_params
   end
 
   def calculate_score 
@@ -84,12 +91,19 @@ class Move
     end
   end
 
-
-  #TODO handle errors
   def save
-    @placement.save
-    @resemblances.each do |resemblance|
-      resemblance.save
+    begin
+      ActiveRecord::Base.transaction do
+        @placement.save!
+        @resemblances.each do |resemblance|
+          resemblance.save!
+        end
+      end
+    rescue ActiveRecord::RecordInvalid => invalid
+      class_name = invalid.record.class.name.to_sym
+      invalid.record.errors.full_messages.each do |msg|
+        errors.add(class_name, msg)
+      end
     end
   end
   
