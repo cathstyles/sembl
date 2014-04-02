@@ -26,6 +26,7 @@ Gallery = @Sembl.Games.Gallery
     $(window).on("#{@galleryPrefix}.selectTargetThing", @handleSelectTargetThing)
     $(window).on("#{@galleryPrefix}.thing.click", @handleGalleryClick)
     $(window).on('move.resemblance.click', @handleResemblanceClick)
+    $(window).on('resize', @handleResize)
 
   componentWillUnmount: ->
     @galleryFilterHandler.unbind()
@@ -34,6 +35,10 @@ Gallery = @Sembl.Games.Gallery
     $(window).off("#{@galleryPrefix}.selectTargetThing")
     $(window).off("#{@galleryPrefix}.thing.click")
     $(window).off('move.resemblance.click')
+    $(window).off('resize')
+
+  handleResize: ->
+    $(window).trigger('graph.resize')
 
   handleResemblanceClick: (event, data) ->
     link = data.link
