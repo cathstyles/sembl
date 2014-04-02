@@ -91,7 +91,6 @@
 
   &:before,
   &:after {
-    display: none !important;
     @extend %white-drop-shadow;
     background-color: $highlight-background-color;
     @include background-image(linear-gradient($highlight-background-color, #fffdf2));
@@ -103,14 +102,17 @@
     display: block;
     margin-top: -2px;
     padding: 4px 6px;
+    position: absolute;
   }
   &:before {
     content: "Meh";
-    float: left;
+    bottom: -31px;
+    left: -12px;
   }
   &:after {
     content: "Love it!";
-    float: right;
+    top: -9px;
+    left: -23px;
   }
 
   // .slider {
