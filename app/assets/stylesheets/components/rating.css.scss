@@ -23,11 +23,6 @@
   }
 }
 
-.rating__rate {
-  @include pad(top, medium);
-  @include pad(bottom, small);
-}
-
 .rating__nav {
   text-align: center;
   position: relative;
@@ -84,14 +79,19 @@
 }
 
 .rating__rate {
-  text-align: center;
-  width: 480px;
+  @include pad(top, medium);
+  @include pad(bottom, small);
+  position: absolute;
+  top: 30px;
+  right: 0;
+  width: 100px;
   height: 480px;  
   margin-left: auto;
   margin-right: auto;
 
   &:before,
   &:after {
+    display: none !important;
     @extend %white-drop-shadow;
     background-color: $highlight-background-color;
     @include background-image(linear-gradient($highlight-background-color, #fffdf2));
