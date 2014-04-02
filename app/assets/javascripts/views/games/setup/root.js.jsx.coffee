@@ -4,17 +4,14 @@
 #= require views/games/setup/board
 #= require views/games/setup/players
 #= require views/games/setup/settings
-#= require views/games/setup/gallery_thing_modal
-#= require views/games/setup/filter
 #= require views/games/setup/candidates
 #= require views/games/gallery
 #= require views/games/header_view
 #= require views/layouts/default
-#= require views/components/searcher
 
 ###* @jsx React.DOM ###
 
-{Actions, Candidates, Metadata, Seed, Board, Players, Settings, GalleryThingModal, Filter} = @Sembl.Games.Setup
+{Actions, Board, Candidates, CandidatesGalleryModal, Filter, Metadata, Players, Seed, Settings} = @Sembl.Games.Setup
 {Gallery, HeaderView} = @Sembl.Games
 {Searcher} = Sembl.Components
 Layout = Sembl.Layouts.Default
@@ -28,12 +25,10 @@ Layout = Sembl.Layouts.Default
   componentWillMount: () ->
     $(window).on('setup.game.save', @handleGameSave)
     $(window).on('setup.game.publish', @handleGamePublish)
-    $(window).on('gallery.thing.click', @handleGalleryClick)
 
   componentWillUnmount: () ->
     $(window).off('setup.game.save')
     $(window).off('setup.game.publish')
-    $(window).off('gallery.thing.click')
 
   getGameParams: (publish) ->
     params =
@@ -47,9 +42,6 @@ Layout = Sembl.Layouts.Default
       params.filter_content_by = this.refs.filter.state.filter
     console.log "params", params
     params
-
-  handleGalleryClick: (event, thing) ->
-    $(window).trigger('modal.open', `<GalleryThingModal thing={thing} />`)
 
   handleGameSave: () ->
     console.log 'handle save'
