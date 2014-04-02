@@ -39,6 +39,7 @@ Layout = Sembl.Layouts.Default
     _.extend(params.game, this.refs.settings.getParams())
     _.extend(params.game, this.refs.metadata.getParams())
     if @props.user.power
+      # TODO this should come from the contributions component 
       params.filter_content_by = this.refs.filter.state.filter
     params
 
@@ -64,14 +65,14 @@ Layout = Sembl.Layouts.Default
       data: params
       type: 'POST'
       dataType: 'json'
-      success: (gameData) =>
+      success: (data) =>
         console.log "saved game", data
         Sembl.game = new Sembl.Game(data);
         @setState
           game: Sembl.game
         $(window).trigger('setup.game.saved')
-      error: (gameData) =>
-        console.log 'error', gameData
+      error: (data) =>
+        console.log 'error', data
     )
     event.preventDefault()
 
@@ -81,8 +82,8 @@ Layout = Sembl.Layouts.Default
 
     inputs =
       id: game.id
-      title: game.title
-      description: game.description
+      title: game.get('title')
+      description: game.get('description')
       board:
         id: game.board?.id
         title: game.board?.title
