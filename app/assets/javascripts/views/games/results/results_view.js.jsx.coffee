@@ -67,8 +67,11 @@
         </div>
       </div>`
 
-    `<div className="results__player-scores">
-      {playerRoundResults}
+    `<div className="results__player-scores-wrapper">
+      <div className="results__player-scores">
+        <h2 className="results__player-scores-message">Scores so far:</h2>
+        {playerRoundResults}
+      </div>
     </div>`
 
 

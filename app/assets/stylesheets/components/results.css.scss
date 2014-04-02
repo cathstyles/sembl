@@ -126,3 +126,52 @@
     display: block;
   }
 }
+
+.results__player-scores-wrapper {
+  @include pad(top, large);
+  text-align: center;
+}
+
+.results__player-scores {
+  @extend %clearfix-micro;
+  @include pad(all, smaller);
+  background-color: $highlight-background-color;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px 5px rgba(#888,.1);
+  display: inline-block;
+  width: 600px;
+}
+
+.results__player-scores-message {
+  @extend .medium-heading;
+  @include pad(bottom, small);
+  color: $link-color;
+  text-align: left;
+}
+
+.results__player-score {
+  @include pad(all, small);
+  float: left;
+  width: 50%;
+  text-align: left;
+}
+
+.results__player-score__email {
+  @include pad(bottom, tiny);
+  float: left;
+}
+
+.results__player-score__score {
+  @extend %white-drop-shadow;
+  @include font-size(18);
+  @include pad(left, smaller);
+  color: $link-color;
+  font-weight: 600;
+  float: left;
+  i {
+    color: #ffdc52;
+    text-shadow: 1px 1px 1px darken(#f5cd2e,10%);
+    padding-right: 4px;
+  }
+}
