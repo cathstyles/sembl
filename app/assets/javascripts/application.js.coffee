@@ -34,7 +34,6 @@ _.extend Sembl, Backbone.Events
 @Sembl.Masthead = @Sembl.Masthead || {}
 @Sembl.views = @Sembl.views || {}
 
-
 init = ->
   viewloader.execute Sembl.views
 

@@ -99,32 +99,32 @@ Layout = Sembl.Layouts.Default
 
     status = if game.id then game.get('state') else 'new'
 
-    `<Layout header={header}>
+    `<div className={this.className}>
       <br/>
-      <div className={this.className}>
-        <span className="flash-message">{game.notice}</span>
-        <span className="flash-message">{game.alert}</span>
-        <Seed ref="seed" seed={inputs.seed} />
-        <div className="games-setup__meta-and-settings">
-          <Metadata ref="metadata" title={inputs.title} description={inputs.description} />
-          <Settings ref="settings" invite_only={inputs.invite_only} allow_keyword_search={inputs.allow_keyword_search} />
-        </div>
-        <div className="games-setup__board-and-players">
-          <Board ref="board" board={inputs.board} boards={inputs.boards} />
-          <Players ref="players" />
-        </div>
-        <Actions ref="actions" status={status} />
-        <Candidates filter={inputs.filter} />
+      <span className="flash-message">{game.notice}</span>
+      <span className="flash-message">{game.alert}</span>
+      <Seed ref="seed" seed={inputs.seed} />
+      <div className="games-setup__meta-and-settings">
+        <Metadata ref="metadata" title={inputs.title} description={inputs.description} />
+        <Settings ref="settings" invite_only={inputs.invite_only} allow_keyword_search={inputs.allow_keyword_search} />
       </div>
-    </Layout>`
+      <div className="games-setup__board-and-players">
+        <Board ref="board" board={inputs.board} boards={inputs.boards} />
+        <Players ref="players" />
+      </div>
+      <Actions ref="actions" status={status} />
+      <Candidates filter={inputs.filter} />
+    </div>`
 
 @Sembl.views.gamesSetup = ($el, el) ->
-  Sembl.game = new Sembl.Game($el.data().game);
   header = $el.data().header
-  React.renderComponent(
-    Sembl.Games.Setup.Root
-      game: Sembl.game,
-      header: header,
-      user: Sembl.user
-    el
+  Sembl.game = new Sembl.Game($el.data().game);
+
+  @layout = React.renderComponent(
+    Sembl.Layouts.Default()
+    document.getElementsByTagName('body')[0]
   )
+  @layout.setState 
+    body: Sembl.Games.Setup.Root({game: Sembl.game, user: Sembl.user}),
+    header: Sembl.Games.HeaderView(model: Sembl.game, title: header) 
+

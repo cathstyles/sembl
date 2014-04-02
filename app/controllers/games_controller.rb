@@ -21,7 +21,6 @@ class GamesController < ApplicationController
     respond_with @game, layout: "react"
   end
 
-  # TODO: Move these into Backbone routes.
   def new
     @game = Game.new
     authorize @game
