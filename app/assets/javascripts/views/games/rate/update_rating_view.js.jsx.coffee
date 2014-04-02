@@ -1,6 +1,6 @@
 #= require jquery
 #= require underscore
-#= require simple-slider
+#= require jquery.nouislider.min
 
 ###* @jsx React.DOM ###
 @Sembl.Games.Rate.UpdateRatingView = React.createClass
@@ -33,15 +33,21 @@
 
   componentDidMount: -> 
     $el = $(@getDOMNode())
-    slider = $el.find('input.rating__rate__slider') 
-    slider.simpleSlider highlight: true, range: [0, 1], step: 0.01
+    slider = $el.find('.rating__rate__slider') 
+    # slider.simpleSlider highlight: true, range: [0, 1], step: 0.01
+    console.log @currentRating()
+    slider.noUiSlider
+      start: @currentRating()*100 || 0
+      orientation: 'vertical'
+      direction: 'rtl'
+      range: 'min': 0, 'max': 100
     
     saveRatingDebounced = _.debounce(@saveRating, 500)
-    slider.on "slider:changed", (event, data) ->
-      saveRatingDebounced(data.ratio)
+    slider.on "set", =>
+      @saveRating slider.val()/100
 
   render: ->
     rating = @currentRating() or 0
     `<div className="rating__rate">
-      <input className="rating__rate__slider" type="text" defaultValue={rating} />
+      <div className="rating__rate__slider" />
     </div>`
