@@ -1,5 +1,1 @@
-header
-  .heading
-    h1 New Game
-
-= render "form"
+div data-view="gamesSetup" data-game="#{render(template: "api/games/show", formats: :json, object: @game)}" data-header="New Game"

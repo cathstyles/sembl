@@ -25,12 +25,12 @@ class GamesController < ApplicationController
   def new
     @game = Game.new
     authorize @game
-    respond_with @game
+    respond_with @game, layout: "react"
   end
 
   def edit
     authorize @game
-    respond_with @game
+    respond_with @game, layout: "react"
   end
 
   def destroy

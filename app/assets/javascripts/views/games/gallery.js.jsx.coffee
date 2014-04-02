@@ -13,16 +13,17 @@
     width: null
 
   handleClick: (event) ->
-    $(window).trigger('gallery.thing.click', @props.thing)
+    console.log "#{@props.eventPrefix}.thing.click"
+    $(window).trigger("#{@props.eventPrefix}.thing.click", @props.thing)
 
   componentDidMount: ->
     imagesLoaded(@getDOMNode(), =>
-      $(window).trigger('gallery.thing.loaded')
+      $(window).trigger("#{@props.eventPrefix}.thing.loaded")
     )
 
   render: () ->
     thing = this.props.thing;
-    `<img className={this.className} 
+    `<img className={this.className}
         height="150px" width={this.state.width}
         src={thing.image_browse_url}
         onClick={this.handleClick} />`
@@ -36,8 +37,14 @@
     first: false
 
   componentWillMount: () ->
-    $(window).on('sembl.gallery.setState', @listenSetState)
-    $(window).on('gallery.thing.loaded', @handleThingLoaded)
+    $(window).on("#{@props.eventPrefix}.setState", @listenSetState)
+    $(window).on("#{@props.eventPrefix}.thing.loaded", @handleThingLoaded)
+    $(window).on("#{@props.searcherPrefix}.updated", @handleSearchUpdated)
+
+  componentWillUnmount: () ->
+    $(window).off("#{@props.eventPrefix}.setState")
+    $(window).off("#{@props.eventPrefix}.loaded")
+    $(window).off("#{@props.searcherPrefix}.updated")
 
   handleThingLoaded: ->
     $.doTimeout('debounce.gallery.isotope', 50, =>
@@ -47,34 +54,30 @@
       })
     )
 
-  componentWillUnmount: () ->
-    $(window).off('sembl.gallery.setState')
+  handleSearchUpdated: (event, data) ->
+    @setState data
 
   listenSetState: (event, subState) ->
     @setState subState
 
   handleNextPage: (event) ->
-    $(window).trigger('sembl.gallery.nextPage')
+    $(window).trigger("#{@props.searcherPrefix}.nextPage")
     event.preventDefault()
 
   handlePreviousPage: (event) ->
-    $(window).trigger('sembl.gallery.previousPage')
+    $(window).trigger("#{@props.searcherPrefix}.previousPage")
     event.preventDefault()
 
   render: () ->
-    # ensure we render twice, so that the gallery things exist as 
-    # they don't exist yet in componentDidMount, but they do exist in componentDidUpdate
+    # Sub component dom elements don't exist in this.componentDidMount, but they do exist in this.componentDidUpdate
+    # So we ensure we render twice, because we need the images to have been loaded before we do the positioning as we don't know their dimensions.
     if not @state.first
-      console.log @state
-      @setState 
+      @setState
         first: true
-    
+
     self = this
-    requests = this.props.requests
     things = this.state.things.map (thing) ->
-      if requests
-        _.extend(thing, requests)
-      `<GalleryThing key={thing.id} thing={thing} SelectedClass={self.props.SelectedClass} />`
+      `<GalleryThing key={thing.id} thing={thing} eventPrefix={self.props.eventPrefix} />`
 
     `<div className={this.className}>
       <button onClick={this.handlePreviousPage} className={this.className + "__previous"}><i className="fa fa-chevron-left"></i> Previous page</button>

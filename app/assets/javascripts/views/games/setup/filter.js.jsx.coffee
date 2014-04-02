@@ -16,7 +16,7 @@
       access_filter: this.refs.access_filter.getDOMNode().value || null
     this.setState
       filter: filter
-    $(window).trigger("sembl.filter.change", filter)
+    $(window).trigger("#{@props.searcherPrefix}.setState", {filter: filter})
     event.preventDefault()
 
   render: () ->
