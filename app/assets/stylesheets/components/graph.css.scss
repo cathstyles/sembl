@@ -151,6 +151,9 @@
   text-indent: -9999em;
   &:hover {
     box-shadow: 0 0 6px 2px rgba(#000,.1);
+    transform: scale(1.3);
+    transition-property: scale;
+    transition-duration: 250ms;
   }
 }
 
@@ -158,16 +161,16 @@
   @include background(linear-gradient($rating-very-low, darken($rating-very-low, 10%)) bottom);
 }
 .graph__resemblance__filled--low {
-  @include background(linear-gradient($rating-low, darken($rating-very-low, 10%)) bottom);
+  @include background(linear-gradient($rating-low, darken($rating-low, 10%)) bottom);
 }
 .graph__resemblance__filled--medium {
-  @include background(linear-gradient($rating-medium, darken($rating-very-low, 10%)) bottom);
+  @include background(linear-gradient($rating-medium, darken($rating-medium, 10%)) bottom);
 }
 .graph__resemblance__filled--high {
-  @include background(linear-gradient($rating-high, darken($rating-very-low, 10%)) bottom);
+  @include background(linear-gradient($rating-high, darken($rating-high, 10%)) bottom);
 }
 .graph__resemblance__filled--very-high {
-  @include background(linear-gradient($rating-very-high, darken($rating-very-low, 10%)) bottom);
+  @include background(linear-gradient($rating-very-high, darken($rating-very-high, 10%)) bottom);
 }
 
 @keyframes reveal {
