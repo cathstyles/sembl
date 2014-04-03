@@ -2,7 +2,15 @@ class ApiController < ApplicationController
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ActionController::ParameterMissing, with: :parameter_missing
 
+  self.responder = ApiResponder
+
   private
+
+    def unprocessable_entity(exception)
+      puts exception.inspect
+      render json: {errors: "ARG"}
+    end
+
     def user_not_authorized(exception)
       # Next version of pundit will include access to policy and query in exception 
       # policy_name = exception.policy.class.to_s.underscore

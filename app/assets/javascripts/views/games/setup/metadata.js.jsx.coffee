@@ -15,6 +15,7 @@ autofocus_input = React.createClass
   handleChange: (event) ->
     @setState
       title: event.target.value
+    $(window).trigger('setup.game.change')
 
   getInitialState: ->
     title: @props.title
@@ -30,6 +31,7 @@ autofocus_input = React.createClass
   handleChange: (event) ->
     @setState
       description: event.target.value
+    $(window).trigger('setup.game.change')
 
   getInitialState: ->
     description: @props.description

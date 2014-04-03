@@ -54,8 +54,9 @@ class Api::GamesController < ApiController
     update_seed_thing if game_params[:seed_thing_id].present? 
 
     authorize @game
-    @game.save
-    @game.crop_board
+    if @game.save
+      @game.crop_board
+    end
     respond_with @game
   end
 
@@ -71,20 +72,11 @@ class Api::GamesController < ApiController
     update_seed_thing if game_params[:seed_thing_id].present? 
 
     authorize @game
-    @game.save 
+    @game.save
     respond_with @game
   end
 
 private
-  def result(status=nil, notice=nil, alert=nil, errors=nil)
-    {
-      status: status,
-      notice: notice,
-      alert:  alert,
-      errors: errors
-    }
-  end
-
   # Copy nodes and links from board
   def copy_board_to_game
     board = @game.board

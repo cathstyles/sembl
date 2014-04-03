@@ -36,12 +36,22 @@
     img {
       transition-property: border-color;
       transition-duration: 250ms;
-      border-color: $highlight-color;
+      border-color: #fff;
     }
     .game-individual__play-button {
       transition-property: bottom;
       transition-duration: 250ms;
       bottom: 40%;
+    }
+  }
+  &.game-individual__anchor--playable {
+    img {
+      border-color: $highlight-color;
+    }
+    &:hover {
+      img {
+        border-color: darken($highlight-color, 20%);
+      }
     }
   }
 }

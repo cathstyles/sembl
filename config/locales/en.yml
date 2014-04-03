@@ -24,3 +24,19 @@ en:
   player_mailer: 
     game_invitation:
       subject: "You have been invited to join a Sembl game."
+
+  activerecord:
+    attributes:
+      game: 
+        seed_thing_id: "Seed"
+
+    errors:
+      models:
+        game:
+          attributes:
+            title:
+              blank: "is required"
+            board:
+              blank: "is required"
+            seed_thing_id:
+              blank: "is required"

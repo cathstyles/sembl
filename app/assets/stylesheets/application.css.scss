@@ -18,6 +18,12 @@ $link-color: #2f7c87;
 $link-hover-color: #111;
 $subtle-highlight: #f8f1e0;
 
+$rating-very-low: #89ab6b;
+$rating-low: #abd538;
+$rating-medium: #e2dc3a;
+$rating-high: #db8d40;
+$rating-very-high: #ff5c5c;
+
 // Game
 
 .content {
@@ -76,6 +82,7 @@ $subtle-highlight: #f8f1e0;
 @import "components/rating";
 @import "components/results";
 @import "components/search";
+@import "components/jquery.nouislider";
 
 // Call patterns
 

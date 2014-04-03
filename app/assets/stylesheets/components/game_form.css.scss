@@ -1,5 +1,9 @@
 // Create game/edit game
 
+.games__setup {
+  @include pad(top, smaller);
+}
+
 .games-setup__seed {
   @extend %highlight-box;
   @extend .small-tracked-out-heading;
@@ -224,7 +228,7 @@
   background-color: orange;
   color: #fff;
   text-align: center;
-  text-shadow: 1px 1px 1px rgba(#000,.6);
+  text-shadow: 1px 1px 1px rgba(#000,.4) !important;
 }
 
 .games-setup__actions-inner {
@@ -250,7 +254,9 @@
   text-decoration: underline;
 }
 
-.games-setup__actions-publish {
+.games-setup__actions__save,
+.games-setup__actions__publish,
+.games-setup__actions__show {
   @include pad(all, smaller);
   background-color: darken($highlight-background-color, 2%);
   border-bottom-left-radius: $border-radius-inner;
@@ -258,7 +264,9 @@
   text-align: center;
 }
 
-.games-setup__actions-publish__button {
+.games-setup__actions__save__button,
+.games-setup__actions__publish__button,
+.games-setup__actions__show__button {
   @extend %button;
   i {
     padding-right: 4px;
@@ -284,3 +292,37 @@
   cursor: pointer;
   padding-right: 3px;
 }
+
+.games__setup__selected_thing-set-as-seed-node,
+.games__setup__selected_thing-exclude-from-game {
+  color: #cce165;
+  &:hover {
+    color: darken(#cce165,10%);
+  }
+  i {
+    padding-right: 3px;
+  }
+  em {
+    @extend %uppercase-heading;
+    @include font-size(14);
+    border-bottom: 1px solid #cce165;
+  }
+}
+
+.games__setup__selected_thing-exclude-from-game {
+  color: #f87a7a;
+  &:hover {
+    color: darken(#f87a7a,10%);
+  }
+  em {
+    border-color: #f87a7a;
+  }
+}
+
+.games__setup__selected_thing-or {
+  @extend %uppercase-heading;
+  @include font-size(14);
+  @include pad(vert, normal);
+  display: block;
+}
+

@@ -19,6 +19,10 @@
   }
 }
 
+.game__status__waiting {
+  pointer-events: none;
+}
+
 /* TODO: I think we can delete everything below because we use the graph component instead now */
 
 .board {

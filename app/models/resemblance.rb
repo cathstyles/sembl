@@ -40,4 +40,8 @@ class Resemblance < ActiveRecord::Base
     ratings.where(creator: user).take
   end
 
+  def calculate_score 
+    self.score = ratings.average(:rating)
+  end
+
 end

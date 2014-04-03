@@ -1,4 +1,3 @@
-
 ###* @jsx React.DOM ###
 
 {ResemblanceModal} = Sembl.Games.Move
@@ -27,7 +26,7 @@
     toggleEvent = 'toggle.graph.resemblance.'+@props.link.id
 
     child = if @state.description 
-      `<div className="graph__resemblance__filled">{this.state.description}</div>`
+      `<div className="graph__resemblance__expanded">{this.state.description}</div>`
     else
       `<div className="graph__resemblance__empty" />`
 
