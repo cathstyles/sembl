@@ -53,8 +53,9 @@ class Api::GamesController < ApiController
     update_seed_thing if game_params[:seed_thing_id].present? 
 
     authorize @game
-    @game.save
-    @game.crop_board
+    if @game.save
+      @game.crop_board
+    end
     respond_with @game
   end
 
@@ -70,7 +71,7 @@ class Api::GamesController < ApiController
     update_seed_thing if game_params[:seed_thing_id].present? 
 
     authorize @game
-    @game.save 
+    @game.save
     respond_with @game
   end
 
