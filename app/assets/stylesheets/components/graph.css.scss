@@ -121,12 +121,6 @@
   width: 100%;
 }
 
-
-@keyframes glow {
-  0%, 100%    { box-shadow: 0 0 6px 3px $highlight-color; }
-  50%         { box-shadow: 0 0 12px 4px $highlight-color; }
-}
-
 .graph__resemblance__empty {
   background-color: $background-color;
   border: 1px solid $highlight-color;
@@ -139,12 +133,10 @@
 }
 
 .graph__resemblance__filled {
-  animation-name: glow;
   animation-duration: 1s;
   animation-timing-function: ease;
   animation-iteration-count: infinite;
   background-color: $highlight-background-color;
-  border: 1px solid $highlight-color;
   border-radius: 50%;
   cursor: pointer;
   width: 16px;
@@ -160,20 +152,55 @@
   }
 }
 
+@keyframes glow--very-low {
+  0%, 100%    { box-shadow: 0 0 6px 3px $rating-very-low; }
+  50%         { box-shadow: 0 0 12px 4px $rating-very-low; }
+}
+
+@keyframes glow--low {
+  0%, 100%    { box-shadow: 0 0 6px 3px $rating-low; }
+  50%         { box-shadow: 0 0 12px 4px $rating-low; }
+}
+
+@keyframes glow--medium {
+  0%, 100%    { box-shadow: 0 0 6px 3px $rating-medium; }
+  50%         { box-shadow: 0 0 12px 4px $rating-medium; }
+}
+
+@keyframes glow--high {
+  0%, 100%    { box-shadow: 0 0 6px 3px $rating-high; }
+  50%         { box-shadow: 0 0 12px 4px $rating-high; }
+}
+
+@keyframes glow--very-high {
+  0%, 100%    { box-shadow: 0 0 6px 3px $rating-very-high; }
+  50%         { box-shadow: 0 0 12px 4px $rating-very-high; }
+}
+
 .graph__resemblance__filled--very-low {
   @include background(linear-gradient($rating-very-low, darken($rating-very-low, 10%)) bottom);
+  animation-name: glow--very-low;
+  animation-delay: 250ms;
 }
 .graph__resemblance__filled--low {
   @include background(linear-gradient($rating-low, darken($rating-low, 10%)) bottom);
+  animation-name: glow--low;
+  animation-delay: 500ms;
 }
 .graph__resemblance__filled--medium {
   @include background(linear-gradient($rating-medium, darken($rating-medium, 10%)) bottom);
+  animation-name: glow--medium;
+  animation-delay: 300ms;
 }
 .graph__resemblance__filled--high {
   @include background(linear-gradient($rating-high, darken($rating-high, 10%)) bottom);
+  animation-name: glow--high;
+  animation-delay: 400ms;
 }
 .graph__resemblance__filled--very-high {
   @include background(linear-gradient($rating-very-high, darken($rating-very-high, 10%)) bottom);
+  animation-name: glow--very-high;
+  animation-delay: 50ms;
 }
 
 @keyframes reveal {
