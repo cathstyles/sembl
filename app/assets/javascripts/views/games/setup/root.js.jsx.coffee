@@ -68,14 +68,13 @@
         $(window).trigger('setup.game.saved')
       error: (response) =>
         console.log 'error', response
-        try responseObj = JSON.parse(response.responseText)
-        catch err then console.log err
-
+        responseObj = JSON.parse(response.responseText)
+        console.log responseObj
         if response.status == 422 
           msgs = (value for key, value of responseObj.errors)
           $(window).trigger('flash.error', msgs.join(", "))   
         else
-          $(window).trigger('flash.error', "Error rating: #{responseObj.errors}")
+          $(window).trigger('flash.error', "Error: #{responseObj.errors}")
     )
     event.preventDefault()
 
