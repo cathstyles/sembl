@@ -1,5 +1,9 @@
 // Create game/edit game
 
+.games__setup {
+  @include pad(top, smaller);
+}
+
 .games-setup__seed {
   @extend %highlight-box;
   @extend .small-tracked-out-heading;
@@ -224,7 +228,7 @@
   background-color: orange;
   color: #fff;
   text-align: center;
-  text-shadow: 1px 1px 1px rgba(#000,.6);
+  text-shadow: 1px 1px 1px rgba(#000,.4) !important;
 }
 
 .games-setup__actions-inner {

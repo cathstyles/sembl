@@ -10,6 +10,7 @@ Bundler.require(:default, Rails.env)
 module Sembl
   class Application < Rails::Application
     config.autoload_paths << Rails.root.join("lib")
+    config.autoload_paths << Rails.root.join("app/responders")
 
     config.time_zone = "Melbourne"
 

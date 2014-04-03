@@ -7,7 +7,7 @@ Sembl.Games.Gameboard.PlayersView = React.createClass
     players = @props.players.map((player) ->
       `<li key={player.cid} className="game__player">
           <div className="game__player__details">
-            <span className="game__player__details__avatar">1</span>
+            <span className="game__player__details__avatar"></span>
             <em>{player.get('user').email}</em>
           </div>
         </li>`

@@ -6,15 +6,13 @@
 #= require views/games/setup/settings
 #= require views/games/setup/candidates
 #= require views/games/gallery
-#= require views/games/header_view
 #= require views/layouts/default
 
 ###* @jsx React.DOM ###
 
 {Actions, Board, Candidates, CandidatesGalleryModal, Filter, Metadata, Players, Seed, Settings} = @Sembl.Games.Setup
-{Gallery, HeaderView} = @Sembl.Games
+{Gallery} = @Sembl.Games
 {Searcher} = Sembl.Components
-Layout = Sembl.Layouts.Default
 
 @Sembl.Games.Setup.Root = React.createClass
   className: "games__setup"
@@ -55,11 +53,8 @@ Layout = Sembl.Layouts.Default
   updateGame: (params) ->
     self = this
     if this.state.game.id
-      url = "/api/games/" + this.state.game.id + ".json"
       params._method = "patch"
-    else
-      url = "/api/games.json"
-
+    url = "#{@props.game.url()}.json"
     $.ajax(
       url: url
       data: params
@@ -71,8 +66,15 @@ Layout = Sembl.Layouts.Default
         @setState
           game: Sembl.game
         $(window).trigger('setup.game.saved')
-      error: (data) =>
-        console.log 'error', data
+      error: (response) =>
+        console.log 'error', response
+        responseObj = JSON.parse(response.responseText)
+        console.log responseObj
+        if response.status == 422 
+          msgs = (value for key, value of responseObj.errors)
+          $(window).trigger('flash.error', msgs.join(", "))   
+        else
+          $(window).trigger('flash.error', "Error: #{responseObj.errors}")
     )
     event.preventDefault()
 
@@ -94,16 +96,10 @@ Layout = Sembl.Layouts.Default
       boards: _.sortBy game.get('boards'), 'title'
       filter: game.filter()
 
-    header = `<HeaderView game={game} >
-      {this.props.header}
-    </HeaderView>`
-
     status = if game.id then game.get('state') else 'new'
 
     `<div className={this.className}>
       <br/>
-      <span className="flash-message">{game.notice}</span>
-      <span className="flash-message">{game.alert}</span>
       <Seed ref="seed" seed={inputs.seed} />
       <div className="games-setup__meta-and-settings">
         <Metadata ref="metadata" title={inputs.title} description={inputs.description} />

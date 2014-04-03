@@ -59,6 +59,10 @@ textarea {
   }
 }
 
+.button--disabled {
+  opacity: .5;
+}
+
 @keyframes flash {
   0%   { opacity: 0 }
   100% { opacity: 1 }
@@ -79,6 +83,9 @@ textarea {
   right: 0;
   text-shadow: 1px 1px 1px rgba(#000,.3);
   z-index: 100;
+  &.error {
+    background-color: #f75454;
+  }
 }
 
 .footer {
