@@ -76,15 +76,6 @@ class Api::GamesController < ApiController
   end
 
 private
-  def result(status=nil, notice=nil, alert=nil, errors=nil)
-    {
-      status: status,
-      notice: notice,
-      alert:  alert,
-      errors: errors
-    }
-  end
-
   # Copy nodes and links from board
   def copy_board_to_game
     board = @game.board
