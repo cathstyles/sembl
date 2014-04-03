@@ -5,3 +5,8 @@ class Sembl.Players extends Backbone.Collection
 
   initialize: (models, options) ->
     @game = options?.game
+
+  comparator: (player) ->
+    score = player.get('score') || 0
+    100 - (score*100)
+

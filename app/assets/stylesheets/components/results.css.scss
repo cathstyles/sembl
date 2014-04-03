@@ -1,14 +1,14 @@
 // Results
 
-.results__players {
+.results__player-moves {
   @include pad(top, mid);
 }
 
-.results__player {
+.results__player-move {
   @include pad(bottom, medium);
 }
 
-.results__player__email {
+.results__player-move__email {
   @extend .medium-heading;
   @include pad(bottom, small);
   border-bottom: 1px solid $border-color;
@@ -18,7 +18,7 @@
   }
 }
 
-.results__player__move {
+.results__player-move__move {
   @extend %clearfix-micro;
   @include pad(vert, small);
   border-bottom: 1px solid $border-color;
@@ -27,7 +27,7 @@
   }
 }
 
-.results__player__move__node-wrapper {
+.results__player-move__move__node-wrapper {
   @extend %clearfix-micro;
   float: left;
   position: relative;
@@ -45,7 +45,7 @@
   }
 }
 
-.results__player__move__source,
+.results__player-move__move__source,
 .results__player__move__target {
   background-color: #faf0dc;
   border: 2px solid #fff;
@@ -62,7 +62,7 @@
   }
 }
 
-.results__player__move__target {
+.results__player-move__move__target {
   border-color: #4f570f;
   box-shadow: 0 0 12px 6px rgba(#999,.4);
   float: right;
@@ -71,7 +71,7 @@
   }
 }
 
-.results__player__move__sembl {
+.results__player-move__move__sembl {
   @extend %white-drop-shadow;
   @include font-size(18);
   @include pad(all, small);
@@ -90,7 +90,7 @@
   }
 }
 
-.results__player__move__score {
+.results__player-move__move__score {
   @include inset(left, large);
   @include pad(all, small);
   background-color: #c6cc8a;
@@ -124,5 +124,54 @@
   }
   em {
     display: block;
+  }
+}
+
+.results__player-scores-wrapper {
+  @include pad(top, large);
+  text-align: center;
+}
+
+.results__player-scores {
+  @extend %clearfix-micro;
+  @include pad(all, smaller);
+  background-color: $highlight-background-color;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px 5px rgba(#888,.1);
+  display: inline-block;
+  width: 600px;
+}
+
+.results__player-scores-message {
+  @extend .medium-heading;
+  @include pad(bottom, small);
+  color: $link-color;
+  text-align: left;
+}
+
+.results__player-score {
+  @include pad(all, small);
+  float: left;
+  width: 50%;
+  text-align: left;
+}
+
+.results__player-score__email {
+  @include pad(bottom, tiny);
+  float: left;
+}
+
+.results__player-score__score {
+  @extend %white-drop-shadow;
+  @include font-size(18);
+  @include pad(left, smaller);
+  color: $link-color;
+  font-weight: 600;
+  float: left;
+  i {
+    color: #ffdc52;
+    text-shadow: 1px 1px 1px darken(#f5cd2e,10%);
+    padding-right: 4px;
   }
 }

@@ -39,7 +39,7 @@ class Sembl.Game extends Backbone.Model
     @get('errors') is not null and @get('errors').length > 0
 
   canJoin: -> 
-    !@get('is_participating') and !@get('is_hosting') and (@get('state') is 'open' or @get('state') is 'joining') 
+    Sembl.user and !@get('is_participating') and !@get('is_hosting') and (@get('state') is 'open' or @get('state') is 'joining') 
 
   resultsAvailableForRound: -> 
     if @get('state') == 'complete' then @get('current_round') else @get('current_round')-1

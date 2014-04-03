@@ -5,17 +5,17 @@
     {source, target, description, score} = @props
     score = Math.floor(score * 100)
     key = "#{source.node.id}.#{target.node.id}"
-    `<div className="results__player__move" key={key}>
-      <div className="results__player__move__node-wrapper">
-        <div className="results__player__move__source">
-          <img className="results__player__move__thing" src={source.thing.image_admin_url} />
+    `<div className="results__player-move__move" key={key}>
+      <div className="results__player-move__move__node-wrapper">
+        <div className="results__player-move__move__source">
+          <img className="results__player-move__move__thing" src={source.thing.image_admin_url} />
         </div>
-        <div className="results__player__move__target">
-          <img className="results__player__move__thing" src={target.thing.image_admin_url} />
+        <div className="results__player-move__move__target">
+          <img className="results__player-move__move__thing" src={target.thing.image_admin_url} />
         </div>
       </div>
-      <div className="results__player__move__sembl">{description}</div>
-      <div className="results__player__move__score"><i className="fa fa-star"></i><em>{score}</em></div>
+      <div className="results__player-move__move__sembl">{description}</div>
+      <div className="results__player-move__move__score"><i className="fa fa-star"></i><em>{score}</em></div>
     </div>`
 
 {SemblResult} = @Sembl.Games.Results
@@ -37,22 +37,45 @@
     </div>`
 
 {MoveResult} = @Sembl.Games.Results
-@Sembl.Games.Results.PlayerResults = React.createClass
+@Sembl.Games.Results.PlayerMoveResults = React.createClass
   render: ->
     user = @props.results[0].get('user')
     moveResults = for result in @props.results
       `<MoveResult result={result} />`
 
-    `<div className="results__player">
-      <h1 className="results__player__email"><i className="fa fa-user"></i> {user.email}</h1>
-      <div className="results__player__moves">
+    `<div className="results__player-move">
+      <h1 className="results__player-move__email">
+        <i className="fa fa-user"></i> {user.email}
+      </h1>
+      <div className="results__player-move__moves">
         {moveResults}
       </div>
     </div>`
 
+@Sembl.Games.Results.PlayerRoundResults = React.createClass
+  render: ->
+    playerRoundResults = @props.players.map (player) ->
+      console.log player
+      email = player.user?.email
+      score = Math.floor(player.score * 100)
+      `<div className="results__player-score">
+        <h1 className="results__player-score__email">
+          <i className="fa fa-user"></i> {email}
+        </h1>
+        <div className="results__player-score__score">
+          <i className="fa fa-star"></i><em>{score}</em>
+        </div>
+      </div>`
+
+    `<div className="results__player-scores-wrapper">
+      <div className="results__player-scores">
+        <h2 className="results__player-scores-message">Scores so far:</h2>
+        {playerRoundResults}
+      </div>
+    </div>`
 
 
-{PlayerResults} = @Sembl.Games.Results
+{PlayerMoveResults, PlayerRoundResults} = @Sembl.Games.Results
 @Sembl.Games.Results.ResultsView = React.createClass
   render: -> 
     userGroupedResults = {}
@@ -61,12 +84,13 @@
       userGroupedResults[email] = userGroupedResults[email] || []
       userGroupedResults[email].push(result)
 
-    playerResults = for email, results of userGroupedResults
+    playerMoveResults = for email, results of userGroupedResults
       key = email
-      `<PlayerResults key={key} results={results} />`
+      `<PlayerMoveResults key={key} results={results} />`
 
-    `<div className="results__players">
-      {playerResults}
+    `<div>
+      <PlayerRoundResults players={this.props.game.get('players')} />
+      <div className="results__player-moves">
+        {playerMoveResults}
+      </div>
     </div>`
-
-
