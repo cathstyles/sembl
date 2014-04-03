@@ -1,5 +1,4 @@
 #= require d3
-#= require handlers/gallery_filter_handler
 #= require views/components/graph/graph
 #= require views/components/searcher
 #= require views/games/gallery
