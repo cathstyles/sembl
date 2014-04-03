@@ -28,7 +28,6 @@ Gallery = @Sembl.Games.Gallery
     $(window).on('resize', @handleResize)
 
   componentWillUnmount: ->
-    @galleryFilterHandler.unbind()
     $(window).off('move.actions.submitMove')
     $(window).off('move.resemblance.change')
     $(window).off("#{@galleryPrefix}.selectTargetThing")
