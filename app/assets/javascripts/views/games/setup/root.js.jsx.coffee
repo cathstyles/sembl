@@ -54,7 +54,7 @@
     self = this
     if this.state.game.id
       params._method = "patch"
-    url = "#{@props.game.url()}.json"
+    url = "#{@state.game.url()}.json"
     $.ajax(
       url: url
       data: params
