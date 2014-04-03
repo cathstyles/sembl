@@ -182,19 +182,21 @@
 }
 
 .graph__resemblance__expanded {
-  @extend %button;
+  @extend %white-drop-shadow;
+  @include pad(vert, small);
   animation-name: reveal;
   animation-duration: 250ms;
   animation-timing-function: ease;
   animation-iteration-count: 1;
-  font-size: 16px !important;
-  font-size: 1.6rem !important;
+  border-radius: $border-radius;
+  background-color: darken($highlight-background-color, 3%);
+  box-shadow: 0 0 10px 5px rgba(#999,.1);
+  border: 2px solid $border-color;
+  font-weight: 600;
   width: 220px;
   margin-top: -20px;
   margin-left: -110px;
   text-align: center;
-  letter-spacing: 0 !important;
-  text-transform: none !important;
   position: absolute;
   top: 40px;
   left: 0;
