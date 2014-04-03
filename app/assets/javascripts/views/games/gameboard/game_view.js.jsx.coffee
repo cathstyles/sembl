@@ -1,4 +1,5 @@
 #= require views/games/gameboard/node
+#= require views/games/gameboard/resemblance
 #= require views/games/gameboard/players_view
 #= require views/games/gameboard/status_view
 #= require views/layouts/default
@@ -7,7 +8,7 @@
 
 ###* @jsx React.DOM ###
 
-{Node, PlayersView, StatusView} = Sembl.Games.Gameboard
+{Node, Resemblance, PlayersView, StatusView} = Sembl.Games.Gameboard
 Graph = Sembl.Components.Graph.Graph
 
 Sembl.Games.Gameboard.GameView = React.createBackboneClass 
@@ -98,6 +99,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
 
     graphChildClasses = {
       node: Node
+      resemblance: Resemblance
     }
 
     `<div className="game">

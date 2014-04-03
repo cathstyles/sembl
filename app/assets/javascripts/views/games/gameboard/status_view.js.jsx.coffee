@@ -20,7 +20,7 @@ Sembl.Games.Gameboard.StatusView = React.createClass
     else if state is 'waiting'
       disabled = true
       buttonText = "Waiting ..."
-      buttonClassName = "game__status__button game__status__waiting"
+      buttonClassName = "game__status__button game__status__waiting button--disabled"
       buttonIcon = "fa fa-clock-o"
       buttonClickHandler = null
     else if state is 'rating'

@@ -1,4 +1,3 @@
-
 ###* @jsx React.DOM ###
 
 {ResemblanceModal} = Sembl.Games.Move
