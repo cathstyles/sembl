@@ -81,6 +81,8 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     currentState = @model().get('player')?.state
     if currentState == "rating" and currentState != previousState
       Sembl.router.navigate("rate", trigger: true)
+    else if currentState == "playing_turn" and currentState != previousState
+      Sembl.router.navigate("results/#{@model().resultsAvailableForRound()}", trigger: true)
 
   render: ->
     # this width and height will be used to scale the x,y values of the nodes into the width and height of the graph div.
