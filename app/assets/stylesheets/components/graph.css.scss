@@ -140,15 +140,19 @@
 }
 
 .graph__resemblance__filled {
-  @extend %button;
-  font-size: 16px !important;
-  font-size: 1.6rem !important;
-  width: 220px;
-  margin-top: -20px;
-  margin-left: -110px;
-  text-align: center;
-  letter-spacing: 0 !important;
-  text-transform: none !important;
+  background-color: $background-color;
+  border: 1px solid $highlight-color;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  margin-top: -8px;
+  text-indent: -9999em;
+  &:hover {
+    box-shadow: 0 0 6px 2px rgba(#000,.1);
+  }
+  
   // &:before {
   //   content: "";
   //   position: absolute;
@@ -161,4 +165,36 @@
   //   animation-timing-function: ease;
   //   animation-iteration-count: infinite;
   // }
+}
+
+.graph__resemblance__filled--very-low {
+  background-color: blue;
+}
+.graph__resemblance__filled--low {
+  background-color: green;
+}
+.graph__resemblance__filled--medium {
+  background-color: yellow;
+}
+.graph__resemblance__filled--high {
+  background-color: orange;
+}
+.graph__resemblance__filled--very-high {
+  background-color: red;
+}
+
+.graph__resemblance__expanded {
+  // @extend %button;
+  // font-size: 16px !important;
+  // font-size: 1.6rem !important;
+  // width: 220px;
+  // margin-top: -20px;
+  // margin-left: -110px;
+  // text-align: center;
+  // letter-spacing: 0 !important;
+  // text-transform: none !important;
+  // Some sort of transition
+  &.hidden {
+    
+  }
 }
