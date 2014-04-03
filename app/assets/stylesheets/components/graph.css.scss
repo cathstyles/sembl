@@ -120,26 +120,26 @@
 
 
 @keyframes glow {
-  0%, 100%    { box-shadow: 0 0 3px 3px $highlight-color; }
-  50%         { box-shadow: 0 0 8px 8px $highlight-color; }
+  0%, 100%    { box-shadow: 0 0 6px 3px $highlight-color; }
+  50%         { box-shadow: 0 0 12px 4px $highlight-color; }
 }
 
 .graph__resemblance__empty {
   background-color: $background-color;
   border: 1px solid $highlight-color;
   border-radius: 50%;
-  cursor: pointer;
   width: 16px;
   height: 16px;
   margin-left: -8px;
   margin-top: -8px;
   text-indent: -9999em;
-  &:hover {
-    box-shadow: 0 0 6px 2px rgba(#000,.1);
-  }
 }
 
 .graph__resemblance__filled {
+  animation-name: glow;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
   background-color: $background-color;
   border: 1px solid $highlight-color;
   border-radius: 50%;
@@ -152,49 +152,38 @@
   &:hover {
     box-shadow: 0 0 6px 2px rgba(#000,.1);
   }
-  
-  // &:before {
-  //   content: "";
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  //   background-color: $highlight-color;
-  //   border: 1px solid $highlight-color;
-  //   animation-name: glow;
-  //   animation-duration: 1s;
-  //   animation-timing-function: ease;
-  //   animation-iteration-count: infinite;
-  // }
 }
 
 .graph__resemblance__filled--very-low {
-  background-color: blue;
+  @include background(linear-gradient($rating-very-low, darken($rating-very-low, 10%)) bottom);
 }
 .graph__resemblance__filled--low {
-  background-color: green;
+  @include background(linear-gradient($rating-low, darken($rating-very-low, 10%)) bottom);
 }
 .graph__resemblance__filled--medium {
-  background-color: yellow;
+  @include background(linear-gradient($rating-medium, darken($rating-very-low, 10%)) bottom);
 }
 .graph__resemblance__filled--high {
-  background-color: orange;
+  @include background(linear-gradient($rating-high, darken($rating-very-low, 10%)) bottom);
 }
 .graph__resemblance__filled--very-high {
-  background-color: red;
+  @include background(linear-gradient($rating-very-high, darken($rating-very-low, 10%)) bottom);
 }
 
 .graph__resemblance__expanded {
-  // @extend %button;
-  // font-size: 16px !important;
-  // font-size: 1.6rem !important;
-  // width: 220px;
-  // margin-top: -20px;
-  // margin-left: -110px;
-  // text-align: center;
-  // letter-spacing: 0 !important;
-  // text-transform: none !important;
-  // Some sort of transition
+  @extend %button;
+  font-size: 16px !important;
+  font-size: 1.6rem !important;
+  width: 220px;
+  margin-top: -20px;
+  margin-left: -110px;
+  text-align: center;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  position: absolute;
+  top: 40px;
+  left: 0;
   &.hidden {
-    
+    // Hidden state
   }
 }
