@@ -109,7 +109,7 @@
         <Board ref="board" board={inputs.board} boards={inputs.boards} />
         <Players ref="players" />
       </div>
-      <Actions ref="actions" status={status} />
+      <Actions ref="actions" status={status} game={game} />
       <Candidates filter={inputs.filter} />
     </div>`
 
