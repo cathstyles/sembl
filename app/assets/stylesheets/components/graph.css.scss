@@ -190,6 +190,7 @@
   animation-iteration-count: 1;
   border-radius: $border-radius;
   background-color: darken($highlight-background-color, 3%);
+  background-color: rgba(darken($highlight-background-color, 3%),.5);
   box-shadow: 0 0 10px 5px rgba(#999,.1);
   border: 2px solid $border-color;
   font-weight: 600;
