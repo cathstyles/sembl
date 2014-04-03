@@ -2,7 +2,6 @@
 
 @Sembl.Games.Rate.Resemblance = React.createClass
   render: -> 
-    console.log 'rendering'
     sembl = @props.link.get('viewable_resemblance')
     scoreClass = @props.link.scoreClass(true) # Use the user supplied rating, not the average. 
     child = if @props.link.active 
