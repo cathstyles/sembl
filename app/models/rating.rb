@@ -16,6 +16,7 @@ class Rating < ActiveRecord::Base
 
   validate :cannot_belong_to_creator
   after_create :update_resemblance_score
+  after_save :update_resemblance_score
 
   def cannot_belong_to_creator
     if creator == resemblance.creator

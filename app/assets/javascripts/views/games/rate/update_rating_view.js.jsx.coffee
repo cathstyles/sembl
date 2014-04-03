@@ -34,17 +34,15 @@
   componentDidMount: -> 
     $el = $(@getDOMNode())
     slider = $el.find('.rating__rate__slider') 
-    # slider.simpleSlider highlight: true, range: [0, 1], step: 0.01
-    console.log @currentRating()
     slider.noUiSlider
       start: @currentRating()*100 || 0
       orientation: 'vertical'
       direction: 'rtl'
       range: 'min': 0, 'max': 100
     
-    saveRatingDebounced = _.debounce(@saveRating, 500)
     slider.on "set", =>
       @saveRating slider.val()/100
+
 
   render: ->
     rating = @currentRating() or 0

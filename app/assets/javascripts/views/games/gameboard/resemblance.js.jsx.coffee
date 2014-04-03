@@ -3,7 +3,7 @@
 ###* @jsx React.DOM ###
 
 @Sembl.Games.Gameboard.Resemblance = React.createClass
-  handleClick: (event, link) ->
+  handleClick: (event) ->
     $(event.target).next(".graph__resemblance__expanded").toggleClass('hidden')
 
   render: () ->
