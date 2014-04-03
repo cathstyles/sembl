@@ -17,6 +17,9 @@ class Sembl.Game extends Backbone.Model
   filter: ->
     @.attributes.filter
 
+  showUrl: ->
+    "/games/#{@id}"
+
   updatePlayers: -> 
     @players.reset(@get("players"))
 

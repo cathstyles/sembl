@@ -254,8 +254,9 @@
   text-decoration: underline;
 }
 
-.games-setup__actions-save,
-.games-setup__actions-publish {
+.games-setup__actions__save,
+.games-setup__actions__publish,
+.games-setup__actions__show {
   @include pad(all, smaller);
   background-color: darken($highlight-background-color, 2%);
   border-bottom-left-radius: $border-radius-inner;
@@ -263,8 +264,9 @@
   text-align: center;
 }
 
-.games-setup__actions-save__button,
-.games-setup__actions-publish__button {
+.games-setup__actions__save__button,
+.games-setup__actions__publish__button,
+.games-setup__actions__show__button {
   @extend %button;
   i {
     padding-right: 4px;
