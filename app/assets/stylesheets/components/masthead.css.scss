@@ -60,7 +60,6 @@
   min-width: 920px;
   margin-left: auto;
   margin-right: auto;
-  z-index: 2;
   position: relative;
   min-height: 53px;
   @media screen and (max-width: 1550px) {
@@ -80,7 +79,7 @@
   position: absolute;
   top: -3px;
   left: -6px;
-  z-index: 1;
+  z-index: 20;
 }
 
 .masthead__links,
@@ -177,7 +176,7 @@
   top: 30px;
   left: 0;
   width: 350px;
-  z-index: 5;
+  z-index: 40;
 }
 
 .header__centre-title {
