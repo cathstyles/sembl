@@ -26,7 +26,7 @@
     sourceTitle = if sourcePlacement then sourcePlacement.title else 'placeholder'
     sourceImage = sourcePlacement.thing.image_admin_url
     targetTitle = @props.targetThing?.title || 'placeholder'
-    targetImage = @props.targetThing.image_admin_url
+    targetImage = @props.targetThing?.image_admin_url
     
     `<div className="move__resemblance__edit">
       <div className="move__resemblance__nodes">
