@@ -1,5 +1,6 @@
 // Moves
 .move__graph {
+  @include pad(top, large);
   width: 100%;
 }
 
