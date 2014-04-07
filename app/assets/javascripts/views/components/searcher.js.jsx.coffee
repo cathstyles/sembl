@@ -1,9 +1,11 @@
 ###* @jsx React.DOM ###
 
 @Sembl.Components.Searcher = React.createClass
+  maxOffset: Number.MAX_VALUE
+
   getInitialState: ->
     offset: 0
-    limit: 20
+    limit: 40
     filter: @props.filter
 
   componentWillMount: ->
@@ -28,14 +30,17 @@
     $.doTimeout("debounce.#{@props.prefix}.search", 200, @search)
 
   search: ->
+    offset = @state.offset
     params =
-      offset: @state.offset
+      offset: offset
       limit: @state.limit
     _.extend(params, @state.filter)
     console.log "#{@props.prefix}.search", params
     $.getJSON("/api/search.json",
       params
       (things) =>
+        if things.length == 0
+          @maxOffset = offset
         @things = things
         @handleNotify()
     )
@@ -45,11 +50,14 @@
 
   handleNotify: ->
     if @props.prefix
-      $(window).trigger("#{@props.prefix}.updated", {things: @things})
+      $(window).trigger("#{@props.prefix}.updated", {things: @things, offset: @state.offset, limit: @state.limit})
 
   handleNextPage: (event) ->
-    @setState
-      offset: @state.offset + @state.limit
+    @search
+    offset = Math.min(@maxOffset, @state.offset + @state.limit)
+    if offset != @state.offset
+      @setState
+        offset: offset
 
   handlePreviousPage: (event) ->
     if @state.offset > 0
