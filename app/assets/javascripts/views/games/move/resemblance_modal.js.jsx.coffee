@@ -24,7 +24,9 @@
     sourceNode = @props.link.source()
     sourcePlacement = sourceNode.get('viewable_placement')
     sourceTitle = if sourcePlacement then sourcePlacement.title else 'placeholder'
+    sourceImage = sourceNode.get('viewable_placement').image_thumb_url
     targetTitle = @props.targetThing?.title || 'placeholder'
+    targetImage = @props.targetThing.image_browse_url
     
     `<div className="move__resemblance__edit">
       <p>What&rsquo;s the resemblance between <strong>{sourceTitle}</strong> and <strong>{targetTitle}</strong>?</p>
