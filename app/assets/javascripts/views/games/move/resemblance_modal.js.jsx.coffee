@@ -29,9 +29,15 @@
     targetImage = @props.targetThing.image_admin_url
     
     `<div className="move__resemblance__edit">
+      <div className="move__resemblance__nodes">
+        <div className="graph__node move__resemblance__node">
+          <img src={sourceImage} alt={sourceTitle} className="graph__node__image move__resemblance__node-image" />
+        </div>
+        <div className="graph__node move__resemblance__node move__resemblance__node--last">
+          <img src={targetImage} alt={targetTitle} className="graph__node__image move__resemblance__node-image" />
+        </div>
+      </div>
       <p>What&rsquo;s the resemblance between <strong>{sourceTitle}</strong> and <strong>{targetTitle}</strong>?</p>
-      <img src={sourceImage} alt={sourceTitle} />
-      <img src={targetImage} alt={targetTitle} />
       <form onSubmit={this.handleSubmit} className="move__resemblance__edit-form">
         <input ref="input" type="text" onChange={this.handleChange} value={this.state.description}/>
         <button type="submit" className="move__edit__resemblance__close-button">
