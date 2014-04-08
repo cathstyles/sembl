@@ -15,6 +15,7 @@
 #= require viewloader
 #= require views/uploader/contributions_view
 #= require views/games/setup/root
+#= require views/games/setup2/new_view
 
 @Sembl =
   version: "0.1"
