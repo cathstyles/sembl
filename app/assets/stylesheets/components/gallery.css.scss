@@ -1,11 +1,5 @@
-.games__gallery {
-  //
-}
-
-.games__gallery_row {
-  overflow-y: scroll;
-  text-align: justify;
-  height: 800px;
+.gallery__row {
+  line-height: 0;
 }
 
 .games__gallery {
@@ -17,6 +11,18 @@
   cursor: pointer;
   position: relative;
   display: inline-block;
+  &:hover {
+    &:before {
+      border: 3px solid #fff;
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
 }
 
 .games__gallery__selected_thing {
