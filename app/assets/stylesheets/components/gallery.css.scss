@@ -15,13 +15,8 @@
 
 .games__gallery__thing {
   cursor: pointer;
-  border: 3px solid transparent;
-  &:hover {
-    border: 3px solid #fff;
-    border-radius: $border-radius;
-    // transform: scale(1.1);
-    z-index: 5;
-  }
+  position: relative;
+  display: inline-block;
 }
 
 .games__gallery__selected_thing {
