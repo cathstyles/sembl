@@ -78,11 +78,6 @@ GalleryImage = React.createClass
     things: []
     first: false
     images: @props.images || []
-    imagesDerived: if @props.images
-        for image in @props.images
-          _.extend({}, image)
-      else 
-        []
     rows: []
 
   componentWillMount: () ->
