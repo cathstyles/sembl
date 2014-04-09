@@ -10,6 +10,7 @@ Sembl::Application.routes.draw do
       resources :ratings, only: [:create, :index, :show] 
       resources :moves, only: [:create]
       resources :results, only: [:create, :index, :show] 
+      resources :players, only: [:show]
 
       get 'moves/round', to: 'moves#round'
     end
@@ -38,6 +39,8 @@ Sembl::Application.routes.draw do
   resources :games, only: [:index, :show, :new, :edit] do
     resources :things, only: [:index]
   end
+
+  resources :profiles, only: [:edit]
 
   get  'transloadit_signatures/:template_id' => 'transloadit_signatures#template'
   post 'transloadit_signatures/:template_id' => 'transloadit_signatures#template'
