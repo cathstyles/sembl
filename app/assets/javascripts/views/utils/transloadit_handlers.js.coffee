@@ -1,5 +1,5 @@
 #= require views/utils/utils
-  
+
 class @Sembl.Handlers.TransloaditBoredInstance
   constructor: (@successCallback) ->
     @api = "#{window.Sembl.Utils.PROTOCOL}://api2.transloadit.com/"

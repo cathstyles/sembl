@@ -5,6 +5,7 @@
 ###* @jsx React.DOM ###
 
 {TransloaditBoredInstance, TransloaditSignature} = @Sembl.Handlers
+
 @Sembl.Components.TransloaditCropComponent = React.createClass
   componentDidMount: ->
     $('img').imgAreaSelect
@@ -30,13 +31,13 @@
 
   foundBoredInstance: (apiHost) ->
     @transloaditInstance = apiHost
-    @checkLoadComplete()
+    @checkInitComplete()
 
   signatureLoaded: (template) ->
     @cropTemplate = template
-    @checkLoadComplete()
+    @checkInitComplete()
 
-  checkLoadComplete: ->
+  checkInitComplete: ->
     @cropImage() if @cropTemplate and @transloaditInstance
 
   cropImage: ->

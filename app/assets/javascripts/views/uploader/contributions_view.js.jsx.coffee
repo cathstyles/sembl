@@ -8,22 +8,7 @@
 
 @Sembl.NewContribution = React.createClass
   getInitialState: ->
-    step: 0
-
-  componentWillMount: ->
-    new TransloaditBoredInstance(@foundBoredInstance)
-    new TransloaditSignature('thingsStoreOriginal', @signatureLoaded)
-
-  foundBoredInstance: (apiHost) ->
-    @transloaditInstance = apiHost
-    @checkLoadComplete()
-
-  signatureLoaded: (template) ->
-    @uploadTemplate = template
-    @checkLoadComplete()
-
-  checkLoadComplete: ->
-    @setState step: 1 if @transloaditInstance and @uploadTemplate
+    step: 1
 
   setCropSrc: (url) ->
     @cropUrl = url
@@ -35,14 +20,9 @@
 
   render: ->
     currentComponent = switch @state.step
-      when 0
-        `<div>Loading…</div>`
-
       when 1
         `<TransloaditUploadComponent
-          transloaditTemplate={this.uploadTemplate}
-          transloaditInstance={this.transloaditInstance}
-          setCropSrc={this.setCropSrc}
+          finishedUpload={this.setCropSrc}
         />`
 
       when 2

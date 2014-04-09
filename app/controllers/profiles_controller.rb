@@ -1,8 +1,11 @@
-class GamesController < ApplicationController
+class ProfilesController < ApplicationController
   respond_to :html
 
   def edit
 
+  end
+
+  def process_avatar
   end
 
   private
@@ -11,8 +14,7 @@ class GamesController < ApplicationController
 
     params.require(:profile).permit(
       :name, 
-      :bio,
-      :avatar
+      :bio
     )
   end
 
