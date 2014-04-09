@@ -6,12 +6,6 @@ class Api::MovesController < ApiController
   before_filter :authenticate_user!
   before_filter :find_game
 
-  # #TODO is this being used?
-  def show
-    # @node = Node.find(params[:id])
-    # respond_with @node
-  end
-
   def create
     @move = Move.new(user: current_user)
     @move.placement = move_params[:placement]
@@ -24,15 +18,6 @@ class Api::MovesController < ApiController
   end
 
   private
-
-  def result(status=nil, notice=nil, alert=nil, errors=nil)
-    {
-      status: status,
-      notice: notice,
-      alert:  alert,
-      errors: errors
-    }
-  end
 
   def move_params
     move = params.require(:move).permit(
