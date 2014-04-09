@@ -69,6 +69,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     
   componentWillUnmount: ->
     $(window).off('resize')
+    $(window).off('header.joinGame')
     @timer.stop()
 
   handleResize: ->
