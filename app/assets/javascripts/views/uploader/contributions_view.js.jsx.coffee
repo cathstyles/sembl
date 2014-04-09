@@ -1,6 +1,5 @@
 #= require views/components/transloadit_upload
 #= require views/components/transloadit_crop
-#= require views/utils/transloadit_handlers
 
 ###* @jsx React.DOM ###
 {TransloaditUploadComponent, TransloaditCropComponent} = @Sembl.Components
@@ -39,10 +38,6 @@
     `<div className="new-contribution">
       {currentComponent}
     </div>`
-
-
-
-
 
 ThingComponent = React.createClass
   render: ->
