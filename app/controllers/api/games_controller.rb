@@ -61,8 +61,6 @@ class Api::GamesController < ApiController
   end
 
   def update
-    puts game_params
-
     @game.assign_attributes(game_params)
     @game.updator = current_user
     @game.state_event = 'publish' if params[:publish]
