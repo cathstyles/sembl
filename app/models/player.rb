@@ -28,6 +28,7 @@ class Player < ActiveRecord::Base
   # playing_turn
   # waiting 
   # rating 
+  # finished
 
   state_machine initial: :draft do 
     after_transition :playing_turn => :waiting, do: :check_turn_completion
@@ -62,6 +63,10 @@ class Player < ActiveRecord::Base
 
     event :begin_turn do 
       transition :waiting => :playing_turn
+    end
+
+    event :finish_playing do 
+      transition [:rating, :waiting] => :finished
     end
 
     state :invited do 

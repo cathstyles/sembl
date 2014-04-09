@@ -68,6 +68,7 @@ class Game < ActiveRecord::Base
     before_transition :rating => [:playing, :completed], do: :calculate_scores
     after_transition :playing => :rating, do: :players_begin_rating
     after_transition :rating => :playing, do: :players_begin_playing
+    after_transition :rating => :completed, do: :players_finish_playing
 
     event :publish do 
       transition :draft => :open, if: lambda { |game| !game.invite_only }
@@ -179,6 +180,10 @@ class Game < ActiveRecord::Base
     players.each {|player| player.begin_rating }
   end
 
+  def players_finish_playing
+    players.each {|player| player.finish_playing }
+  end
+
   def invite_players 
     players.each do |player|
       player.invite
@@ -205,8 +210,6 @@ class Game < ActiveRecord::Base
 
   def unlock_nodes_for_round 
     nodes.where(round: current_round).each do |node|
-      puts node.can_unlock?
-      puts current_round
       node.unlock
     end 
   end
