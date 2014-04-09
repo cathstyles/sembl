@@ -35,7 +35,7 @@
     $el = $(@getDOMNode())
     slider = $el.find('.rating__rate__slider') 
     slider.noUiSlider
-      start: @currentRating()*100 || 0
+      start: @currentRating()*100 || 50
       orientation: 'vertical'
       direction: 'rtl'
       range: 'min': 0, 'max': 100
