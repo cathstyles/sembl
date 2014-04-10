@@ -1,5 +1,8 @@
+#= require views/components/tooltip
+
 ###* @jsx React.DOM ###
 
+{Tooltip} = @Sembl.Components
 Sembl.Games.Gameboard.StatusView = React.createClass
 
   handleEndTurn: -> 
@@ -36,6 +39,15 @@ Sembl.Games.Gameboard.StatusView = React.createClass
         {buttonText}
     </button>`
 
+  getTooltip: (state, move_state) -> 
+    round = @props.game.get('current_round')
+
+    if state is 'playing_turn' and move_state is 'created'
+      if round == 1
+        tooltip = "Are you happy with your move? End your turn to let us know you are finished."
+      else if round == 2
+        tooltip = "Have you made all of the moves you want to make? End your turn to let us know you are finished."
+  
   render: -> 
     game_status = @props.game.get('status')
     player = @props.game.get('player')
@@ -45,6 +57,12 @@ Sembl.Games.Gameboard.StatusView = React.createClass
     else
       statusHTML = game_status
 
-    return `<div className="game__status">
-        {statusHTML}
-      </div>`
+    if player 
+      tooltipText = @getTooltip(player.state, player.move_state)
+      tooltip = if tooltipText
+        `<Tooltip className="game__status__tooltip">{tooltipText}</Tooltip>`
+
+    `<div className="game__status">
+      {tooltip}
+      {statusHTML}
+    </div>`
