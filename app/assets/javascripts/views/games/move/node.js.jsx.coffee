@@ -1,9 +1,10 @@
 #= require views/components/graph/node
 #= require views/components/thing_modal
+#= require views/components/tooltip
 
 ###* @jsx React.DOM ###
 
-{ThingModal} = Sembl.Components
+{ThingModal, Tooltip} = Sembl.Components
 {Node} = Sembl.Components.Graph
 
 @Sembl.Games.Move.Node = React.createClass
@@ -26,15 +27,23 @@
   getInitialState: ->
     node = @props.node
     thing = node.get('viewable_placement')?.thing
-    if thing
-      return {thing: thing}
-    else
-      return {}
+    {
+      thing: thing
+      userState: node.get('user_state')
+    }
 
   render: () ->
+    round = @props.node.game.get('current_round')
+
+    tooltip = if round == 1 and @state.userState == 'available'
+      `<Tooltip className="graph__node__tooltip">
+        First choose an image from the gallery
+      </Tooltip>`
+
     image_url = @state.thing?.image_admin_url
     `<div onClick={this.handleClick}>
       <Node node={this.props.node} image_url={image_url} userState={this.state.userState} />
+      {tooltip}
     </div>`
 
 

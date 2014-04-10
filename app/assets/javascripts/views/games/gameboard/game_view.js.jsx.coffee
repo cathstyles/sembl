@@ -90,8 +90,6 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     width = @model().width()
     height = @model().height()
 
-   
-
     nodes = @model().nodes.models
     links = @model().links.models
 
