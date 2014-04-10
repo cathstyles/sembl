@@ -1,0 +1,65 @@
+// Create game/edit game
+
+.setup {
+  @include pad(top, smaller);
+}
+
+.setup__steps {
+  @extend %highlight-box;
+  @extend .small-tracked-out-heading;
+  @include pad(all, larger);
+  text-align: center;
+  min-width: 200px;
+  width: 50%
+}
+.setup__steps__actions {
+  margin-top: 6px;  
+}
+.setup__steps__actions__next,
+.setup__steps__actions__previous,
+.setup__steps__actions__done {
+  @extend %button;
+  i {
+    padding-right: 4px;
+  }
+}
+
+.setup__steps__seed {}
+
+.setup__steps__seed-image {
+  @include inset(vert, small);
+  background-color: $background-color;
+  border: 3px solid #fff;
+  box-shadow: 0 0 2px 2px rgba(#888,.1);
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 126px;
+}
+
+.setup__steps__seed-randomise {
+  color: $link-color;
+  span {
+    text-decoration: underline;
+  }
+  i {
+    padding-right: 5px;
+    vertical-align: middle;
+  }
+}
+
+.setup__steps__title {}
+.setup__steps__title__input {}
+.setup__steps__board {}
+.setup__steps__seed {}
+
+
+.setup__title {}
+.setup__description {}
+
+.setup__settings {
+  @include pad(vert, small);
+  @include inset(top, normal);
+  float: left;
+  margin-right: 20px;
+}
+
