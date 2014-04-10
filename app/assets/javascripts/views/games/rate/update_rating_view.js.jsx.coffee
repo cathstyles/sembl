@@ -22,6 +22,7 @@
       sembl.rating = ratio
       link = @props.link.set('viewable_resemblance', sembl)
       @props.handleRated(link)
+      @tooltip.setState(hidden: true)
 
     result.fail (response) -> 
       responseObj = JSON.parse response.responseText;
@@ -45,7 +46,14 @@
 
 
   render: ->
+    round = @props.link.game.get('current_round')
+
     rating = @currentRating() or 0
+    @tooltip = if round == 1 
+      `<Tooltip className="rating__rate__tooltip">
+        Slide to rate this sembl!
+      </Tooltip>`
+
     `<div className="rating__rate">
       <div className="rating__rate__slider" />
     </div>`
