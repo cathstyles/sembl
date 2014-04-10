@@ -1,19 +1,28 @@
-#= require views/games/setup2/steps
-#= require views/games/setup2/meta
+#= require views/games/setup2/steps/steps
+#= require views/games/setup2/steps/step_title
+#= require views/games/setup2/steps/step_board
+#= require views/games/setup2/steps/step_seed
 
 ###* @jsx React.DOM ###
 
-{Meta, Steps} = Sembl.Games.Setup
+{StepTitle, StepBoard, StepSeed, Steps} = Sembl.Games.Setup
 @Sembl.Games.Setup.New = React.createClass
-  render: ->
-    steps = [
-      Meta,
-      `<div>step 2</div>`,
-      `<div>step 3</div>`,
-      `<div>step 4</div>`
-    ]
+  getInitialState: ->
+    quickStart: true
 
-    `<Steps steps={steps} />`
+  render: ->
+    boards = @props.game.get('boards')
+    stepList = [
+      `<StepTitle validate={false} />`,
+      `<StepBoard validate={false} boards={boards} />`,
+      `<StepSeed validate={false} />`
+    ]
+    steps = `<Steps steps={stepList} doneEvent="setup.steps.done" />`
+    overview = `<Overview />`
+
+    `<div className="setup">
+        {this.state.quickState ? steps : overview}
+    </div>`
 
 @Sembl.views.setupNew = ($el, el) ->
   Sembl.game = new Sembl.Game($el.data().game);
