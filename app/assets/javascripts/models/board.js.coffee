@@ -3,5 +3,5 @@
 
 class Sembl.Board extends Backbone.Model
   initialize: (options) ->
-    @nodes = new Sembl.BoardNodes(@get("nodes"), board: this)
-    @links = new Sembl.BoardLinks(@get("links"), board: this)
+    @nodes = new Sembl.BoardNodes(@get("nodes_attributes"), board: this)
+    @links = new Sembl.BoardLinks(@get("links_attributes"), board: this)

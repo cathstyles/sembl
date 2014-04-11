@@ -1,17 +1,20 @@
 ###* @jsx React.DOM ###
 
 @Sembl.Games.Setup.StepBoard = React.createClass
-  handleChange: (event) ->
-    #$.doTimeout('debounce.setup.steps.change', 200, @bubbleChange, state)
-
-  bubbleChange: (state) ->
-    $(window).trigger('setup.steps.change', {properties: state, valid: @isValid(state)})
+  handleSelectBoard: (board) ->
+    console.log board.id, board
+    window.board = board
+    $(window).trigger('setup.steps.change', {properties: {board: board}, valid: true})
 
   render: ->
-    boards = for board in @props.boards
-      `<div key={board.id}>{board}</div>`
+    boards = $.map(@props.boards, (board) =>
+      selectBoard = => @handleSelectBoard(board)
+      `<div>
+        <a key={board.id} href="#" onClick={selectBoard} value={board.id}>{board.get('title')}</a>
+      </div>`
+    )
 
     `<div className="setup__steps__board">
-      Boards
+      Choose a board
       {boards}
     </div>`
