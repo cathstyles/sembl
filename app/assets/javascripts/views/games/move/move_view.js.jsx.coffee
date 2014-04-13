@@ -1,17 +1,15 @@
 #= require d3
-#= require views/components/graph/graph
 #= require views/components/searcher
 #= require views/games/gallery
 #= require views/games/move/actions
 #= require views/games/move/gallery_thing_modal
+#= require views/games/move/move_graph
 #= require views/games/move/node
-#= require views/games/move/resemblance
 #= require views/games/move/resemblance_modal
 
 ###* @jsx React.DOM ###
 
-{Actions, Board, Node, Resemblance, SelectedThing, GalleryThingModal, ResemblanceModal, PlacementModal} = Sembl.Games.Move
-Graph = Sembl.Components.Graph.Graph
+{Actions, Board, MoveGraph, SelectedThing, GalleryThingModal, ResemblanceModal, PlacementModal} = Sembl.Games.Move
 {Searcher} = Sembl.Components
 Gallery = @Sembl.Games.Gallery
 
@@ -101,23 +99,11 @@ Gallery = @Sembl.Games.Gallery
   render: -> 
     target = @state.target
     links = @state.links
-    sources = (link.source() for link in links)
-
-    rootNode = _.extend({children: sources}, target)
-    tree = d3.layout.tree()
-    nodes = tree.nodes(rootNode)
-
-    graphChildClasses = {
-      node: Node
-      resemblance: Resemblance
-    }
 
     `<div className="move">
       <Searcher filter={this.props.game.get('filter')} prefix={this.searcherPrefix} />
-      <div className="move__graph">
-        <Graph nodes={nodes} links={links} childClasses={graphChildClasses}/>
-      </div>
+      <MoveGraph target={target} links={links} />
       <Actions />
-        <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
+      <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
     </div>`
 
