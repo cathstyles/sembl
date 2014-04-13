@@ -1,11 +1,11 @@
 #= require d3
 #= require views/components/graph/nodes
 #= require views/components/graph/links
-#= require views/components/graph/resemblances
+#= require views/components/graph/midpoints
 
 ###* @jsx React.DOM ###
 
-{Links, Nodes, Resemblances} =  Sembl.Components.Graph
+{Links, Midpoints, Nodes} =  Sembl.Components.Graph
 Sembl.Components.Graph.Graph = React.createClass 
   getInitialState: ->
     state =
@@ -16,20 +16,22 @@ Sembl.Components.Graph.Graph = React.createClass
     @nodeIndex[node.id]    
 
   componentWillMount: ->
-    $(window).on('graph.resize', @handleResize)
+    $(window).on("graph.resize", @handleResize)
 
   componentWillUnmount: ->
-    $(window).off('graph.resize')
+    $(window).off("graph.resize")
     
   componentDidMount: ->
+    console.log 'componentDidMount'
     @handleResize()
 
   handleResize: ->
-    $canvas = $(@refs.canvas.getDOMNode())
-    if this.state.width != $canvas.width() || this.state.height != $canvas.height()
+    $this = $(@getDOMNode())
+    window.$this = $this
+    if this.state.width != $this.width() || this.state.height != $this.height()
       @setState
-        width: $canvas.width()
-        height: $canvas.height()
+        width: $this.width()
+        height: $this.height()
 
   scaleNode: (node) ->
     node = @lookupNode(node)
@@ -39,18 +41,18 @@ Sembl.Components.Graph.Graph = React.createClass
     
     yScale = d3.scale.linear().range([0, @state.height || 1])
     if @props.height then yScale.domain([0, @props.height])
+    console.log "height", @props.height, @state.height
     
-    newNode =
-      x: xScale(node.x)
-      y: yScale(node.y)
-      model: node
+    newNode = _.extend({}, node)
+    newNode.x = xScale(node.x)
+    newNode.y = yScale(node.y)
+
     return newNode
 
   scaleLink: (link) ->
-    newLink = 
-      source: @scaleNode(link.source())
-      target: @scaleNode(link.target())
-      model: link
+    newLink = _.extend({}, link)
+    newLink.source = @scaleNode(link.source)
+    newLink.target = @scaleNode(link.target)
     return newLink
 
   render: ->
@@ -58,20 +60,24 @@ Sembl.Components.Graph.Graph = React.createClass
     @nodeIndex = {}
     for n in @props.nodes
       @nodeIndex[n.id] = n
-    
-    nodes = @props.nodes
-    links = @props.links
 
-    scaleNode = @scaleNode
-    scaleLink = @scaleLink
-    scaledNodes = nodes.map (node) -> scaleNode(node)
-    scaledLinks = links.map (link) -> scaleLink(link)
+    {nodes, links, nodeFactory, midpointFactory} = @props
+    for link in links
+      if !link.source?
+        raise 'link does not have source,'
+
+    scaledNodes = (@scaleNode(node) for node in nodes)
+    scaledLinks = (@scaleLink(link) for link in links)
+
     childClasses = this.props.childClasses || {}
+    {height, width} = @state
+    console.log @props
+    console.log @state
+    console.log 'width, height',width, height
+
     `<div className="graph">
-      <div ref="canvas" className="graph__canvas">
-        <Links nodes={scaledLinks} links={scaledLinks} width={this.state.width} height={this.state.height} />
-        <Resemblances links={scaledLinks} width={this.state.width} height={this.state.height} childClasses={childClasses} />
-        <Nodes nodes={scaledNodes} childClasses={childClasses} />
-      </div>
+        <Links links={scaledLinks} width={width} height={height} />
+        <Nodes nodes={scaledNodes} nodeFactory={nodeFactory} />
+        <Midpoints links={scaledLinks} midpointFactory={midpointFactory} />
     </div>`
-  
+

@@ -66,10 +66,10 @@ GalleryImage = React.createClass
 
   render: ->
     image = @props.image
-    `<img key={image.id} className={image.className} onClick={this.handleClick}
-      src={image.src} width={image.width} height={image.height}
-      onClick={this.handleClick}
-      style={{'display': 'inline-block'}} />`
+    `<div key={image.id} className={image.className} onClick={this.handleClick}
+      onClick={this.handleClick} >
+        <img src={image.src} width={image.width} height={image.height} />
+      </div>`
 
 @Sembl.Games.Gallery = React.createClass
   className: "games__gallery"

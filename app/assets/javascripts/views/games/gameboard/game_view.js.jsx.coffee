@@ -1,15 +1,12 @@
-#= require views/games/gameboard/node
-#= require views/games/gameboard/resemblance
+#= require views/games/gameboard/game_graph
 #= require views/games/gameboard/players_view
 #= require views/games/gameboard/status_view
 #= require views/layouts/default
-#= require views/components/graph/graph
 #= require jquery.timer
 
 ###* @jsx React.DOM ###
 
-{Node, Resemblance, PlayersView, StatusView} = Sembl.Games.Gameboard
-Graph = Sembl.Components.Graph.Graph
+{GameGraph, PlayersView, StatusView} = Sembl.Games.Gameboard
 
 Sembl.Games.Gameboard.GameView = React.createBackboneClass 
   handleJoin: ->  
@@ -86,27 +83,12 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
 
   render: ->
     # this width and height will be used to scale the x,y values of the nodes into the width and height of the graph div.
-      
-    width = @model().width()
-    height = @model().height()
-
-   
-
-    nodes = @model().nodes.models
-    links = @model().links.models
-
-    for node in nodes
-      node.x = node.get('x')
-      node.y = node.get('y')
-
-    graphChildClasses = {
-      node: Node
-      resemblance: Resemblance
-    }
+    
+    game = @model()
 
     `<div className="game">
       <div ref="graph" className="game__graph">
-        <Graph nodes={nodes} links={links} width={width} height={height} childClasses={graphChildClasses} />
+        <GameGraph game={game} />
       </div>
       <PlayersView players={this.model().players} />
       <StatusView game={this.model()} handleEndTurn={this.handleEndTurn} />
