@@ -4,7 +4,6 @@
 #= require views/games/move/actions
 #= require views/games/move/gallery_thing_modal
 #= require views/games/move/move_graph
-#= require views/games/move/node
 #= require views/games/move/resemblance_modal
 
 ###* @jsx React.DOM ###
