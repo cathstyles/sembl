@@ -6,34 +6,30 @@
 .graph {
   height: 100%;
   width: 100%;
-  padding: 80px 150px;
   position: relative;
 }
 
-.graph__canvas {
-  height: 100%;
-  width: 100%;
-  position: relative;
-  min-height: 500px;
-  .move__graph & {
-    height: 250px;
-    min-height: 250px;
-  }
-}
-
-.graph__node-wrapper,
+.graph__nodes,
 .graph__links,
-.graph__resemblences,
-.graph__resemblance {
-  position: absolute;
+.graph__midpoints {
+  position:absolute;
+}
+.graph__node,
+.graph__midpoint {
+  position: absolute; 
 }
 
-.graph__node-wrapper {
+.game__graph {
+  padding: 80px;
+  min-height: 500px;
+}
+
+.game__placement-wrapper {
   margin-left: -60px;
   margin-top: -60px;
 }
 
-.graph__node {
+.game__placement {
   background-color: #faf0dc;
   border: 2px solid #fff;
   border-radius: $border-radius;
@@ -119,13 +115,13 @@
   }
 }
 
-.graph__node__image {
+.game__placement__image {
   border-radius: $border-radius-inner;
   height: 100%;
   width: 100%;
 }
 
-.graph__resemblance__empty {
+.game__resemblance__empty {
   background-color: $background-color;
   border: 1px solid $highlight-color;
   border-radius: 50%;
@@ -136,7 +132,7 @@
   text-indent: -9999em;
 }
 
-.graph__resemblance__filled {
+.game__resemblance__filled {
   animation-duration: 1s;
   animation-timing-function: ease;
   animation-iteration-count: infinite;
@@ -181,27 +177,27 @@
   50%         { box-shadow: 0 0 12px 4px $rating-very-high; }
 }
 
-.graph__resemblance__filled--very-low {
+.game__resemblance__filled--very-low {
   @include background(linear-gradient($rating-very-low, darken($rating-very-low, 10%)) bottom);
   animation-name: glow--very-low;
   animation-delay: 250ms;
 }
-.graph__resemblance__filled--low {
+.game__resemblance__filled--low {
   @include background(linear-gradient($rating-low, darken($rating-low, 10%)) bottom);
   animation-name: glow--low;
   animation-delay: 500ms;
 }
-.graph__resemblance__filled--medium {
+.game__resemblance__filled--medium {
   @include background(linear-gradient($rating-medium, darken($rating-medium, 10%)) bottom);
   animation-name: glow--medium;
   animation-delay: 300ms;
 }
-.graph__resemblance__filled--high {
+.game__resemblance__filled--high {
   @include background(linear-gradient($rating-high, darken($rating-high, 10%)) bottom);
   animation-name: glow--high;
   animation-delay: 400ms;
 }
-.graph__resemblance__filled--very-high {
+.game__resemblance__filled--very-high {
   @include background(linear-gradient($rating-very-high, darken($rating-very-high, 10%)) bottom);
   animation-name: glow--very-high;
   animation-delay: 50ms;
@@ -212,7 +208,7 @@
   100%   { opacity: 1; }
 }
 
-.graph__resemblance__expanded {
+.game__resemblance__expanded {
   @extend %white-drop-shadow;
   @include pad(vert, small);
   animation-name: reveal;

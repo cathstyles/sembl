@@ -17,7 +17,9 @@
         description: resemblance.description
 
   getInitialState: ->
+    console.log 'resemblance props', @props
     link = @props.link
+    console.log '@Sembl.Games.Move.Resemblance.getInitialState', @props
     resemblance = link.get('viewable_resemblance')
     description = if !!resemblance then resemblance.description
     state = {description: description}
@@ -26,9 +28,9 @@
     toggleEvent = 'toggle.graph.resemblance.'+@props.link.id
 
     child = if @state.description 
-      `<div className="graph__resemblance__expanded">{this.state.description}</div>`
+      `<div className="game__resemblance__expanded">{this.state.description}</div>`
     else
-      `<div className="graph__resemblance__empty" />`
+      `<div className="game__resemblance__empty" />`
 
     `<div className="move__resemblance" onClick={this.handleClick}>
       {child}

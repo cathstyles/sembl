@@ -30,11 +30,11 @@
     
     `<div className="move__resemblance__edit">
       <div className="move__resemblance__nodes">
-        <div className="graph__node move__resemblance__node">
-          <img src={sourceImage} alt={sourceTitle} className="graph__node__image move__resemblance__node-image" />
+        <div className="game__placement move__resemblance__node move__resemblance__node--last">
+          <img src={targetImage} alt={targetTitle} className="game__placement__image move__resemblance__node-image" />
         </div>
-        <div className="graph__node move__resemblance__node move__resemblance__node--last">
-          <img src={targetImage} alt={targetTitle} className="graph__node__image move__resemblance__node-image" />
+        <div className="game__placement move__resemblance__node">
+          <img src={sourceImage} alt={sourceTitle} className="game__placement__image move__resemblance__node-image" />
         </div>
       </div>
       <p>What&rsquo;s the resemblance between <strong>{sourceTitle}</strong> and <strong>{targetTitle}</strong>?</p>
