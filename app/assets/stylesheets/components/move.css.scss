@@ -1,6 +1,8 @@
 // Moves
 .move__graph {
-  @include pad(top, large);
+  padding: 80px;
+  height: 0px; // not sure why I need this set for the .graph child element to set itself to fill the 500px
+  min-height: 500px;
   width: 100%;
 }
 
@@ -78,7 +80,7 @@
     margin-top: -1px;
   }
 }
-
+  
 .move__resemblance__node {
   position: absolute;
   top: 0;
