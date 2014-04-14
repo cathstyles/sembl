@@ -37,6 +37,7 @@
   width: 120px;
   height: 120px;
   text-align: center;
+  position: relative;
 
   &.state-filled {
     background-color: $highlight-background-color;
@@ -110,7 +111,8 @@
     box-shadow: 0 0 12px 6px rgba(#999,.4);
     cursor: pointer;
     img {
-      border: 1px solid #fff;
+      border: 1px dashed #fff;
+      background-color: #4f570f;
     }
   }
 }
