@@ -10,31 +10,47 @@
 @Sembl.Games.Setup.New = React.createClass
   componentWillMount: ->
     $(window).on('setup.steps.done', @handleStepsDone)
+    $(window).on('setup.steps.add', @handleAddStep)
+
+    boards = @props.game.boards.sortBy('title')
+    @stepComponents =
+      title: `<StepTitle />`
+      board: `<StepBoard boards={boards} />`
+      seed: `<StepSeed />`
 
   componentWillUnmount: ->
     $(window).off('setup.steps.done') 
 
   getInitialState: ->
-    showSteps: true
-    properties: {}
+    activeSteps: ['board','title','seed']
+    collectedFields: {}
 
-  handleStepsDone: (event, properties) ->
+  handleStepsDone: (event, collectedFields) ->
     @setState
-      showSteps: false
-      properties: properties
+      activeSteps: []
+      collectedFields: _.extend(@state.collectedFields, collectedFields)
+
+  handleAddStep: (event, data) ->
+    if !data.stepName
+      throw "cannot add step: #{data}"
+    @state.activeSteps.push(data.stepName)
+    @setState
+      activeSteps: @state.activeSteps
 
   render: ->
+    console.log 'new_view.state', @state
     boards = @props.game.boards.sortBy('title')
-    stepList = [
-      `<StepTitle validate={false} />`,
-      `<StepBoard validate={false} boards={boards} />`,
-      `<StepSeed validate={false} />`
-    ]
-    steps = `<Steps steps={stepList} doneEvent="setup.steps.done" />`
-    overview = Overview(@state.properties)
+    stepList = []
+    for step in @state.activeSteps
+      stepList.push(@stepComponents[step])
+
+    if stepList.length > 0
+      show = `<Steps steps={stepList} doneEvent="setup.steps.done" collectedFields={this.state.collectedFields} />`
+    else
+      show = Overview(@state.collectedFields)
 
     `<div className="setup">
-        {this.state.showSteps ? steps : overview}
+      {show}
     </div>`
 
 @Sembl.views.setupNew = ($el, el) ->

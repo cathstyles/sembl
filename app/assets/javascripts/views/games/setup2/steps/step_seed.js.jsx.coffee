@@ -22,7 +22,7 @@
       )
 
   handleSeedSelect: (event, thing) ->
-    $(window).trigger('setup.steps.change', {valid: true, properties: {seed: thing}})
+    $(window).trigger('setup.steps.change', {seed: thing})
 
   handleSeedClick: (event) ->
     $(window).trigger('modal.open', `<SeedModal prefix="setup.steps.seed" />`)

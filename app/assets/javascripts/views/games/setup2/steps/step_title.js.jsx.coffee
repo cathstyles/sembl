@@ -15,7 +15,10 @@
 
 
   bubbleChange: (state) ->
-    $(window).trigger('setup.steps.change', {properties: state, valid: !!state.title})
+    $(window).trigger('setup.steps.change', state)
+
+  isValid: ->
+    !!@state?.title
 
   render: ->
     `<div className="setup__steps__title">

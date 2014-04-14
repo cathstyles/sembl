@@ -49,9 +49,14 @@
 
 .setup__steps__title {}
 .setup__steps__title__input {}
-.setup__steps__board {}
-.setup__steps__seed {}
 
+.setup__steps__board {}
+.setup__steps__board__item {}
+.setup__steps__board__item.selected {
+  border: 1px dashed;
+}
+
+.setup__steps__seed {}
 
 .setup__title {}
 .setup__description {}
@@ -63,3 +68,15 @@
   margin-right: 20px;
 }
 
+.setup__thumb-board-graph {
+  padding: 10px;
+  height: 100px;
+  width: 100px;
+}
+.setup__thumb-board-graph__node:before {
+  content: '\25CF';
+  font-size: 20px;
+  position: absolute;
+  left: -6px;
+  top: -10px;
+}

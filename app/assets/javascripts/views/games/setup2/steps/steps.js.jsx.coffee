@@ -14,14 +14,27 @@
 @Sembl.Games.Setup.Steps = React.createClass
   componentWillMount: ->
     $(window).on('setup.steps.change', @handleChange)
+    $(window).on('setup.steps.valid', @handleValid)
 
   componentWillUnmount: ->
     $(window).off('setup.steps.change')
+    $(window).off('setup.steps.valid')
+
+  componentDidMount: ->
+    @validateStep()
+
+  componentDidUpdate: ->
+    @validateStep()
 
   getInitialState: ->
     step: 0
-    valid: !@props.steps[0].props.validate
-    properties: {}
+    collectedFields: @props.collectedFields || {}
+    valid: false
+
+  validateStep: ->
+    valid = if @refs.currentStep.isValid? then @refs.currentStep.isValid() else true
+    if valid != @state.valid
+      @setState({valid:valid})
 
   handleNext: ->
     @setState
@@ -32,36 +45,37 @@
       step: Math.max(@state.step - 1, 0)
 
   handleDone: ->
-    console.log 'props', @state.properties
-    $(window).trigger('setup.steps.done', @state.properties)
+    $(window).trigger('setup.steps.done', @state.collectedFields)
+
+  handleValid: (event, data) ->
+    @setState
+      valid: data.valid
 
   handleChange: (event, data) ->
-    state = @state
-    if data.properties
-      _.extend(state.properties, data.properties)
-    if data.valid?
-      state.valid = data.valid
-    @setState(state)
+    _.extend(@state.collectedFields, data)
+    @setState(@state)
 
   render: ->
     steps = @props.steps
-
+    
     if @state.step < steps.length
+      isValid = @state.valid
+    
+      childProperties = _.extend({ref: 'currentStep'}, @state.collectedFields)
+      console.log 'childProperties', childProperties
       step = steps[@state.step]
-      # If you want your subcomponent to have access to the collected properties 
-      # then you need to pass in the component's class instead of the component
       if React.isValidClass(step)
-        step = step(@state.properties)
+        step = step(childProperties)
       else if React.isValidComponent(step)
-        step = React.addons.cloneWithProps(step, @state.properties)
+        step = React.addons.cloneWithProps(step, childProperties)
       else 
         throw "invalid step, must be react class or component"
 
     isLast = @state.step == steps.length - 1
 
     previous = `<button className="setup__steps__actions__previous" onClick={this.handlePrevious}>Back</button>`
-    next = `<button className="setup__steps__actions__next" onClick={this.handleNext} disabled={!this.state.valid}>Next</button>`
-    done = `<button className="setup__steps__actions__done" onClick={this.handleDone} disabled={!this.state.valid}>Done</button>`
+    next = `<button className="setup__steps__actions__next" onClick={this.handleNext} disabled={!isValid}>Next</button>`
+    done = `<button className="setup__steps__actions__done" onClick={this.handleDone} disabled={!isValid}>Done</button>`
 
     `<div className="setup__steps">
       {step}
