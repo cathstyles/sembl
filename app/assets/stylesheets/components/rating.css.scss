@@ -24,8 +24,10 @@
 }
 
 .rating__nav {
+  @include pad(top, medium);
   text-align: center;
   position: relative;
+  margin-top: 60px;
 }
 
 .rating__nav__links {
@@ -53,7 +55,7 @@
 .rating__nav__back {
   @extend %button;
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: 0;
   i {
     @include font-size(12);

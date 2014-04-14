@@ -38,6 +38,8 @@
 }
 
 .move__actions {
+  @include pad(top, medium);
+  margin-top: 60px;
   text-align: right;
 }
 
