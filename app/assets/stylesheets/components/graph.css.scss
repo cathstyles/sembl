@@ -123,15 +123,29 @@
   width: 100%;
 }
 
-.game__resemblance__empty {
-  background-color: $background-color;
-  border: 1px solid $highlight-color;
-  border-radius: 50%;
+.game__resemblance {
   width: 16px;
   height: 16px;
   margin-left: -8px;
   margin-top: -8px;
+  &:hover {
+    .game__resemblance__expanded {
+      display: inline-block;
+    }
+  }
+}
+
+.game__resemblance__empty,
+.game__resemblance__filled {
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
   text-indent: -9999em;
+}
+
+.game__resemblance__empty {
+  background-color: $background-color;
+  border: 1px solid $highlight-color;
 }
 
 .game__resemblance__filled {
@@ -139,13 +153,7 @@
   animation-timing-function: ease;
   animation-iteration-count: infinite;
   background-color: $highlight-background-color;
-  border-radius: 50%;
   cursor: pointer;
-  width: 16px;
-  height: 16px;
-  margin-left: -8px;
-  margin-top: -8px;
-  text-indent: -9999em;
   &:hover {
     box-shadow: 0 0 6px 2px rgba(#000,.1);
     transform: scale(1.3);
@@ -211,18 +219,6 @@
 }
 
 .game__resemblance__expanded {
-  @extend %white-drop-shadow;
-  @include pad(vert, small);
-  animation-name: reveal;
-  animation-duration: 250ms;
-  animation-timing-function: ease;
-  animation-iteration-count: 1;
-  border-radius: $border-radius;
-  background-color: darken($highlight-background-color, 3%);
-  background-color: rgba(darken($highlight-background-color, 3%),.6);
-  box-shadow: 0 0 10px 5px rgba(#999,.1);
-  border: 2px solid $border-color;
-  font-weight: 600;
   width: 250px;
   margin-top: -20px;
   margin-left: -125px;
@@ -230,4 +226,28 @@
   position: absolute;
   top: 0;
   left: 0;
+  display: none;
+}
+
+.game__resemblance__expanded--sticky {
+  display: block;
+}
+
+.game__resemblance__expanded__inner {
+  @extend %white-drop-shadow;
+  @include pad(all, small);
+  animation-name: reveal;
+  animation-duration: 250ms;
+  animation-timing-function: ease;
+  animation-iteration-count: 1;
+  border-radius: $border-radius;
+  background-color: rgba(darken($highlight-background-color, 3%),.6);
+  box-shadow: 0 0 10px 5px rgba(#999,.1);
+  border: 2px solid $border-color;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  &.foo {
+    border: 1px solid red !important;
+  }
 }
