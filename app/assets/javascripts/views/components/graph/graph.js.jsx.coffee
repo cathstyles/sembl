@@ -13,7 +13,7 @@ Sembl.Components.Graph.Graph = React.createClass
       height: null
 
   lookupNode: (node) ->
-    @nodeIndex[node.id]    
+    @nodeIndex[node.id] if node.id
 
   componentWillMount: ->
     $(window).on("graph.resize", @handleResize)
@@ -22,7 +22,6 @@ Sembl.Components.Graph.Graph = React.createClass
     $(window).off("graph.resize")
     
   componentDidMount: ->
-    console.log 'componentDidMount'
     @handleResize()
 
   handleResize: ->
@@ -34,20 +33,50 @@ Sembl.Components.Graph.Graph = React.createClass
         height: $this.height()
 
   scaleNode: (node) ->
-    node = @lookupNode(node)
+    node = @lookupNode(node) || node
 
-    xScale = d3.scale.linear().range([0, @state.width || 1])
-    if @props.width then  xScale.domain([0, @props.width])
+    xScale = d3.scale.linear()
+    xScale.range([0, @state.width || 1])
+    xScale.domain(@domainWidth())
     
-    yScale = d3.scale.linear().range([0, @state.height || 1])
-    if @props.height then yScale.domain([0, @props.height])
-    console.log "height", @props.height, @state.height
-    
+    yScale = d3.scale.linear()
+    yScale.range([0, @state.height || 1])
+    yScale.domain(@domainHeight())
+
     newNode = _.extend({}, node)
     newNode.x = xScale(node.x)
     newNode.y = yScale(node.y)
-
     return newNode
+
+  domainHeight: ->
+    if @_domainHeight
+      return @_domainHeight
+    if @props.crop
+      return  (@_domainHeight = @cropDomain().height)
+    if @props.height
+      return (@_domainHeight = [0, @props.height])
+    return (@_domainHeight = [0, 1])
+
+  domainWidth: ->
+    if @_domainWidth
+      return @_domainWidth
+    if @props.crop
+      return  (@_domainWidth = @cropDomain().width)
+    if @props.width
+      return (@_domainWidth = [0, @props.width])
+    return (@_domainWidth = [0,1])
+
+  cropDomain: ->
+    nodes = @props.nodes
+    links = @props.links
+    X = (node.x for node in @props.nodes)
+    Y = (node.y for node in @props.nodes)
+    [minX,maxX] = [Math.min.apply(null,X), Math.max.apply(null,X)]
+    [minY,maxY] = [Math.min.apply(null,Y), Math.max.apply(null,Y)]
+    domain = {
+      width: [minX, maxX]
+      height: [minY, maxY]
+    }
 
   scaleLink: (link) ->
     newLink = _.extend({}, link)
@@ -64,19 +93,18 @@ Sembl.Components.Graph.Graph = React.createClass
     {nodes, links, nodeFactory, midpointFactory} = @props
     for link in links
       if !link.source?
-        raise 'link does not have source,'
+        raise 'link does not have source'
+      if !link.target?
+        raise 'link does not have target'
 
     scaledNodes = (@scaleNode(node) for node in nodes)
     scaledLinks = (@scaleLink(link) for link in links)
 
     childClasses = this.props.childClasses || {}
     {height, width} = @state
-    console.log @props
-    console.log @state
-    console.log 'width, height',width, height
 
     `<div className="graph">
-        <Links links={scaledLinks} width={width} height={height} />
+        <Links links={scaledLinks} width={width} height={height} pathClassName={this.props.pathClassName} />
         <Nodes nodes={scaledNodes} nodeFactory={nodeFactory} />
         <Midpoints links={scaledLinks} midpointFactory={midpointFactory} />
     </div>`

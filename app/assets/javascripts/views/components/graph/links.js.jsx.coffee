@@ -16,11 +16,12 @@ Sembl.Components.Graph.Links = React.createClass
       @paper.remove()
     @paper = Raphael(@getDOMNode(), @props.width, @props.height)
     paper = @paper
-
-    $.each(@props.links, (i, link) ->
-      paper.path(lineFunction(link)).attr({stroke:'#d2d79b',"stroke-width":3});
-    )
+    
+    for link in @props.links
+      path = paper.path(lineFunction(link))
+      if @props.pathClassName
+        path.node.setAttribute("class", @props.pathClassName)
 
   render: ->
-    `<div className="graph__links" />`
+    `<div className="graph__links" pathClassName={this.props.pathClassName} />`
 
