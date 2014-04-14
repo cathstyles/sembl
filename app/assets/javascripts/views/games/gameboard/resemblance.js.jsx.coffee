@@ -4,7 +4,7 @@
 
 @Sembl.Games.Gameboard.Resemblance = React.createClass
   handleClick: (event) ->
-    $(event.target).next(".graph__resemblance__expanded").toggleClass('hidden')
+    $(event.target).parent().toggleClass('game__resemblance__expanded--sticky')
 
   render: () ->
     resemblance = @props.link.get('viewable_resemblance')
@@ -12,15 +12,17 @@
 
     child = if resemblance?.description 
       `<div>
-        <div className={'graph__resemblance__filled graph__resemblance__filled--' + scoreClass}/>
-        <div className="graph__resemblance__expanded hidden">{resemblance.description}</div>
+        <div className={'game__resemblance__filled game__resemblance__filled--' + scoreClass} />
+        <div className="game__resemblance__expanded">
+          <div className="game__resemblance__expanded__inner" onClick={this.handleClick}>
+            {resemblance.description}
+          </div>
+        </div>
       </div>` 
     else
-      `<div className="graph__resemblance__empty" />`
+      `<div className="game__resemblance__empty" />`
 
-    popup = 
-
-    `<div className="board__resemblance" onClick={this.handleClick}>
+    `<div className="game__resemblance">
       {child}
     </div>`
 

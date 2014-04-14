@@ -1,4 +1,3 @@
-#= require views/components/graph/node
 #= require views/components/thing_modal
 #= require views/components/tooltip
 
@@ -7,7 +6,7 @@
 {ThingModal, Tooltip} = Sembl.Components
 {Node} = Sembl.Components.Graph
 
-@Sembl.Games.Move.Node = React.createClass
+@Sembl.Games.Move.Placement = React.createClass
   componentWillMount: ->
     $(window).on('move.node.setThing', @handleSetThing)
     
@@ -27,10 +26,12 @@
   getInitialState: ->
     node = @props.node
     thing = node.get('viewable_placement')?.thing
-    {
-      thing: thing
+
+    state = 
       userState: node.get('user_state')
-    }
+    if thing
+      state.thing = thing
+    return state
 
   render: () ->
     round = @props.node.game.get('current_round')
@@ -40,10 +41,14 @@
         First choose an image from the gallery
       </Tooltip>`
 
+    userState = @state.userState
+    className = "game__placement state-#{userState}"
     image_url = @state.thing?.image_admin_url
-    `<div onClick={this.handleClick}>
-      <Node node={this.props.node} image_url={image_url} userState={this.state.userState} />
+
+    `<div className={className} onClick={this.handleClick}>
+      <img className="game__placement__image" src={image_url} />
       {tooltip}
     </div>`
+
 
 

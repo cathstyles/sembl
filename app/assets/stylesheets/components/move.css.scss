@@ -1,5 +1,8 @@
 // Moves
 .move__graph {
+  padding: 80px;
+  height: 0px; // not sure why I need this set for the .graph child element to set itself to fill the 500px
+  min-height: 500px;
   width: 100%;
 }
 
@@ -56,4 +59,35 @@
   margin-left: auto;
   margin-right: auto;
   width: 200px;
+}
+
+.move__resemblance__nodes {
+  @include inset(bottom, mid);
+  box-sizing: content-box;
+  margin-left: auto;
+  margin-right: auto;
+  height: 120px;
+  width: 300px;
+  position: relative;
+  &:before {
+    background-color: #d2d79b;
+    content: "";
+    width: 100%;
+    height: 3px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -1px;
+  }
+}
+  
+.move__resemblance__node {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.move__resemblance__node--last {
+  left: auto;
+  right: 0;
 }

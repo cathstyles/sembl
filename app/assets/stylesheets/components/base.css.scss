@@ -91,7 +91,6 @@ textarea {
   }
 }
 
-
 @keyframes alert-grow {
   0, 100% { box-shadow: none; transform: scale(0); }
   50%     { box-shadow: 0 0 20px 0 #fff; transform: scale(1.05); }
@@ -132,7 +131,8 @@ textarea {
   margin-right: 5px;
 }
 
-.sign-in-form {
+.sign-in-form,
+.sign-up-form {
   @include pad(all, normal);
   background-color: $highlight-background-color;
   border: 1px solid $border-color;
@@ -143,8 +143,23 @@ textarea {
   width: 400px;
 }
 
-.sign-in-button {
+.sign-in-button,
+.sign-up-button {
   @extend %button;
+}
+
+.simple_form .field_with_errors {
+  background-color: transparent;
+  color: red;
+  input {
+    border: 1px solid red;
+  }
+}
+
+.simple_form .error {
+  @include font-size(14);
+  @include pad(top, small);
+  color: red;
 }
 
 .hidden {

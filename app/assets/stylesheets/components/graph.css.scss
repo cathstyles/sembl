@@ -6,30 +6,30 @@
 .graph {
   height: 100%;
   width: 100%;
-  padding: 80px 150px;
   position: relative;
 }
 
-.graph__canvas {
-  height: 100%;
-  width: 100%;
-  position: relative;
+.graph__nodes,
+.graph__links,
+.graph__midpoints {
+  position:absolute;
+}
+.graph__node,
+.graph__midpoint {
+  position: absolute; 
+}
+
+.game__graph {
+  padding: 80px;
   min-height: 500px;
 }
 
-.graph__node-wrapper,
-.graph__links,
-.graph__resemblences,
-.graph__resemblance {
-  position: absolute;
-}
-
-.graph__node-wrapper {
+.game__placement-wrapper {
   margin-left: -60px;
   margin-top: -60px;
 }
 
-.graph__node {
+.game__placement {
   background-color: #faf0dc;
   border: 2px solid #fff;
   border-radius: $border-radius;
@@ -37,6 +37,7 @@
   width: 120px;
   height: 120px;
   text-align: center;
+  position: relative;
 
   &.state-filled {
     background-color: $highlight-background-color;
@@ -110,40 +111,49 @@
     box-shadow: 0 0 12px 6px rgba(#999,.4);
     cursor: pointer;
     img {
-      border: 1px solid #fff;
+      border: 1px dashed #fff;
+      background-color: #4f570f;
     }
   }
 }
 
-.graph__node__image {
+.game__placement__image {
   border-radius: $border-radius-inner;
   height: 100%;
   width: 100%;
 }
 
-.graph__resemblance__empty {
-  background-color: $background-color;
-  border: 1px solid $highlight-color;
-  border-radius: 50%;
+.game__resemblance {
   width: 16px;
   height: 16px;
   margin-left: -8px;
   margin-top: -8px;
+  &:hover {
+    .game__resemblance__expanded {
+      display: inline-block;
+    }
+  }
+}
+
+.game__resemblance__empty,
+.game__resemblance__filled {
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
   text-indent: -9999em;
 }
 
-.graph__resemblance__filled {
+.game__resemblance__empty {
+  background-color: $background-color;
+  border: 1px solid $highlight-color;
+}
+
+.game__resemblance__filled {
   animation-duration: 1s;
   animation-timing-function: ease;
   animation-iteration-count: infinite;
   background-color: $highlight-background-color;
-  border-radius: 50%;
   cursor: pointer;
-  width: 16px;
-  height: 16px;
-  margin-left: -8px;
-  margin-top: -8px;
-  text-indent: -9999em;
   &:hover {
     box-shadow: 0 0 6px 2px rgba(#000,.1);
     transform: scale(1.3);
@@ -177,27 +187,27 @@
   50%         { box-shadow: 0 0 12px 4px $rating-very-high; }
 }
 
-.graph__resemblance__filled--very-low {
+.game__resemblance__filled--very-low {
   @include background(linear-gradient($rating-very-low, darken($rating-very-low, 10%)) bottom);
   animation-name: glow--very-low;
   animation-delay: 250ms;
 }
-.graph__resemblance__filled--low {
+.game__resemblance__filled--low {
   @include background(linear-gradient($rating-low, darken($rating-low, 10%)) bottom);
   animation-name: glow--low;
   animation-delay: 500ms;
 }
-.graph__resemblance__filled--medium {
+.game__resemblance__filled--medium {
   @include background(linear-gradient($rating-medium, darken($rating-medium, 10%)) bottom);
   animation-name: glow--medium;
   animation-delay: 300ms;
 }
-.graph__resemblance__filled--high {
+.game__resemblance__filled--high {
   @include background(linear-gradient($rating-high, darken($rating-high, 10%)) bottom);
   animation-name: glow--high;
   animation-delay: 400ms;
 }
-.graph__resemblance__filled--very-high {
+.game__resemblance__filled--very-high {
   @include background(linear-gradient($rating-very-high, darken($rating-very-high, 10%)) bottom);
   animation-name: glow--very-high;
   animation-delay: 50ms;
@@ -208,24 +218,36 @@
   100%   { opacity: 1; }
 }
 
-.graph__resemblance__expanded {
+.game__resemblance__expanded {
+  width: 250px;
+  margin-top: -20px;
+  margin-left: -125px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.game__resemblance__expanded--sticky {
+  display: block;
+}
+
+.game__resemblance__expanded__inner {
   @extend %white-drop-shadow;
-  @include pad(vert, small);
+  @include pad(all, small);
   animation-name: reveal;
   animation-duration: 250ms;
   animation-timing-function: ease;
   animation-iteration-count: 1;
   border-radius: $border-radius;
-  background-color: darken($highlight-background-color, 3%);
-  background-color: rgba(darken($highlight-background-color, 3%),.5);
+  background-color: rgba(darken($highlight-background-color, 3%),.6);
   box-shadow: 0 0 10px 5px rgba(#999,.1);
   border: 2px solid $border-color;
+  cursor: pointer;
+  display: inline-block;
   font-weight: 600;
-  width: 220px;
-  margin-top: -20px;
-  margin-left: -110px;
-  text-align: center;
-  position: absolute;
-  top: 40px;
-  left: 0;
+  &.foo {
+    border: 1px solid red !important;
+  }
 }

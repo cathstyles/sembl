@@ -6,11 +6,11 @@
     scoreClass = @props.link.scoreClass(true) # Use the user supplied rating, not the average. 
     child = if @props.link.active 
       `<div>
-        <div className={'graph__resemblance__filled graph__resemblance__filled--' + scoreClass}/>
-        <div className="graph__resemblance__expanded">{sembl.description}</div>
+        <div className={'game__resemblance__filled game__resemblance__filled--' + scoreClass}/>
+        <div className="game__resemblance__expanded">{sembl.description}</div>
       </div>` 
     else
-      `<div className="graph__resemblance__empty" />`
+      `<div className="game__resemblance__empty" />`
 
     `<div className="rate__resemblance">
       {child}
