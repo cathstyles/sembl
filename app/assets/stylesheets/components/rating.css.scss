@@ -1,7 +1,7 @@
 // Rating
 
 .rating__info {
-  @include pad(top, medium);
+  @include pad(bottom, medium);
   text-align: center;
 }
 

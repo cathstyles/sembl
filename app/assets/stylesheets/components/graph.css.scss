@@ -124,7 +124,8 @@
 }
 
 .game__resemblance,
-.move__resemblance {
+.move__resemblance,
+.rate__resemblance {
   width: 16px;
   height: 16px;
   margin-left: -8px;
@@ -250,8 +251,12 @@
   font-weight: 600;
 }
 
-.move__resemblance {
+.move__resemblance,
+.rate__resemblance {
   .game__resemblance__expanded {
     display: block;
+  }
+  .game__resemblance__expanded__inner {
+    cursor: default;
   }
 }

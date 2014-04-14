@@ -7,7 +7,11 @@
     child = if @props.link.active 
       `<div>
         <div className={'game__resemblance__filled game__resemblance__filled--' + scoreClass}/>
-        <div className="game__resemblance__expanded">{sembl.description}</div>
+        <div className="game__resemblance__expanded">
+          <div className="game__resemblance__expanded__inner">
+            {sembl.description}
+          </div>
+        </div>
       </div>` 
     else
       `<div className="game__resemblance__empty" />`
