@@ -24,11 +24,6 @@ Sembl.Layouts.Default = React.createClass
         <Flash />
         {this.state.body}
       </div>
-      <div className="footer container">
-        <p>
-          Made with ♥︎ by <a href="http://icelab.com.au">Icelab</a>
-        </p>
-      </div>
     </div>`
 
     
