@@ -28,7 +28,11 @@
     toggleEvent = 'toggle.graph.resemblance.'+@props.link.id
 
     child = if @state.description 
-      `<div className="game__resemblance__expanded">{this.state.description}</div>`
+      `<div className="game__resemblance__expanded">
+        <div className="game__resemblance__expanded__inner">
+          {this.state.description}
+        </div>
+      </div>`
     else
       `<div className="game__resemblance__empty" />`
 

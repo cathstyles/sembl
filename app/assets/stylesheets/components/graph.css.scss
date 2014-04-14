@@ -249,3 +249,9 @@
   display: inline-block;
   font-weight: 600;
 }
+
+.move__resemblance {
+  .game__resemblance__expanded {
+    display: block;
+  }
+}
