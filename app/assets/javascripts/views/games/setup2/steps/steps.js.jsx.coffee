@@ -73,9 +73,14 @@
 
     isLast = @state.step == steps.length - 1
 
-    previous = `<button className="setup__steps__actions__previous" onClick={this.handlePrevious}>Back</button>`
-    next = `<button className="setup__steps__actions__next" onClick={this.handleNext} disabled={!isValid}>Next</button>`
-    done = `<button className="setup__steps__actions__done" onClick={this.handleDone} disabled={!isValid}>Done</button>`
+    actionClassName = (action, disabled) -> 
+      className = "setup__steps__actions__#{action}"
+      className += " button--disabled" if disabled
+      className
+
+    previous = `<button className={actionClassName('previous')} onClick={this.handlePrevious}>Back</button>`
+    next = `<button className={actionClassName('next', !isValid)} onClick={this.handleNext}>Next</button>`
+    done = `<button className={actionClassName('done', !isValid)} onClick={this.handleDone}>Done</button>`
 
     `<div className="setup__steps">
       {step}

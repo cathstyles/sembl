@@ -34,6 +34,8 @@
     )
     event?.preventDefault()
 
+  isValid: -> @props.seed?
+
   render: ->
     seed = @props.seed
     image_url = seed?.image_admin_url || "http://placehold.it/120x120"
