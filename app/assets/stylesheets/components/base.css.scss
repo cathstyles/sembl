@@ -44,6 +44,8 @@ a {
   width: 100%;
 }
 
+// Generic interface elements
+
 input[type='text'],
 input[type='email'],
 input[type='password'],
@@ -87,6 +89,37 @@ textarea {
   &.error {
     background-color: #f75454;
   }
+}
+
+
+@keyframes alert-grow {
+  0, 100% { box-shadow: none; transform: scale(0); }
+  50%     { box-shadow: 0 0 20px 0 #fff; transform: scale(1.05); }
+}
+
+.tooltip {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 200;
+}
+
+.tooltip__inner {
+  @include pad(all, small);
+  background-color: $highlight-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 20px 0 rgba($highlight-color,.5);
+  display: inline-block;
+  color: #fff;
+  text-shadow: 1px 1px 1px rgba(#000,.3);
+}
+
+.alerted {
+  animation-name: alert-grow;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
 }
 
 .footer {

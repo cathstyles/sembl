@@ -16,5 +16,5 @@
     `<div 
       className={this.props.className + " tooltip " + hidden}
       onClick={this.handleHide}>
-      {this.props.children}
+      <div className="tooltip__inner">{this.props.children}</div>
     </div>`
