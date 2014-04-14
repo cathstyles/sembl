@@ -123,7 +123,8 @@
   width: 100%;
 }
 
-.game__resemblance {
+.game__resemblance,
+.move__resemblance {
   width: 16px;
   height: 16px;
   margin-left: -8px;
@@ -247,7 +248,4 @@
   cursor: pointer;
   display: inline-block;
   font-weight: 600;
-  &.foo {
-    border: 1px solid red !important;
-  }
 }
