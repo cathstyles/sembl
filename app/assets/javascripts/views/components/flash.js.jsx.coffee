@@ -24,6 +24,7 @@
     $(window).off('flash.hide')
 
   render: ->
+    console.log "rendering notice"
     className = "flash #{this.state.className}"
     `<aside className={className}>
       {this.state.msg}

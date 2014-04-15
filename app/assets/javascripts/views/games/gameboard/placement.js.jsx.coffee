@@ -16,6 +16,16 @@
       if thing
         $(window).trigger('modal.open', `<ThingModal thing={thing} />`)
 
+  componentDidMount: -> 
+    console.log "placement rendering"
+    round = @props.node.game.get('current_round') 
+    userState = @props.userState || @props.node.get('user_state')
+    console.log "user state", userState
+    console.log "round", round
+    if round == 1 and userState == 'available'
+      $(window).trigger('flash.notice', "Let's go! Add your first image to begin the game.") 
+
+
   render: () ->
     node = @props.node
     userState = @props.userState || node.get('user_state')
@@ -25,14 +35,11 @@
     image_url = @props.image_url || thing?.image_admin_url
 
     round = node.game.get('current_round') 
-    tooltip = if round == 1 and userState == 'available'
-      `<Tooltip className="graph__node__tooltip">
-        Let's go! Add your first image to begin the game. 
-      </Tooltip>`
+    alertedClass = " alerted" if round == 1 and userState == 'available'
 
-    `<div className={className} onClick={this.handleClick}>
+    `<div className={className + alertedClass} onClick={this.handleClick}>
       <img className="game__placement__image" src={image_url} />
-        {tooltip}
+        
     </div>`
 
 

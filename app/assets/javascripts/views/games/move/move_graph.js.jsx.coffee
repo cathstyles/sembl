@@ -10,7 +10,6 @@
 ###
 class ResemblanceFactory
   constructor: (linkModels, @resemblanceClass) ->
-    console.log 'resemblanceClass', @resemblanceClass
     @lookup = {}
     for link in linkModels
       @lookup[link.source().id] = @lookup[link.source().id]||{}

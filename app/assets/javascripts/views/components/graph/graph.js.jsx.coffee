@@ -22,7 +22,6 @@ Sembl.Components.Graph.Graph = React.createClass
     $(window).off("graph.resize")
     
   componentDidMount: ->
-    console.log 'componentDidMount'
     @handleResize()
 
   handleResize: ->
@@ -41,7 +40,6 @@ Sembl.Components.Graph.Graph = React.createClass
     
     yScale = d3.scale.linear().range([0, @state.height || 1])
     if @props.height then yScale.domain([0, @props.height])
-    console.log "height", @props.height, @state.height
     
     newNode = _.extend({}, node)
     newNode.x = xScale(node.x)
@@ -71,9 +69,6 @@ Sembl.Components.Graph.Graph = React.createClass
 
     childClasses = this.props.childClasses || {}
     {height, width} = @state
-    console.log @props
-    console.log @state
-    console.log 'width, height',width, height
 
     `<div className="graph">
         <Links links={scaledLinks} width={width} height={height} />

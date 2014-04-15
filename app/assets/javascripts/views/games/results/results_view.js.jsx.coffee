@@ -55,7 +55,6 @@
 @Sembl.Games.Results.PlayerRoundResults = React.createClass
   render: ->
     playerRoundResults = @props.players.map (player) ->
-      console.log player
       email = player.user?.email
       score = Math.floor(player.score * 100)
       `<div className="results__player-score">

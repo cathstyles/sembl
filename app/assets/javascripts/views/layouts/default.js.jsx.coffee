@@ -15,6 +15,7 @@ Sembl.Layouts.Default = React.createClass
     className: null
 
   render: ->
+    console.log "rendering layout"
     $(window).trigger('flash.hide')
 
     `<div className={this.state.className}>
