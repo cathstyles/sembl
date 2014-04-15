@@ -19,7 +19,7 @@
   componentDidMount: -> 
     console.log "placement rendering"
     round = @props.node.game.get('current_round') 
-    userState = @props.userState || @props.node.get('user_state')
+    userState =  @props.node.get('user_state') || @props.userState
     console.log "user state", userState
     console.log "round", round
     if round == 1 and userState == 'available'

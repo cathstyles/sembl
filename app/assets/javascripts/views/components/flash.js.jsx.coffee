@@ -10,6 +10,7 @@
 
   componentWillMount: -> 
     $(window).on 'flash.notice', (event, msg) => 
+      console.log msg
       @setState msg: msg, className: 'notice' 
 
     $(window).on 'flash.error', (event, msg) => 

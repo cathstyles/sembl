@@ -1,7 +1,5 @@
-#= require views/components/tooltip
 ###* @jsx React.DOM ###
 
-{Tooltip} = Sembl.Components
 {ResemblanceModal} = Sembl.Games.Move
 @Sembl.Games.Move.Resemblance = React.createClass
 
@@ -13,6 +11,7 @@
     $(window).off('move.node.setThing')
     $(window).off('move.resemblance.change')
 
+      
   handleClick: (event, link) ->
     $(window).trigger('move.resemblance.click', {link: @props.link, description: @state.description})
 
@@ -29,7 +28,6 @@
   getInitialState: ->
     console.log 'resemblance props', @props
     link = @props.link
-    console.log '@Sembl.Games.Move.Resemblance.getInitialState', @props
     resemblance = link.get('viewable_resemblance')
     description = if !!resemblance then resemblance.description
     state = 
@@ -40,18 +38,18 @@
     toggleEvent = 'toggle.graph.resemblance.'+@props.link.id
 
     round = @props.link.game.get('current_round')
-    tooltip = if round == 1 and !@state.description and @state.nodeState == 'proposed'
-      `<Tooltip className="graph__resemblance__tooltip">
-        Now make a creative connection between the images
-      </Tooltip>`
+    if round == 1 and !@state.description and @state.nodeState == 'proposed'
+      alertedClass = " alerted" 
+      $(window).trigger('flash.notice', 'Now make a creative connection between the images')
+    else if round == 1 and !!@state.description
+      $(window).trigger('flash.notice', 'Happy with your move? Submit to keep playing')
 
     child = if @state.description 
       `<div className="game__resemblance__expanded">{this.state.description}</div>`
     else
-      `<div className="game__resemblance__empty" />`
+      `<div className={"game__resemblance__empty" + alertedClass} />`
 
     `<div className="move__resemblance" onClick={this.handleClick}>
       {child}
-      {tooltip}
     </div>`
 

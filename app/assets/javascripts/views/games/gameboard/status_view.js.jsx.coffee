@@ -13,11 +13,16 @@ Sembl.Games.Gameboard.StatusView = React.createClass
 
   #TODO handle disabled state
   getButtonForStatus: (state, move_state) -> 
+
+    player = @props.game.get('player')
+
     disabled = false
+    buttonAlertedClass = ""
     if state is 'playing_turn'
       disabled = true if move_state == "open"
       buttonText = "End Turn"
       buttonClassName = "game__status__button game__status__end-turn"
+      buttonAlertedClass = " alerted" if move_state is 'created'
       buttonIcon = "fa fa-clock-o"
       buttonClickHandler = @handleEndTurn
     else if state is 'waiting'
@@ -33,7 +38,7 @@ Sembl.Games.Gameboard.StatusView = React.createClass
       buttonClickHandler = @handleContinueRating
 
     `<button 
-      className={buttonClassName} 
+      className={buttonClassName + buttonAlertedClass} 
       onClick={buttonClickHandler}>
         {<i className={buttonIcon}></i>}
         {buttonText}
@@ -48,6 +53,13 @@ Sembl.Games.Gameboard.StatusView = React.createClass
       else if round == 2
         tooltip = "Have you made all of the moves you want to make? End your turn to let us know you are finished."
   
+  componentDidMount: -> 
+    player = @props.game.get('player')
+
+    if player 
+      tooltipText = @getTooltip(player.state, player.move_state)
+      $(window).trigger("flash.notice", tooltipText) if !!tooltipText
+
   render: -> 
     game_status = @props.game.get('status')
     player = @props.game.get('player')
@@ -57,12 +69,6 @@ Sembl.Games.Gameboard.StatusView = React.createClass
     else
       statusHTML = game_status
 
-    if player 
-      tooltipText = @getTooltip(player.state, player.move_state)
-      tooltip = if tooltipText
-        `<Tooltip className="game__status__tooltip">{tooltipText}</Tooltip>`
-
     `<div className="game__status">
-      {tooltip}
       {statusHTML}
     </div>`

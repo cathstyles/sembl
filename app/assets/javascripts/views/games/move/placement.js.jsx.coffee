@@ -1,9 +1,8 @@
 #= require views/components/thing_modal
-#= require views/components/tooltip
 
 ###* @jsx React.DOM ###
 
-{ThingModal, Tooltip} = Sembl.Components
+{ThingModal} = Sembl.Components
 {Node} = Sembl.Components.Graph
 
 @Sembl.Games.Move.Placement = React.createClass
@@ -12,6 +11,11 @@
     
   componentWillUnmount: ->
     $(window).off('move.node.setThing')
+
+  componentDidMount: -> 
+    round = @props.node.game.get('current_round')
+    if round == 1 and @state.userState == 'available'
+      $(window).trigger('flash.notice', "First choose an image from the gallery")
 
   handleClick: (event, data) ->
     if @state.thing
@@ -36,18 +40,14 @@
   render: () ->
     round = @props.node.game.get('current_round')
 
-    tooltip = if round == 1 and @state.userState == 'available'
-      `<Tooltip className="graph__node__tooltip">
-        First choose an image from the gallery
-      </Tooltip>`
+    alertedClass = " alerted" if round == 1 and @state.userState == 'available'
 
     userState = @state.userState
     className = "game__placement state-#{userState}"
     image_url = @state.thing?.image_admin_url
 
-    `<div className={className} onClick={this.handleClick}>
+    `<div className={className + alertedClass} onClick={this.handleClick}>
       <img className="game__placement__image" src={image_url} />
-      {tooltip}
     </div>`
 
 
