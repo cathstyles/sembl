@@ -20,8 +20,11 @@
 }
 
 .game__graph {
+  margin-left: auto;
+  margin-right: auto;
   padding: 80px;
   min-height: 500px;
+  width: 90%;
 }
 
 .game__placement-wrapper {
@@ -31,7 +34,7 @@
 
 .game__placement {
   background-color: #faf0dc;
-  border: 2px solid #fff;
+  border: 2px solid $highlight-color;
   border-radius: $border-radius;
   box-shadow: 0 0 10px 5px rgba(#999,.1);
   width: 120px;
@@ -107,12 +110,11 @@
   }
 
   &.state-proposed {
-    border-color: #4f570f;
+    border-color: #fff;
     box-shadow: 0 0 12px 6px rgba(#999,.4);
     cursor: pointer;
     img {
-      border: 1px dashed #fff;
-      background-color: #4f570f;
+      background-color: $highlight-color;
     }
   }
 }
@@ -123,7 +125,9 @@
   width: 100%;
 }
 
-.game__resemblance {
+.game__resemblance,
+.move__resemblance,
+.rate__resemblance {
   width: 16px;
   height: 16px;
   margin-left: -8px;
@@ -156,7 +160,7 @@
   cursor: pointer;
   &:hover {
     box-shadow: 0 0 6px 2px rgba(#000,.1);
-    transform: scale(1.3);
+    transform: scale(1.2);
     transition-property: scale;
     transition-duration: 250ms;
   }
@@ -191,6 +195,7 @@
   @include background(linear-gradient($rating-very-low, darken($rating-very-low, 10%)) bottom);
   animation-name: glow--very-low;
   animation-delay: 250ms;
+  border: 1px solid $rating-very-low;
 }
 .game__resemblance__filled--low {
   @include background(linear-gradient($rating-low, darken($rating-low, 10%)) bottom);
@@ -247,7 +252,14 @@
   cursor: pointer;
   display: inline-block;
   font-weight: 600;
-  &.foo {
-    border: 1px solid red !important;
+}
+
+.move__resemblance,
+.rate__resemblance {
+  .game__resemblance__expanded {
+    display: block;
+  }
+  .game__resemblance__expanded__inner {
+    cursor: default;
   }
 }

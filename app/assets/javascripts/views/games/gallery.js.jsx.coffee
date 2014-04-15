@@ -156,8 +156,6 @@ GalleryImage = React.createClass
 
 
     `<div className={this.className}>
-      <button onClick={this.handlePreviousPage} className={this.className + "__previous"}><i className="fa fa-chevron-left"></i> Previous page</button>
-      <button onClick={this.handleNextPage} className={this.className + "__next"}>Next page <i className="fa fa-chevron-right"></i></button>
       {rowComponents}
     </div>`
 

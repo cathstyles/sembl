@@ -45,7 +45,11 @@
       $(window).trigger('flash.notice', 'Happy with your move? Submit to keep playing')
 
     child = if @state.description 
-      `<div className="game__resemblance__expanded">{this.state.description}</div>`
+      `<div className="game__resemblance__expanded">
+        <div className="game__resemblance__expanded__inner">
+          {this.state.description}
+        </div>
+      </div>`
     else
       `<div className={"game__resemblance__empty" + alertedClass} />`
 

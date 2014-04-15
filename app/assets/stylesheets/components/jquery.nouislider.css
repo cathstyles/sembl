@@ -83,19 +83,18 @@
 /* Styling;
  */
 .noUi-background {
-  background-color: $highlight-background-color;
+  @include background(linear-gradient($rating-very-high, $rating-high, $rating-medium, $rating-low, $rating-very-low) left);
   box-shadow: inset 0 1px 1px #f0f0f0;
 }
 .noUi-connect {
   background: #3FB8AF;
   box-shadow: inset 0 0 3px rgba(51,51,51,0.45);
--webkit-transition: background 450ms;
+  -webkit-transition: background 450ms;
   transition: background 450ms;
 }
 .noUi-origin {
-  @include background(linear-gradient(#fa8475, #8b923b) left);
   border-radius: 2px;
-  box-shadow: 0 0 30px 20px rgba(#8b923b,.1);
+  box-shadow: 0 0 40px 0 rgba(#fff,1);
 }
 .noUi-target {
   border-radius: 4px;

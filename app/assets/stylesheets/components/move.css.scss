@@ -1,9 +1,12 @@
 // Moves
+
+.move {
+  @include pad(top, medium);
+}
+
 .move__graph {
-  padding: 80px;
-  height: 0px; // not sure why I need this set for the .graph child element to set itself to fill the 500px
-  min-height: 500px;
-  width: 100%;
+  height: 250px;
+  margin-top: 60px; // Compensate for the node offset
 }
 
 .move__gallery__selected {
@@ -35,6 +38,8 @@
 }
 
 .move__actions {
+  @include pad(top, medium);
+  margin-top: 60px;
   text-align: right;
 }
 
