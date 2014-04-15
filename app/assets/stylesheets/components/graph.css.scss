@@ -34,7 +34,7 @@
 
 .game__placement {
   background-color: #faf0dc;
-  border: 2px solid #fff;
+  border: 2px solid $highlight-color;
   border-radius: $border-radius;
   box-shadow: 0 0 10px 5px rgba(#999,.1);
   width: 120px;
@@ -110,12 +110,11 @@
   }
 
   &.state-proposed {
-    border-color: #4f570f;
+    border-color: #fff;
     box-shadow: 0 0 12px 6px rgba(#999,.4);
     cursor: pointer;
     img {
-      border: 1px dashed #fff;
-      background-color: #4f570f;
+      background-color: $highlight-color;
     }
   }
 }
