@@ -80,3 +80,13 @@
   left: -6px;
   top: -10px;
 }
+
+.setup__overview__graph {
+  padding: 80px;
+  height: 0px; // not sure why I need this set for the .graph child element to set itself to fill the 500px
+  min-height: 500px;
+  width: 80%;
+  height: 0px;
+}
+
+

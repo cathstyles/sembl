@@ -9,7 +9,7 @@ class NodeFactory
     `<div className="setup__thumb-board-graph__node" />`
 
 class MidpointFactory
-  createComponent: (data) ->\
+  createComponent: (data) ->
     `<div className="setup__thumb-board-graph__midpoint" />`
 
 @Sembl.Games.Setup.ThumbBoardGraph = React.createClass

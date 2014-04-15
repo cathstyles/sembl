@@ -15,7 +15,7 @@
 
 
   bubbleChange: (state) ->
-    $(window).trigger('setup.steps.change', state)
+    $(window).trigger('setup.steps.change', {title: state.title})
 
   isValid: ->
     !!@state?.title

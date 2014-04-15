@@ -14,11 +14,9 @@
 @Sembl.Games.Setup.Steps = React.createClass
   componentWillMount: ->
     $(window).on('setup.steps.change', @handleChange)
-    $(window).on('setup.steps.valid', @handleValid)
 
   componentWillUnmount: ->
     $(window).off('setup.steps.change')
-    $(window).off('setup.steps.valid')
 
   componentDidMount: ->
     @validateStep()
@@ -46,10 +44,6 @@
 
   handleDone: ->
     $(window).trigger('setup.steps.done', @state.collectedFields)
-
-  handleValid: (event, data) ->
-    @setState
-      valid: data.valid
 
   handleChange: (event, data) ->
     _.extend(@state.collectedFields, data)
