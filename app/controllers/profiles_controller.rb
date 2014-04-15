@@ -5,9 +5,6 @@ class ProfilesController < ApplicationController
 
   end
 
-  def process_avatar
-  end
-
   private
 
   def profile_params 

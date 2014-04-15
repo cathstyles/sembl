@@ -22,11 +22,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
   has_many :games, through: :player
+  has_one :profile
 
   has_many :created_things, class_name: 'Thing', foreign_key: :creator_id, inverse_of: :creator
   has_many :updated_things, class_name: 'Thing', foreign_key: :updator_id, inverse_of: :updator
 
   before_create :join_games
+  after_create :create_profile
 
   ROLES = {
     :participant => 1,
@@ -72,5 +74,11 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  private 
+
+    def create_profile 
+      self.profile = Profile.create(user: self)
+    end
 
 end
