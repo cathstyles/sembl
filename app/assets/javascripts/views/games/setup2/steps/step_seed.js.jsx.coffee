@@ -1,9 +1,9 @@
-#= require views/games/setup2/seed_gallery
+#= require views/games/setup2/steps/step_seed_gallery
 #= require views/components/searcher
 
 ###* @jsx React.DOM ###
 
-{SeedModal} = Sembl.Games.Setup
+{StepSeedGallery} = Sembl.Games.Setup
 {Searcher} = Sembl.Components
 
 @Sembl.Games.Setup.StepSeed = React.createClass
@@ -25,7 +25,7 @@
     $(window).trigger('setup.steps.change', {seed: thing})
 
   handleSeedClick: (event) ->
-    $(window).trigger('modal.open', `<SeedModal prefix="setup.steps.seed" />`)
+    $(window).trigger('modal.open', `<StepSeedGallery prefix="setup.steps.seed" />`)
 
   handleRandomSeed: (event) ->
     self = this
@@ -38,14 +38,17 @@
 
   render: ->
     seed = @props.seed
-    image_url = seed?.image_admin_url || "http://placehold.it/120x120"
+    image_url = seed?.image_admin_url
+    seedPlacementClassName = if seed?
+      "game__placement state-filled"
+    else 
+      "game__placement state-available"
+
     `<div className="setup__steps__seed">
       <h3 className="setup__steps__seed-title">Choose a seed node</h3>
-      <img className="setup__steps__seed-image"
-        key={image_url}
-        src={image_url}
-        width="120" height="120" 
-        onClick={this.handleSeedClick} />
+      <div className={seedPlacementClassName} onClick={this.handleSeedClick}>
+        <img className="game__placement__image" key={image_url} src={image_url} />
+      </div>
       <h3 className="setup__steps__seed-randomise">
         <a href="#" onClick={this.handleRandomSeed}><i className="fa fa-random"></i> <span>Randomise</span></a>
       </h3>

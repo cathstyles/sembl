@@ -3,15 +3,21 @@
 @Sembl.Games.Setup.OverviewActions = React.createClass
   className: "setup__overview__actions"
   
-  handleSave: ->
+  handleSave: (event) ->
     $(window).trigger('setup.save')
+    event.preventDefault();
 
-  handlePublish: ->
+  handlePublish: (event) ->
     $(window).trigger('setup.publish')
+    event.preventDefault();
+
+  handleOpenGame: (event) ->
+    $(window).trigger('setup.openGame')
+    event.preventDefault();
 
   render: () ->
     isChanged = true
-    isPublished = false
+    isPublished = @props.status? && @props.status != 'draft'
     isSaved = false
 
     saveButtonClassName="games-setup__actions__save__button" + if !isChanged then " button--disabled" else ""
@@ -25,7 +31,7 @@
         </div>`
       else
         `<div className="games-setup__actions__show">
-          <a className="games-setup__actions__show__button" href={this.props.game.showUrl()}>
+          <a className="games-setup__actions__show__button" onClick={this.handleOpenGame}>
             <i className="fa fa-gamepad"></i> Go to game board
           </a>
         </div>`

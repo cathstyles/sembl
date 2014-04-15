@@ -7,11 +7,11 @@
 {OverviewGraphPlacement} = Sembl.Games.Setup
 
 class NodeFactory 
-  constructor: (@seed) ->
+  constructor: (@seed, @isDraft) ->
 
   createComponent: (data) ->
     placement = if @seed and data.round == 0
-      `<OverviewGraphPlacement round={data.round} thing={this.seed} />`
+      `<OverviewGraphPlacement round={data.round} thing={this.seed} isDraft={this.isDraft} />`
     else 
       `<OverviewGraphPlacement round={data.round} />`
 
@@ -43,12 +43,13 @@ class MidpointFactory
         x: link.target.get('x')
         y: link.target.get('y')
 
-    nodeFactory = new NodeFactory(seed)
+    nodeFactory = new NodeFactory(seed, this.props.isDraft)
     midpointFactory = new MidpointFactory()
     window.board = board
     `<div className="setup__overview__graph">
       <Graph nodes={nodes} links={links} 
         crop={true}
-        nodeFactory={nodeFactory} midpointFactory={midpointFactory} />
+        nodeFactory={nodeFactory} midpointFactory={midpointFactory}
+        pathClassName="game__graph__link" />
     </div>`
   

@@ -16,8 +16,8 @@
   getInitialState: () ->
     filter:
       text: this.props.filter?.text
-      place_filter: this.props.filter.place_filter
-      access_filter: this.props.filter.access_filter
+      place_filter: this.props.filter?.place_filter
+      access_filter: this.props.filter?.access_filter
 
   handleSearcherUpdated: (event, results) ->
     console.log 'handleSearcherUpdated', results
@@ -42,7 +42,7 @@
     
     `<div className={this.className}>
       <Searcher filter={filter} prefix={this.searcherPrefix} />
-
+      <div>Set filters to restrict the available images in the game</div>
       <div className="games-setup__filter">
         <label className="games-setup__filter-label" htmlFor="filter-text">Text:</label>
         <input type="text" ref="text" value={filter.text} id="filter-text" onChange={this.handleChange} className="games-setup__filter-input"/>

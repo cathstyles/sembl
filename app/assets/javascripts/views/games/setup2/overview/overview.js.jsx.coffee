@@ -4,12 +4,16 @@
 ###* @jsx React.DOM ###
 
 {OverviewGraph, OverviewActions} = Sembl.Games.Setup
+{ThingModal} = Sembl.Components
 
 @Sembl.Games.Setup.Overview = React.createClass
   handleEdit: (stepName) ->
     $(window).trigger('setup.steps.add', {stepName: stepName})
 
   render: ->
+    status = @props.status
+    isDraft = status == 'draft'
+
     title = @props.title
     description = @props.description
     seed = @props.seed
@@ -17,9 +21,10 @@
     filter = @props.filter
     boardTitle = board.get('title')
 
-    editLink = (stepName) => 
-      handleClick = (ev) => @handleEdit(stepName); ev.preventDefault()
-      `<a href="#" onClick={handleClick}>Edit</a>`
+    editLink = (stepName, text) => 
+      handleClick = (ev) => 
+        @handleEdit(stepName); ev.preventDefault()
+      `<a href="#" onClick={handleClick}>{text ? text : "Edit"}</a>`
 
     # TODO add invitation step, but only once the user has saved the game
     filterComponent = if filter 
@@ -33,31 +38,36 @@
 
       if textFilter || placeFilter || sourceFilter
         `<div className="setup__overview__filter">
-          Filter images {textFilter} {placeFilter} {sourceFilter} {editLink('filter')}
+          Filters: Images {textFilter} {placeFilter} {sourceFilter} {isDraft ? editLink('filter') : null}
         </div>`
     if !filterComponent
       filterComponent = 
         `<div className="setup__overview__filter">
-          All images are available {editLink('filter')}
+          Filters: All images are available {isDraft ? editLink('filter') : null}
         </div>`
+
+    showSettings = for setting, checked of @props.settings || {}
+      `<div key={setting}>{setting} is {checked? 'true' : 'false'}</div>`
+
 
     `<div className="setup__overview">
       <div className="setup__overview__title">
         Title: {title} {editLink('title')} <br/>
       </div>
-      <div className="setup__overview__title">
+      <div className="setup__overview__description">
         Description: {description} {editLink('description')}<br/>
       </div>
-      <div className="setup__overview__seed">
-        Seed: <img src={seed.image_admin_url}/> {editLink('seed')}<br/>
-      </div>
-
-      <div className="setup__overview__board">
-        <div>{boardTitle} {editLink('board')}</div>
-        <OverviewGraph board={board} seed={seed} />
+      <div className="setup__overview__settings">
+        Settings: {showSettings} {editLink('settings')}<br/>
       </div>
       {filterComponent}
-      <OverviewActions />
+
+      <div className="setup__overview__board">
+        <div>Board: {boardTitle} {isDraft ? editLink('board', 'Edit') : null}</div>
+        <OverviewGraph board={board} seed={seed} isDraft={isDraft} />
+      </div>
+      
+      <OverviewActions status={status} />
     </div>`
 
     

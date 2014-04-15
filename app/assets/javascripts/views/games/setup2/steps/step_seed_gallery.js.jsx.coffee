@@ -22,7 +22,7 @@
 {ToggleComponent} = @Sembl.Components
 {Gallery} = @Sembl.Games
 {SeedFocus} = @Sembl.Games.Setup
-@Sembl.Games.Setup.SeedModal = React.createClass
+@Sembl.Games.Setup.StepSeedGallery = React.createClass
   componentWillMount: ->
     $(window).on("#{@props.prefix}.gallery.thing.click", @handleFocusSeed)
 

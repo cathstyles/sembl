@@ -53,6 +53,7 @@
     steps = @props.steps
     
     if @state.step < steps.length
+      console.log 'step', @state.step, steps[@state.step]
       isValid = @state.valid
     
       childProperties = _.extend({ref: 'currentStep'}, @state.collectedFields)
