@@ -49,11 +49,11 @@ Sembl.Games.Gameboard.StatusView = React.createClass
 
     if state is 'playing_turn' and move_state is 'created'
       if round == 1
-        tooltip = "Are you happy with your move? End your turn to let us know you are finished."
+        tooltip = "If you are happy with your move, submit your turn to let us know you are finished."
       else if round == 2
-        tooltip = "Have you made all of the moves you want to make? End your turn to let us know you are finished."
+        tooltip = "If you have made all the moves you want to make, end your turn to let us know you are finished."
   
-  componentDidMount: -> 
+  componentDidUpdate: -> 
     player = @props.game.get('player')
 
     if player 

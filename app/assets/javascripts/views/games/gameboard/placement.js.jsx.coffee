@@ -20,11 +20,8 @@
     console.log "placement rendering"
     round = @props.node.game.get('current_round') 
     userState =  @props.node.get('user_state') || @props.userState
-    console.log "user state", userState
-    console.log "round", round
     if round == 1 and userState == 'available'
       $(window).trigger('flash.notice', "Let's go! Add your first image to begin the game.") 
-
 
   render: () ->
     node = @props.node

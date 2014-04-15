@@ -98,18 +98,13 @@
     nodes = tree.nodes(rootNode)
 
     if @state.progress == 'finished'
-      finishedDiv = `<div className="flash finished">
-        Finished rating! 
-      </div>`
+      $(window).trigger('flash.notice', 'Finished rating!' )
       @endRating()
-
-    console.log 'move.links', move.links
 
     `<div className="move">
       <div className="rating__info">
         <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
       </div>
-      {finishedDiv}
       <UpdateRatingView 
         move={this.currentMove()} 
         link={this.state.currentLink} 
