@@ -158,7 +158,7 @@
   cursor: pointer;
   &:hover {
     box-shadow: 0 0 6px 2px rgba(#000,.1);
-    transform: scale(1.3);
+    transform: scale(1.2);
     transition-property: scale;
     transition-duration: 250ms;
   }
@@ -193,6 +193,7 @@
   @include background(linear-gradient($rating-very-low, darken($rating-very-low, 10%)) bottom);
   animation-name: glow--very-low;
   animation-delay: 250ms;
+  border: 1px solid $rating-very-low;
 }
 .game__resemblance__filled--low {
   @include background(linear-gradient($rating-low, darken($rating-low, 10%)) bottom);

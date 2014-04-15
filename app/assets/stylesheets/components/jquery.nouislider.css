@@ -93,7 +93,7 @@
   transition: background 450ms;
 }
 .noUi-origin {
-  @include background(linear-gradient(#fa8475, #8b923b) left);
+  @include background(linear-gradient($rating-very-high, $rating-high, $rating-medium, $rating-low, $rating-very-low) left);
   border-radius: 2px;
   box-shadow: 0 0 30px 20px rgba(#8b923b,.1);
 }
