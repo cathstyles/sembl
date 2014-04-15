@@ -21,9 +21,8 @@ class GamePolicy < ApplicationPolicy
     !!user && user.id == record.creator_id && record.draft?
   end
 
-  # Host cannot join a game
   def join?
-    !!user && record.open_to_join? && record.creator_id != user.id
+    !!user && record.open_to_join? 
   end
 
   def end_turn? 
