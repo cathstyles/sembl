@@ -17,6 +17,15 @@
       currentLink: link
     }
 
+  componentWillMount: ->
+    $(window).on('resize', @handleResize)
+
+  componentWillUnmount: ->
+    $(window).off('resize')
+
+  handleResize: ->
+    $(window).trigger('graph.resize')
+
   updateRated: (link) -> 
     @setState currentLink: link
 
