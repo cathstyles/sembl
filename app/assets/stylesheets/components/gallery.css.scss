@@ -1,11 +1,5 @@
-.games__gallery {
-  //
-}
-
-.games__gallery_row {
-  overflow-y: scroll;
-  text-align: justify;
-  height: 800px;
+.gallery__row {
+  line-height: 0;
 }
 
 .games__gallery {
@@ -15,12 +9,28 @@
 
 .games__gallery__thing {
   cursor: pointer;
-  border: 3px solid transparent;
+  position: relative;
+  display: inline-block;
   &:hover {
-    border: 3px solid #fff;
-    border-radius: $border-radius;
-    // transform: scale(1.1);
-    z-index: 5;
+    z-index: 100;
+    &:before {
+      border: 3px solid #fff;
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    img {
+      box-shadow: 0 0 12px 0 rgba(#000,.2);
+      transform: scale(1.1);
+      z-index: 100;
+      border: 3px solid #fff;
+      transition-property: scale;
+      transition-duration: 100ms;
+    }
   }
 }
 

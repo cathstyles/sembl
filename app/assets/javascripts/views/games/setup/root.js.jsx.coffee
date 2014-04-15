@@ -61,15 +61,12 @@
       type: 'POST'
       dataType: 'json'
       success: (data) =>
-        console.log "saved game", data
         Sembl.game = new Sembl.Game(data);
         @setState
           game: Sembl.game
         $(window).trigger('setup.game.saved')
       error: (response) =>
-        console.log 'error', response
         responseObj = JSON.parse(response.responseText)
-        console.log responseObj
         if response.status == 422 
           msgs = (value for key, value of responseObj.errors)
           $(window).trigger('flash.error', msgs.join(", "))   

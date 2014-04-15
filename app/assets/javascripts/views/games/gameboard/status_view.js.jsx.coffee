@@ -1,5 +1,8 @@
+#= require views/components/tooltip
+
 ###* @jsx React.DOM ###
 
+{Tooltip} = @Sembl.Components
 Sembl.Games.Gameboard.StatusView = React.createClass
 
   handleEndTurn: -> 
@@ -10,11 +13,16 @@ Sembl.Games.Gameboard.StatusView = React.createClass
 
   #TODO handle disabled state
   getButtonForStatus: (state, move_state) -> 
+
+    player = @props.game.get('player')
+
     disabled = false
+    buttonAlertedClass = ""
     if state is 'playing_turn'
       disabled = true if move_state == "open"
       buttonText = "End Turn"
       buttonClassName = "game__status__button game__status__end-turn"
+      buttonAlertedClass = " alerted" if move_state is 'created'
       buttonIcon = "fa fa-clock-o"
       buttonClickHandler = @handleEndTurn
     else if state is 'waiting'
@@ -30,11 +38,27 @@ Sembl.Games.Gameboard.StatusView = React.createClass
       buttonClickHandler = @handleContinueRating
 
     `<button 
-      className={buttonClassName} 
+      className={buttonClassName + buttonAlertedClass} 
       onClick={buttonClickHandler}>
         {<i className={buttonIcon}></i>}
         {buttonText}
     </button>`
+
+  getTooltip: (state, move_state) -> 
+    round = @props.game.get('current_round')
+
+    if state is 'playing_turn' and move_state is 'created'
+      if round == 1
+        tooltip = "If you are happy with your move, submit your turn to let us know you are finished."
+      else if round == 2
+        tooltip = "If you have made all the moves you want to make, end your turn to let us know you are finished."
+  
+  componentDidUpdate: -> 
+    player = @props.game.get('player')
+
+    if player 
+      tooltipText = @getTooltip(player.state, player.move_state)
+      $(window).trigger("flash.notice", tooltipText) if !!tooltipText
 
   render: -> 
     game_status = @props.game.get('status')
@@ -45,6 +69,6 @@ Sembl.Games.Gameboard.StatusView = React.createClass
     else
       statusHTML = game_status
 
-    return `<div className="game__status">
-        {statusHTML}
-      </div>`
+    `<div className="game__status">
+      {statusHTML}
+    </div>`

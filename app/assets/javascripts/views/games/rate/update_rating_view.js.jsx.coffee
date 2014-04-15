@@ -22,6 +22,7 @@
       sembl.rating = ratio
       link = @props.link.set('viewable_resemblance', sembl)
       @props.handleRated(link)
+      $(window).trigger('flash.hidden')
 
     result.fail (response) -> 
       responseObj = JSON.parse response.responseText;
@@ -43,9 +44,11 @@
     slider.on "set", =>
       @saveRating slider.val()/100
 
+    if @props.link.game.get('current_round') == 1
+      $(window).trigger('Slide to rate this sembl!')
+
 
   render: ->
-    rating = @currentRating() or 0
     `<div className="rating__rate">
       <div className="rating__rate__slider" />
     </div>`

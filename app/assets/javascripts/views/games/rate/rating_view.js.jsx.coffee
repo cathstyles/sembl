@@ -1,12 +1,9 @@
 #= require views/games/rate/update_rating_view
 #= require views/games/rate/navigation_view
-#= require views/games/rate/resemblance
-#= require views/components/graph/graph
-
+#= require views/games/rate/rate_graph
 
 ###* @jsx React.DOM ###
-{UpdateRatingView, NavigationView, Resemblance} = Sembl.Games.Rate
-Graph = Sembl.Components.Graph.Graph
+{UpdateRatingView, NavigationView, RateGraph} = Sembl.Games.Rate
 
 @Sembl.Games.Rate.RatingView = React.createBackboneClass
 
@@ -19,6 +16,15 @@ Graph = Sembl.Components.Graph.Graph
       progress: 'rating'
       currentLink: link
     }
+
+  componentWillMount: ->
+    $(window).on('resize', @handleResize)
+
+  componentWillUnmount: ->
+    $(window).off('resize')
+
+  handleResize: ->
+    $(window).trigger('graph.resize')
 
   updateRated: (link) -> 
     @setState currentLink: link
@@ -91,32 +97,22 @@ Graph = Sembl.Components.Graph.Graph
     tree = d3.layout.tree()
     nodes = tree.nodes(rootNode)
 
-    graphChildClasses = resemblance: Resemblance
-
     if @state.progress == 'finished'
-      finishedDiv = `<div className="flash finished">
-        Finished rating! 
-      </div>`
+      $(window).trigger('flash.notice', 'Finished rating!' )
       @endRating()
-
 
     `<div className="move">
       <div className="rating__info">
         <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
       </div>
-      {finishedDiv}
       <UpdateRatingView 
         move={this.currentMove()} 
         link={this.state.currentLink} 
         key={this.state.currentLink.cid}
         handleRated={this.updateRated} 
         />
-      <div className="move__graph">
-        <Graph 
-          nodes={nodes} 
-          links={move.links} 
-          childClasses={graphChildClasses} 
-          />
+      <div className="rate__graph">
+        <RateGraph target={move.targetNode} links={move.links.models} />
       </div>
       <NavigationView 
         moves={this.props.moves} 
