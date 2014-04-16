@@ -1,5 +1,7 @@
 // Create game/edit game
 
+// Generic
+
 .setup {
   @include pad(top, larger);
 }
@@ -13,14 +15,19 @@
   margin-right: auto;
 }
 
+.setup__steps__inner {
+  @extend %clearfix-micro;
+}
+
 .setup__steps__title {
+  @extend %white-drop-shadow;
+  @include font-size(18);
   @include pad(all, smaller);
-  @include inset(bottom, medium);
-  @extend .small-tracked-out-heading;
   background-color: #f8eac8;
   border-bottom: 1px solid $border-color;
   border-top-left-radius: $border-radius-inner;
   border-top-right-radius: $border-radius-inner;
+  font-weight: 600;
 }
 
 .setup__steps__actions {
@@ -55,6 +62,54 @@
   }
 }
 
+// Board
+
+.setup__steps__board__item {
+  @extend .small-tracked-out-heading;
+  @include pad(all, small);
+  border: 1px solid transparent;
+  cursor: pointer;
+  float: left;
+  text-align: center;
+  width: 50%;
+  &:nth-child(1),
+  &:nth-child(2) {
+    border-bottom: 1px solid $border-color;
+  }
+  &:nth-child(odd) {
+    border-right: 1px solid $border-color;
+  }
+  &:hover {
+    background-color: #fcf8f0;
+  }
+  &.selected {
+    background-color: #fcf8f0;
+    border: 1px dashed $text-color;
+  }
+  a {
+    color: $link-color;
+    display: block;
+  }
+}
+
+.setup__thumb-board-graph {
+  @include inset(top, smaller);
+  @include pad(all, small);
+  height: 100px;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.setup__thumb-board-graph__node:before {
+  content: '\25CF';
+  font-size: 20px;
+  position: absolute;
+  left: -6px;
+  top: -10px;
+}
+
+
 .setup__steps__seed {}
 
 .setup__steps__seed-image {
@@ -81,12 +136,6 @@
 .setup__steps__title {}
 .setup__steps__title__input {}
 
-.setup__steps__board {}
-.setup__steps__board__item {}
-.setup__steps__board__item.selected {
-  border: 1px dashed;
-}
-
 .setup__steps__seed {}
 
 .setup__title {}
@@ -97,19 +146,6 @@
   @include inset(top, normal);
   float: left;
   margin-right: 20px;
-}
-
-.setup__thumb-board-graph {
-  padding: 10px;
-  height: 100px;
-  width: 100px;
-}
-.setup__thumb-board-graph__node:before {
-  content: '\25CF';
-  font-size: 20px;
-  position: absolute;
-  left: -6px;
-  top: -10px;
 }
 
 .setup__overview__graph {
