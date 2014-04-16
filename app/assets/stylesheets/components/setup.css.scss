@@ -1,0 +1,202 @@
+// Create game/edit game
+
+// Generic
+
+.setup {
+  @include pad(top, larger);
+}
+
+.setup__steps {
+  @extend %highlight-box;
+  text-align: center;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.setup__steps__inner {
+  @extend %clearfix-micro;
+  @include pad(all, smaller);
+}
+
+.setup__steps__inner--flush {
+  padding: 0;
+}
+
+.setup__steps__title {
+  @extend %white-drop-shadow;
+  @include font-size(18);
+  @include pad(all, smaller);
+  background-color: #f8eac8;
+  border-bottom: 1px solid $border-color;
+  border-top-left-radius: $border-radius-inner;
+  border-top-right-radius: $border-radius-inner;
+  font-weight: 600;
+}
+
+.setup__steps__actions {
+  @include pad(all, small);
+  @extend %clearfix-micro;
+  background-color: #fff9ea;
+  border-top: 1px solid $border-color;
+  border-bottom-left-radius: $border-radius-inner;
+  border-bottom-right-radius: $border-radius-inner;
+}
+
+.setup__steps__actions__next,
+.setup__steps__actions__previous,
+.setup__steps__actions__done {
+  @extend %button;
+  i {
+    @include font-size(12);
+  }
+}
+
+.setup__steps__actions__previous {
+  float: left;
+  i {
+    padding-right: 2px;
+  }
+}
+
+.setup__steps__actions__next,
+.setup__steps__actions__done {
+  float: right;
+  i {
+    padding-left: 2px;
+  }
+}
+
+// Board
+
+.setup__steps__board__item {
+  @extend .small-tracked-out-heading;
+  @include pad(all, small);
+  border: 1px solid transparent;
+  cursor: pointer;
+  float: left;
+  text-align: center;
+  width: 50%;
+  &:nth-child(1),
+  &:nth-child(2) {
+    border-bottom: 1px solid $border-color;
+  }
+  &:nth-child(odd) {
+    border-right: 1px solid $border-color;
+  }
+  &:hover {
+    background-color: #fcf8f0;
+  }
+  &.selected {
+    background-color: #fcf8f0;
+    border: 1px dashed $text-color;
+  }
+  a {
+    color: $link-color;
+    display: block;
+  }
+}
+
+.setup__thumb-board-graph {
+  @include inset(top, smaller);
+  @include pad(all, small);
+  height: 100px;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.setup__thumb-board-graph__node:before {
+  content: '\25CF';
+  font-size: 20px;
+  position: absolute;
+  left: -6px;
+  top: -10px;
+}
+
+// Title and description
+
+.setup__steps__title__input {
+  width: 80%;
+}
+
+.setup__steps__description__textarea {
+  width: 80%;
+  height: 60px;
+}
+
+// Seed node
+
+.setup__steps__seed {
+  .game__placement {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.setup__steps__seed-image {
+  @include inset(vert, small);
+  background-color: $background-color;
+  border: 3px solid #fff;
+  box-shadow: 0 0 2px 2px rgba(#888,.1);
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 126px;
+}
+
+.setup__steps__seed-randomise {
+  @include pad(top, smaller);
+  color: $link-color;
+  span {
+    text-decoration: underline;
+  }
+  i {
+    padding-right: 5px;
+    vertical-align: middle;
+  }
+}
+
+// Settings
+
+.games-setup__settings-item {
+  text-align: left;
+}
+
+.setup__settings {
+  @include pad(vert, small);
+  @include inset(top, normal);
+  float: left;
+  margin-right: 20px;
+}
+
+.setup__overview__graph {
+  padding: 80px;
+  height: 0px; // not sure why I need this set for the .graph child element to set itself to fill the 500px
+  min-height: 500px;
+  width: 80%;
+  height: 0px;
+}
+.setup__overview__graph__placement__round {
+  width: 100%;
+  position: absolute;
+}
+
+.setup__steps__filter__label {
+  @extend .small-tracked-out-heading;
+  cursor: pointer;
+  padding-right: 3px;
+}
+
+.setup__steps__filters__gallery {
+  overflow-y: scroll;
+  overflow-x: visible;
+  height: 500px;
+}
+
+.setup__overview__settings__tick {
+  color: green;
+}
+
+.setup__overview__settings__cross {
+  color: red;
+}

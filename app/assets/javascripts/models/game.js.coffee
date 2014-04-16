@@ -1,3 +1,5 @@
+#= require models/board
+#= require collections/boards
 #= require collections/nodes
 #= require collections/links
 #= require collections/players
@@ -9,6 +11,8 @@ class Sembl.Game extends Backbone.Model
     @nodes = new Sembl.Nodes(@get("nodes"), game: this)
     @links = new Sembl.Links(@get("links"), game: this)
     @players = new Sembl.Players(@get("players"), game: this)
+    @boards = new Sembl.Boards(@get("boards"))
+    @board = new Sembl.Board(@get("board"))
     
     @listenTo(@, 'change:players', @updatePlayers)
     @listenTo(@, 'change:nodes', @updateNodes)
@@ -43,3 +47,4 @@ class Sembl.Game extends Backbone.Model
 
   resultsAvailableForRound: -> 
     if @get('state') == 'completed' then @get('current_round') else @get('current_round')-1
+

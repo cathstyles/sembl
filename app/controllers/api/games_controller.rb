@@ -79,6 +79,9 @@ private
   def copy_board_to_game
     board = @game.board
     return unless @game.board_id.present? && @game.board_id_changed? 
+    if !@game.draft?
+      raise ApiError.new, "Cannot change board once published"
+    end
 
     # So they are not destroyed if validation fails.
     @game.nodes.each {|n| n.mark_for_destruction }

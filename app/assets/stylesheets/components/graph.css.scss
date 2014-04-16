@@ -24,7 +24,13 @@
   margin-right: auto;
   padding: 80px;
   min-height: 500px;
+  max-height: 800px;
   width: 90%;
+}
+
+.game__graph__link {
+  stroke: #d2d79b;
+  stroke-width: 3px;
 }
 
 .game__placement-wrapper {

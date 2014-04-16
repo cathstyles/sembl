@@ -26,7 +26,7 @@
   render: () ->
     node = @props.node
     userState = @props.userState || node.get('user_state')
-    className = "game__placement state-#{userState}"
+    className = "game__placement state-#{userState} "
     
     thing = node.get('viewable_placement')?.thing
     image_url = @props.image_url || thing?.image_admin_url

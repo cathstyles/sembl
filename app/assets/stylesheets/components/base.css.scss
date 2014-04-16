@@ -67,52 +67,47 @@ textarea {
 }
 
 @keyframes flash {
-  0%   { opacity: 0 }
-  100% { opacity: 1 }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
-.flash {
+@keyframes notice {
+  0%, 100% { transform: scale(1.05); }
+  50% { transform: scale(1); }
+}
+
+.flash,
+.notice {
   @include pad(all, small);
   animation-name: flash;
-  animation-duration: 200ms;
+  animation-duration: 250ms;
   animation-iteration-count: 1;
-  background-color: $highlight-color;
   border-bottom-left-radius: $border-radius;
   border-bottom-right-radius: $border-radius;
-  box-shadow: 0 0 10px 2px rgba(#888,.1);
+  background-color: $highlight-color;
+  box-shadow: 0 0 10px 2 rgba(#888,.1);
   color: #fff;
   position: absolute;
   top: 0;
-  right: 0;
+  right: 20px;
   text-shadow: 1px 1px 1px rgba(#000,.3);
+  transition-property: right;
+  transition-duration: 100ms;
   z-index: 100;
   &.error {
     background-color: #f75454;
   }
 }
 
+.notice {
+  animation-name: notice;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
 @keyframes alert-grow {
   0, 100% { box-shadow: none; transform: scale(0); }
   50%     { box-shadow: 0 0 20px 0 #fff; transform: scale(1.05); }
-}
-
-.tooltip {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  z-index: 200;
-}
-
-.tooltip__inner {
-  @include pad(all, small);
-  background-color: $highlight-color;
-  border-radius: $border-radius;
-  box-shadow: 0 0 20px 0 rgba($highlight-color,.5);
-  display: inline-block;
-  color: #fff;
-  text-shadow: 1px 1px 1px rgba(#000,.3);
 }
 
 .alerted {

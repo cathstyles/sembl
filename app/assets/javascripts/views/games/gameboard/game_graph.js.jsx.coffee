@@ -44,6 +44,6 @@ Sembl.Games.Gameboard.GameGraph = React.createClass
     `<Graph nodes={nodes} links={links}
       nodeFactory={nodeFactory}
       midpointFactory={midpointFactory}
-      width={width} height={height} />`
+      width={width} height={height} pathClassName="game__graph__link" />`
   
 

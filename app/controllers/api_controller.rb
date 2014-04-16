@@ -1,10 +1,17 @@
 class ApiController < ApplicationController
+  class ApiError < StandardError
+  end
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ActionController::ParameterMissing, with: :parameter_missing
-
+  rescue_from ApiError, with: :api_error
+  
   self.responder = ApiResponder
 
   private
+    def api_error(exception)
+      render json: {errors: exception.message}, :status => 400
+    end
 
     def unprocessable_entity(exception)
       puts exception.inspect
