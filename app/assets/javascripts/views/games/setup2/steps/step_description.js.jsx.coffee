@@ -23,10 +23,11 @@
   render: ->
     `<div className="setup__steps__description">
       <label htmlFor="setup__steps__description__input">Name your game</label>
-      <br/>
-      <textarea id="setup__steps__description__textarea" 
-        className="setup__steps__description__textarea" 
-        ref="description"
-        onChange={this.handleChange}
-        value={this.state.description} />
+      <div className="setup__steps__inner">
+        <textarea id="setup__steps__description__textarea" 
+          className="setup__steps__description__textarea" 
+          ref="description"
+          onChange={this.handleChange}
+          value={this.state.description} />
+      </div>
     </div>`

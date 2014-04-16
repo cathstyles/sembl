@@ -33,7 +33,9 @@
 
     `<div className="setup__steps__settings">
       <h3>Settings</h3>
-      <SettingsCheckbox name='invite_only' checked={invite_only} label="Game is invite only" handleChange={this.handleChange} />
-      <SettingsCheckbox name='mature_allowed' checked={mature_allowed} label="Show mature images" handleChange={this.handleChange} />
-      <SettingsCheckbox name='uploads_allowed' checked={uploads_allowed} label="Users can upload images" handleChange={this.handleChange} />
+      <div className="setup__steps__inner">
+        <SettingsCheckbox name='invite_only' checked={invite_only} label="Game is invite only" handleChange={this.handleChange} />
+        <SettingsCheckbox name='mature_allowed' checked={mature_allowed} label="Show mature images" handleChange={this.handleChange} />
+        <SettingsCheckbox name='uploads_allowed' checked={uploads_allowed} label="Users can upload images" handleChange={this.handleChange} />
+      </div>
     </div>`

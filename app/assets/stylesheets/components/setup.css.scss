@@ -1,20 +1,20 @@
 // Create game/edit game
 
 .setup {
-  @include pad(top, smaller);
+  @include pad(top, medium);
 }
 
 .setup__steps {
   @extend %highlight-box;
-  @extend .small-tracked-out-heading;
-  @include pad(all, larger);
   text-align: center;
   min-width: 200px;
-  width: 50%
+  width: 50%;
 }
+
 .setup__steps__actions {
   margin-top: 6px;  
 }
+
 .setup__steps__actions__next,
 .setup__steps__actions__previous,
 .setup__steps__actions__done {

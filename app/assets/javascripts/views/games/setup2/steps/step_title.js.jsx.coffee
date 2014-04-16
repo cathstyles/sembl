@@ -23,10 +23,11 @@
   render: ->
     `<div className="setup__steps__title">
       <label htmlFor="setup__steps__title__input">Name your game</label>
-      <br/>
-      <input id="setup__steps__title__input" 
-        className="setup__steps__title__input" 
-        ref="title"
-        onChange={this.handleChange}
-        value={this.state.title} />
+      <div className="setup__steps__inner">
+        <input id="setup__steps__title__input" 
+          className="setup__steps__title__input" 
+          ref="title"
+          onChange={this.handleChange}
+          value={this.state.title} />
+      </div>
     </div>`
