@@ -36,16 +36,30 @@
 
   componentDidMount: ->
     seed = @state.collectedFields.seed
-    if seed?
-      $.getJSON("/api/things/"+ seed.id+".json", {}, (thing) =>
+    if seed?.id
+      $.getJSON("/api/things/#{seed.id}.json", {}, (thing) =>
         @setState 
           collectedFields: _.extend(@state.collectedFields, {seed: thing})
       )
 
   getInitialState: ->
-    game: @props.game
-    activeSteps: @props.firstSteps || []
-    collectedFields: _.extend({}, @props.formFields)
+    game = @props.game
+    formFields = 
+      title: game.get('title')
+      description: game.get('description')
+      seed: {id: game.get('seed_thing_id')}
+      board: game.board
+      filter: game.get('filter')
+      settings:
+        uploads_allowed: game.get('uploads_allowed')
+        invite_only: game.get('invite_only')
+
+    console.log 'formFields', formFields
+
+    return state = 
+      game: game
+      activeSteps: @props.firstSteps || []
+      collectedFields: formFields
 
   getGameParams: (publish) ->
     params =
@@ -54,9 +68,10 @@
         seed_thing_id: @state.collectedFields.seed?.id
         title:         @state.collectedFields.title
         description:   @state.collectedFields.description
+        invite_only:     if @state.collectedFields.settings?.invite_only then 1 else 0
+        mature_allowed:  if @state.collectedFields.settings?.mature_allowed then 1 else 0
+        uploads_allowed: if @state.collectedFields.settings?.uploads_allowed then 1 else 0
       authenticity_token: this.props.game.get('auth_token')
-
-    # TODO add settings, sensitive, invite-only, etc
     # TODO add filter for power users
     # if @props.user.power
       # params.filter_content_by = @state.collectedFields.filter
