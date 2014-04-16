@@ -46,9 +46,17 @@
           Filters: All images are available {isDraft ? editLink('filter') : null}
         </div>`
 
-    showSettings = for setting, checked of @props.settings || {}
-      `<div key={setting}>{setting} is {checked? 'true' : 'false'}</div>`
+    makeTickCross = (check) ->
+      if check 
+        `<i className='fa fa-check setup__overview__settings__tick'></i>`
+      else
+        `<i className='fa fa-times setup__overview__settings__cross'></i>`
 
+    settingsComponent = 
+      `<div>
+        <div>Invite only {makeTickCross(this.props.settings.invite_only)}</div>
+        <div>Uploads allowed {makeTickCross(this.props.settings.uploads_allowed)}</div>
+      </div>`
 
     `<div className="setup__overview">
       <div className="setup__overview__title">
@@ -58,7 +66,8 @@
         Description: {description} {editLink('description', description ? 'Edit' : 'Add')}<br/>
       </div>
       <div className="setup__overview__settings">
-        Settings: {showSettings} {editLink('settings')}<br/>
+        Settings: {editLink('settings')}<br/>
+        {settingsComponent}
       </div>
       {filterComponent}
 
