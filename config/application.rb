@@ -27,5 +27,6 @@ module Sembl
       g.test_framework :rspec
       g.fixture_replacement :factory_girl
     end
+    config.react.addons = true
   end
 end

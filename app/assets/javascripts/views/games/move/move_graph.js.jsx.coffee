@@ -50,7 +50,7 @@ class ResemblanceFactory
     `<div className="move__graph">
       <Graph nodes={nodes} links={links}
         midpointFactory={midpointFactory}
-        nodeFactory={nodeFactory} />
+        nodeFactory={nodeFactory} pathClassName="game__graph__link" />
     </div>`
     
 

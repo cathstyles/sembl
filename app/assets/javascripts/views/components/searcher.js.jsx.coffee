@@ -35,7 +35,6 @@
       offset: offset
       limit: @state.limit
     _.extend(params, @state.filter)
-    console.log "#{@props.prefix}.search", params
     $.getJSON("/api/search.json",
       params
       (things) =>
