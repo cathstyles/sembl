@@ -43,6 +43,7 @@
       )
 
   getInitialState: ->
+    game: @props.game
     activeSteps: @props.firstSteps || []
     collectedFields: _.extend({}, @props.formFields)
 
@@ -69,6 +70,12 @@
       @createGame(params)
 
   handlePublish: ->
+    params = @getGameParams()
+    params.publish = true
+    if @props.game.id
+      @updateGame(params)
+    else 
+      @createGame(params)
 
   handleOpenGame: ->
     if @props.game.id
@@ -124,7 +131,7 @@
 
   render: ->
     console.log 'new_view.state', @state
-    boards = @props.game.boards.sortBy('title')
+    boards = @state.game.boards.sortBy('title')
     stepList = []
     for step in @state.activeSteps
       stepList.push(@stepComponents[step])
@@ -132,7 +139,7 @@
     if stepList.length > 0
       show = `<Steps steps={stepList} doneEvent="setup.steps.done" collectedFields={this.state.collectedFields} />`
     else
-      overviewProps = _.extend({status: @props.game.get('state')}, @state.collectedFields)
+      overviewProps = _.extend({status: @state.game.get('state')}, @state.collectedFields)
       show = Overview(overviewProps)
 
     `<div className="setup">
