@@ -21,12 +21,14 @@
     !!@state?.title
 
   render: ->
-    `<div className="setup__steps__title">
-      <div className="setup__steps__title"><label htmlFor="setup__steps__title__input">Name your game</label></div>
+    `<div className="setup__steps__name">
+      <div className="setup__steps__title"><label htmlFor="setup__steps__title__input">Now, give your game a name:</label></div>
       <div className="setup__steps__inner">
         <input id="setup__steps__title__input" 
           className="setup__steps__title__input" 
           ref="title"
+          type="text"
+          placeholder="E.g. Colonial Connections"
           onChange={this.handleChange}
           value={this.state.title} />
       </div>

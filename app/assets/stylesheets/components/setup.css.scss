@@ -9,7 +9,6 @@
 .setup__steps {
   @extend %highlight-box;
   text-align: center;
-  min-width: 200px;
   width: 50%;
   margin-left: auto;
   margin-right: auto;
@@ -17,6 +16,11 @@
 
 .setup__steps__inner {
   @extend %clearfix-micro;
+  @include pad(all, smaller);
+}
+
+.setup__steps__inner--flush {
+  padding: 0;
 }
 
 .setup__steps__title {
@@ -55,7 +59,8 @@
   }
 }
 
-.setup__steps__actions__next {
+.setup__steps__actions__next,
+.setup__steps__actions__done {
   float: right;
   i {
     padding-left: 2px;
@@ -109,8 +114,25 @@
   top: -10px;
 }
 
+// Title and description
 
-.setup__steps__seed {}
+.setup__steps__title__input {
+  width: 80%;
+}
+
+.setup__steps__description__textarea {
+  width: 80%;
+  height: 60px;
+}
+
+// Seed node
+
+.setup__steps__seed {
+  .game__placement {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 
 .setup__steps__seed-image {
   @include inset(vert, small);
@@ -123,6 +145,7 @@
 }
 
 .setup__steps__seed-randomise {
+  @include pad(top, smaller);
   color: $link-color;
   span {
     text-decoration: underline;
@@ -133,13 +156,11 @@
   }
 }
 
-.setup__steps__title {}
-.setup__steps__title__input {}
+// Settings
 
-.setup__steps__seed {}
-
-.setup__title {}
-.setup__description {}
+.games-setup__settings-item {
+  text-align: left;
+}
 
 .setup__settings {
   @include pad(vert, small);
