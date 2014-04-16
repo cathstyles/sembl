@@ -1,1 +1,0 @@
-HeaderView.js.jsx.coffee
