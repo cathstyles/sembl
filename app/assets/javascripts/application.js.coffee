@@ -14,6 +14,7 @@
 #= require routers/game_router
 #= require viewloader
 #= require views/uploader/contributions_view
+#= require views/uploader/avatar_view
 #= require views/games/setup/root
 
 @Sembl =

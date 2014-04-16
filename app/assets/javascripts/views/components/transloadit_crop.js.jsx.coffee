@@ -80,7 +80,7 @@
       url: @assemblyUrl
       success: (data) ->
         if data.ok is 'ASSEMBLY_COMPLETED'
-          @props.finishedCrop data.results.crop[0].url
+          @props.finishedCrop data.results
         else
           @assemblyPoll()
 

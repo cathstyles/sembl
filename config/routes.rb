@@ -34,13 +34,13 @@ Sembl::Application.routes.draw do
     root to: "home#show"
   end
 
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => "registrations" }
 
   resources :games, only: [:index, :show, :new, :edit] do
     resources :things, only: [:index]
   end
 
-  resources :profiles, only: [:edit]
+  resource :profile
 
   get  'transloadit_signatures/:template_id' => 'transloadit_signatures#template'
   post 'transloadit_signatures/:template_id' => 'transloadit_signatures#template'

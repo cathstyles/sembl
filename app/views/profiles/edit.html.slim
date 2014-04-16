@@ -1,0 +1,13 @@
+.header
+  .heading
+    h1 Edit your profile
+
+.profile   
+  div data-view="avatarView"
+
+  = simple_form_for @profile do |f|
+    div.profile__meta-data
+      = f.input :name, label: "Your name"
+      = f.input :bio, label: "A little about you", as: :text
+      = f.hidden_field :remote_avatar_url
+      = f.button :submit
