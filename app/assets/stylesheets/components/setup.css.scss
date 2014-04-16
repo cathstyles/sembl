@@ -1,7 +1,7 @@
 // Create game/edit game
 
 .setup {
-  @include pad(top, medium);
+  @include pad(top, larger);
 }
 
 .setup__steps {
@@ -9,10 +9,27 @@
   text-align: center;
   min-width: 200px;
   width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.setup__steps__title {
+  @include pad(all, smaller);
+  @include inset(bottom, medium);
+  @extend .small-tracked-out-heading;
+  background-color: #f8eac8;
+  border-bottom: 1px solid $border-color;
+  border-top-left-radius: $border-radius-inner;
+  border-top-right-radius: $border-radius-inner;
 }
 
 .setup__steps__actions {
-  margin-top: 6px;  
+  @include pad(all, small);
+  @extend %clearfix-micro;
+  background-color: #fff9ea;
+  border-top: 1px solid $border-color;
+  border-bottom-left-radius: $border-radius-inner;
+  border-bottom-right-radius: $border-radius-inner;
 }
 
 .setup__steps__actions__next,
@@ -20,7 +37,21 @@
 .setup__steps__actions__done {
   @extend %button;
   i {
-    padding-right: 4px;
+    @include font-size(12);
+  }
+}
+
+.setup__steps__actions__previous {
+  float: left;
+  i {
+    padding-right: 2px;
+  }
+}
+
+.setup__steps__actions__next {
+  float: right;
+  i {
+    padding-left: 2px;
   }
 }
 

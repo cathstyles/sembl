@@ -25,6 +25,6 @@
     )
 
     `<div className="setup__steps__board">
-      Choose a board
+      <div className="setup__steps__title">Choose a board</div>
       <div className="setup__steps__inner">{boards}</div>
     </div>`

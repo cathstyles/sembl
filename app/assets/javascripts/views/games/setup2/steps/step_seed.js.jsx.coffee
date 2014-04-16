@@ -40,7 +40,7 @@
       "game__placement state-available"
 
     `<div className="setup__steps__seed">
-      <h3 className="setup__steps__seed-title">Choose a seed node</h3>
+      <div className="setup__steps__title">Choose a seed node</div>
       <div className="setup__steps__inner">
         <div className={seedPlacementClassName} onClick={this.handleSeedClick}>
           <img className="game__placement__image" key={image_url} src={image_url} />

@@ -32,7 +32,7 @@
       {invite_only, mature_allowed, uploads_allowed} = this.props.settings 
 
     `<div className="setup__steps__settings">
-      <h3>Settings</h3>
+      <div className="setup__steps__title">Settings</div>
       <div className="setup__steps__inner">
         <SettingsCheckbox name='invite_only' checked={invite_only} label="Game is invite only" handleChange={this.handleChange} />
         <SettingsCheckbox name='mature_allowed' checked={mature_allowed} label="Show mature images" handleChange={this.handleChange} />

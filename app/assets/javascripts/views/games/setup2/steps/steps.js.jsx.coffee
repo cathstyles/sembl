@@ -73,8 +73,8 @@
       className += " button--disabled" if disabled
       className
 
-    previous = `<button className={actionClassName('previous')} onClick={this.handlePrevious}>Back</button>`
-    next = `<button className={actionClassName('next', !isValid)} onClick={this.handleNext}>Next</button>`
+    previous = `<button className={actionClassName('previous')} onClick={this.handlePrevious}><i className="fa fa-chevron-right"></i>&nbsp;Back</button>`
+    next = `<button className={actionClassName('next', !isValid)} onClick={this.handleNext}>Next&nbsp;<i className="fa fa-chevron-right"></i></button>`
     done = `<button className={actionClassName('done', !isValid)} onClick={this.handleDone}>Done</button>`
 
     `<div className="setup__steps">

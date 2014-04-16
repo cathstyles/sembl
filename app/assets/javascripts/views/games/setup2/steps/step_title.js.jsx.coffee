@@ -22,7 +22,7 @@
 
   render: ->
     `<div className="setup__steps__title">
-      <label htmlFor="setup__steps__title__input">Name your game</label>
+      <div className="setup__steps__title"><label htmlFor="setup__steps__title__input">Name your game</label></div>
       <div className="setup__steps__inner">
         <input id="setup__steps__title__input" 
           className="setup__steps__title__input" 
