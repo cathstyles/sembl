@@ -46,7 +46,7 @@
           <img className="game__placement__image" key={image_url} src={image_url} />
         </div>
         <h3 className="setup__steps__seed-randomise">
-          <a href="#" onClick={this.handleRandomSeed}><i className="fa fa-random"></i> <span>Randomise</span></a>
+          <a href="#" onClick={this.handleRandomSeed}><i className="fa fa-random"></i>&nbsp;<em>Randomise</em></a>
         </h3>
         <Searcher prefix="setup.steps.seed.searcher" />
       </div>

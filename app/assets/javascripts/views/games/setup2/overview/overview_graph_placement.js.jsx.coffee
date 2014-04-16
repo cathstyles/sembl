@@ -31,7 +31,7 @@
         "Round #{this.props.round}"
 
     `<div className={className} onClick={this.handleClick}>
-      <div className="setup__overview__graph__placement__round">{roundText}</div>
+      <div className="setup__overview__graph__placement__round"><em>{roundText}</em></div>
       <img className="game__placement__image" src={image_url} />
     </div>`
 

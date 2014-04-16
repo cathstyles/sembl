@@ -145,9 +145,10 @@
 }
 
 .setup__steps__seed-randomise {
+  @extend .small-tracked-out-heading;
   @include pad(top, smaller);
   color: $link-color;
-  span {
+  em {
     text-decoration: underline;
   }
   i {
@@ -160,6 +161,9 @@
 
 .games-setup__settings-item {
   text-align: left;
+  label {
+    @include font-size(16);
+  }
 }
 
 .setup__settings {
@@ -176,9 +180,21 @@
   width: 80%;
   height: 0px;
 }
+
 .setup__overview__graph__placement__round {
   width: 100%;
+  text-align: center;
   position: absolute;
+  bottom: -10px;
+  em {
+    @extend .small-tracked-out-heading;
+    background-color: #fff;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    box-shadow: 0 0 10px 0 rgba(#000,.2);
+    display: inline-block;
+    padding: 3px;
+  }
 }
 
 .setup__steps__filter__label {
@@ -199,4 +215,39 @@
 
 .setup__overview__settings__cross {
   color: red;
+}
+
+// Overview
+
+.setup__overview__card {
+  @extend %highlight-box;
+  // @include pad(all, smaller);
+  float: left;
+  width: 450px;
+}
+
+.setup__overview__item-title {
+  @extend .small-tracked-out-heading;
+  padding-right: 4px;
+}
+
+.setup__overview__title,
+.setup__overview__description,
+.setup__overview__settings {
+  padding-bottom: 2px;
+  a {
+    @extend .small-tracked-out-heading;
+    color: $link-color;
+    padding-left: 6px;
+    &:before {
+      content: "\f044";
+      font-family: "FontAwesome";
+      padding-right: 2px;
+    }
+  }
+}
+
+.setup__overview__board {
+  float: right;
+  width: 500px;
 }

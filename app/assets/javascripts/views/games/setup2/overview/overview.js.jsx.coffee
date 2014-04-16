@@ -59,17 +59,19 @@
       </div>`
 
     `<div className="setup__overview">
-      <div className="setup__overview__title">
-        Title: {title} {editLink('title')} <br/>
+      <div className="setup__overview__card">
+        <div className="setup__overview__title">
+          <span className="setup__overview__item-title">Title:</span> {title} {editLink('title')}
+        </div>
+        <div className="setup__overview__description">
+          <span className="setup__overview__item-title">Description:</span> {description} {editLink('description', description ? 'Edit' : 'Add')}
+        </div>
+        <div className="setup__overview__settings">
+          <span className="setup__overview__item-title">Settings:</span> {editLink('settings')}
+          {settingsComponent}
+        </div>
+        {filterComponent}
       </div>
-      <div className="setup__overview__description">
-        Description: {description} {editLink('description', description ? 'Edit' : 'Add')}<br/>
-      </div>
-      <div className="setup__overview__settings">
-        Settings: {editLink('settings')}<br/>
-        {settingsComponent}
-      </div>
-      {filterComponent}
 
       <div className="setup__overview__board">
         <div>Board: {boardTitle} {isDraft ? editLink('board', 'Edit') : null}</div>
