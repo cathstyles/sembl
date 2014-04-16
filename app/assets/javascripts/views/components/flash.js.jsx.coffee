@@ -27,8 +27,6 @@
   render: ->
     console.log "rendering notice"
     className = "flash #{this.state.className}"
-    `<div className="flash-wrapper">
-      <aside className={className}>
-        {this.state.msg}
-      </aside>
-    </div>`
+    `<aside className={className}>
+      {this.state.msg}
+    </aside>`
