@@ -92,3 +92,15 @@
   width: 100%;
   position: absolute;
 }
+
+.setup__steps__filter__label {
+  @extend .small-tracked-out-heading;
+  cursor: pointer;
+  padding-right: 3px;
+}
+
+.setup__steps__filters__gallery {
+  overflow-y: scroll;
+  overflow-x: visible;
+  height: 500px;
+}

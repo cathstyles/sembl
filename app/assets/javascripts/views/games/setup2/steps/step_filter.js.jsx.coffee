@@ -1,17 +1,23 @@
 #= require views/components/searcher
+#= require views/components/thing_modal
+#= require views/games/gallery
 
 ###* @jsx React.DOM ###
 
-{Searcher} = Sembl.Components
+{Searcher, ThingModal} = Sembl.Components
+{Gallery} = Sembl.Games
 
 @Sembl.Games.Setup.StepFilter = React.createClass
   searcherPrefix: "setup.steps.filter.searcher"
+  galleryPrefix: "setup.steps.filter.gallery"
 
   componentWillMount: ->
     $(window).on("#{@searcherPrefix}.updated", @handleSearcherUpdated)
+    $(window).on("#{@galleryPrefix}.thing.click", @handleGalleryThingClick)
 
   componentWillUnmount: ->
     $(window).off("#{@searcherPrefix}.updated")
+    $(window).off("#{@galleryPrefix}.thing.click")
 
   getInitialState: () ->
     filter:
@@ -21,6 +27,9 @@
 
   handleSearcherUpdated: (event, results) ->
     console.log 'handleSearcherUpdated', results
+
+  handleGalleryThingClick: (event, thing) ->
+    $(window).trigger('modal.open', `<ThingModal thing={thing} />`)
 
   handleChange: (event) ->
     filter =
@@ -41,19 +50,24 @@
     filter = this.state.filter;
     filterText = if (!filter.text || filter.text == "*") then null else filter.text
     
-    `<div className={this.className}>
-      <Searcher filter={filter} prefix={this.searcherPrefix} />
+    `<div className="setup__steps__filters">
       <div>Set filters to restrict the available images in the game</div>
-      <div className="games-setup__filter">
-        <label className="games-setup__filter-label" htmlFor="filter-text">Text:</label>
-        <input type="text" ref="text" value={filterText} id="filter-text" onChange={this.handleChange} className="games-setup__filter-input"/>
+      <div className="setup__steps__filters__filter">
+        <label className="setup__steps__filters__filter__label" htmlFor="filter-text">Text:</label>
+        <input className="setup__steps__filters__filter__input" type="text" ref="text" value={filterText} id="filter-text" onChange={this.handleChange} className="games-setup__filter-input"/>
       </div>
-      <div className="games-setup__filter">
-        <label className="games-setup__filter-label" htmlFor="filter-place">Place:</label>
-        <input type="text" ref="place_filter" value={filter.place_filter} id="filter-place" onChange={this.handleChange} className="games-setup__filter-input"/>
+      <div className="setup__steps__filters__filter">
+        <label className="setup__steps__filters__filter__label" htmlFor="filter-place">Place:</label>
+        <input className="setup__steps__filters__filter__input" type="text" ref="place_filter" value={filter.place_filter} id="filter-place" onChange={this.handleChange} className="games-setup__filter-input"/>
       </div>
-      <div className="games-setup__filter">
-        <label className="games-setup__filter-label" htmlFor="filter-access">Source:</label>
-        <input type="text" ref="access_filter" value={filter.access_filter} id="filter-access" onChange={this.handleChange} className="games-setup__filter-input"/>
+      <div className="setup__steps__filters__filter">
+        <label className="setup__steps__filters__filter__label" htmlFor="filter-access">Source:</label>
+        <input className="setup__steps__filters__filter__input" type="text" ref="access_filter" value={filter.access_filter} id="filter-access" onChange={this.handleChange} className="games-setup__filter-input"/>
       </div>
+
+      These images will be available:
+      <div className="setup__steps__filters__gallery">
+        <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
+      </div>
+      <Searcher filter={filter} prefix={this.searcherPrefix} />
     </div>`
