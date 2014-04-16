@@ -55,7 +55,7 @@
         Title: {title} {editLink('title')} <br/>
       </div>
       <div className="setup__overview__description">
-        Description: {description} {editLink('description')}<br/>
+        Description: {description} {editLink('description', description ? 'Edit' : 'Add')}<br/>
       </div>
       <div className="setup__overview__settings">
         Settings: {showSettings} {editLink('settings')}<br/>

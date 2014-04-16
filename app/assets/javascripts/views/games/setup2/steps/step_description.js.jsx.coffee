@@ -22,7 +22,7 @@
 
   render: ->
     `<div className="setup__steps__description">
-      <label htmlFor="setup__steps__description__input">Name your game</label>
+      <label htmlFor="setup__steps__description__input">Give your game a description</label>
       <br/>
       <textarea id="setup__steps__description__textarea" 
         className="setup__steps__description__textarea" 
