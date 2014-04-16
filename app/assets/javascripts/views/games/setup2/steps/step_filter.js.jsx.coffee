@@ -39,13 +39,14 @@
 
   render: () ->
     filter = this.state.filter;
+    filterText = if (!filter.text || filter.text == "*") then null else filter.text
     
     `<div className={this.className}>
       <Searcher filter={filter} prefix={this.searcherPrefix} />
       <div>Set filters to restrict the available images in the game</div>
       <div className="games-setup__filter">
         <label className="games-setup__filter-label" htmlFor="filter-text">Text:</label>
-        <input type="text" ref="text" value={filter.text} id="filter-text" onChange={this.handleChange} className="games-setup__filter-input"/>
+        <input type="text" ref="text" value={filterText} id="filter-text" onChange={this.handleChange} className="games-setup__filter-input"/>
       </div>
       <div className="games-setup__filter">
         <label className="games-setup__filter-label" htmlFor="filter-place">Place:</label>

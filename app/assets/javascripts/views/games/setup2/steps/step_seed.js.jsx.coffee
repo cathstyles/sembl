@@ -10,16 +10,11 @@
   componentWillMount: ->
     $(window).on('setup.steps.seed.select', @handleSeedSelect)
 
-  componentWillUnount: ->
+  componentWillUnmount: ->
     $(window).off('setup.steps.seed.select')
 
   componentDidMount: ->
     seed = @props.seed
-    if seed?
-      self = this
-      $.getJSON("/api/things/"+ seed.id+".json", {}, (thing) ->
-        self.handleSeedSelect({}, thing);
-      )
 
   handleSeedSelect: (event, thing) ->
     $(window).trigger('setup.steps.change', {seed: thing})
@@ -39,7 +34,7 @@
   render: ->
     seed = @props.seed
     image_url = seed?.image_admin_url
-    seedPlacementClassName = if seed?
+    seedPlacementClassName = if seed?.id
       "game__placement state-filled"
     else 
       "game__placement state-available"
