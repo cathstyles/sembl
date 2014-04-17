@@ -5,17 +5,11 @@ class ApiController < ApplicationController
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ActionController::ParameterMissing, with: :parameter_missing
   rescue_from ApiError, with: :api_error
-  
   self.responder = ApiResponder
 
   private
     def api_error(exception)
       render json: {errors: exception.message}, :status => 400
-    end
-
-    def unprocessable_entity(exception)
-      puts exception.inspect
-      render json: {errors: "ARG"}
     end
 
     def user_not_authorized(exception)
@@ -39,7 +33,6 @@ class ApiController < ApplicationController
     end
 
     def invalid(exception)
-      puts exception
       render json: { errors: exception.message }, :status => 400
     end
 end
