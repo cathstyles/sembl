@@ -33,6 +33,7 @@ class Player < ActiveRecord::Base
     after_transition :playing_turn => :waiting, do: :check_turn_completion
     after_transition :rating => :waiting, do: :check_rating_completion
     after_transition :draft => any, do: :send_invitation
+    after_transition [:invited, :draft] => :playing_turn, do: :allocate_first_node
     after_transition any => :playing_turn do |player, transition|
       player.begin_move
     end
@@ -94,11 +95,15 @@ class Player < ActiveRecord::Base
 
   #TODO record locking.
   def allocate_first_node
-    return if game.nodes.where(allocated_to_id: user.id).present?
-    node = game.nodes.with_state(:in_play).where(allocated_to_id: nil).take
-    if node 
-      node.allocated_to = self.user
-      node.save!
+    # Invited players don't get allocated a node until transitioned to playing_turn
+    # Self joining players always get allocated a node because they are in playing_turn state on Player.create
+    if playing_turn?
+      return if game.nodes.where(allocated_to_id: user.id).present?
+      node = game.nodes.with_state(:in_play).where(allocated_to_id: nil).take
+      if node 
+        node.allocated_to = self.user
+        node.save!
+      end
     end
   end
 
