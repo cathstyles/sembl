@@ -302,10 +302,23 @@
 
 .setup__overview__board {
   float: right;
-  width: 600px;
+  text-align: center;
+  width: 650px;
+}
+
+.setup__overview__board-heading {
+  @extend .small-tracked-out-heading;
+  @include inset(bottom, smaller);
+  background-color: #fff;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px 0 rgba(#000,.2);
+  display: inline-block;
+  padding: 3px;
 }
 
 .setup__overview__graph {
+  border: 1px dashed $border-color;
   padding: 80px;
   min-height: 500px;
   height: 0px;

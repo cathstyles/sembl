@@ -81,7 +81,7 @@
       </div>
 
       <div className="setup__overview__board">
-        <div>Board: {boardTitle} {isDraft ? editLink('board', 'Edit') : null}</div>
+        <div className="setup__overview__board-heading">Board: <em>{boardTitle} {isDraft ? editLink('board', 'Edit') : null}</em></div>
         <OverviewGraph board={board} seed={seed} isDraft={isDraft} />
       </div>
       
