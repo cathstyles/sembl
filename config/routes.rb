@@ -10,6 +10,7 @@ Sembl::Application.routes.draw do
       resources :ratings, only: [:create, :index, :show] 
       resources :moves, only: [:create]
       resources :results, only: [:create, :index, :show] 
+      resources :players, only: [:create, :destroy, :index, :show]
 
       get 'moves/round', to: 'moves#round'
     end
