@@ -51,21 +51,22 @@
     filterText = if (!filter.text || filter.text == "*") then null else filter.text
     
     `<div className="setup__steps__filters">
-      <div>Set filters to restrict the available images in the game</div>
-      <div className="setup__steps__filters__filter">
-        <label className="setup__steps__filters__filter__label" htmlFor="filter-text">Text:</label>
-        <input className="setup__steps__filters__filter__input" type="text" ref="text" value={filterText} id="filter-text" onChange={this.handleChange} className="games-setup__filter-input"/>
+      <div className="setup__steps__title">Set filters to restrict available game images:</div>
+      <div className="setup__steps__inner">
+        <div className="setup__steps__filters__filter">
+          <label className="setup__steps__filters__filter__label" htmlFor="filter-text">Text:</label>
+          <input className="setup__steps__filters__filter__input" type="text" ref="text" value={filterText} id="filter-text" onChange={this.handleChange} className="games-setup__filter-input"/>
+        </div>
+        <div className="setup__steps__filters__filter">
+          <label className="setup__steps__filters__filter__label" htmlFor="filter-place">Place:</label>
+          <input className="setup__steps__filters__filter__input" type="text" ref="place_filter" value={filter.place_filter} id="filter-place" onChange={this.handleChange} className="games-setup__filter-input"/>
+        </div>
+        <div className="setup__steps__filters__filter">
+          <label className="setup__steps__filters__filter__label" htmlFor="filter-access">Source:</label>
+          <input className="setup__steps__filters__filter__input" type="text" ref="access_filter" value={filter.access_filter} id="filter-access" onChange={this.handleChange} className="games-setup__filter-input"/>
+        </div>
       </div>
-      <div className="setup__steps__filters__filter">
-        <label className="setup__steps__filters__filter__label" htmlFor="filter-place">Place:</label>
-        <input className="setup__steps__filters__filter__input" type="text" ref="place_filter" value={filter.place_filter} id="filter-place" onChange={this.handleChange} className="games-setup__filter-input"/>
-      </div>
-      <div className="setup__steps__filters__filter">
-        <label className="setup__steps__filters__filter__label" htmlFor="filter-access">Source:</label>
-        <input className="setup__steps__filters__filter__input" type="text" ref="access_filter" value={filter.access_filter} id="filter-access" onChange={this.handleChange} className="games-setup__filter-input"/>
-      </div>
-
-      These images will be available:
+      <div className="setup__steps__filters__available">These images will be available:</div>
       <div className="setup__steps__filters__gallery">
         <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
       </div>

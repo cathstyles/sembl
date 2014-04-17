@@ -3,7 +3,7 @@
 // Generic
 
 .setup {
-  @include pad(top, larger);
+  @include pad(vert, larger);
 }
 
 .setup__steps {
@@ -173,10 +173,35 @@
   margin-right: 20px;
 }
 
+// Filters
+
+.setup__steps__filters__filter {
+  text-align: left;
+  padding-bottom: 5px;
+}
+
 .setup__steps__filter__label {
   @extend .small-tracked-out-heading;
   cursor: pointer;
   padding-right: 3px;
+}
+
+.setup__steps__filters__filter__label {
+  @extend .small-tracked-out-heading;
+  cursor: pointer;
+  display: inline-block;
+  width: 80px;
+}
+
+.games-setup__filter-input {
+  width: 70%;
+}
+
+.setup__steps__filters__available {
+  @extend .small-tracked-out-heading;
+  @include pad(vert, smaller);
+  background-color: #fff9ea;
+  border-top: 1px solid $border-color;
 }
 
 .setup__steps__filters__gallery {
@@ -263,6 +288,11 @@
   color: red;
 }
 
+.setup__overview__filter__query {
+  color: $link-color;
+  font-weight: 600;
+}
+
 .setup__overview__actions-status {
   @extend .small-tracked-out-heading;
   @include pad(all, smaller);
@@ -307,14 +337,13 @@
   }
 }
 
-// Overview graph;
+// Overview graph
 
 .setup__overview__board {
   float: right;
   text-align: center;
   width: 650px;
   @media screen and (max-width: 1180px) {
-    @include inset(bottom, medium);
     margin-left: auto;
     margin-right: auto;
     float: none;
@@ -330,6 +359,9 @@
   box-shadow: 0 0 10px 0 rgba(#000,.2);
   display: inline-block;
   padding: 3px 6px;
+  a {
+    color: $link-color;
+  }
 }
 
 .setup__overview__graph {
