@@ -16,7 +16,6 @@
 
   render: -> 
     # Can also use the .player--highlighted class to indicate "you"
-    # Added, needs styles
     players = @props.players.map((player) =>
       user = player.get('user')
       highlighted = if window.Sembl.user.email is user.email then " player--highlighted" else ""
@@ -30,7 +29,7 @@
             </span>
             <em>{nameAndStatus}</em>
             <span className="game__player__details__score">
-              {player.get('score')}
+              <i className="fa fa-star"></i>{player.get('score')}
             </span>
           </div>
         </li>`

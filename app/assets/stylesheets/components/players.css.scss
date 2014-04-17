@@ -76,3 +76,18 @@
     border: 2px solid darken($border-color, 10%);
   }
 }
+
+.game__player__details__score {
+  @extend .small-tracked-out-heading;
+  @include font-size(16);
+  text-align: center;
+  padding-top: 3px;
+  display: inline-block;
+  width: 100%;
+  i {
+    @include font-size(12);
+    color: #e2bc24;
+    text-shadow: 1px 1px 1px darken(#f5cd2e,10%);
+    padding-right: 2px;
+  }
+}
