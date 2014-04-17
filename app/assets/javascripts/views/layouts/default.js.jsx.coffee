@@ -15,6 +15,7 @@ Sembl.Layouts.Default = React.createClass
     className: null
 
   render: ->
+    console.log 'clear flash message on layout render'
     $(window).trigger('flash.hide')
 
     `<div className={this.state.className}>

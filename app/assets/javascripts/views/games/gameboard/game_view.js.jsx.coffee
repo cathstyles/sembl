@@ -86,7 +86,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
   render: ->
     # this width and height will be used to scale the x,y values of the nodes into the width and height of the graph div.
     game = @model()
-
+    console.log 'rendering game'
     `<div className="game">
       <div ref="graph" className="game__graph">
         <GameGraph game={game} />

@@ -47,18 +47,26 @@ Sembl.Games.Gameboard.StatusView = React.createClass
   getTooltip: (state, move_state) -> 
     round = @props.game.get('current_round')
 
+    console.log state, move_state
     if state is 'playing_turn' and move_state is 'created'
       if round == 1
-        tooltip = "If you are happy with your move, submit your turn to let us know you are finished."
+        tooltip = "Submit your turn to let us know you are finished."
       else if round == 2
         tooltip = "If you have made all the moves you want to make, end your turn to let us know you are finished."
   
-  componentDidUpdate: -> 
+  triggerNotice: -> 
     player = @props.game.get('player')
 
+    console.log player
     if player 
       tooltipText = @getTooltip(player.state, player.move_state)
       $(window).trigger("flash.notice", tooltipText) if !!tooltipText
+
+  componentDidUpdate: -> 
+    @triggerNotice()
+    
+  componentDidMount: -> 
+    @triggerNotice()
 
   render: -> 
     game_status = @props.game.get('status')
