@@ -8,7 +8,8 @@ class CreateProfiles < ActiveRecord::Migration
     end
 
     User.find_each do |user|
-      Profile.create(user: user)
+      p = Profile.create(name: user.email.split('@')[0],  user: user)
+      p.save!
     end
   end
 end
