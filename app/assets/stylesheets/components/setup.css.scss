@@ -35,7 +35,7 @@
 }
 
 .setup__steps__actions {
-  @include pad(all, small);
+  @include pad(all, smaller);
   @extend %clearfix-micro;
   background-color: #fff9ea;
   border-top: 1px solid $border-color;
@@ -173,30 +173,6 @@
   margin-right: 20px;
 }
 
-.setup__overview__graph {
-  padding: 80px;
-  height: 0px; // not sure why I need this set for the .graph child element to set itself to fill the 500px
-  min-height: 500px;
-  width: 80%;
-  height: 0px;
-}
-
-.setup__overview__graph__placement__round {
-  width: 100%;
-  text-align: center;
-  position: absolute;
-  bottom: -10px;
-  em {
-    @extend .small-tracked-out-heading;
-    background-color: #fff;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
-    box-shadow: 0 0 10px 0 rgba(#000,.2);
-    display: inline-block;
-    padding: 3px;
-  }
-}
-
 .setup__steps__filter__label {
   @extend .small-tracked-out-heading;
   cursor: pointer;
@@ -209,19 +185,14 @@
   height: 500px;
 }
 
-.setup__overview__settings__tick {
-  color: green;
-}
-
-.setup__overview__settings__cross {
-  color: red;
-}
-
 // Overview
+
+.setup__overview {
+  @extend %clearfix-micro;
+}
 
 .setup__overview__card {
   @extend %highlight-box;
-  // @include pad(all, smaller);
   float: left;
   width: 450px;
 }
@@ -248,7 +219,8 @@
 
 .setup__overview__title,
 .setup__overview__description,
-.setup__overview__settings {
+.setup__overview__settings,
+.setup__overview__filter {
   padding-bottom: 2px;
   a {
     @extend .small-tracked-out-heading;
@@ -276,7 +248,81 @@
   }
 }
 
+.setup__overview__settings__tick {
+  color: green;
+}
+
+.setup__overview__settings__cross {
+  color: red;
+}
+
+.setup__overview__actions-status {
+  @extend .small-tracked-out-heading;
+  @include pad(all, smaller);
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+  em {
+    display: inline-block;
+    background-color: $text-color;
+    border-radius: $border-radius;
+    color: #fff;
+    padding: 3px;
+    text-shadow: 1px 1px 1px rgba(#000,.4);
+    &.open {
+      background-color: green;
+    }
+    &.draft {
+      background-color: orange;
+    }
+  }
+}
+
+.setup__overview__actions__buttons {
+  @include pad(all, smaller);
+  @extend %clearfix-micro;
+  background-color: #fff9ea;
+}
+
+.setup__overview__actions__save {
+  float: left;
+  button {
+    @extend %button;
+  }
+}
+
+.setup__overview__actions__show,
+.setup__overview__actions__publish {
+  float: right;
+  button {
+    @extend %button;
+  }
+}
+
+// Overview graph;
+
 .setup__overview__board {
   float: right;
-  width: 500px;
+  width: 600px;
+}
+
+.setup__overview__graph {
+  padding: 80px;
+  min-height: 500px;
+  height: 0px;
+}
+
+.setup__overview__graph__placement__round {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: -10px;
+  em {
+    @extend .small-tracked-out-heading;
+    background-color: #fff;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    box-shadow: 0 0 10px 0 rgba(#000,.2);
+    display: inline-block;
+    padding: 3px;
+  }
 }

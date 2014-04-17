@@ -42,8 +42,8 @@
         </div>`
     if !filterComponent
       filterComponent = 
-        `<div className="setup__overview__filter">
-          Filters: All images are available {isDraft ? editLink('filter') : null}
+        `<div className="setup__overview__item setup__overview__filter">
+          <span className="setup__overview__item-title">Filters:</span> All images are available {isDraft ? editLink('filter') : null}
         </div>`
 
     makeTickCross = (check) ->
