@@ -38,7 +38,7 @@
 
       if textFilter || placeFilter || sourceFilter
         `<div className="setup__overview__filter">
-          Filters: Images {textFilter} {placeFilter} {sourceFilter} {isDraft ? editLink('filter') : null}
+          <span className="setup__overview__item-title">Filters:</span> Images {textFilter} {placeFilter} {sourceFilter} {isDraft ? editLink('filter') : null}
         </div>`
     if !filterComponent
       filterComponent = 
@@ -81,7 +81,7 @@
       </div>
 
       <div className="setup__overview__board">
-        <div className="setup__overview__board-heading">Board: <em>{boardTitle} {isDraft ? editLink('board', 'Edit') : null}</em></div>
+        <div className="setup__overview__board-heading">Board: <em>{boardTitle} {isDraft ? editLink('board', '(Change)') : null}</em></div>
         <OverviewGraph board={board} seed={seed} isDraft={isDraft} />
       </div>
       
