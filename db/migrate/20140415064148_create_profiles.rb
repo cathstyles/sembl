@@ -8,7 +8,7 @@ class CreateProfiles < ActiveRecord::Migration
     end
 
     User.find_each do |user|
-      user.profile = Profile.create(user: user)
+      Profile.create(user: user)
     end
   end
 end
