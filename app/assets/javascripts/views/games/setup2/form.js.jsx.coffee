@@ -6,10 +6,12 @@
 #= require views/games/setup2/steps/step_seed
 #= require views/games/setup2/steps/step_settings
 #= require views/games/setup2/steps/step_title
+#= require views/games/setup2/steps/step_players
 
 ###* @jsx React.DOM ###
 
-{Overview, Steps, StepBoard, StepDescription, StepFilter, StepSeed, StepSettings, StepTitle} = Sembl.Games.Setup
+{Overview, Steps} = Sembl.Games.Setup
+{StepBoard, StepDescription, StepFilter, StepSeed, StepSettings, StepTitle, StepPlayers} = Sembl.Games.Setup
 @Sembl.Games.Setup.Form = React.createClass
   componentWillMount: ->
     $(window).on('setup.steps.done', @handleStepsDone)
@@ -26,6 +28,7 @@
       description: `<StepDescription />`
       filter: `<StepFilter />`
       settings: `<StepSettings />`
+      players: `<StepPlayers game={this.props.game} />`
 
   componentWillUnmount: ->
     $(window).off('setup.steps.done') 
@@ -133,6 +136,8 @@
     )
 
   handleStepsDone: (event, collectedFields) ->
+    if !@props.game.id
+      @handleSave()
     @setState
       activeSteps: []
       collectedFields: _.extend(@state.collectedFields, collectedFields)
@@ -154,7 +159,9 @@
     if stepList.length > 0
       show = `<Steps steps={stepList} doneEvent="setup.steps.done" collectedFields={this.state.collectedFields} />`
     else
-      overviewProps = _.extend({status: @state.game.get('state')}, @state.collectedFields)
+      overviewProps = _.extend({
+          status: @state.game.get('state')
+        }, @state.collectedFields)
       show = Overview(overviewProps)
 
     `<div className="setup">
