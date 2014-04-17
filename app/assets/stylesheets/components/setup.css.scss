@@ -173,6 +173,18 @@
   margin-right: 20px;
 }
 
+// Players
+
+.setup__steps__players__invite {}
+.setup__steps__players__invite__input {}
+.setup__steps__players__invite__send-button {
+  @extend %button;
+}
+
+.setup__steps__players__remove-button {
+  @extend %button;
+}
+
 // Filters
 
 .setup__steps__filters__filter {

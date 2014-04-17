@@ -10,6 +10,7 @@
   :allow_keyword_search,
   :current_round,
   :seed_thing_id,
+  :number_of_players
 )
 json.set! :filter do 
   json.partial! 'api/search/thing_query', query: @game.filter_query, as: :filter

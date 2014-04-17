@@ -75,16 +75,18 @@
           </div>
         </div>
         <div className="setup__overview__bottom">
+          <div className="setup__overview__item-players">
+            Players: {isDraft ? editLink('players') : null}
+          </div>
           {filterComponent}
         </div>
         <OverviewActions status={status} />
       </div>
-
+      
       <div className="setup__overview__board">
         <div className="setup__overview__board-heading">Board: <em>{boardTitle} {isDraft ? editLink('board', '(Change)') : null}</em></div>
         <OverviewGraph board={board} seed={seed} isDraft={isDraft} />
       </div>
-      
     </div>`
 
     
