@@ -20,28 +20,30 @@
     isPublished = @props.status? && @props.status != 'draft'
     isSaved = false
 
-    saveButtonClassName="games-setup__actions__save__button" + if !isChanged then " button--disabled" else ""
-    publishButtonClassName="games-setup__actions__publish__button"
+    saveButtonClassName="setup__overview__actions__save__button" + if !isChanged then " button--disabled" else ""
+    publishButtonClassName="setup__overview__actions__publish__button"
 
     publishOrShowGame = if !isPublished
-        `<div className="games-setup__actions__publish">
-          <button className="games-setup__actions__publish__button" onClick={this.handlePublish}>
+        `<div className="setup__overview__actions__publish">
+          <button className="setup__overview__actions__publish__button" onClick={this.handlePublish}>
             <i className="fa fa-gamepad"></i> Publish
           </button>
         </div>`
       else
-        `<div className="games-setup__actions__show">
-          <a className="games-setup__actions__show__button" onClick={this.handleOpenGame}>
+        `<div className="setup__overview__actions__show">
+          <button className="setup__overview__actions__show__button" onClick={this.handleOpenGame}>
             <i className="fa fa-gamepad"></i> Go to game board
-          </a>
+          </button>
         </div>`
 
-    `<div className="games-setup__actions">
-      <h3 className="games-setup__actions-status">Status: {this.props.status}</h3>
-      <div className="games-setup__actions__save">
-        <button className={saveButtonClassName} onClick={this.handleSave} disabled={!isChanged}>
-            {isSaved ? "Saved" : "Save"}
-        </button>
+    `<div className="setup__overview__actions">
+      <h3 className="setup__overview__actions-status">Status: <em className={this.props.status}>{this.props.status}</em></h3>
+      <div className="setup__overview__actions__buttons">
+        <div className="setup__overview__actions__save">
+          <button className={saveButtonClassName} onClick={this.handleSave} disabled={!isChanged}>
+              {isSaved ? "Saved" : "Save"}
+          </button>
+        </div>
+        {publishOrShowGame}
       </div>
-      {publishOrShowGame}
     </div>`

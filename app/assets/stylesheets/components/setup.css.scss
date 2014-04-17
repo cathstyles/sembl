@@ -35,7 +35,7 @@
 }
 
 .setup__steps__actions {
-  @include pad(all, small);
+  @include pad(all, smaller);
   @extend %clearfix-micro;
   background-color: #fff9ea;
   border-top: 1px solid $border-color;
@@ -173,11 +173,141 @@
   margin-right: 20px;
 }
 
+.setup__steps__filter__label {
+  @extend .small-tracked-out-heading;
+  cursor: pointer;
+  padding-right: 3px;
+}
+
+.setup__steps__filters__gallery {
+  overflow-y: scroll;
+  overflow-x: visible;
+  height: 500px;
+}
+
+// Overview
+
+.setup__overview {
+  @extend %clearfix-micro;
+}
+
+.setup__overview__card {
+  @extend %highlight-box;
+  float: left;
+  width: 450px;
+}
+
+.setup__overview__top {
+  @include pad(all, smaller);
+}
+
+.setup__overview__middle {
+  @include pad(all, smaller);
+  background-color: #fff9ea;
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+}
+
+.setup__overview__bottom {
+  @include pad(all, smaller);
+}
+
+.setup__overview__item-title {
+  @extend .small-tracked-out-heading;
+  padding-right: 4px;
+}
+
+.setup__overview__title,
+.setup__overview__description,
+.setup__overview__settings,
+.setup__overview__filter {
+  padding-bottom: 2px;
+  a {
+    @extend .small-tracked-out-heading;
+    color: $link-color;
+    padding-left: 6px;
+    &:before {
+      content: "\f044";
+      font-family: "FontAwesome";
+      padding-right: 2px;
+    }
+  }
+}
+
+.setup__overview__settings-list {
+  padding-top: 4px;
+}
+
+.setup__overview__settings-list-item {
+  display: list-item;
+  list-style: disc;
+  margin-left: 1em;
+  padding-bottom: 2px;
+  i {
+    padding-left: 3px;
+  }
+}
+
+.setup__overview__settings__tick {
+  color: green;
+}
+
+.setup__overview__settings__cross {
+  color: red;
+}
+
+.setup__overview__actions-status {
+  @extend .small-tracked-out-heading;
+  @include pad(all, smaller);
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+  em {
+    display: inline-block;
+    background-color: $text-color;
+    border-radius: $border-radius;
+    color: #fff;
+    padding: 3px;
+    text-shadow: 1px 1px 1px rgba(#000,.4);
+    &.open {
+      background-color: green;
+    }
+    &.draft {
+      background-color: orange;
+    }
+  }
+}
+
+.setup__overview__actions__buttons {
+  @include pad(all, smaller);
+  @extend %clearfix-micro;
+  background-color: #fff9ea;
+}
+
+.setup__overview__actions__save {
+  float: left;
+  button {
+    @extend %button;
+  }
+}
+
+.setup__overview__actions__show,
+.setup__overview__actions__publish {
+  float: right;
+  button {
+    @extend %button;
+  }
+}
+
+// Overview graph;
+
+.setup__overview__board {
+  float: right;
+  width: 600px;
+}
+
 .setup__overview__graph {
   padding: 80px;
-  height: 0px; // not sure why I need this set for the .graph child element to set itself to fill the 500px
   min-height: 500px;
-  width: 80%;
   height: 0px;
 }
 
@@ -195,59 +325,4 @@
     display: inline-block;
     padding: 3px;
   }
-}
-
-.setup__steps__filter__label {
-  @extend .small-tracked-out-heading;
-  cursor: pointer;
-  padding-right: 3px;
-}
-
-.setup__steps__filters__gallery {
-  overflow-y: scroll;
-  overflow-x: visible;
-  height: 500px;
-}
-
-.setup__overview__settings__tick {
-  color: green;
-}
-
-.setup__overview__settings__cross {
-  color: red;
-}
-
-// Overview
-
-.setup__overview__card {
-  @extend %highlight-box;
-  // @include pad(all, smaller);
-  float: left;
-  width: 450px;
-}
-
-.setup__overview__item-title {
-  @extend .small-tracked-out-heading;
-  padding-right: 4px;
-}
-
-.setup__overview__title,
-.setup__overview__description,
-.setup__overview__settings {
-  padding-bottom: 2px;
-  a {
-    @extend .small-tracked-out-heading;
-    color: $link-color;
-    padding-left: 6px;
-    &:before {
-      content: "\f044";
-      font-family: "FontAwesome";
-      padding-right: 2px;
-    }
-  }
-}
-
-.setup__overview__board {
-  float: right;
-  width: 500px;
 }
