@@ -1,5 +1,6 @@
 require 'carrierwave/processing/mime_types'
 
+# TODO: user carrierwave backgrounder to move image processing into a background task.
 class AvatarUploader < CarrierWave::Uploader::Base
   include CarrierWave::MimeTypes
   include CarrierWave::MiniMagick

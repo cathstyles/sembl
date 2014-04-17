@@ -6,7 +6,10 @@
 
 @Sembl.NewAvatar = React.createClass
   getInitialState: ->
-    step: 1
+    if !!this.props.avatarUrl
+      step: 2
+    else
+      step: 1
   
   # Click to upload a different image
   handleOnClick: -> 
@@ -25,14 +28,16 @@
           finishedUpload={this.finishedUpload}
         />`
 
+      #TODO: some sort of design/text directive for click to edit
       when 2
-        `<img src={this.avatarRemoteUrl}/>`
+        srcURL = this.avatarRemoteUrl || this.props.avatarUrl
+        `<img src={srcURL}/>`
 
     `<div className="profile__avatar" onClick={this.handleOnClick}>
       {currentComponent}
     </div>`
 
 @Sembl.views.avatarView = ($el, el) ->
-  React.renderComponent window.Sembl.NewAvatar(), el
+  React.renderComponent window.Sembl.NewAvatar(avatarUrl: $el.data().avatarUrl), el
 
 

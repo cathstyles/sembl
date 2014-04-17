@@ -3,7 +3,7 @@
     h1 Edit your profile
 
 .profile   
-  div data-view="avatarView"
+  div data-view="avatarView" data-avatar-url="#{@profile.avatar.try(:thumb).try(:url)}"
 
   = simple_form_for @profile do |f|
     div.profile__meta-data

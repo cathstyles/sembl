@@ -13,11 +13,9 @@ class ProfilesController < ApplicationController
 
     @profile.assign_attributes(profile_params)
     
-    if @profile.save
-      redirect_to root_path
-    else
-      respond_with @profile
-    end
+    flash[:notice] = "Profile updated." if @profile.save
+
+    respond_with @profile, location: root_path
   end
 
   private

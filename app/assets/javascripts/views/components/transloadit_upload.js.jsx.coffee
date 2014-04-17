@@ -13,6 +13,12 @@
     new TransloaditBoredInstance(@foundBoredInstance)
     new TransloaditSignature('thingsStoreOriginal', @signatureLoaded)
 
+  componentDidMount: -> 
+    @submitOnFileSelected()
+
+  componentDidUpdate: ->
+    @submitOnFileSelected()
+
   foundBoredInstance: (apiHost) ->
     @transloaditInstance = apiHost
     @checkInitComplete()
@@ -27,6 +33,13 @@
       @assemblyUrl = "#{window.Sembl.Utils.PROTOCOL}://#{@transloaditInstance}/assemblies/#{@assemblyId}"
       @postUrl     = "#{@assemblyUrl}?redirect=false"
       @setState state: 'ready'
+
+  submitOnFileSelected: -> 
+    $el = $(@getDOMNode())
+    $el.find('input:file').on('change', => 
+      $el.find('form').submit()
+      @handleSubmit()
+    )
 
   handleSubmit: ->
     @setState state: 'uploading'
@@ -82,7 +95,6 @@
           <input name="params" type="hidden" value={JSON.stringify(this.uploadTemplate.params)} />
           <input name="signature" type="hidden" value={this.uploadTemplate.signature} />
           <input name="thing" type="file" />
-          <input type="submit" value="Upload" />
         </form>` 
 
     `<div className="upload">
