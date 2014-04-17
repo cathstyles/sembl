@@ -226,6 +226,21 @@
   width: 450px;
 }
 
+.setup__overview__top {
+  @include pad(all, smaller);
+}
+
+.setup__overview__middle {
+  @include pad(all, smaller);
+  background-color: #fff9ea;
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+}
+
+.setup__overview__bottom {
+  @include pad(all, smaller);
+}
+
 .setup__overview__item-title {
   @extend .small-tracked-out-heading;
   padding-right: 4px;
@@ -244,6 +259,20 @@
       font-family: "FontAwesome";
       padding-right: 2px;
     }
+  }
+}
+
+.setup__overview__settings-list {
+  padding-top: 4px;
+}
+
+.setup__overview__settings-list-item {
+  display: list-item;
+  list-style: disc;
+  margin-left: 1em;
+  padding-bottom: 2px;
+  i {
+    padding-left: 3px;
   }
 }
 

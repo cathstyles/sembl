@@ -53,24 +53,31 @@
         `<i className='fa fa-times setup__overview__settings__cross'></i>`
 
     settingsComponent = 
-      `<div>
-        <div>Invite only {makeTickCross(this.props.settings.invite_only)}</div>
-        <div>Uploads allowed {makeTickCross(this.props.settings.uploads_allowed)}</div>
-      </div>`
+      `<ul className="setup__overview__settings-list">
+        <li className="setup__overview__settings-list-item">Invite only {makeTickCross(this.props.settings.invite_only)}</li>
+        <li className="setup__overview__settings-list-item">Uploads allowed {makeTickCross(this.props.settings.uploads_allowed)}</li>
+      </ul>`
 
     `<div className="setup__overview">
       <div className="setup__overview__card">
-        <div className="setup__overview__title">
-          <span className="setup__overview__item-title">Title:</span> {title} {editLink('title')}
+        <div className="setup__overview__top">
+          <div className="setup__overview__title">
+            <span className="setup__overview__item-title">Title:</span> {title} {editLink('title')}
+          </div>
+          <div className="setup__overview__description">
+            <span className="setup__overview__item-title">Description:</span> {description} {editLink('description', description ? 'Edit' : 'Add')}
+          </div>
         </div>
-        <div className="setup__overview__description">
-          <span className="setup__overview__item-title">Description:</span> {description} {editLink('description', description ? 'Edit' : 'Add')}
+        <div className="setup__overview__middle">
+          <div className="setup__overview__settings">
+            <span className="setup__overview__item-title">Settings:</span> {editLink('settings')}
+            {settingsComponent}
+          </div>
         </div>
-        <div className="setup__overview__settings">
-          <span className="setup__overview__item-title">Settings:</span> {editLink('settings')}
-          {settingsComponent}
+        <div className="setup__overview__bottom">
+          {filterComponent}
         </div>
-        {filterComponent}
+        <OverviewActions status={status} />
       </div>
 
       <div className="setup__overview__board">
@@ -78,7 +85,6 @@
         <OverviewGraph board={board} seed={seed} isDraft={isDraft} />
       </div>
       
-      <OverviewActions status={status} />
     </div>`
 
     
