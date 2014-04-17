@@ -58,6 +58,16 @@
 
 .setup__steps__seed {}
 
+.setup__steps__players__invite {}
+.setup__steps__players__invite__input {}
+.setup__steps__players__invite__send-button {
+  @extend %button;
+}
+
+.setup__steps__players__remove-button {
+  @extend %button;
+}
+
 .setup__title {}
 .setup__description {}
 

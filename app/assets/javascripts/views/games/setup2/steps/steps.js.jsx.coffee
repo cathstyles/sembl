@@ -57,14 +57,15 @@
       isValid = @state.valid
     
       childProperties = _.extend({ref: 'currentStep'}, @state.collectedFields)
-      console.log 'childProperties', childProperties
       step = steps[@state.step]
       if React.isValidClass(step)
         step = step(childProperties)
       else if React.isValidComponent(step)
         step = React.addons.cloneWithProps(step, childProperties)
       else 
-        throw "invalid step, must be react class or component"
+        err = {message: "invalid step, must be react class or component", step: step}
+        console.error err
+        throw err.message
 
     isLast = @state.step == steps.length - 1
 

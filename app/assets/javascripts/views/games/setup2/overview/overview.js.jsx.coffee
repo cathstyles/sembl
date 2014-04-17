@@ -70,12 +70,15 @@
         {settingsComponent}
       </div>
       {filterComponent}
+      <div>
+        Players: {isDraft ? editLink('players') : null}
+      </div>
 
       <div className="setup__overview__board">
         <div>Board: {boardTitle} {isDraft ? editLink('board', 'Edit') : null}</div>
         <OverviewGraph board={board} seed={seed} isDraft={isDraft} />
       </div>
-      
+
       <OverviewActions status={status} />
     </div>`
 
