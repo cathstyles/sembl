@@ -12,7 +12,10 @@
 
   getNameAndStatus: (player) -> 
     state = player.get('state').replace('_', ' ')
-    "#{player.get('user').name}, #{state}"
+    `<div>
+      {player.get('user').name}
+      <strong>{state}</strong>
+    </div>`
 
   render: -> 
     # Can also use the .player--highlighted class to indicate "you"
