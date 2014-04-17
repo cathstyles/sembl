@@ -195,6 +195,13 @@
   @extend %highlight-box;
   float: left;
   width: 450px;
+  @media screen and (max-width: 1180px) {
+    @include inset(bottom, medium);
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    width: 650px;
+  }
 }
 
 .setup__overview__top {
@@ -281,6 +288,8 @@
   @include pad(all, smaller);
   @extend %clearfix-micro;
   background-color: #fff9ea;
+  border-bottom-left-radius: $border-radius-inner;
+  border-bottom-right-radius: $border-radius-inner;
 }
 
 .setup__overview__actions__save {
@@ -304,6 +313,12 @@
   float: right;
   text-align: center;
   width: 650px;
+  @media screen and (max-width: 1180px) {
+    @include inset(bottom, medium);
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+  }
 }
 
 .setup__overview__board-heading {
@@ -314,7 +329,7 @@
   border-radius: $border-radius;
   box-shadow: 0 0 10px 0 rgba(#000,.2);
   display: inline-block;
-  padding: 3px;
+  padding: 3px 6px;
 }
 
 .setup__overview__graph {
