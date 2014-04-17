@@ -29,11 +29,24 @@
     }
     &:hover {
       em {
+        @extend %white-drop-shadow;
+        color: $link-color;
         display: inline-block;
         position: absolute;
         bottom: -20px;
         right: 0;
         z-index: 10;
+        font-weight: 600;
+        strong {
+          @extend .small-tracked-out-heading;
+          background-color: $text-color;
+          border-radius: $border-radius;
+          color: #fff;
+          padding: 3px;
+          text-shadow: 1px 1px 1px rgba(#000,.4);
+          white-space: nowrap;
+          margin-left: 8px;
+        }
       }
     }
   }
