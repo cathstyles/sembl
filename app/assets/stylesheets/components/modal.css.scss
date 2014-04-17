@@ -18,14 +18,11 @@
 }
 
 .modal__inner {
-  @include pad(all, medium);
-  background-color: $background-color;
-  box-shadow: 0 0 100px 10px rgba(#000,.5);
-  border-radius: $border-radius;
-  max-width: 800px;
+  @extend %clearfix-micro;
+  max-width: 850px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 6%;
+  margin-top: 4%;
   position: relative;
 }
 
@@ -54,26 +51,77 @@
 }
 
 .move__thing-modal__image {
-  @include inset(bottom, mid);
+  box-shadow: 0 0 10px 0 rgba(#000,.5);
   border: 3px solid #fff;
-  box-shadow: 0 0 10px 5px rgba(#000,.1);
+  border-radius: $border-radius;
   margin-left: auto;
   margin-right: auto;
-  max-width: 100%;
+  max-width: 90%;
 }
 
 .move__thing-modal__title {
   @extend .large-heading;
   @include font-size(22);
   @include pad(bottom, mid);
+  line-height: 1;
 }
 
 .move__thing-modal__description {
+  @include pad(bottom, mid);
   text-align: left;
+}
+
+.move__thing-modal__wrapper {
+  @extend %clearfix-micro;
+  @include pad(all, mid);
+  border-radius: $border-radius;
+  background-color: $background-color;
+  box-shadow: 0 0 100px 10px rgba(#000,.5);
+}
+
+.move__thing-modal__body {
+  width: 50%;
+  float: left;
+}
+
+.move__thing-modal__meta {
+  width: 50%;
+  float: left;
+}
+
+.move__thing-modal__attribute-row {
+  @extend %clearfix-micro;
+  @include pad(bottom, mid);
+}
+
+.move__thing-modal__attribute {
+  float: left;
+  text-align: left;
+  width: 50%;
+  &:nth-child(odd) {
+    @include pad(right, small);
+  }
+  &:nth-child(even) {
+    @include pad(left, small);
+  }
+  h2 {
+    @extend .small-tracked-out-heading;
+    color: $link-color;
+    padding-bottom: 4px;
+  }
+  p {
+    @include truncate();
+  }
+}
+
+.modal__actions {
+  @include pad(all, smaller);
+  clear: both;
 }
 
 .move__thing-modal__place-button {
   @include inset(top, mid);
+  box-shadow: 0 0 20px 0 rgba(#fff,.2);
 }
 
 .move__resemblance__edit {
