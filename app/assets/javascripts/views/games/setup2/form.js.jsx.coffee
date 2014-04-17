@@ -7,10 +7,11 @@
 #= require views/games/setup2/steps/step_settings
 #= require views/games/setup2/steps/step_title
 #= require views/games/setup2/steps/step_players
+#= require views/games/setup2/players
 
 ###* @jsx React.DOM ###
 
-{Overview, Steps} = Sembl.Games.Setup
+{Overview, Steps, Players} = Sembl.Games.Setup
 {StepBoard, StepDescription, StepFilter, StepSeed, StepSettings, StepTitle, StepPlayers} = Sembl.Games.Setup
 @Sembl.Games.Setup.Form = React.createClass
   componentWillMount: ->
@@ -161,10 +162,15 @@
     else
       overviewProps = _.extend({
           status: @state.game.get('state')
+          invitedPlayers: @state.invitedPlayers
         }, @state.collectedFields)
       show = Overview(overviewProps)
 
+
+    # Players is a dummy component for adding and removing players to the game using events.
     `<div className="setup">
       {show}
+      <Players game={this.props.game} />
     </div>`
+
 

@@ -7,6 +7,22 @@
 {ThingModal} = Sembl.Components
 
 @Sembl.Games.Setup.Overview = React.createClass
+  componentWillMount: ->
+    $(window).on('setup.players.give', @handleGivePlayers)
+
+  componentWillUnmount: ->
+    $(window).off('setup.players.give')
+
+  componentDidMount: ->
+    $(window).trigger('setup.players.get')
+
+  handleGivePlayers: (event, data)->
+    if data.players?
+      @setState players: data.players
+
+  getInitialState: ->
+    players: []
+
   handleEdit: (stepName) ->
     $(window).trigger('setup.steps.add', {stepName: stepName})
 
@@ -58,6 +74,9 @@
         <li className="setup__overview__settings-list-item">Uploads allowed {makeTickCross(this.props.settings.uploads_allowed)}</li>
       </ul>`
 
+    playerComponents = for player in @state.players
+      `<li>{player.get('email')}</li>`
+
     `<div className="setup__overview">
       <div className="setup__overview__card">
         <div className="setup__overview__top">
@@ -77,6 +96,9 @@
         <div className="setup__overview__bottom">
           <div className="setup__overview__item-players">
             Players: {isDraft ? editLink('players') : null}
+              <ul>
+                {playerComponents}
+              </ul>
           </div>
           {filterComponent}
         </div>

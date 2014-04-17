@@ -1,79 +1,47 @@
 ###* @jsx React.DOM ###
 
 @Sembl.Games.Setup.StepPlayers = React.createClass
+  componentWillMount: ->
+    $(window).on('setup.players.give', @handleGivePlayers)
+
+  componentWillUnmount: ->
+    $(window).off('setup.players.give')
+
+  componentDidMount: ->
+    $(window).trigger('setup.players.get')
+
   getInitialState: ->
     players: null
 
-  handleAjaxError: (response) ->
-    responseObj = JSON.parse(response.responseText)
-    console.error responseObj
-    if response.status == 422
-      msgs = (value for key, value of responseObj.errors)
-      $(window).trigger('flash.error', msgs.join(", "))   
-    else
-      $(window).trigger('flash.error', "Error: #{responseObj.errors}")
-
-  componentWillMount: ->
-    @loadInvitedPlayers()
-
-  loadInvitedPlayers: ->
-    $.ajax(
-      url: "#{@props.game.url()}/players"
-      dataType: 'json'
-      type: 'GET'
-      success: (data) =>
-        @setState 
-          players: new Sembl.Players(data.players)
-      error: @handleAjaxError
-    )
+  handleGivePlayers: (event, data) ->
+    if data.players?
+      @setState players: data.players
 
   handleDeletePlayer: (player) ->
-    $.ajax(
-      url: "#{@props.game.url()}/players/#{player.id}"
-      dataType: 'json'
-      type: 'DELETE'
-      data:
-        authenticity_token: this.props.game.get('auth_token')
-      success: (data) =>
-        console.log 'delete success', data
-        $(window).trigger('flash.notice', data.message)
-        @loadInvitedPlayers()
-      error: @handleAjaxError
-    )
+    data = 
+      player: player
+      success: @reloadPlayers
+    $(window).trigger('setup.players.remove', data)
 
   handleInvite: (event) ->
     email = @refs.emailInput.getDOMNode().value
     emailPattern = /\S+@\S+/
     if emailPattern.exec(email)
-      @createPlayer(email)
+      data = 
+        email: email
+        success: =>
+          @refs.emailInput.getDOMNode().value = null
+          @reloadPlayers()
+      $(window).trigger('setup.players.add', data)
     else
       $(window).trigger('flash.error', 'invalid email address')
-
-  createPlayer: (email) ->
-    game = @props.game
-
-    url = "#{game.url()}/players"
-    data =
-      player:
-        email: email
-      authenticity_token: this.props.game.get('auth_token')
-    $.ajax(
-      url: url
-      data: data
-      type: 'POST'
-      dataType: 'json'
-      success: =>
-        @refs.emailInput.getDOMNode().value = null
-        @loadInvitedPlayers()
-      error: @handleAjaxError
-    )
 
   isValid: ->
     true
 
   render: ->
     if @state.players?
-      players = @state.players.models
+      players = @state.players
       playerCount = players.length
       maxPlayerCount = @props.game.get('number_of_players')
 
