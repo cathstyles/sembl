@@ -62,7 +62,7 @@
 
 .game__player__details__avatar {
   @extend %white-drop-shadow;
-  @include font-size(28);
+  @include font-size(18);
   background-color: $subtle-highlight;
   border-radius: 50%;
   border: 2px solid $border-color;
@@ -70,7 +70,7 @@
   display: block;
   color: $border-color;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 2.2;
   text-align: center;
   width: 40px;
   height: 40px;
