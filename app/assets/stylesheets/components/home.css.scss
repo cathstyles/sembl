@@ -65,6 +65,10 @@
   width: 30%;
 }
 
+.game-individual__image-container__inner {
+  position: relative;
+}
+
 .game-individual__play-button {
   @extend %button;
   box-shadow: 0 0 5px 5px rgba(#fff,.6);
