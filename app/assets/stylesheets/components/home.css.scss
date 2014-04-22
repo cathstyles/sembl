@@ -65,6 +65,10 @@
   width: 30%;
 }
 
+.game-individual__image-container__inner {
+  position: relative;
+}
+
 .game-individual__play-button {
   @extend %button;
   box-shadow: 0 0 5px 5px rgba(#fff,.6);
@@ -78,9 +82,7 @@
 }
 
 .game-individual__details-container {
-  background-repeat: repeat-x;
-  background-position: bottom left;
-  height: 170px;
+  height: 175px;
   overflow: hidden;
   position: relative;
 }
@@ -117,10 +119,19 @@
 }
 
 .home__new-game-button-container {
-  @include pad(vert, normal);
+  @include inset(bottom, mid);
+  text-align: center;
+}
+.home__new-game-button-container__inner {
+  @extend %highlight-box;
+  @include pad(all, normal);
   display: inline-block;
+  text-align: center;
 }
 
 .home__new-game-button {
   @extend %button;
+  i {
+    padding-right: 4px;
+  }
 }
