@@ -82,11 +82,12 @@ GalleryImage = React.createClass
 
   componentWillMount: () ->
     $(window).on("#{@props.searcherPrefix}.updated", @handleSearchUpdated)
+    $(window).on("#{@props.searcherPrefix}.setFilter", @handleSearchSetFilter)
     @tempImages = []
 
   componentWillUnmount: () ->
-    $(window).off("#{@props.eventPrefix}.loaded")
     $(window).off("#{@props.searcherPrefix}.updated")
+    $(window).off("#{@props.searcherPrefix}.setFilter")
 
   componentDidMount: ->
     @setState
@@ -94,20 +95,32 @@ GalleryImage = React.createClass
 
   componentDidUpdate: ->
 
+  handleSearchSetFilter: (event, filter) ->
+    @clearImages = true
+
   handleSearchUpdated: (event, data) ->
-    items = @state.images || []
-    for i,thing of data.things
-      itemIndex = parseInt(i, 10) + parseInt(data.offset, 10)
+    console.log 'handleSearchUpdated', data
+    if @clearImages
+      items = []
+      @tempImages = []
+      @clearImages = false
+    else 
+      items = @state.images || []
+
+    for result in data.results
+      {index, thing} = result
       item = {
+        index: index
         id: thing.id
         src: thing.image_browse_url
         thing: thing
         className: 'games__gallery__thing'
         clickEvent: "#{@props.eventPrefix}.thing.click"
       }
-      if !items[itemIndex]      
-        items[itemIndex] = item
-        @tempImages.push({id: item.id, image: new TempImage(item, @handleTempImageLoad)})
+      items[index] = item
+      @tempImages[index] = new TempImage(item, @handleTempImageLoad)
+      maxIndex = Math.max(maxIndex, index)
+
     @setState 
       images: items
       scrollWaypoint: !!data.things # is there new things
@@ -116,7 +129,6 @@ GalleryImage = React.createClass
     @setState
       scrollWaypoint: false
     @handleNextPage()
-
 
   handleNextPage: (event) ->
     $(window).trigger("#{@props.searcherPrefix}.nextPage")
