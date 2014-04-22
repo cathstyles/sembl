@@ -264,7 +264,7 @@ class Game < ActiveRecord::Base
 
   def filter_query
     @filter_query ||= Search::ThingQuery.new((filter_content_by || {}).symbolize_keys!)
-    puts "filter query " + @filter_query.to_json.inspect
+    @filter_query.random_seed = random_seed
     @filter_query
   end
 
