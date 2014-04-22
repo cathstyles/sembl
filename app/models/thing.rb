@@ -38,6 +38,6 @@ class Thing < ActiveRecord::Base
   end
 
   def add_to_search_index
-    Services.search.index(self)
+    Services.search_service.index(self)
   end
 end
