@@ -3,6 +3,6 @@ if ENV['BONSAI_URL']
 end
 
 Rails.application.config.elasticsearch = {
-  log: true,
+  log: false,
   host: ENV['ELASTICSEARCH_URL']
 }
