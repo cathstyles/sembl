@@ -31,9 +31,6 @@
       type: 'GET'
       success: (data) =>
         @players = new Sembl.Players(data.players).models
-        console.log 'loadInvitedPlayers', data.players
-        console.log 'loadInvitedPlayers', @players
-        console.log '{players: @players}', {players: @players}
         $(window).trigger('setup.players.give', {players: @players})
       error: @handleAjaxError
     )
