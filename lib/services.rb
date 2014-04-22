@@ -1,7 +1,7 @@
 class Services
   class << self
     def search_service
-      if Rails.application.config.elasticsearch.host
+      if Rails.application.config.elasticsearch[:host]
         @search_service ||= Search::ElasticSearchService.new(Rails.application.config.elasticsearch)
       else
         @search_service ||= Services::StubSearchService.new
