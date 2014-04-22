@@ -10,7 +10,7 @@
 .home__all-games-container,
 .home__games-hosting-container {
   @extend %clearfix-micro;
-  @include pad(vert, normal);
+  @include pad(vert, smaller);
 }
 
 .game-individual {
@@ -78,21 +78,11 @@
 }
 
 .game-individual__details-container {
-  // background-image: image-url('gradient-mask.png');
   background-repeat: repeat-x;
   background-position: bottom left;
   height: 170px;
   overflow: hidden;
   position: relative;
-  // &:after {
-  //   @include background-image(linear-gradient(transparent, $background-color));
-  //   content: "";
-  //   position: absolute;
-  //   bottom: 0;
-  //   left: 0;
-  //   width: 100%;
-  //   height: 20px;
-  // }
 }
 
 .game-individual__title {
@@ -104,15 +94,25 @@
 
 .game-individual__description {
   @include pad(bottom, small);
-  line-height: 1.15;
+  line-height: 1.15em;
+  max-height: 8em;
+  overflow: hidden;
 }
 
 .game-individual__edit {
   @extend .small-tracked-out-heading;
+  @include inset(top, small);
   color: $link-color;
+  display: block;
+  text-align: center;
   i {
     padding-left: 2px;
     vertical-align: middle;
+  }
+  @media screen and (max-width: 1100px) {
+    i {
+      display: none;
+    }
   }
 }
 
