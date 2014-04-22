@@ -21,7 +21,7 @@
     # Can also use the .player--highlighted class to indicate "you"
     players = @props.players.map((player) =>
       user = player.get('user')
-      highlighted = if window.Sembl.user.email is user.email then " player--highlighted" else ""
+      highlighted = if window.Sembl.user?.email is user.email then " player--highlighted" else ""
       avatar = @getAvatar(user)
       nameAndStatus = @getNameAndStatus(player)
 
