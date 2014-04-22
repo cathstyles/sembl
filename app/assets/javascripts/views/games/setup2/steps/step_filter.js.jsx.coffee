@@ -20,10 +20,7 @@
     $(window).off("#{@galleryPrefix}.thing.click")
 
   getInitialState: () ->
-    filter:
-      text: this.props.filter?.text
-      place_filter: this.props.filter?.place_filter
-      access_filter: this.props.filter?.access_filter
+    filter: this.props.filter
 
   handleSearcherUpdated: (event, results) ->
     console.log 'handleSearcherUpdated', results
