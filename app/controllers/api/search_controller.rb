@@ -5,7 +5,7 @@ class Api::SearchController < ApiController
     if search_params[:type] == "user"
       user = User.find_by_email(search_params[:email])
       render partial: "user", locals: {users: user ? [user] : []}
-      elsif search_params[:game_id]
+    elsif search_params[:game_id]
       game = Game.find(search_params[:game_id])
       thing_query = game.filter_query
       thing_query.random_seed = game.random_seed
