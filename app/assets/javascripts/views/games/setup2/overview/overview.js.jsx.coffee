@@ -62,22 +62,23 @@
           <span className="setup__overview__item-title">Filters:</span> All images are available {isDraft ? editLink('filter') : null}
         </div>`
 
-    makeTickCross = (check) ->
-      if check 
-        `<i className='fa fa-check setup__overview__settings__tick'></i>`
-      else
-        `<i className='fa fa-times setup__overview__settings__cross'></i>`
-
+    {invite_only, uploads_allowed} = @props.settings
     settingsComponent = 
       `<ul className="setup__overview__settings-list">
-        <li className="setup__overview__settings-list-item">Game is invite only {makeTickCross(this.props.settings.invite_only)}</li>
-        <li className="setup__overview__settings-list-item">Users can upload images {makeTickCross(this.props.settings.uploads_allowed)}</li>
+        <li className="setup__overview__settings-list-item">
+          {invite_only ? 'Game is invite only' : 'Anyone may join game'}
+        </li>
+        <li className="setup__overview__settings-list-item">
+        {uploads_allowed ? 'Users can upload images' : 'Users cannot upload images' }
+        </li>
       </ul>`
 
     playerComponents = for player in @state.players
       user = player.get('user')
       name = if user then user.name else player.get('email')
       `<li className="setup__overview__players-list-item">{name}</li>`
+    if playerComponents.length == 0
+      playerComponents = "No one has joined this game yet"
 
     `<div className="setup__overview">
       <div className="setup__overview__card">
@@ -97,7 +98,7 @@
         </div>
         <div className="setup__overview__players">
           <div className="setup__overview__item-players">
-            <span className="setup__overview__item-title">Players:</span> {isDraft ? editLink('players') : null}
+            <span className="setup__overview__item-title">Players:</span> {isDraft && invite_only ? editLink('players') : null}
               <ul className="setup__overview__players-list">
                 {playerComponents}
               </ul>
