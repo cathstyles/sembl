@@ -1,4 +1,7 @@
 class Services
+  class ServiceError < StandardError
+  end
+
   class << self
     def search_service
       if Rails.application.config.elasticsearch[:host]
