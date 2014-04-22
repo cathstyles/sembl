@@ -19,7 +19,7 @@ class Search::ElasticsearchQueryBuilder
   end
 
   def random_order(seed)
-    {
+    @query = {
       function_score: {
         functions: [
           {
