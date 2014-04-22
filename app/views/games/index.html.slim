@@ -5,6 +5,10 @@
 .home
 
   - if user_signed_in?
+    .home__new-game-button-container
+      .home__new-game-button-container__inner
+        = link_to "new_game_path", class: "home__new-game-button" do
+          <i class="fa fa-gamepad"></i> Create a new game
     .home__my-games
       h1.home__my-games-heading My games
       .home__my-games-container
@@ -13,8 +17,6 @@
 
     .home__games-hosting
       h1.home__games-hosting-heading Games I'm hosting
-      .home__new-game-button-container
-        = link_to "Create new game", new_game_path, class: "home__new-game-button"
       .home__games-hosting-container
         - @games[:hosted].each do |game|
           = render partial: "game", locals: {game: game}
