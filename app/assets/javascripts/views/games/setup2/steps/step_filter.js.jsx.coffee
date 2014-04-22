@@ -1,29 +1,28 @@
-#= require views/components/searcher
 #= require views/components/thing_modal
 #= require views/games/gallery
 
 ###* @jsx React.DOM ###
 
-{Searcher, ThingModal} = Sembl.Components
+{ThingModal} = Sembl.Components
 {Gallery} = Sembl.Games
 
 @Sembl.Games.Setup.StepFilter = React.createClass
-  searcherPrefix: "setup.steps.filter.searcher"
   galleryPrefix: "setup.steps.filter.gallery"
 
   componentWillMount: ->
-    $(window).on("#{@searcherPrefix}.updated", @handleSearcherUpdated)
+    $(window).on("#{@props.searcherPrefix}.updated", @handleSearcherUpdated)
     $(window).on("#{@galleryPrefix}.thing.click", @handleGalleryThingClick)
 
   componentWillUnmount: ->
-    $(window).off("#{@searcherPrefix}.updated")
+    $(window).off("#{@props.searcherPrefix}.updated")
     $(window).off("#{@galleryPrefix}.thing.click")
 
   getInitialState: () ->
     filter: this.props.filter
 
   handleSearcherUpdated: (event, results) ->
-    console.log 'handleSearcherUpdated', results
+    # TODO: Results needs to return a number for the total results, so we know how many there are all together, not just in this page.
+    # then we can validate the filter only when the results are not empty. Or at least show the user of the count.
 
   handleGalleryThingClick: (event, thing) ->
     $(window).trigger('modal.open', `<ThingModal thing={thing} />`)
@@ -35,7 +34,7 @@
       access_filter: this.refs.access_filter.getDOMNode().value || null
     this.setState
       filter: filter
-    $(window).trigger("#{@props.searcherPrefix}.setState", {filter: filter})
+    $(window).trigger("#{@props.searcherPrefix}.setFilter", filter)
     $(window).trigger('setup.steps.change', {filter: filter})
     event.preventDefault()
   
@@ -65,7 +64,6 @@
       </div>
       <div className="setup__steps__filters__available">These images will be available:</div>
       <div className="setup__steps__filters__gallery">
-        <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
+        <Gallery searcherPrefix={this.props.searcherPrefix} eventPrefix={this.galleryPrefix} />
       </div>
-      <Searcher filter={filter} prefix={this.searcherPrefix} />
     </div>`

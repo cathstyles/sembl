@@ -1,3 +1,4 @@
+#= require views/components/searcher
 #= require views/games/setup2/overview/overview
 #= require views/games/setup2/steps/steps
 #= require views/games/setup2/steps/step_board
@@ -11,9 +12,12 @@
 
 ###* @jsx React.DOM ###
 
+{Searcher} = Sembl.Components
 {Overview, Steps, Players} = Sembl.Games.Setup
 {StepBoard, StepDescription, StepFilter, StepSeed, StepSettings, StepTitle, StepPlayers} = Sembl.Games.Setup
 @Sembl.Games.Setup.Form = React.createClass
+  filterSearcherPrefix: "setup.steps.filter.searcher"
+
   componentWillMount: ->
     $(window).on('setup.steps.done', @handleStepsDone)
     $(window).on('setup.steps.add', @handleAddStep)
@@ -27,7 +31,7 @@
       title: `<StepTitle />`
       seed: `<StepSeed />`
       description: `<StepDescription />`
-      filter: `<StepFilter />`
+      filter: `<StepFilter searcherPrefix={this.filterSearcherPrefix} />`
       settings: `<StepSettings />`
       players: `<StepPlayers game={this.props.game} />`
 
@@ -166,10 +170,10 @@
         }, @state.collectedFields)
       show = Overview(overviewProps)
 
-
-    # Players is a dummy component for adding and removing players to the game using events.
+    filter = @props.game.get('filter')
     `<div className="setup">
       {show}
+      <Searcher filter={filter} prefix={this.filterSearcherPrefix} />
       <Players game={this.props.game} />
     </div>`
 
