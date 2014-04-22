@@ -70,12 +70,14 @@
 
     settingsComponent = 
       `<ul className="setup__overview__settings-list">
-        <li className="setup__overview__settings-list-item">Invite only {makeTickCross(this.props.settings.invite_only)}</li>
-        <li className="setup__overview__settings-list-item">Uploads allowed {makeTickCross(this.props.settings.uploads_allowed)}</li>
+        <li className="setup__overview__settings-list-item">Game is invite only {makeTickCross(this.props.settings.invite_only)}</li>
+        <li className="setup__overview__settings-list-item">Users can upload images {makeTickCross(this.props.settings.uploads_allowed)}</li>
       </ul>`
 
     playerComponents = for player in @state.players
-      `<li className="setup__overview__players-list-item">{player.get('email')}</li>`
+      user = player.get('user')
+      name = if user then user.name else player.get('email')
+      `<li className="setup__overview__players-list-item">{name}</li>`
 
     `<div className="setup__overview">
       <div className="setup__overview__card">

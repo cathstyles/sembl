@@ -21,7 +21,7 @@
   handleChange: (setting, value) ->
     settings =
       invite_only:    this.props.settings?.invite_only || false
-      mature_allowed: this.props.settings?.mature_allowed || false
+      #mature_allowed: this.props.settings?.mature_allowed || false
       uploads_allowed:  this.props.settings?.uploads_allowed || false
 
     settings[setting] = value
@@ -35,7 +35,6 @@
       <div className="setup__steps__title">Settings</div>
       <div className="setup__steps__inner">
         <SettingsCheckbox name='invite_only' checked={invite_only} label="Game is invite only" handleChange={this.handleChange} />
-        <SettingsCheckbox name='mature_allowed' checked={mature_allowed} label="Show mature images" handleChange={this.handleChange} />
         <SettingsCheckbox name='uploads_allowed' checked={uploads_allowed} label="Users can upload images" handleChange={this.handleChange} />
       </div>
     </div>`
