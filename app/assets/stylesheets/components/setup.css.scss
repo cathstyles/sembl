@@ -409,9 +409,9 @@
 
 .setup__overview__graph {
   border: 1px dashed $border-color;
+  border-radius: $border-radius;
+  height: 500px;
   padding: 80px;
-  min-height: 500px;
-  height: 0px;
 }
 
 .setup__overview__graph__placement__round {
