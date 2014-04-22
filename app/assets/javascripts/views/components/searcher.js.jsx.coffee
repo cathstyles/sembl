@@ -2,24 +2,25 @@
 
 @Sembl.Components.Searcher = React.createClass
   maxOffset: Number.MAX_VALUE
+  defautLimit: 40
 
   getInitialState: ->
     offset: 0
-    limit: 40
+    limit: @defautLimit
     filter: @props.filter
 
   componentWillMount: ->
     if @props.prefix
       $(window).on("#{@props.prefix}.search", @search)
       $(window).on("#{@props.prefix}.notify", @handleNotify)
-      $(window).on("#{@props.prefix}.setState", @handleSetState)
+      $(window).on("#{@props.prefix}.setFilter", @handleSetFilter)
       $(window).on("#{@props.prefix}.nextPage", @handleNextPage)
       $(window).on("#{@props.prefix}.previousPage", @handlePreviousPage)
 
   componentWillUnmount: ->
       $(window).off("#{@props.prefix}.search")
       $(window).off("#{@props.prefix}.notify")
-      $(window).off("#{@props.prefix}.setState")
+      $(window).off("#{@props.prefix}.setFilter")
       $(window).off("#{@props.prefix}.nextPage")
       $(window).off("#{@props.prefix}.previousPage")
 
@@ -36,21 +37,32 @@
       limit: @state.limit
     _.extend(params, @state.filter)
     console.log 'searching', params
-    $.getJSON("/api/search.json",
-      params
-      (things) =>
+    $.ajax(
+      url: "/api/search.json"
+      data: params
+      type: 'GET'
+      dataType: 'json'
+      error: (response) =>
+        console.error 'error when searching', response.responseText
+        @results = []
+        @handleNotify()
+      success: (things) =>
         if things.length == 0
           @maxOffset = offset
-        @things = things
+        @results = for i,thing of things
+          index: offset + Number.parseInt(i)
+          thing: thing
         @handleNotify()
     )
 
-  handleSetState: (event, newState) ->
-    @setState newState
+  handleSetFilter: (event, filter) ->
+    @setState 
+      filter: filter
+      offset: 0
 
   handleNotify: ->
     if @props.prefix
-      $(window).trigger("#{@props.prefix}.updated", {things: @things, offset: @state.offset, limit: @state.limit})
+      $(window).trigger("#{@props.prefix}.updated", {results: @results, offset: @state.offset, limit: @state.limit})
 
   handleNextPage: (event) ->
     @search
