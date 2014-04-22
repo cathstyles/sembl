@@ -35,6 +35,7 @@
       offset: offset
       limit: @state.limit
     _.extend(params, @state.filter)
+    console.log 'searching', params
     $.getJSON("/api/search.json",
       params
       (things) =>
