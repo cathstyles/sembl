@@ -76,7 +76,7 @@
     playerComponents = for player in @state.players
       user = player.get('user')
       name = if user then user.name else player.get('email')
-      `<li className="setup__overview__players-list-item">{name}</li>`
+      `<li key={name} className="setup__overview__players-list-item">{name}</li>`
     if playerComponents.length == 0
       playerComponents = "No one has joined this game yet"
 

@@ -23,7 +23,7 @@ Midpoint = React.createClass
   render: ->
     {links, midpointFactory} = @props
     midpoints = for link in @props.links
-        `<Midpoint key={link.id} link={link} midpointFactory={midpointFactory} />`
+      `<Midpoint key={link.key} link={link} midpointFactory={midpointFactory} />`
         
     `<div className="graph__midpoints">
       {midpoints}

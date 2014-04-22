@@ -87,11 +87,16 @@ Sembl.Components.Graph.Graph = React.createClass
   render: ->
     # we use the @props.nodes as the authoritive source on x and y values, so links defer their sources/targets to these.
     @nodeIndex = {}
-    for n in @props.nodes
-      @nodeIndex[n.id] = n
+    for node in @props.nodes
+      if node.id 
+        node.key = node.id
+        @nodeIndex[node.id] = node
+      else
+        node.key = Sembl.Utils.genUUID()
 
     {nodes, links, nodeFactory, midpointFactory} = @props
     for link in links
+      link.key = if link.id then link.id else Sembl.Utils.genUUID()
       if !link.source?
         raise 'link does not have source'
       if !link.target?
