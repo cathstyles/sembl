@@ -2,12 +2,15 @@
   .heading
     h1 Edit your profile
 
-.profile   
-  div data-view="avatarView" data-avatar-url="#{@profile.avatar.try(:thumb).try(:url)}"
+.profile  
+  .profile__avatar-container
+    h3.profile__avatar-title Upload an avatar
+    .profile__avatar-container__inner
+      div data-view="avatarView" data-avatar-url="#{@profile.avatar.try(:thumb).try(:url)}"
 
   = simple_form_for @profile do |f|
     div.profile__meta-data
-      = f.input :name, label: "Your name"
-      = f.input :bio, label: "A little about you", as: :text
+      = f.input :name, label: "Name"
+      = f.input :bio, label: "Bio", as: :text, placeholder: "Tell us a little about yourself"
       = f.hidden_field :remote_avatar_url
-      = f.button :submit
+      = f.button :submit, class: "profile__update-button"

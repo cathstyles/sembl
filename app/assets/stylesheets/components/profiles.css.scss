@@ -1,2 +1,66 @@
 // Profiles
 
+.profile {
+  @extend %clearfix-micro;
+  @include pad(all, normal);
+  background-color: $highlight-background-color;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px 5px rgba(#888,.1);
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+
+.profile__avatar-container {
+  float: left;
+  margin-right: 5%;
+  width: 35%;
+  cursor: pointer;
+}
+
+.profile__avatar-title {
+  @extend .small-tracked-out-heading;
+  @include pad(bottom, small);
+  text-align: center;
+}
+
+.profile__avatar-container__inner {
+  @include pad(all, small);
+  xborder: 1px dashed $border-color;
+  margin-left: auto;
+  margin-right: auto;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  img {
+    @include pad(all, small);
+    border: 1px dashed $border-color;
+    max-width: 100%;
+    max-height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.profile__meta-data {
+  float: left;
+  width: 60%;
+  label {
+    @extend .small-tracked-out-heading;
+    cursor: pointer;
+    width: 60px;
+  }
+  input[type='text'],
+  textarea {
+    width: 70%;
+  }
+  textarea {
+    height: 80px;
+  }
+}
+
+.profile__update-button {
+  @extend %button;
+  margin-left: 80px !important;
+}
