@@ -175,14 +175,37 @@
 
 // Players
 
-.setup__steps__players__invite {}
-.setup__steps__players__invite__input {}
 .setup__steps__players__invite__send-button {
   @extend %button;
 }
 
+.setup__steps__players__invite__label {
+  @extend .small-tracked-out-heading;
+  cursor: pointer;
+  padding-right: 5px;
+}
+
+.setup__steps__players__invite__input {
+  width: 35%;
+  margin-right: 10px;
+}
+
+.setup__steps__players__player--filled {
+  border-top: 1px solid $border-color;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  text-align: left;
+  &:last-child {
+    @include inset(bottom, small);
+    border-bottom: 1px solid $border-color;
+  }
+  a {
+    color: red;
+  }
+}
+
 .setup__steps__players__remove-button {
-  @extend %button;
+  padding-left: 6px;
 }
 
 // Filters
@@ -252,6 +275,11 @@
   border-bottom: 1px solid $border-color;
 }
 
+.setup__overview__players {
+  @include pad(all, smaller);
+  border-bottom: 1px solid $border-color;
+}
+
 .setup__overview__bottom {
   @include pad(all, smaller);
 }
@@ -264,7 +292,8 @@
 .setup__overview__title,
 .setup__overview__description,
 .setup__overview__settings,
-.setup__overview__filter {
+.setup__overview__filter,
+.setup__overview__item-players {
   padding-bottom: 2px;
   a {
     @extend .small-tracked-out-heading;
@@ -278,11 +307,13 @@
   }
 }
 
-.setup__overview__settings-list {
+.setup__overview__settings-list,
+.setup__overview__players-list {
   padding-top: 4px;
 }
 
-.setup__overview__settings-list-item {
+.setup__overview__settings-list-item,
+.setup__overview__players-list-item {
   display: list-item;
   list-style: disc;
   margin-left: 1em;
@@ -315,7 +346,7 @@
     background-color: $text-color;
     border-radius: $border-radius;
     color: #fff;
-    padding: 3px;
+    padding: 3px 6px;
     text-shadow: 1px 1px 1px rgba(#000,.4);
     &.open {
       background-color: green;

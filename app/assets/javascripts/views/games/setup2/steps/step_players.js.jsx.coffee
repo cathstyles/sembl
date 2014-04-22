@@ -21,6 +21,7 @@
     data = 
       player: player
       success: @reloadPlayers
+    event.preventDefault();
     $(window).trigger('setup.players.remove', data)
 
   handleInvite: (event) ->
@@ -53,29 +54,33 @@
         handleDelete = (event) => @handleDeletePlayer(player); event.preventDefault()
         `<div className="setup__steps__players__player--filled" key={player.id}>
           {email}
-          <button className="setup__steps__players__remove-button" onClick={handleDelete}>Remove</button>
+          <a className="setup__steps__players__remove-button" onClick={handleDelete} href="#"><i className="fa fa-times"></i></a>
         </div>`
       )
 
 
       inviteComponent = if playerCount < maxPlayerCount
         `<div className="setup__steps__players__invite">
-          <label htmlFor="setup__steps__players__invite__input">Enter email address: </label>
-          <input ref='emailInput' id="setup__steps__players__invite__input" type="text" />
+          <label htmlFor="setup__steps__players__invite__input" className="setup__steps__players__invite__label">Enter email address: </label>
+          <input ref='emailInput' id="setup__steps__players__invite__input" className="setup__steps__players__invite__input" type="text" />
           <button className="setup__steps__players__invite__send-button" onClick={this.handleInvite}>Add</button>
         </div>`
 
       `<div className="setup__steps__players">
-        <div className="setup__steps__players__header">
-          {playerCount != 0 ? 'These players have joined the game' : 'No players have joined the game. Add some!'}
+        <div className="setup__steps__title">
+          {playerCount != 0 ? 'These players have joined the game:' : 'No players have joined the game. Add some!'}
         </div>
-        <div>
-          {playerComponents}
+        <div className="setup__steps__inner">
+          <div>
+            {playerComponents}
+          </div>
+          {inviteComponent}
         </div>
-        {inviteComponent}
       </div>`
     else 
       `<div className="setup__steps__players">
-        <div>Checking invited players...</div>
+        <div className="setup__steps__inner">
+          <p>Checking invited players&hellip;</p>
+        </div>
       </div>`
 

@@ -75,7 +75,7 @@
       </ul>`
 
     playerComponents = for player in @state.players
-      `<li>{player.get('email')}</li>`
+      `<li className="setup__overview__players-list-item">{player.get('email')}</li>`
 
     `<div className="setup__overview">
       <div className="setup__overview__card">
@@ -93,13 +93,15 @@
             {settingsComponent}
           </div>
         </div>
-        <div className="setup__overview__bottom">
+        <div className="setup__overview__players">
           <div className="setup__overview__item-players">
-            Players: {isDraft ? editLink('players') : null}
-              <ul>
+            <span className="setup__overview__item-title">Players:</span> {isDraft ? editLink('players') : null}
+              <ul className="setup__overview__players-list">
                 {playerComponents}
               </ul>
           </div>
+        </div>
+        <div className="setup__overview__bottom">
           {filterComponent}
         </div>
         <OverviewActions status={status} />
