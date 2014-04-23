@@ -8,7 +8,7 @@
   handlePlaceThing: ->
     $(window).trigger('move.gallery.selectTargetThing', @props.thing)
     $(window).trigger('modal.close')
-
+    
   render: () ->
     thing = @props.thing
     `<ThingModal thing={thing}>
