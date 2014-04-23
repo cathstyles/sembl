@@ -78,7 +78,10 @@
       name = if user then user.name else player.get('email')
       `<li key={name} className="setup__overview__players-list-item">{name}</li>`
     if playerComponents.length == 0
-      playerComponents = "No one has joined this game yet"
+      playerComponents = if invite_only
+          "No players have been invited to this game"
+        else 
+          "No players have joined this game"
 
     `<div className="setup__overview">
       <div className="setup__overview__card">

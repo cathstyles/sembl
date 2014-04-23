@@ -68,7 +68,7 @@
 
       `<div className="setup__steps__players">
         <div className="setup__steps__title">
-          {playerCount != 0 ? 'These players have joined the game:' : 'No players have joined the game. Add some!'}
+          {playerCount != 0 ? 'These players have been invited:' : 'No players have been invited. Invite some!'}
         </div>
         <div className="setup__steps__inner">
           <div>
