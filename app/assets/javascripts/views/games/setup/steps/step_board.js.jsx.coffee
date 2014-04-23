@@ -1,4 +1,4 @@
-#= require views/games/setup2/thumb_board_graph
+#= require views/games/setup/thumb_board_graph
 
 ###* @jsx React.DOM ###
 

@@ -1,5 +1,5 @@
 #= require views/components/graph/graph
-#= require views/games/setup2/overview/overview_graph_placement
+#= require views/games/setup/overview/overview_graph_placement
 
 ###* @jsx React.DOM ###
 

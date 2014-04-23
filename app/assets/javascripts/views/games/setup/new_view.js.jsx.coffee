@@ -1,4 +1,4 @@
-#= require views/games/setup2/form
+#= require views/games/setup/form
 
 ###* @jsx React.DOM ###
 

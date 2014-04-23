@@ -1,5 +1,5 @@
-#= require views/games/setup2/overview/overview_graph
-#= require views/games/setup2/overview/actions
+#= require views/games/setup/overview/overview_graph
+#= require views/games/setup/overview/actions
 
 ###* @jsx React.DOM ###
 

@@ -1,4 +1,4 @@
-#= require views/games/setup2/steps/step_seed_gallery
+#= require views/games/setup/steps/step_seed_gallery
 #= require views/components/searcher
 
 ###* @jsx React.DOM ###

@@ -1,14 +1,14 @@
 #= require views/components/searcher
-#= require views/games/setup2/overview/overview
-#= require views/games/setup2/steps/steps
-#= require views/games/setup2/steps/step_board
-#= require views/games/setup2/steps/step_description
-#= require views/games/setup2/steps/step_filter
-#= require views/games/setup2/steps/step_seed
-#= require views/games/setup2/steps/step_settings
-#= require views/games/setup2/steps/step_title
-#= require views/games/setup2/steps/step_players
-#= require views/games/setup2/players
+#= require views/games/setup/overview/overview
+#= require views/games/setup/steps/steps
+#= require views/games/setup/steps/step_board
+#= require views/games/setup/steps/step_description
+#= require views/games/setup/steps/step_filter
+#= require views/games/setup/steps/step_seed
+#= require views/games/setup/steps/step_settings
+#= require views/games/setup/steps/step_title
+#= require views/games/setup/steps/step_players
+#= require views/games/setup/players
 
 ###* @jsx React.DOM ###
 
