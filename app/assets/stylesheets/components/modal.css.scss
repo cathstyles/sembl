@@ -23,7 +23,7 @@
   margin-right: auto;
   margin-top: 2%;
   position: relative;
-  width: 450px;
+  width: 480px;
 }
 
 .move__thing__modal__button {
@@ -48,6 +48,8 @@
   }
 }
 
+// Image modal
+
 .move__thing-modal__image {
   margin-left: auto;
   margin-right: auto;
@@ -71,7 +73,7 @@
 
 .move__thing-modal__description {
   @include pad(horz, normal);
-  @include font-size(16);
+  line-height: 1.15;
 }
 
 .move__thing-modal__wrapper {
@@ -147,12 +149,19 @@
   box-shadow: 0 0 20px 5px rgba(#fff,.3);
 }
 
+// Add resemblances modal
+
 .move__resemblance__edit {
+  @include pad(all, mid);
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 100px 10px rgba(#000,.5);
   text-align: center;
   p {
     @include font-size(18);
     @extend %white-drop-shadow;
     font-weight: 600;
+    line-height: 1.2;
   }
   strong {
     color: $link-color;
@@ -160,8 +169,7 @@
 }
 
 .move__resemblance__edit-form {
-  @include pad(all, mid);
-  background-color: $background-color;
+  @include pad(top, mid);
   text-align: center;
   input {
     width: 80%;

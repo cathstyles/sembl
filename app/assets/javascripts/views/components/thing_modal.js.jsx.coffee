@@ -27,7 +27,7 @@
         <div className="move__thing-modal__meta">
           <h1 className="move__thing-modal__title">{thing.title}</h1>
           <p className="move__thing-modal__description">{thing.description}</p>
-          <h3 className="move__thing-modal__attribute-toggle">Show meta data</h3>
+          <h3 className="move__thing-modal__attribute-toggle">Show metadata</h3>
           <div className="move__thing-modal__attributes">
             <div className="move__thing-modal__attribute-row">
               <div className="move__thing-modal__attribute">
