@@ -1,5 +1,9 @@
 // Home
 
+.home {
+  @include pad(top, large);
+}
+
 .home__my-games-heading,
 .home__games-hosting-heading,
 .home__all-games-heading {

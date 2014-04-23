@@ -23,9 +23,6 @@
   margin-right: auto;
   position: relative;
   width: 460px;
-  @media screen and (max-width: 600px) {
-    width: 100%;
-  }
   &.metadata-is-visible {
     transition-property: width;
     transition-duration: 250ms;
