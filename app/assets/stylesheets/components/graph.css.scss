@@ -193,8 +193,8 @@
 }
 
 @keyframes glow--very-high {
-  0%, 100%    { box-shadow: 0 0 9px 6px $rating-very-high; }
-  50%         { box-shadow: 0 0 15px 7px $rating-very-high; }
+  0%, 100%    { box-shadow: 0 0 9px 3px $rating-very-high; }
+  50%         { box-shadow: 0 0 15px 4px $rating-very-high; }
 }
 
 .game__resemblance__filled--very-low {
