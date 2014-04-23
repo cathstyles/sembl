@@ -19,11 +19,11 @@
 
 .modal__inner {
   @extend %clearfix-micro;
-  max-width: 850px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 4%;
+  margin-top: 2%;
   position: relative;
+  width: 450px;
 }
 
 .move__thing__modal__button {
@@ -31,97 +31,120 @@
   @include pad(all, small);
   background-color: $highlight-color;
   border-radius: 50%;
+  box-shadow: 0 0 20px 0 rgba(#000,.2);
   cursor: pointer;
   position: absolute;
   top: -11px;
   right: -11px;
-  width: 22px;
-  height: 22px;
+  width: 23px;
+  height: 23px;
+  z-index: 200;
   i {
     color: #fff;
     text-shadow: 1px 1px 1px rgba(#000,.5);
     position: absolute;
-    top: 3px;
-    left: 5px;
+    top: 4px;
+    left: 6px;
   }
 }
 
-.move__thing-modal {
-  text-align: center;
-}
-
 .move__thing-modal__image {
-  box-shadow: 0 0 10px 0 rgba(#000,.5);
-  border: 3px solid #fff;
-  border-radius: $border-radius;
   margin-left: auto;
   margin-right: auto;
-  max-width: 90%;
+  max-width: 100%;
+}
+
+.move__thing-modal__image--toggled {
+  transition-property: scale;
+  transition-duration: 250ms;
+  transform: scale(1.05);
 }
 
 .move__thing-modal__title {
   @extend .large-heading;
-  @include font-size(22);
-  @include pad(bottom, mid);
+  @include font-size(20);
+  @include pad(horz, normal);
+  @include pad(top, normal);
+  @include pad(bottom, small);
   line-height: 1;
 }
 
 .move__thing-modal__description {
-  @include pad(bottom, mid);
-  text-align: left;
+  @include pad(horz, normal);
+  @include font-size(16);
 }
 
 .move__thing-modal__wrapper {
-  @extend %clearfix-micro;
-  @include pad(all, mid);
   border-radius: $border-radius;
   background-color: $background-color;
   box-shadow: 0 0 100px 10px rgba(#000,.5);
 }
 
 .move__thing-modal__body {
-  width: 50%;
-  float: left;
+  background-color: $text-color;
+  border-top-left-radius: $border-radius-inner;
+  border-top-right-radius: $border-radius-inner;
+  position: relative;
+  overflow: hidden;
 }
 
-.move__thing-modal__meta {
-  width: 50%;
-  float: left;
+.move__thing-modal__attribute-toggle {
+  @include pad(all, normal);
+  @extend .small-tracked-out-heading;
+  color: $link-color;
+  cursor: pointer; 
+  &:after {
+    font-family: "FontAwesome";
+    content: "\f0da";
+    padding-left: 5px;
+  }
+}
+
+.move__thing-modal__attribute-toggle--toggled {
+  &:after {
+    content: "\f0d7";
+  }
+}
+
+.move__thing-modal__attributes {
+  @include pad(bottom, normal);
 }
 
 .move__thing-modal__attribute-row {
-  @extend %clearfix-micro;
-  @include pad(bottom, mid);
+  @include pad(horz, normal);
+  border-top: 1px solid $border-color;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  &:nth-child(odd) {
+    background-color: darken($background-color, 2%);
+  }
 }
 
 .move__thing-modal__attribute {
-  float: left;
-  text-align: left;
-  width: 50%;
-  &:nth-child(odd) {
-    @include pad(right, small);
-  }
-  &:nth-child(even) {
-    @include pad(left, small);
-  }
   h2 {
     @extend .small-tracked-out-heading;
     color: $link-color;
-    padding-bottom: 4px;
+    display: inline;
+    padding-right: 4px;
   }
-  p {
-    @include truncate();
+  .move__thing-modal__attribute-text {
+    @include font-size(14);
   }
 }
 
 .modal__actions {
   @include pad(all, smaller);
-  clear: both;
+  @include linear-gradient(to bottom, rgba(0,0,0, 0), rgba(0,0,0, .2) 50%);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
 }
 
 .move__thing-modal__place-button {
   @include inset(top, mid);
-  box-shadow: 0 0 20px 0 rgba(#fff,.2);
+  box-shadow: 0 0 20px 5px rgba(#fff,.3);
 }
 
 .move__resemblance__edit {
@@ -137,7 +160,8 @@
 }
 
 .move__resemblance__edit-form {
-  @include pad(top, mid);
+  @include pad(all, mid);
+  background-color: $background-color;
   text-align: center;
   input {
     width: 80%;
