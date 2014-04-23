@@ -18,6 +18,12 @@ class Search::ElasticsearchQueryBuilder
     }
   end
 
+  def match(field, value)
+    @query = filter @query, {
+      match: { field => value }
+    }
+  end
+
   def random_order(seed)
     @query = {
       function_score: {

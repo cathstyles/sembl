@@ -25,7 +25,8 @@ class Api::SearchController < ApiController
       :game_id,
       :text, :place_filter, :access_filter, :date_from, :date_to, :created_to, :random_seed,
       :offset, 
-      :limit
+      :limit,
+      :suggested_seed
     ).delete_if do |k,v|
       v.strip.empty?
     end

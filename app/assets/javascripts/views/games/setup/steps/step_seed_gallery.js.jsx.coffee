@@ -30,7 +30,7 @@
     $(window).off("#{@props.prefix}.gallery.thing.click")
 
   componentDidMount: ->
-    $(window).trigger("#{@props.prefix}.searcher.notify")
+    $(window).trigger("#{@props.searcherPrefix}.notify")
 
   getInitialState: ->
     focusThing: null
@@ -40,8 +40,22 @@
       focusThing: thing
     $(window).trigger('setup.seed.modal.toggle')
 
+  handleSuggestedCheckboxChange: (event) ->
+    @showSuggested = event.target.checked
+    filter =
+      text: @query || null
+      suggested_seed: @showSuggested
+    $(window).trigger("#{@props.searcherPrefix}.setFilter", filter)
+    
+  handleSearchQueryChange: (event) ->
+    @query = event.target.value
+    filter = 
+      text: @query || null
+      suggested_seed: @showSuggested
+    $(window).trigger("#{@props.searcherPrefix}.setFilter", filter)
+
   render: ->
-    searcherPrefix = "#{@props.prefix}.searcher"
+    searcherPrefix = @props.searcherPrefix
     galleryPrefix = "#{@props.prefix}.gallery"
 
     component = ToggleComponent
@@ -50,6 +64,18 @@
       toggleEvent: 'setup.seed.modal.toggle'
 
     `<div className="setup__seed__modal">
+      <div>
+        <label>
+          Show suggested images:
+          <input type="checkbox" onChange={this.handleSuggestedCheckboxChange} />
+        </label>
+      </div>
+      <div>
+        <label>
+          Search: 
+          <input type="text" onChange={this.handleSearchQueryChange}></input>
+        </label>
+      </div>
       {component}
     </div>`
     

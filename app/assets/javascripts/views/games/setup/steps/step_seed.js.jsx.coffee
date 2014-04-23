@@ -20,7 +20,11 @@
     $(window).trigger('setup.steps.change', {seed: thing})
 
   handleSeedClick: (event) ->
-    $(window).trigger('modal.open', `<StepSeedGallery prefix="setup.steps.seed" />`)
+    $(window).trigger('modal.open', `
+      <StepSeedGallery 
+        prefix="setup.steps.seed" 
+        searcherPrefix={this.props.searcherPrefix}
+      />`)
 
   handleRandomSeed: (event) ->
     self = this
@@ -48,6 +52,5 @@
         <h3 className="setup__steps__seed-randomise">
           <a href="#" onClick={this.handleRandomSeed}><i className="fa fa-random"></i>&nbsp;<em>Randomise</em></a>
         </h3>
-        <Searcher prefix="setup.steps.seed.searcher" />
       </div>
     </div>`

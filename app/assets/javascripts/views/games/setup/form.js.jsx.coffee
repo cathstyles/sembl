@@ -17,6 +17,7 @@
 {StepBoard, StepDescription, StepFilter, StepSeed, StepSettings, StepTitle, StepPlayers} = Sembl.Games.Setup
 @Sembl.Games.Setup.Form = React.createClass
   filterSearcherPrefix: "setup.steps.filter.searcher"
+  seedSearcherPrefix: "setup.steps.seed.searcher"
 
   componentWillMount: ->
     $(window).on('setup.steps.done', @handleStepsDone)
@@ -29,7 +30,7 @@
     @stepComponents =
       board: `<StepBoard boards={boards} />`
       title: `<StepTitle />`
-      seed: `<StepSeed />`
+      seed: `<StepSeed searcherPrefix={this.seedSearcherPrefix} />`
       description: `<StepDescription />`
       filter: `<StepFilter searcherPrefix={this.filterSearcherPrefix} />`
       settings: `<StepSettings />`
@@ -174,6 +175,7 @@
     `<div className="setup">
       {show}
       <Searcher filter={filter} prefix={this.filterSearcherPrefix} />
+      <Searcher prefix={this.seedSearcherPrefix} />
       <Players game={this.props.game} />
     </div>`
 
