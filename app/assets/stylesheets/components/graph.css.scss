@@ -173,18 +173,18 @@
 }
 
 @keyframes glow--very-low {
-  0%, 100%    { box-shadow: 0 0 6px 3px $rating-very-low; }
-  50%         { box-shadow: 0 0 12px 4px $rating-very-low; }
+  0%, 100%    { box-shadow: 0 0 3px 0px $rating-very-low; }
+  50%         { box-shadow: 0 0 5px 1px $rating-very-low; }
 }
 
 @keyframes glow--low {
-  0%, 100%    { box-shadow: 0 0 6px 3px $rating-low; }
-  50%         { box-shadow: 0 0 12px 4px $rating-low; }
+  0%, 100%    { box-shadow: 0 0 4px 1px $rating-low; }
+  50%         { box-shadow: 0 0 7px 2px $rating-low; }
 }
 
 @keyframes glow--medium {
-  0%, 100%    { box-shadow: 0 0 6px 3px $rating-medium; }
-  50%         { box-shadow: 0 0 12px 4px $rating-medium; }
+  0%, 100%    { box-shadow: 0 0 5px 2px $rating-medium; }
+  50%         { box-shadow: 0 0 9px 2px $rating-medium; }
 }
 
 @keyframes glow--high {
@@ -193,8 +193,8 @@
 }
 
 @keyframes glow--very-high {
-  0%, 100%    { box-shadow: 0 0 6px 3px $rating-very-high; }
-  50%         { box-shadow: 0 0 12px 4px $rating-very-high; }
+  0%, 100%    { box-shadow: 0 0 9px 6px $rating-very-high; }
+  50%         { box-shadow: 0 0 15px 7px $rating-very-high; }
 }
 
 .game__resemblance__filled--very-low {
