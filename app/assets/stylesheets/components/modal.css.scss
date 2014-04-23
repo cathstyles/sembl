@@ -21,11 +21,20 @@
   @extend %clearfix-micro;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 2%;
   position: relative;
   width: 460px;
   @media screen and (max-width: 600px) {
     width: 100%;
+  }
+  &.metadata-is-visible {
+    transition-property: width;
+    transition-duration: 250ms;
+    width: 650px;
+  }
+  &.metadata-is-not-visible {
+    transition-property: width;
+    transition-duration: 250ms;
+    width: 460px;
   }
 }
 
@@ -122,6 +131,7 @@
 }
 
 .move__thing-modal__attribute-row {
+  @extend %clearfix-micro;
   @include pad(horz, normal);
   border-top: 1px solid $border-color;
   padding-top: 5px;

@@ -7,6 +7,8 @@
     $('.move__thing-modal__attribute-toggle').click ->
       $(this).toggleClass 'move__thing-modal__attribute-toggle--toggled'
       $('.move__thing-modal__attributes').slideToggle 'fast'
+      $('.modal__inner').toggleClass 'metadata-is-visible'
+      $('.modal__inner').toggleClass 'metadata-is-not-visible'
 
     $('.move__thing-modal__place-button').hover ->
       $('.move__thing-modal__image').toggleClass 'move__thing-modal__image--toggled'
