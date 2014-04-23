@@ -23,7 +23,10 @@
   margin-right: auto;
   margin-top: 2%;
   position: relative;
-  width: 480px;
+  width: 460px;
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 }
 
 .move__thing__modal__button {
@@ -69,11 +72,17 @@
   @include pad(top, normal);
   @include pad(bottom, small);
   line-height: 1;
+  @media screen and (max-height: 600px) {
+    @include font-size(18);
+  }
 }
 
 .move__thing-modal__description {
   @include pad(horz, normal);
   line-height: 1.15;
+  @media screen and (max-height: 600px) {
+    @include font-size(14);
+  }
 }
 
 .move__thing-modal__wrapper {
