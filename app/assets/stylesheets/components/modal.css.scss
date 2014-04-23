@@ -63,14 +63,14 @@
 .move__thing-modal__title {
   @extend .large-heading;
   @include font-size(20);
-  @include pad(horz, smaller);
-  @include pad(top, smaller);
+  @include pad(horz, normal);
+  @include pad(top, normal);
   @include pad(bottom, small);
   line-height: 1;
 }
 
 .move__thing-modal__description {
-  @include pad(horz, smaller);
+  @include pad(horz, normal);
   @include font-size(16);
 }
 
@@ -89,7 +89,7 @@
 }
 
 .move__thing-modal__attribute-toggle {
-  @include pad(all, smaller);
+  @include pad(all, normal);
   @extend .small-tracked-out-heading;
   color: $link-color;
   cursor: pointer; 
@@ -111,7 +111,7 @@
 }
 
 .move__thing-modal__attribute-row {
-  @include pad(horz, smaller);
+  @include pad(horz, normal);
   border-top: 1px solid $border-color;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -160,7 +160,8 @@
 }
 
 .move__resemblance__edit-form {
-  @include pad(top, mid);
+  @include pad(all, mid);
+  background-color: $background-color;
   text-align: center;
   input {
     width: 80%;
