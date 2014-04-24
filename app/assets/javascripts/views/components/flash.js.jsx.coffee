@@ -9,14 +9,14 @@
     }
 
   componentWillMount: -> 
-    $(window).on 'flash.notice', @handleNotice
-    $(window).on 'flash.error', @handleError
-    $(window).on 'flash.hide', @handleHide
+    $(window).on('flash.notice', @handleNotice)
+    $(window).on('flash.error', @handleError)
+    $(window).on('flash.hide', @handleHide)
 
   componentWillUnmount: -> 
-    $(window).off 'flash.notice', @handleNotice
-    $(window).off('flash.error', @handleError
-    $(window).off('flash.hide', @handleHide
+    $(window).off('flash.notice', @handleNotice)
+    $(window).off('flash.error', @handleError)
+    $(window).off('flash.hide', @handleHide)
 
   handleNotice: (event, msg) -> 
     console.log msg
