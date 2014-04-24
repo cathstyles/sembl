@@ -87,7 +87,8 @@
       key = email
       `<PlayerMoveResults key={key} results={results} />`
 
-    `<div>
+    `<div className="results">
+      <a className="results__back-to-game" href="#">Back to game</a>
       <PlayerRoundResults players={this.props.game.get('players')} />
       <div className="results__player-moves">
         {playerMoveResults}
