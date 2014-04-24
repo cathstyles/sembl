@@ -10,7 +10,7 @@
     $(window).on('move.node.setThing', @handleSetThing)
     
   componentWillUnmount: ->
-    $(window).off('move.node.setThing')
+    $(window).off('move.node.setThing', @handleSetThing)
 
   componentDidMount: -> 
     round = @props.node.game.get('current_round')

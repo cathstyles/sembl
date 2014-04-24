@@ -12,3 +12,4 @@
 
 String.prototype.camelToUnderscore = ->
   @replace /([a-z][A-Z])/g, (g) -> g[0] + '_' + g[1].toLowerCase()
+

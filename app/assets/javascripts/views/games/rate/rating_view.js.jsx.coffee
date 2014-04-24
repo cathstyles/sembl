@@ -21,7 +21,7 @@
     $(window).on('resize', @handleResize)
 
   componentWillUnmount: ->
-    $(window).off('resize')
+    $(window).off('resize', @handleResize)
 
   handleResize: ->
     $(window).trigger('graph.resize')

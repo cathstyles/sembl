@@ -25,12 +25,12 @@ Gallery = @Sembl.Games.Gallery
     $(window).on('resize', @handleResize)
 
   componentWillUnmount: ->
-    $(window).off('move.actions.submitMove')
-    $(window).off('move.resemblance.change')
-    $(window).off("#{@galleryPrefix}.selectTargetThing")
-    $(window).off("#{@galleryPrefix}.thing.click")
-    $(window).off('move.resemblance.click')
-    $(window).off('resize')
+    $(window).off('move.actions.submitMove', @handleSubmitMove)
+    $(window).off('move.resemblance.change', @handleResemblanceChange)
+    $(window).off("#{@galleryPrefix}.selectTargetThing", @handleSelectTargetThing)
+    $(window).off("#{@galleryPrefix}.thing.click", @handleGalleryClick)
+    $(window).off('move.resemblance.click', handleResemblanceClick)
+    $(window).off('resize', @handleResize)
 
   handleResize: ->
     $(window).trigger('graph.resize')

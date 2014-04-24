@@ -10,19 +10,22 @@
     filter: @props.filter
 
   componentWillMount: ->
-    if @props.prefix
-      $(window).on("#{@props.prefix}.search", @search)
-      $(window).on("#{@props.prefix}.notify", @handleNotify)
-      $(window).on("#{@props.prefix}.setFilter", @handleSetFilter)
-      $(window).on("#{@props.prefix}.nextPage", @handleNextPage)
-      $(window).on("#{@props.prefix}.previousPage", @handlePreviousPage)
+    @subscriberTokens = []
+    if !@props.prefix
+      log.error 'Searcher needs prefix prop for events, got props', @props
+
+    $(window).on("#{@props.prefix}.search", @search)
+    $(window).on("#{@props.prefix}.notify", @handleNotify)
+    $(window).on("#{@props.prefix}.setFilter", @handleSetFilter)
+    $(window).on("#{@props.prefix}.nextPage", @handleNextPage)
+    $(window).on("#{@props.prefix}.previousPage", @handlePreviousPage)
 
   componentWillUnmount: ->
-      $(window).off("#{@props.prefix}.search")
-      $(window).off("#{@props.prefix}.notify")
-      $(window).off("#{@props.prefix}.setFilter")
-      $(window).off("#{@props.prefix}.nextPage")
-      $(window).off("#{@props.prefix}.previousPage")
+      $(window).off("#{@props.prefix}.search", @search)
+      $(window).off("#{@props.prefix}.notify", @handleNotify)
+      $(window).off("#{@props.prefix}.setFilter", @handleSetFilter)
+      $(window).off("#{@props.prefix}.nextPage", @handleNextPage)
+      $(window).off("#{@props.prefix}.previousPage", @handlePreviousPage)
 
   componentDidMount: ->
     @search()

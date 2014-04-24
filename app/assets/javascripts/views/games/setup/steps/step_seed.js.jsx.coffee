@@ -11,7 +11,7 @@
     $(window).on('setup.steps.seed.select', @handleSeedSelect)
 
   componentWillUnmount: ->
-    $(window).off('setup.steps.seed.select')
+    $(window).off('setup.steps.seed.select', @handleSeedSelect)
 
   componentDidMount: ->
     seed = @props.seed

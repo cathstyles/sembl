@@ -66,8 +66,8 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     @handleResize()
     
   componentWillUnmount: ->
-    $(window).off('resize')
-    $(window).off('header.joinGame')
+    $(window).off('resize', @handleResize)
+    $(window).off('header.joinGame', @handleJoin)
     @timer.stop()
 
   handleResize: ->

@@ -14,8 +14,8 @@
     $(window).on("#{@galleryPrefix}.thing.click", @handleGalleryThingClick)
 
   componentWillUnmount: ->
-    $(window).off("#{@props.searcherPrefix}.updated")
-    $(window).off("#{@galleryPrefix}.thing.click")
+    $(window).off("#{@props.searcherPrefix}.updated", @handleSearcherUpdated)
+    $(window).off("#{@galleryPrefix}.thing.click", @handleGalleryThingClick)
 
   getInitialState: () ->
     filter: this.props.filter

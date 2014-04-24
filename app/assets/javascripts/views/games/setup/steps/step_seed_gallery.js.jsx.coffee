@@ -27,7 +27,7 @@
     $(window).on("#{@props.prefix}.gallery.thing.click", @handleFocusSeed)
 
   componentWillUnmount: ->
-    $(window).off("#{@props.prefix}.gallery.thing.click")
+    $(window).off("#{@props.prefix}.gallery.thing.click", @handleFocusSeed)
 
   componentDidMount: ->
     $(window).trigger("#{@props.searcherPrefix}.notify")

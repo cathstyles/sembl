@@ -9,20 +9,24 @@
     }
 
   componentWillMount: -> 
-    $(window).on 'flash.notice', (event, msg) => 
-      console.log msg
-      @setState msg: msg, className: 'notice' 
-
-    $(window).on 'flash.error', (event, msg) => 
-      @setState msg: msg, className: 'error' 
-
-    $(window).on 'flash.hide', (event) => 
-      @setState msg: "", className: 'hidden' 
+    $(window).on 'flash.notice', @handleNotice
+    $(window).on 'flash.error', @handleError
+    $(window).on 'flash.hide', @handleHide
 
   componentWillUnmount: -> 
-    $(window).off('flash.notice')
-    $(window).off('flash.error')
-    $(window).off('flash.hide')
+    $(window).off 'flash.notice', @handleNotice
+    $(window).off('flash.error', @handleError
+    $(window).off('flash.hide', @handleHide
+
+  handleNotice: (event, msg) -> 
+    console.log msg
+    @setState msg: msg, className: 'notice' 
+
+  handleError: (event, msg) -> 
+    @setState msg: msg, className: 'error' 
+  
+  handleHide: (event) ->
+    @setState msg: "", className: 'hidden' 
 
   render: ->
     console.log "rendering notice"

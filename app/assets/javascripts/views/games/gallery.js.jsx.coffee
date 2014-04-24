@@ -86,8 +86,8 @@ GalleryImage = React.createClass
     @tempImages = []
 
   componentWillUnmount: () ->
-    $(window).off("#{@props.searcherPrefix}.updated")
-    $(window).off("#{@props.searcherPrefix}.setFilter")
+    $(window).off("#{@props.searcherPrefix}.updated", @handleSearchUpdated)
+    $(window).off("#{@props.searcherPrefix}.setFilter", @handleSearchSetFilter)
 
   componentDidMount: ->
     @setState

@@ -8,9 +8,9 @@
     @loadInvitedPlayers()
 
   componentWillUnmount: ->
-    $(window).off('setup.players.add')
-    $(window).off('setup.players.remove')
-    $(window).off('setup.players.get')
+    $(window).off('setup.players.add', @handleAdd)
+    $(window).off('setup.players.remove', @handleRemove)
+    $(window).off('setup.players.get', @handleGet)
 
   getInitialState: ->
     players: null

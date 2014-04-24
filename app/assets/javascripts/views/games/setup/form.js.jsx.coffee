@@ -37,11 +37,11 @@
       players: `<StepPlayers game={this.props.game} />`
 
   componentWillUnmount: ->
-    $(window).off('setup.steps.done') 
-    $(window).off('setup.steps.add') 
-    $(window).off('setup.save')
-    $(window).off('setup.publish')
-    $(window).off('setup.openGame')
+    $(window).off('setup.steps.done', @handleStepsDone)
+    $(window).off('setup.steps.add', @handleAddStep)
+    $(window).off('setup.save', @handleSave)
+    $(window).off('setup.publish', @handlePublish)
+    $(window).off('setup.openGame', @handleOpenGame)
 
   componentDidMount: ->
     seed = @state.collectedFields.seed

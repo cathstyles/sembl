@@ -13,10 +13,8 @@
     $('.move__thing-modal__place-button').hover ->
       $('.move__thing-modal__image').toggleClass 'move__thing-modal__image--toggled'
 
-
   render: () ->
     thing = @props.thing
-    console.log thing
 
     `<div className="move__thing-modal">
       <div className="move__thing-modal__wrapper">

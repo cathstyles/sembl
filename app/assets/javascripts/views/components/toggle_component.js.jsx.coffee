@@ -7,7 +7,7 @@
     $(window).on(@props.toggleEvent, @handleToggle)
 
   componentWillUnmount: ->
-    $(window).off(@props.toggleEvent)  
+    $(window).off(@props.toggleEvent, @handleToggle)  
 
   getInitialState: () ->
     flag: @props.flag || false

@@ -9,9 +9,9 @@ ESC_KEY = 27
     $('body').on('click', @handleBackgroundClick)
 
   componentWillUnmount: ->
-    $(window).off('modal.open')
-    $(window).off('modal.close')
-    $('body').off('click')
+    $(window).off('modal.open', @handleOpen)
+    $(window).off('modal.close', @handleClose)
+    $('body').off('click', @handleBackgroundClick)
 
   handleOpen: (event, modalChild) ->
     @setState

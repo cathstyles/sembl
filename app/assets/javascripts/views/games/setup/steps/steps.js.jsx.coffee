@@ -16,7 +16,7 @@
     $(window).on('setup.steps.change', @handleChange)
 
   componentWillUnmount: ->
-    $(window).off('setup.steps.change')
+    $(window).off('setup.steps.change', @handleChange)
 
   componentDidMount: ->
     @validateStep()

@@ -5,7 +5,7 @@
     $(window).on('setup.players.give', @handleGivePlayers)
 
   componentWillUnmount: ->
-    $(window).off('setup.players.give')
+    $(window).off('setup.players.give', @handleGivePlayers)
 
   componentDidMount: ->
     $(window).trigger('setup.players.get')

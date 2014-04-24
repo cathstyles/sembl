@@ -89,3 +89,5 @@
       <img src={this.props.cropUrl} />
       <button onClick={this.handleSubmit}>Crop</button>
     </div>`
+
+    

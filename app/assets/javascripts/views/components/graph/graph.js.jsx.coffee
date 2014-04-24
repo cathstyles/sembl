@@ -16,10 +16,10 @@ Sembl.Components.Graph.Graph = React.createClass
     @nodeIndex[node.id] if node.id
 
   componentWillMount: ->
-    $(window).on("graph.resize", @handleResize)
+    $(window).on "graph.resize", @handleResize
 
   componentWillUnmount: ->
-    $(window).off("graph.resize")
+    $(window).off "graph.resize", @handleResize
     
   componentDidMount: ->
     @handleResize()

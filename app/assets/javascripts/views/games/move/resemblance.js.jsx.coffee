@@ -8,8 +8,8 @@
     $(window).on('move.resemblance.change', @handleResemblanceChange)
 
   componentWillUnmount: ->
-    $(window).off('move.node.setThing')
-    $(window).off('move.resemblance.change')
+    $(window).off('move.node.setThing', @handleSetThing)
+    $(window).off('move.resemblance.change', @handleResemblanceChange)
 
       
   handleClick: (event, link) ->
