@@ -3,5 +3,7 @@ class Profile < ActiveRecord::Base
 
   validates_presence_of :name
 
+  accepts_nested_attributes_for :user
+
   mount_uploader :avatar, AvatarUploader
 end

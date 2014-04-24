@@ -13,4 +13,11 @@
       = f.input :name, label: "Name"
       = f.input :bio, label: "Bio", as: :text, placeholder: "Tell us a little about yourself"
       = f.hidden_field :remote_avatar_url
+
+      h2 Account settings
+      = f.fields_for :user do |user_fields| 
+        = user_fields.input :email, label: "Email"
+        = user_fields.input :password 
+        = user_fields.input :password_confirmation
+
       = f.button :submit, class: "profile__update-button"
