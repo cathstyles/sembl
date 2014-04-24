@@ -48,6 +48,7 @@
   render: () ->
     round = @props.node.game.get('current_round')
 
+    alertedClass = ""
     alertedClass = " alerted" if round == 1 and @state.userState == 'available'
 
     userState = @state.userState
