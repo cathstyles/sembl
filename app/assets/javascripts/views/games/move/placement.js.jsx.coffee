@@ -13,7 +13,7 @@
     $(window).off('move.node.setThing', @handleSetThing)
 
   componentDidMount: -> 
-    round = window.Sembl.game.game.get('current_round')
+    round = window.Sembl.game.get('current_round')
     if round == 1 and @state.userState == 'available'
       $(window).trigger('flash.notice', "First, choose an image from the gallery")
 
