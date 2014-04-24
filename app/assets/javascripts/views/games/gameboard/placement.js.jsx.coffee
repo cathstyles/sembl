@@ -17,8 +17,7 @@
         $(window).trigger('modal.open', `<ThingModal thing={thing} />`)
 
   componentDidMount: -> 
-    console.log "placement rendering"
-    round = @props.node.game.get('current_round') 
+    round = window.Sembl.game.get('current_round') 
     userState =  @props.node.get('user_state') || @props.userState
     if round == 1 and userState == 'available'
       $(window).trigger('flash.notice', "Let's go! Add your first image to begin the game.") 

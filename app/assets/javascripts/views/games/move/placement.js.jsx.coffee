@@ -17,12 +17,20 @@
     if round == 1 and @state.userState == 'available'
       $(window).trigger('flash.notice', "First, choose an image from the gallery")
 
+  componentDidUpdate: -> 
+    round = window.Sembl.game.get('current_round')
+    if round == 1 and @state.userState == 'proposed'
+      console.log "triggering alert"
+      $(window).trigger('flash.notice', 'Now make a creative connection between the images')
+  
+
   handleClick: (event, data) ->
     if @state.thing
       $(window).trigger('modal.open', `<ThingModal thing={this.state.thing} />`)
 
   handleSetThing: (event, data) ->
     if data.node.id == @props.node.id
+      console.log "handle set thing in placement"
       @setState
         thing: data.thing
         userState: 'proposed'
