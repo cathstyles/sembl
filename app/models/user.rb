@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
 
   ROLES = {
     :participant => 1,
-    :power => 2,
+    :power_user => 2,
     :admin => 10,
     :banned => 0
   }.freeze
@@ -73,6 +73,10 @@ class User < ActiveRecord::Base
         errors.add(:base, "Could not join the game #{player.game.title}, hosted by #{player.game.creator.email}.") 
       end
     end
+  end
+
+  def self.roles 
+    ROLES
   end
 
   private 

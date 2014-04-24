@@ -38,7 +38,7 @@ class Admin::UsersController < AdminController
 protected
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation).
+    params.require(:user).permit(:email, :password, :password_confirmation, :role).
       delete_if { |key, value| key.in? %w(password password_confirmation) and value.blank? }
   end
 end

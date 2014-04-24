@@ -34,7 +34,7 @@ Sembl::Application.routes.draw do
     root to: "home#show"
   end
 
-  devise_for :users, :controllers => { :registrations => "registrations" }
+  devise_for :users, :controllers => { :registrations => "registrations",  :sessions => "sessions"  }
 
   resources :games, only: [:index, :show, :new, :edit] do
     resources :things, only: [:index]

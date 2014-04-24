@@ -5,6 +5,7 @@
   = form.input :email, input_html: {class: "input-block-level"}
   = form.input :password, input_html: {class: "input-block-level"}
   = form.input :password_confirmation, input_html: {class: "input-block-level"}
+  = form.input :role, collection: User.roles, include_blank: false
 
   - unless @user.new_record?
     .control-group
