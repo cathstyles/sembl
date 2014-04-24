@@ -4,9 +4,6 @@
 ###* @jsx React.DOM ###
 
 Sembl.Components.Graph.Resemblance = React.createClass
-  handleClick: ->
-    $(window).trigger('graph.resemblance.click', @props.link.model)
-
   lineFunction: d3.svg.diagonal()
 
   render: ->
@@ -23,6 +20,6 @@ Sembl.Components.Graph.Resemblance = React.createClass
       </div>`
 
     child = this.props.children || defaultChild
-    `<div key={link.model.id} className='graph__resemblance' style={style} onClick={this.handleClick}>
+    `<div key={link.model.id} className='graph__resemblance' style={style}>
       {child}
     </div>`
