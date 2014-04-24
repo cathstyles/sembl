@@ -1,26 +1,30 @@
-div data-view="gameIndex" data-header="All Games"
-  .home
-    - if user_signed_in?
-      .home__new-game-button-container
-        .home__new-game-button-container__inner
-          = link_to new_game_path, class: "home__new-game-button" do
-            <i class="fa fa-gamepad"></i> Create a new game
-      .home__my-games
-        h1.home__my-games-heading My games
-        .home__my-games-container
-          - @games[:participating].each do |game|
-            = render partial: "game", locals: {game: game}
+/ div data-view="gameIndex" data-header="All Games"
+.header
+  .heading
+    h1 Games
 
-      .home__games-hosting
-        h1.home__games-hosting-heading Games I'm hosting
-        .home__games-hosting-container
-          - @games[:hosted].each do |game|
-            = render partial: "game", locals: {game: game}
+.home
+  - if user_signed_in?
+    .home__new-game-button-container
+      .home__new-game-button-container__inner
+        = link_to new_game_path, class: "home__new-game-button" do
+          <i class="fa fa-gamepad"></i> Create a new game
+    .home__my-games
+      h1.home__my-games-heading My games
+      .home__my-games-container
+        - @games[:participating].each do |game|
+          = render partial: "game", locals: {game: game}
 
-    .home__all-games
-      h1.home__all-games-heading Browse games
-      .home__all-games-container
-        - @games[:open].each do |game|
+    .home__games-hosting
+      h1.home__games-hosting-heading Games I'm hosting
+      .home__games-hosting-container
+        - @games[:hosted].each do |game|
           = render partial: "game", locals: {game: game}
-        - @games[:browse].each do |game|
-          = render partial: "game", locals: {game: game}
+
+  .home__all-games
+    h1.home__all-games-heading Browse games
+    .home__all-games-container
+      - @games[:open].each do |game|
+        = render partial: "game", locals: {game: game}
+      - @games[:browse].each do |game|
+        = render partial: "game", locals: {game: game}

@@ -22,6 +22,7 @@
 
   handleSetThing: (event, data) -> 
     if data.node.id == @props.link.target().id
+      console.log "handle set thing in resemblance"
       @setState
         nodeState: 'proposed'
 
@@ -33,15 +34,13 @@
       description: description
       nodeState: link.target().get('user_state')
 
+  componentDidUpdate: -> 
+    round = window.Sembl.game.get('current_round')
+    if round == 1 and !!@state.description
+      $(window).trigger('flash.notice', 'Happy with your move? Submit to keep playing')
+
   render: () ->
     toggleEvent = 'toggle.graph.resemblance.'+@props.link.id
-
-    round = @props.link.game.get('current_round')
-    if round == 1 and !@state.description and @state.nodeState == 'proposed'
-      alertedClass = " alerted" 
-      $(window).trigger('flash.notice', 'Now make a creative connection between the images')
-    else if round == 1 and !!@state.description
-      $(window).trigger('flash.notice', 'Happy with your move? Submit to keep playing')
 
     child = if @state.description 
       `<div className="game__resemblance__expanded">
@@ -50,7 +49,7 @@
         </div>
       </div>`
     else
-      `<div className={"game__resemblance__empty" + alertedClass} />`
+      `<div className={"game__resemblance__empty"} />`
 
     `<div className="move__resemblance" onClick={this.handleClick}>
       {child}

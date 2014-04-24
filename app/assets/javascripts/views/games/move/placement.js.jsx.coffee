@@ -10,7 +10,7 @@
     $(window).off('move.node.setThing', @handleSetThing)
 
   componentDidMount: -> 
-    round = @props.node.game.get('current_round')
+    round = window.Sembl.game.get('current_round')
     if round == 1 and @state.userState == 'available'
       $(window).trigger('flash.notice', "First, choose an image from the gallery")
 
@@ -23,6 +23,7 @@
 
   handleSetThing: (event, data) ->
     if data.node.id == @props.node.id
+      console.log "handle set thing in placement"
       @setState
         thing: data.thing
         userState: 'proposed'
@@ -39,6 +40,7 @@
   render: () ->
     round = @props.node.game.get('current_round')
 
+    alertedClass = ""
     alertedClass = " alerted" if round == 1 and @state.userState == 'available'
 
     userState = @state.userState

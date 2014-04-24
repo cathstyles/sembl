@@ -32,7 +32,7 @@
             </span>
             <em>{nameAndStatus}</em>
             <span className="game__player__details__score">
-              <i className="fa fa-star"></i>{player.get('score')}
+              <i className="fa fa-star"></i>{player.formatted_score()}
             </span>
           </div>
         </li>`

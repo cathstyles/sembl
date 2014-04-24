@@ -35,7 +35,7 @@ Sembl.Games.HeaderView = React.createBackboneClass
     resultsAvailableForRound = game?.resultsAvailableForRound() 
 
     headerTitle = `<h1 className="header__title">
-        {game.get('title')}
+        <a href="#">{game.get('title')}</a>
       </h1>` if game
 
     join = `<li className="header__link">

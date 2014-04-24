@@ -11,7 +11,10 @@ class ProfilesController < ApplicationController
   def update
     authorize @profile
 
-    @profile.assign_attributes(profile_params)
+    params_copy = profile_params
+    params_copy[:user_attributes] = params_copy[:user_attributes].delete_if { |key, value| key.in? %w(password password_confirmation) and value.blank? }
+
+    @profile.assign_attributes(params_copy)
     
     flash[:notice] = "Profile updated." if @profile.save
 
@@ -28,7 +31,8 @@ class ProfilesController < ApplicationController
     params.require(:profile).permit(
       :name, 
       :bio, 
-      :remote_avatar_url
+      :remote_avatar_url, 
+      user_attributes: [:id, :email, :password, :password_confirmation]
     )
   end
 

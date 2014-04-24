@@ -1,6 +1,6 @@
 #= require views/components/graph/graph
 #= require views/games/gameboard/placement_factory
-#= require views/games/move/placement
+#= require views/games/rate/placement
 #= require views/games/rate/resemblance
 
 ###* @jsx React.DOM ###
@@ -10,7 +10,6 @@
 ###
 class ResemblanceFactory
   constructor: (linkModels, @resemblanceClass) ->
-    console.log 'resemblanceClass', @resemblanceClass
     @lookup = {}
     for link in linkModels
       @lookup[link.source().id] = @lookup[link.source().id]||{}
@@ -21,7 +20,7 @@ class ResemblanceFactory
     @resemblanceClass({link: link})
 
 {Graph} = Sembl.Components.Graph
-{Placement} = Sembl.Games.Move
+{Placement} = Sembl.Games.Rate
 {Resemblance} = Sembl.Games.Rate
 {PlacementFactory} = Sembl.Games.Gameboard
 
