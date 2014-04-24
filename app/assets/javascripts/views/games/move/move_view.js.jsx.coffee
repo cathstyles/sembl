@@ -29,7 +29,7 @@ Gallery = @Sembl.Games.Gallery
     $(window).off('move.resemblance.change', @handleResemblanceChange)
     $(window).off("#{@galleryPrefix}.selectTargetThing", @handleSelectTargetThing)
     $(window).off("#{@galleryPrefix}.thing.click", @handleGalleryClick)
-    $(window).off('move.resemblance.click', handleResemblanceClick)
+    $(window).off('move.resemblance.click', @handleResemblanceClick)
     $(window).off('resize', @handleResize)
 
   handleResize: ->
