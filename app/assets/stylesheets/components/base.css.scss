@@ -72,7 +72,7 @@ textarea {
 }
 
 @keyframes notice {
-  0%, 100% { transform: scale(1.05); }
+  0%, 100% { transform: scale(1.03); }
   50% { transform: scale(1); }
 }
 
@@ -101,13 +101,13 @@ textarea {
 
 .notice {
   animation-name: notice;
-  animation-duration: 1s;
+  animation-duration: 1.5s;
   animation-iteration-count: infinite;
 }
 
 @keyframes alert-grow {
   0, 100% { box-shadow: none; transform: scale(0); }
-  50%     { box-shadow: 0 0 20px 0 #fff; transform: scale(1.05); }
+  50%     { box-shadow: 0 0 20px 0 #fff; transform: scale(1.03); }
 }
 
 .alerted {
