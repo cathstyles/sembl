@@ -90,10 +90,15 @@ GalleryImage = React.createClass
     $(window).off("#{@props.searcherPrefix}.setFilter", @handleSearchSetFilter)
 
   componentDidMount: ->
-    @setState
-      containerWidth: $(@getDOMNode()).innerWidth()
+    @checkContainerWidth()
 
   componentDidUpdate: ->
+    @checkContainerWidth()
+
+  checkContainerWidth: ->
+    containerWidth = $(@getDOMNode()).innerWidth()
+    if containerWidth != @state.containerWidth
+      @setState containerWidth: containerWidth    
 
   handleSearchSetFilter: (event, filter) ->
     @clearImages = true
@@ -123,7 +128,7 @@ GalleryImage = React.createClass
 
     @setState 
       images: items
-      scrollWaypoint: !!data.things # is there new things
+      scrollWaypoint: !!data.results # is there new things
 
   handleScrollWaypoint: ->
     @setState
@@ -131,6 +136,7 @@ GalleryImage = React.createClass
     @handleNextPage()
 
   handleNextPage: (event) ->
+    console.log 'next page'
     $(window).trigger("#{@props.searcherPrefix}.nextPage")
     event?.preventDefault()
 
@@ -143,6 +149,7 @@ GalleryImage = React.createClass
 
   triggerRender: ->
     @setState {null: null}
+    @checkContainerWidth()
 
   render: ->
     rowHeight = @props.rowHeight || 200

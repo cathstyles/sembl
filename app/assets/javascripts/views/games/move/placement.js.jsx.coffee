@@ -1,8 +1,5 @@
-#= require views/components/thing_modal
-
 ###* @jsx React.DOM ###
 
-{ThingModal} = Sembl.Components
 {Node} = Sembl.Components.Graph
 
 @Sembl.Games.Move.Placement = React.createClass
@@ -17,16 +14,12 @@
     if round == 1 and @state.userState == 'available'
       $(window).trigger('flash.notice', "First, choose an image from the gallery")
 
-  componentDidUpdate: -> 
-    round = window.Sembl.game.get('current_round')
-    if round == 1 and @state.userState == 'proposed'
-      console.log "triggering alert"
-      $(window).trigger('flash.notice', 'Now make a creative connection between the images')
-  
-
-  handleClick: (event, data) ->
-    if @state.thing
-      $(window).trigger('modal.open', `<ThingModal thing={this.state.thing} />`)
+  handleClick: (event) ->
+    data = 
+      node:      @props.node
+      thing:     @state.thing
+      userState: @state.userState
+    $(window).trigger('move.placement.click', data)
 
   handleSetThing: (event, data) ->
     if data.node.id == @props.node.id
@@ -38,7 +31,6 @@
   getInitialState: ->
     node = @props.node
     thing = node.get('viewable_placement')?.thing
-
     state = 
       userState: node.get('user_state')
     if thing
@@ -48,6 +40,7 @@
   render: () ->
     round = @props.node.game.get('current_round')
 
+    alertedClass = ""
     alertedClass = " alerted" if round == 1 and @state.userState == 'available'
 
     userState = @state.userState

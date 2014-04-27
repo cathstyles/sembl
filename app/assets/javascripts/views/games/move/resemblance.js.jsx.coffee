@@ -27,7 +27,6 @@
         nodeState: 'proposed'
 
   getInitialState: ->
-    console.log 'resemblance props', @props
     link = @props.link
     resemblance = link.get('viewable_resemblance')
     description = if !!resemblance then resemblance.description

@@ -1,15 +1,18 @@
 #= require d3
 #= require views/components/searcher
+#= require views/components/slide_viewer
 #= require views/games/gallery
 #= require views/games/move/actions
 #= require views/games/move/gallery_thing_modal
 #= require views/games/move/move_graph
 #= require views/games/move/resemblance_modal
+#= require views/components/slide_viewer
+#= require views/components/thing_modal
 
 ###* @jsx React.DOM ###
 
 {Actions, Board, MoveGraph, SelectedThing, GalleryThingModal, ResemblanceModal, PlacementModal} = Sembl.Games.Move
-{Searcher} = Sembl.Components
+{Searcher, ThingModal, SlideViewer} = Sembl.Components
 Gallery = @Sembl.Games.Gallery
 
 @Sembl.Games.Move.MoveView = React.createClass
@@ -22,6 +25,7 @@ Gallery = @Sembl.Games.Gallery
     $(window).on("#{@galleryPrefix}.selectTargetThing", @handleSelectTargetThing)
     $(window).on("#{@galleryPrefix}.thing.click", @handleGalleryClick)
     $(window).on('move.resemblance.click', @handleResemblanceClick)
+    $(window).on('move.placement.click', @handlePlacementClick)
     $(window).on('resize', @handleResize)
 
   componentWillUnmount: ->
@@ -30,6 +34,7 @@ Gallery = @Sembl.Games.Gallery
     $(window).off("#{@galleryPrefix}.selectTargetThing", @handleSelectTargetThing)
     $(window).off("#{@galleryPrefix}.thing.click", @handleGalleryClick)
     $(window).off('move.resemblance.click', @handleResemblanceClick)
+    $(window).off('move.placement.click', @handlePlacementClick)
     $(window).off('resize', @handleResize)
 
   handleResize: ->
@@ -41,18 +46,21 @@ Gallery = @Sembl.Games.Gallery
 
   handleResemblanceChange: (event, resemblance) ->
     if resemblance.description
-      resemblance.link.set('viewable_resemblance',
-        {
-          description: resemblance.description
-        }
-      )
+      resemblance.link.set('viewable_resemblance', {description: resemblance.description})
       @state.move.addResemblance(resemblance.link, resemblance.description)
   
+  handlePlacementClick: (event, data) ->
+    if data.userState in ['proposed', 'available']
+      $(window).trigger('slideViewer.show')
+    else if data.thing
+      $(window).trigger('modal.open', `<ThingModal thing={data.thing} />`)
+
   handleGalleryClick: (event, thing) ->
     $(window).trigger('modal.open', `<GalleryThingModal thing={thing} />`)
 
   handleSelectTargetThing: (event, thing) ->
     $(window).trigger('move.node.setThing', {node: @state.target, thing: thing})
+    $(window).trigger('slideViewer.hide')
     @state.move.addPlacementThing(thing)
     @setState
       targetThing: thing
@@ -64,7 +72,6 @@ Gallery = @Sembl.Games.Gallery
     @state.move.save({}, {
       success: -> 
         self.handleMoveComplete()
-        # $(window).trigger('flash.notice', "Move submitted!")
       error: (model, response) -> 
         responseObj = JSON.parse response.responseText;
         
@@ -103,6 +110,8 @@ Gallery = @Sembl.Games.Gallery
       <Searcher filter={this.props.game.get('filter')} prefix={this.searcherPrefix} />
       <MoveGraph target={target} links={links} />
       <Actions />
-      <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
+      <SlideViewer>
+        <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
+      </SlideViewer>
     </div>`
 

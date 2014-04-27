@@ -31,6 +31,7 @@
     image_url = @props.image_url || thing?.image_admin_url
 
     round = node.game.get('current_round') 
+    alertedClass = ""
     alertedClass = " alerted" if round == 1 and userState == 'available'
 
     `<div className={className + alertedClass} onClick={this.handleClick}>
