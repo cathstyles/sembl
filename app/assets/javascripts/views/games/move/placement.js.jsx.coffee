@@ -12,7 +12,7 @@
   componentDidMount: -> 
     round = window.Sembl.game.get('current_round')
     if round == 1 and @state.userState == 'available'
-      $(window).trigger('flash.notice', "First, choose an image from the gallery")
+      $(window).trigger('flash.notice', "Click the camera to choose an image from the gallery")
 
   handleClick: (event) ->
     data = 
