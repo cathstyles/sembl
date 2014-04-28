@@ -1,9 +1,22 @@
 .slide-viewer {
+  @include pad(top, smaller);
+  background-color: $text-color;
+  box-shadow: 0 0 80px 0 rgba(#000,.4);
   width: 100%;
 }
+
 .slide-viewer__inner {
+  background-color: $text-color;
   width: 100%;
+  overflow-x: hidden;
 }
+
+.slide-viewer--active {
+  transition-property: margin-top;
+  transition-duration: 250ms;
+  margin-top: 0;
+}
+
 .slide-viewer--hidden {
-  visibility: hidden;
+  margin-top: 1000px;
 }

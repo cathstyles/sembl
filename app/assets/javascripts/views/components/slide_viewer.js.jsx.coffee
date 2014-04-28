@@ -31,9 +31,12 @@
     child: null
 
   render: ->
-    className = "slide-viewer"
-    className += " slide-viewer--hidden" if @state.hidden
-
+    cx = React.addons.classSet
+    className = cx (
+      'slide-viewer': true,
+      'slide-viewer--active': !@state.hidden,
+      'slide-viewer--hidden': @state.hidden
+    )
     `<div className={className}>
       <div className="slide-viewer__inner">
         <span className="slide-viewer__close-button" onClick={this.handleHide}><i className="fa fa-times"></i></span>
