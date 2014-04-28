@@ -90,7 +90,7 @@ GalleryImage = React.createClass
     $(window).off("#{@props.searcherPrefix}.setFilter", @handleSearchSetFilter)
 
   componentDidMount: ->
-    @checkContainerWidth()
+    $(window).trigger("#{@props.searcherPrefix}.notify")
 
   componentDidUpdate: ->
     @checkContainerWidth()
@@ -148,8 +148,8 @@ GalleryImage = React.createClass
     $.doTimeout('imagesloaded', 200, @triggerRender)
 
   triggerRender: ->
-    @setState {null: null}
     @checkContainerWidth()
+    @setState {null: null}
 
   render: ->
     rowHeight = @props.rowHeight || 200

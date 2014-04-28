@@ -59,13 +59,14 @@
     )
 
   handleSetFilter: (event, filter) ->
-    @setState 
+    @setState
       filter: filter
       offset: 0
 
   handleNotify: ->
+    results = @results || []
     if @props.prefix
-      $(window).trigger("#{@props.prefix}.updated", {results: @results, offset: @state.offset, limit: @state.limit})
+      $(window).trigger("#{@props.prefix}.updated", {results: results, offset: @state.offset, limit: @state.limit})
 
   handleNextPage: (event) ->
     @search

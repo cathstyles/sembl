@@ -21,7 +21,7 @@
   handleChange: (setting, value) ->
     settings =
       invite_only:    this.props.settings?.invite_only || false
-      #mature_allowed: this.props.settings?.mature_allowed || false
+      #mature_allowed: this.props.settings?.mature_allowed || false 
       uploads_allowed:  this.props.settings?.uploads_allowed || false
 
     settings[setting] = value

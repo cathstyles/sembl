@@ -37,6 +37,11 @@ Gallery = @Sembl.Games.Gallery
     $(window).off('move.placement.click', @handlePlacementClick)
     $(window).off('resize', @handleResize)
 
+  componentDidMount: ->
+    $(window).trigger('slideViewer.setChild', 
+      `<Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />`
+    )
+
   handleResize: ->
     $(window).trigger('graph.resize')
 
@@ -110,8 +115,5 @@ Gallery = @Sembl.Games.Gallery
       <Searcher filter={this.props.game.get('filter')} prefix={this.searcherPrefix} />
       <MoveGraph target={target} links={links} />
       <Actions />
-      <SlideViewer>
-        <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
-      </SlideViewer>
     </div>`
 
