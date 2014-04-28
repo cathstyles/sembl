@@ -73,8 +73,29 @@
       </div>
     </div>`
 
+@Sembl.Games.Results.PlayerFinalResults = React.createClass
+  render: ->
+    playerRoundResults = @props.players.map (player) ->
+      email = player.user?.email
+      score = Math.floor(player.score * 100)
+      `<div className="results__player-score">
+        <h1 className="results__player-score__email">
+          <i className="fa fa-user"></i> {email}
+        </h1>
+        <div className="results__player-score__score">
+          <i className="fa fa-star"></i><em>{score}</em>
+        </div>
+      </div>`
 
-{PlayerMoveResults, PlayerRoundResults} = @Sembl.Games.Results
+    `<div className="results__player-scores-wrapper">
+      <div className="results__player-scores">
+        <h2 className="results__player-scores-message">Final results</h2>
+        {playerRoundResults}
+      </div>
+    </div>`
+
+
+{PlayerMoveResults, PlayerRoundResults, PlayerFinalResults} = @Sembl.Games.Results
 @Sembl.Games.Results.ResultsView = React.createClass
   render: -> 
     userGroupedResults = {}
@@ -83,13 +104,18 @@
       userGroupedResults[email] = userGroupedResults[email] || []
       userGroupedResults[email].push(result)
 
+    playerOverallResults = if @props.game.get('state') is 'completed'
+        `<PlayerFinalResults players={this.props.game.get('players')} />`
+      else
+        `<PlayerRoundResults players={this.props.game.get('players')} />`
+
     playerMoveResults = for email, results of userGroupedResults
       key = email
       `<PlayerMoveResults key={key} results={results} />`
 
     `<div className="results">
       <a className="results__back-to-game" href="#">Back to game</a>
-      <PlayerRoundResults players={this.props.game.get('players')} />
+      {playerOverallResults}
       <div className="results__player-moves">
         {playerMoveResults}
       </div>
