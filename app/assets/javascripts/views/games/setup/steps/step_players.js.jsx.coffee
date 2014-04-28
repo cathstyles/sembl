@@ -47,7 +47,6 @@
       maxPlayerCount = @props.game.get('number_of_players')
 
       playerComponents = $.map(players, (player) =>
-        console.log 'player', player
         user = player.get('user')
         email = if user then user.email else player.get('email')
 

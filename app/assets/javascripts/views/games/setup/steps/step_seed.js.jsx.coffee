@@ -16,6 +16,7 @@
     $(window).on("#{@galleryPrefix}.thing.click", @handleGalleryClick)
 
   componentWillUnmount: ->
+    $(window).trigger('slideViewer.hide')
     $(window).off('setup.steps.seed.select', @handleSeedSelect)
     $(window).off("#{@galleryPrefix}.thing.click", @handleGalleryClick)
 

@@ -7,8 +7,12 @@
     event.preventDefault()
 
   render: () ->
+    buttonClassName = "move__actions__button"
+    if !@props.move.isValid()
+      buttonClassName += " button--disabled"
+      
     `<div className="move__actions">
-      <button className="move__actions__button" onClick={this.handleSubmitMove}>
+      <button className={buttonClassName} onClick={this.handleSubmitMove}>
         <i className="fa fa-thumbs-up"></i> Submit move
       </button>
     </div>`
