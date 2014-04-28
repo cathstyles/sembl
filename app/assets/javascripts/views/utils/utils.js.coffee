@@ -1,4 +1,4 @@
-  @Sembl.Utils.genUUID = ->
+@Sembl.Utils.genUUID = ->
   time = new Date().getTime()
 
   uuid = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace /[xy]/g, (char) ->
