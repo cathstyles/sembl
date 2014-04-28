@@ -41,8 +41,10 @@ class Sembl.GameRouter extends Backbone.Router
   results: (round) ->
     results = new Sembl.Results([], {game: @game, round: round})
     res = results.fetch()
+    title = if @game.get('state') is 'completed' then "Final results" else "Round #{round} Results"
+
     res.done =>
       @layout.setState 
         body:  Sembl.Games.Results.ResultsView({results: results, game: @game}),
-        header: Sembl.Games.HeaderView(model: @game, title: "Round #{round} Results") 
+        header: Sembl.Games.HeaderView(model: @game, title: title) 
 

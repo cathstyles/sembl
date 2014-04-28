@@ -8,7 +8,7 @@ class Api::ResultsController < ApiController
   def index
     authorize @game
     round = @game.current_round
-    placements = Placement.for_round(@game, round)
+    placements = @game.completed? ? Placement.for_round(@game, round) : Placement.for_game(game)
     @moves = placements.collect{|p| Move.new(placement: p)}
     respond_with :api, @moves
   end

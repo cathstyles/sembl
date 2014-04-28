@@ -47,6 +47,10 @@ class Placement < ActiveRecord::Base
     joins(:node).where("nodes.game_id = ? and nodes.round = ?", game.id, round)
   end
 
+  def self.for_game(game)
+    joins(:node).where("nodes.game_id = ?", game)
+  end
+
   def fill_node
     node.fill
   end

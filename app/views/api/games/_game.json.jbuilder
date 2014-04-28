@@ -17,7 +17,10 @@ json.set! :filter do
 end
 
 json.board @game.board
+
+# TODO: Move this into a separate fetch, shouldn't be here.
 json.boards Board.all
+
 json.players @game.players.playing, partial: 'api/players/player', as: :player
 json.nodes @game.nodes, partial: 'api/nodes/node', as: :node
 json.links @game.links, partial: 'api/links/link', as: :link
