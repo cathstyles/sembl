@@ -1,22 +1,54 @@
 .slide-viewer {
-  @include pad(top, smaller);
   background-color: $text-color;
-  box-shadow: 0 0 80px 0 rgba(#000,.4);
+  box-shadow: 0 0 100px 0 rgba(#000,.5);
   width: 100%;
+  position: absolute;
+  z-index: 180;
 }
 
 .slide-viewer__inner {
   background-color: $text-color;
   width: 100%;
-  overflow-x: hidden;
+  & > .games__gallery {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
 }
 
 .slide-viewer--active {
   transition-property: margin-top;
   transition-duration: 250ms;
-  margin-top: 0;
+  margin-top: -200px;
+  height: auto;
 }
 
 .slide-viewer--hidden {
-  margin-top: 1000px;
+  height: 0;
+  overflow: hidden;
+}
+
+.slide-viewer__close-button {
+  @include pad(right, smaller);
+  @extend .small-tracked-out-heading;
+  background-color: $text-color;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  height: 35px;
+  vertical-align: middle;
+  text-align: right;
+  text-shadow: 1px 1px 1px rgba(#000,.3);
+  width: 100%;
+  &:hover {
+    background-color: darken($text-color, 5%);
+    color: $border-color;
+  }
+  i {
+    padding-right: 3px;
+  }
+}
+
+.slide-viewer__close-button__inner {
+  padding-top: 12px;
+  display: inline-block;
 }
