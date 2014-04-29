@@ -295,6 +295,9 @@
 
 .games__setup__selected_thing-set-as-seed-node,
 .games__setup__selected_thing-exclude-from-game {
+  @extend %button;
+  @include inset(top, mid);
+  box-shadow: 0 0 20px 5px rgba(#fff,.3);
   color: #cce165;
   &:hover {
     color: darken(#cce165,10%);
@@ -304,20 +307,20 @@
   }
   em {
     @extend %uppercase-heading;
-    @include font-size(14);
-    border-bottom: 1px solid #cce165;
+    font-size: 14px !important;
+    font-size: 1.4rem !important;
   }
 }
 
-.games__setup__selected_thing-exclude-from-game {
-  color: #f87a7a;
-  &:hover {
-    color: darken(#f87a7a,10%);
-  }
-  em {
-    border-color: #f87a7a;
-  }
-}
+// .games__setup__selected_thing-exclude-from-game {
+//   color: #f87a7a;
+//   &:hover {
+//     color: darken(#f87a7a,10%);
+//   }
+//   em {
+//     border-color: #f87a7a;
+//   }
+// }
 
 .games__setup__selected_thing-or {
   @extend %uppercase-heading;
