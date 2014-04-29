@@ -263,7 +263,10 @@ class Game < ActiveRecord::Base
   end
 
   def filter_query
-    @filter_query ||= Search::ThingQuery.new((filter_content_by || {}).symbolize_keys!)
+    filter_params = (filter_content_by || {}).symbolize_keys!
+    filter_params[:game_id] = id
+
+    @filter_query ||= Search::ThingQuery.new(filter_params)
     @filter_query.random_seed = random_seed
     @filter_query
   end

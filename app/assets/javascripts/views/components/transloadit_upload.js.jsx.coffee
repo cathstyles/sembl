@@ -63,14 +63,16 @@
       url: @assemblyUrl
       success: (data) ->
         if data.ok is 'ASSEMBLY_COMPLETED'
+          console.log 'assembly completed'
           @props.finishedUpload data.results
         else
           @updateProgress(data)
           @uploadPoll()
+      error: (response) ->
+        console.error 'error!', response
 
   render: ->
     hidden = display: 'none'
-    console.log 'rendering upload component', @state
     componentForState = switch @state.state
       when 'initialising'
         `<span>Loading…</span>`

@@ -23,7 +23,6 @@
 
   handleSetThing: (event, data) ->
     if data.node.id == @props.node.id
-      console.log "handle set thing in placement"
       @setState
         thing: data.thing
         userState: 'proposed'

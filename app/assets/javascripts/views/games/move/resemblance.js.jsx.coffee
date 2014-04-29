@@ -22,7 +22,6 @@
 
   handleSetThing: (event, data) -> 
     if data.node.id == @props.link.target().id
-      console.log "handle set thing in resemblance"
       @setState
         nodeState: 'proposed'
 

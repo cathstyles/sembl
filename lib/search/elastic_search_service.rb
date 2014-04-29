@@ -7,7 +7,7 @@ class Search::ElasticSearchService
 
   def index(object)
     type = object.class.name.downcase
-    @client.index  index: 'sembl', type: type, id: object.id, body: object.to_json
+    client.index  index: 'sembl', type: type, id: object.id, body: object.to_json
   end
 
   def search(clazz, search_query)
@@ -18,6 +18,7 @@ class Search::ElasticSearchService
         from: search_query.offset,
         size: search_query.limit
       }
+      puts body
       puts "elasticsearch: #{body.to_json}"
       result = client.search index: 'sembl', type: type, body: body
       result_to_active_record(clazz, result)
@@ -28,6 +29,7 @@ class Search::ElasticSearchService
     rescue Elasticsearch::Transport::Transport::Errors::ServiceUnavailable
       raise Services::ServiceError.new, 'Search service unavailable'
     rescue Elasticsearch::Transport::Transport::Errors::BadRequest => e
+      puts e.inspect
       raise Services::ServiceError.new, 'Invalid search query'
     end
   end

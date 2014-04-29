@@ -11,6 +11,7 @@ class Search::ThingQuery
     @created_to = Date.parse(params[:created_to]) unless not params[:created_to]
     @random_seed = params[:random_seed]
     @suggested_seed = params[:suggested_seed]
+    @game_id = params[:game_id]
 
     @offset = params[:offset] || 0
     @limit = params[:limit] || 10
@@ -22,8 +23,9 @@ class Search::ThingQuery
 
   def build
     query_builder = Search::ElasticsearchQueryBuilder.new
-    query_builder.match(:suggested_seed, suggested_seed) unless !suggested_seed
     query_builder.text(@text_fields, text) unless !text
+    query_builder.match_or_missing(:game_id, @game_id)
+    query_builder.match(:suggested_seed, suggested_seed) unless !suggested_seed
     query_builder.range(@date_field, date_from, date_to) unless !(date_from || date_to)
     query_builder.range(:created_at, nil, created_to) unless !created_to
     query_builder.text([@place_field], place_filter) unless !place_filter

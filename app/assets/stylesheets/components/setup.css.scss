@@ -284,6 +284,21 @@
   @include pad(all, smaller);
 }
 
+.setup__overview__upload {
+  @include pad(all, smaller); 
+  border-bottom: 1px solid $border-color;
+  a {
+    @extend .small-tracked-out-heading;
+    color: $link-color;
+    padding-left: 6px;
+    &:before {
+      content: "\f044";
+      font-family: "FontAwesome";
+      padding-right: 2px;
+    }
+  }
+}
+
 .setup__overview__item-title {
   @extend .small-tracked-out-heading;
   padding-right: 4px;
