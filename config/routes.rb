@@ -20,7 +20,7 @@ Sembl::Application.routes.draw do
 
     # TODO: this probably should be scoped under a game resource
 
-    resources :things, only: [:index, :show] do 
+    resources :things, only: [:index, :show, :create] do 
       collection do 
         get 'random'
       end

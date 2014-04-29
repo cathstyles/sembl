@@ -39,6 +39,30 @@ class Search::ElasticsearchQueryBuilder
       }
     }
   end
+
+  def match_or_missing(field, value)
+    filters = [
+      { 
+        missing: {
+          field: field,
+          existence: true,
+          null_value: true
+        }
+      }
+    ]
+    if !!value
+      filters.push({term: {field => value}})
+    end
+
+    @query = {
+      filtered: {
+        query: @query,
+        filter: {
+          :or => filters
+        }
+      }
+    }
+  end
   
   def query
     @query
@@ -59,3 +83,4 @@ class Search::ElasticsearchQueryBuilder
     end
   end
 end
+

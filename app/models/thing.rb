@@ -28,6 +28,8 @@ class Thing < ActiveRecord::Base
   belongs_to :creator, class_name: 'User', inverse_of: :created_things
   belongs_to :updator, class_name: 'User', inverse_of: :updated_things
 
+  belongs_to :game # only when it's uploaded by a user
+
   after_create :add_to_search_index
   after_update :add_to_search_index
 

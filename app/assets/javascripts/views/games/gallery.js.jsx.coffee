@@ -80,8 +80,6 @@ GalleryImage = React.createClass
     rows: []
 
   componentWillMount: () ->
-    $(window).on("#{@props.searcherPrefix}.updated", @handleSearchUpdated)
-    $(window).on("#{@props.searcherPrefix}.setFilter", @handleSearchSetFilter)
     @tempImages = []
 
   componentWillUnmount: () ->
@@ -89,6 +87,8 @@ GalleryImage = React.createClass
     $(window).off("#{@props.searcherPrefix}.setFilter", @handleSearchSetFilter)
 
   componentDidMount: ->
+    $(window).on("#{@props.searcherPrefix}.updated", @handleSearchUpdated)
+    $(window).on("#{@props.searcherPrefix}.setFilter", @handleSearchSetFilter)
     $(window).trigger("#{@props.searcherPrefix}.notify")
 
   componentDidUpdate: ->
