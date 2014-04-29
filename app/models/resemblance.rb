@@ -44,4 +44,8 @@ class Resemblance < ActiveRecord::Base
     self.score = ratings.average(:rating)
   end
 
+  def self.for_game(game)
+    joins(:link).where("links.game_id = ?", game.id)
+  end
+
 end

@@ -28,4 +28,8 @@ class Rating < ActiveRecord::Base
     resemblance.calculate_score
     resemblance.save! 
   end
+
+  def self.for_game(game)
+    joins(:resemblance => :link).where("links.game_id = ?", game.id)
+  end
 end
