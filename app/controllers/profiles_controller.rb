@@ -16,7 +16,11 @@ class ProfilesController < ApplicationController
 
     @profile.assign_attributes(params_copy)
     
-    flash[:notice] = "Profile updated." if @profile.save
+    if @profile.save
+      flash[:notice] = "Profile updated." if @profile.save
+      # updating a user in device signs them out by default.
+      sign_in(@profile.user, :bypass => true)
+    end
 
     respond_with @profile, location: root_path
   end
