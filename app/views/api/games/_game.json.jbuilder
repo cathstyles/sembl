@@ -1,4 +1,4 @@
-  json.(
+json.(
   @game,
   :id,
   :title,

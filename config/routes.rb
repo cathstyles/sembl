@@ -9,10 +9,13 @@ Sembl::Application.routes.draw do
       # Need a show route for the create route _url method to work when calling respond_with. 
       resources :ratings, only: [:create, :index, :show] 
       resources :moves, only: [:create]
-      resources :results, only: [:create, :index, :show] 
+      resources :results, only: [:show] do 
+        collection { get 'awards' }
+      end
       resources :players, only: [:create, :destroy, :index, :show]
 
       get 'moves/round', to: 'moves#round'
+
     end
 
     # TODO: this probably should be scoped under a game resource

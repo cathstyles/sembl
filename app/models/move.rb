@@ -38,7 +38,7 @@ class Move
   def resemblances
     #One sembl per user per link
     # @resemblances ||= Resemblance.joins(:link).where(links: {target_id: target_node.id}, creator: user)
-    @resemblances ||= links.collect{|l| resemblance_for_link(l) }
+    @resemblances ||= links.collect{|l| resemblance_for_link(l) }.delete_if{|r| r.nil? }
   end
 
   def resemblance_for_link(link)
