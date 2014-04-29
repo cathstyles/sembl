@@ -18,8 +18,6 @@ class Search::ElasticSearchService
         from: search_query.offset,
         size: search_query.limit
       }
-      puts body
-      puts "elasticsearch: #{body.to_json}"
       result = client.search index: 'sembl', type: type, body: body
       result_to_active_record(clazz, result)
     rescue Faraday::ConnectionFailed
