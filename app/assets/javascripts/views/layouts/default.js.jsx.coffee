@@ -1,11 +1,12 @@
 #= require views/masthead/masthead
 #= require views/components/modal
 #= require views/components/flash
+#= require views/components/slide_viewer
 
 ###* @jsx React.DOM ###
 
 {Masthead} = Sembl.Masthead
-{Modal, Flash} = Sembl.Components
+{Modal, Flash, SlideViewer} = Sembl.Components
 
 Sembl.Layouts.Default = React.createClass 
   getInitialState: -> 
@@ -25,6 +26,6 @@ Sembl.Layouts.Default = React.createClass
         <Flash />
         {this.state.body}
       </div>
+      <SlideViewer />
     </div>`
 
-    

@@ -1,30 +1,39 @@
-#= require views/games/setup/steps/step_seed_gallery
+#= require views/games/setup/steps/step_seed_thing_modal
 #= require views/components/searcher
+#= require views/games/gallery
 
 ###* @jsx React.DOM ###
 
-{StepSeedGallery} = Sembl.Games.Setup
+{StepSeedThingModal} = Sembl.Games.Setup
 {Searcher} = Sembl.Components
+{Gallery} = Sembl.Games
 
 @Sembl.Games.Setup.StepSeed = React.createClass
+  galleryPrefix: "setup.steps.seed.gallery"
+
   componentWillMount: ->
     $(window).on('setup.steps.seed.select', @handleSeedSelect)
+    $(window).on("#{@galleryPrefix}.thing.click", @handleGalleryClick)
 
   componentWillUnmount: ->
+    $(window).trigger('slideViewer.hide')
     $(window).off('setup.steps.seed.select', @handleSeedSelect)
+    $(window).off("#{@galleryPrefix}.thing.click", @handleGalleryClick)
 
   componentDidMount: ->
     seed = @props.seed
+    $(window).trigger('slideViewer.setChild', 
+      `<Gallery searcherPrefix={this.props.searcherPrefix} eventPrefix={this.galleryPrefix} />`
+    )
+
+  handleGalleryClick: (event, thing) ->
+    $(window).trigger('modal.open', `<StepSeedThingModal selectEvent='setup.steps.seed.select' thing={thing} />`)
 
   handleSeedSelect: (event, thing) ->
     $(window).trigger('setup.steps.change', {seed: thing})
 
   handleSeedClick: (event) ->
-    $(window).trigger('modal.open', `
-      <StepSeedGallery 
-        prefix="setup.steps.seed" 
-        searcherPrefix={this.props.searcherPrefix}
-      />`)
+    $(window).trigger('slideViewer.show')
 
   handleRandomSeed: (event) ->
     self = this

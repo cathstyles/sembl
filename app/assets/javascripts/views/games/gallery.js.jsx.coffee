@@ -61,7 +61,6 @@ GalleryImage = React.createClass
   handleClick: (event) ->
     image = @props.image
     if image.clickEvent
-      console.log 'click', image.clickEvent
       $(window).trigger(image.clickEvent, image.thing)
 
   render: ->
@@ -90,7 +89,7 @@ GalleryImage = React.createClass
     $(window).off("#{@props.searcherPrefix}.setFilter", @handleSearchSetFilter)
 
   componentDidMount: ->
-    @checkContainerWidth()
+    $(window).trigger("#{@props.searcherPrefix}.notify")
 
   componentDidUpdate: ->
     @checkContainerWidth()
@@ -104,7 +103,6 @@ GalleryImage = React.createClass
     @clearImages = true
 
   handleSearchUpdated: (event, data) ->
-    console.log 'handleSearchUpdated', data
     if @clearImages
       items = []
       @tempImages = []
@@ -136,7 +134,6 @@ GalleryImage = React.createClass
     @handleNextPage()
 
   handleNextPage: (event) ->
-    console.log 'next page'
     $(window).trigger("#{@props.searcherPrefix}.nextPage")
     event?.preventDefault()
 
@@ -148,8 +145,8 @@ GalleryImage = React.createClass
     $.doTimeout('imagesloaded', 200, @triggerRender)
 
   triggerRender: ->
-    @setState {null: null}
     @checkContainerWidth()
+    @setState {null: null}
 
   render: ->
     rowHeight = @props.rowHeight || 200
