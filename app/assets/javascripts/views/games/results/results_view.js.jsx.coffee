@@ -45,7 +45,7 @@
 
     `<div className="results__player-move">
       <h1 className="results__player-move__name">
-        <i className="fa fa-user"></i> {user.name}
+        <em>{user.name} ({user.email})</em>
       </h1>
       <div className="results__player-move__moves">
         {moveResults}
@@ -83,8 +83,8 @@
       name = player.user?.name
       score = Math.floor(player.score * 100)
       `<div className="results__player-score">
-        <h1 className="results__player-score__email">
-          <i className="fa fa-user"></i> {name}
+        <h1 className="results__player-score__name">
+          <em>{name}</em>
         </h1>
         <div className="results__player-score__score">
           <i className="fa fa-star"></i><em>{score}</em>
@@ -93,8 +93,10 @@
 
     `<div className="results__player-scores-wrapper">
       <div className="results__player-scores">
-        <h2 className="results__player-scores-message">Final results</h2>
-        {playerRoundResults}
+        <h2 className="results__player-scores-title"><i className="fa fa-trophy"></i> Final Results!</h2>
+        <div className="results__player-scores__inner">
+          {playerRoundResults}
+        </div>
       </div>
     </div>`
 
@@ -125,7 +127,6 @@
         {playerOverallResults}
       </div>
       <div className="results__player-moves">
-        <p>Moves in here!</p>
         {playerMoveResults}
       </div>
     </div>`

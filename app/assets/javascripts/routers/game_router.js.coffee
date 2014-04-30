@@ -41,7 +41,7 @@ class Sembl.GameRouter extends Backbone.Router
   results: (round) ->
     results = new Sembl.Results([], {game: @game, round: round})
     res = results.fetch()
-    title = if @game.get('state') is 'completed' then "Final results" else "Round #{round} Results"
+    title = if @game.get('state') is 'completed' then "Final Results" else "Round #{round} Results"
 
     res.done =>
       @layout.setState 

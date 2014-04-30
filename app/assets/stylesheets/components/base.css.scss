@@ -2,16 +2,13 @@
 
 * {
   box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 html {
   font-size: 62.5%;
   line-height: 1.3;
-}
-
-@keyframes background-texture {
-  0% { background-position: -100% 0; }
-  100% { background-position: 0; }
 }
 
 body {
@@ -20,10 +17,6 @@ body {
   background-image: image-url('bg-texture.gif');
   color: $text-color;
   font-family: "Archer", "Georgia", "Hoefler Text", serif;
-  // animation-name: background-texture;
-  // animation-duration: 20s;
-  // animation-timing-function: linear;
-  // animation-iteration-count: infinite;
 }
 
 a {

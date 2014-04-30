@@ -27,26 +27,40 @@
 }
 
 .results__player-move {
-  @include pad(bottom, medium);
+  @extend %clearfix-micro;
 }
 
-.results__player-move__email {
+.results__player-move__name {
   @extend .medium-heading;
-  @include pad(bottom, small);
-  border-bottom: 1px solid $border-color;
-  i {
-    color: $highlight-color;
-    padding-right: 5px;
+  @include pad(vert, small);
+  @include inset(bottom, smaller);
+  display: block;
+  text-align: center;
+  position: relative;
+  &:before {
+    background-color: $border-color;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    z-index: -1;
+  }
+  em {
+    @include pad(horz, smaller);
+    background-image: image-url('bg-texture.gif');
+    border-radius: 10px;
   }
 }
 
 .results__player-move__move {
   @extend %clearfix-micro;
   @include pad(vert, small);
-  border-bottom: 1px solid $border-color;
-  &:last-child {
-    border-bottom: none;
-  }
+  @include inset(bottom, smaller);
+  border: 1px solid blue;
+  float: left;
+  width: 50%;
 }
 
 .results__player-move__move__node-wrapper {
