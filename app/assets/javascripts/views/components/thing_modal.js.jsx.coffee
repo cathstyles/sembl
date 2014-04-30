@@ -16,6 +16,10 @@
   render: () ->
     thing = @props.thing
 
+    dates = thing.general_attributes['Date/s']
+    places = thing.general_attributes['Places']?.join(', ')
+    type = thing.general_attributes['Node type']
+
     `<div className="move__thing-modal">
       <div className="move__thing-modal__wrapper">
         <div className="move__thing-modal__body">
@@ -50,19 +54,19 @@
             <div className="move__thing-modal__attribute-row">
               <div className="move__thing-modal__attribute">
                 <h2>Dates:</h2> 
-                <span className="move__thing-modal__attribute-text">{thing.general_attributes['Date/s']}</span>
+                <span className="move__thing-modal__attribute-text">{dates}</span>
               </div>
             </div>
             <div className="move__thing-modal__attribute-row">
               <div className="move__thing-modal__attribute">
                 <h2>Associated places:</h2> 
-                <span className="move__thing-modal__attribute-text">{thing.general_attributes['Places'].join(', ')}</span>
+                <span className="move__thing-modal__attribute-text">{places}</span>
               </div>
             </div>
             <div className="move__thing-modal__attribute-row">
               <div className="move__thing-modal__attribute">
                 <h2>Type:</h2> 
-                <span className="move__thing-modal__attribute-text">{thing.general_attributes['Node type']}</span>
+                <span className="move__thing-modal__attribute-text">{type}</span>
               </div>
             </div>
           </div>

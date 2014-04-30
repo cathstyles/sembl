@@ -8,13 +8,14 @@
 #= require views/games/setup/steps/step_settings
 #= require views/games/setup/steps/step_title
 #= require views/games/setup/steps/step_players
+#= require views/games/setup/steps/step_upload
 #= require views/games/setup/players
 
 ###* @jsx React.DOM ###
 
 {Searcher} = Sembl.Components
 {Overview, Steps, Players} = Sembl.Games.Setup
-{StepBoard, StepDescription, StepFilter, StepSeed, StepSettings, StepTitle, StepPlayers} = Sembl.Games.Setup
+{StepBoard, StepDescription, StepFilter, StepSeed, StepSettings, StepTitle, StepPlayers, StepUpload} = Sembl.Games.Setup
 @Sembl.Games.Setup.Form = React.createClass
   filterSearcherPrefix: "setup.steps.filter.searcher"
   seedSearcherPrefix: "setup.steps.seed.searcher"
@@ -35,6 +36,7 @@
       filter: `<StepFilter searcherPrefix={this.filterSearcherPrefix} />`
       settings: `<StepSettings />`
       players: `<StepPlayers game={this.props.game} />`
+      upload: `<StepUpload game={this.props.game} />`
 
   componentWillUnmount: ->
     $(window).off('setup.steps.done', @handleStepsDone)
@@ -174,8 +176,8 @@
     filter = @props.game.get('filter')
     `<div className="setup">
       {show}
-      <Searcher filter={filter} prefix={this.filterSearcherPrefix} />
-      <Searcher prefix={this.seedSearcherPrefix} />
+      <Searcher filter={filter} prefix={this.filterSearcherPrefix} game={this.props.game} />
+      <Searcher filter={filter} prefix={this.seedSearcherPrefix} game={this.props.game} />
       <Players game={this.props.game} />
     </div>`
 

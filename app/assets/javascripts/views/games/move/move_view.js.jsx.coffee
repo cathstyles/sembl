@@ -37,6 +37,11 @@ Gallery = @Sembl.Games.Gallery
     $(window).off('move.placement.click', @handlePlacementClick)
     $(window).off('resize', @handleResize)
 
+  componentDidMount: ->
+    $(window).trigger('slideViewer.setChild', 
+      `<Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />`
+    )
+
   handleResize: ->
     $(window).trigger('graph.resize')
 
@@ -45,9 +50,11 @@ Gallery = @Sembl.Games.Gallery
     $(window).trigger('modal.open', `<ResemblanceModal description={data.description} link={link} targetThing={this.state.targetThing}/>`)
 
   handleResemblanceChange: (event, resemblance) ->
-    if resemblance.description
-      resemblance.link.set('viewable_resemblance', {description: resemblance.description})
-      @state.move.addResemblance(resemblance.link, resemblance.description)
+    resemblance.description
+    resemblance.link.set('viewable_resemblance', {description: resemblance.description})
+    @state.move.addResemblance(resemblance.link, resemblance.description)
+    self = @
+    $.doTimeout('debounce.move.resemblance.change', 200, -> self.forceUpdate())
   
   handlePlacementClick: (event, data) ->
     if data.userState in ['proposed', 'available']
@@ -67,12 +74,10 @@ Gallery = @Sembl.Games.Gallery
       move: @state.move
 
   handleSubmitMove: (event) ->
-    Sembl.move = @state.move
-    self = this
     @state.move.save({}, {
-      success: -> 
-        self.handleMoveComplete()
-      error: (model, response) -> 
+      success: => 
+        @handleMoveComplete()
+      error: (model, response) => 
         responseObj = JSON.parse response.responseText;
         
         if response.status == 422 
@@ -107,11 +112,8 @@ Gallery = @Sembl.Games.Gallery
     links = @state.links
 
     `<div className="move">
-      <Searcher filter={this.props.game.get('filter')} prefix={this.searcherPrefix} />
+      <Searcher filter={this.props.game.get('filter')} prefix={this.searcherPrefix} game={this.props.game} />
       <MoveGraph target={target} links={links} />
-      <Actions />
-      <SlideViewer>
-        <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
-      </SlideViewer>
+      <Actions move={this.state.move} />
     </div>`
 

@@ -38,6 +38,7 @@
     params =
       offset: offset
       limit: @state.limit
+      game_id: @props.game.id
     _.extend(params, @state.filter)
     console.log 'searching', params
     $.ajax(
@@ -59,13 +60,14 @@
     )
 
   handleSetFilter: (event, filter) ->
-    @setState 
+    @setState
       filter: filter
       offset: 0
 
   handleNotify: ->
+    results = @results || []
     if @props.prefix
-      $(window).trigger("#{@props.prefix}.updated", {results: @results, offset: @state.offset, limit: @state.limit})
+      $(window).trigger("#{@props.prefix}.updated", {results: results, offset: @state.offset, limit: @state.limit})
 
   handleNextPage: (event) ->
     @search

@@ -47,7 +47,8 @@
 
     `<div className="results__player-move">
       <h1 className="results__player-move__name">
-        <em><span className="results__player-move__name-username">{user.name}</span></em>
+        <i className="fa fa-user"></i><em><span className="results__player-move__name-username">{user.name}</span></em>
+         {user.name}
       </h1>
       <div className="results__player-move__moves">
         {moveResults}
@@ -57,18 +58,18 @@
 @Sembl.Games.Results.PlayerRoundResults = React.createClass
   render: ->
     playerRoundResults = @props.players.map (player) ->
-      name = player.user?.name
+      name = player.user?.name || player.user?.email
       score = Math.floor(player.score * 100)
       # TODO: Add a highlight class to "results__player-score" <div> to indicate "you"
       # you = if @Sembl.id is id then " results__player-score--you" else ""
       `<div className="results__player-score">
-          <h1 className="results__player-score__name">
-            <em>{name}</em>
-          </h1>
-          <div className="results__player-score__score">
-            <i className="fa fa-star"></i><em>{score}</em>
-          </div>
-        </div>`
+        <h1 className="results__player-score__name">
+          <i className="fa fa-user"></i> <em>{name}</em>
+        </h1>
+        <div className="results__player-score__score">
+          <i className="fa fa-star"></i><em>{score}</em>
+        </div>
+      </div>`
 
     `<div className="results__player-scores-wrapper">
       <div className="results__player-scores">
@@ -79,7 +80,40 @@
       </div>
     </div>`
 
+@Sembl.Games.Results.PlayerAwards = React.createClass
+  getInitialState: -> 
+    awards: null
+
+  componentDidMount: -> 
+    result = $.get "/api/games/#{@props.game.id}/results/awards.json", (data) =>
+      @state.awards = data
+      @setState @state
+    
+
+  render: -> 
+    awards = if @state.awards
+      @state.awards.map (award) -> 
+        `<div className="results__award">
+          <img src={award.icon} className="results__award__icon"/>
+          <span className="results__award__name">{award.name}</span>
+          <span className="results__award__player">{award.player.user.name}</span>
+          <span className="results_award__result-name">{award.result_name}</span>
+          <span className="results_award__result">{award.result}</span>
+        </div>`
+    else 
+      `<div className="results__awards--fetching">Fetching awards...</div>`
+
+
+    `<div className="results__awards-wrapper">
+      <div className="results__awards">
+        <h2 className="results__awards-message">Awards</h2>
+        {awards}
+      </div>
+    </div>`
+
+
 @Sembl.Games.Results.PlayerFinalResults = React.createClass
+  
   render: ->
     playerRoundResults = @props.players.map (player) ->
       name = player.user?.name
@@ -102,8 +136,10 @@
       </div>
     </div>`
 
-{PlayerMoveResults, PlayerRoundResults, PlayerFinalResults} = @Sembl.Games.Results
+
+{PlayerMoveResults, PlayerRoundResults, PlayerFinalResults, PlayerAwards} = @Sembl.Games.Results
 @Sembl.Games.Results.ResultsView = React.createClass
+
   render: -> 
     userGroupedResults = {}
     for result in @props.results.models
@@ -111,10 +147,11 @@
       userGroupedResults[email] = userGroupedResults[email] || []
       userGroupedResults[email].push(result)
 
-    playerOverallResults = if @props.game.get('state') is 'completed'
-        `<PlayerFinalResults players={this.props.game.get('players')} />`
-      else
-        `<PlayerRoundResults players={this.props.game.get('players')} />`
+    if @props.game.get('state') is 'completed'
+      playerOverallResults = `<PlayerFinalResults players={this.props.game.get('players')} />`
+      playerAwards = `<PlayerAwards game={this.props.game}/>`
+    else
+      playerOverallResults = `<PlayerRoundResults players={this.props.game.get('players')} />`
 
     playerMoveResults = for email, results of userGroupedResults
       key = email
@@ -126,9 +163,13 @@
           <i className="fa fa-chevron-left"></i>&nbsp;
           Back to gameboard
         </a>
+        {playerAwards}
         {playerOverallResults}
       </div>
+
       <div className="results__player-moves">
         {playerMoveResults}
       </div>
     </div>`
+
+

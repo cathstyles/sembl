@@ -61,7 +61,6 @@ GalleryImage = React.createClass
   handleClick: (event) ->
     image = @props.image
     if image.clickEvent
-      console.log 'click', image.clickEvent
       $(window).trigger(image.clickEvent, image.thing)
 
   render: ->
@@ -81,19 +80,28 @@ GalleryImage = React.createClass
     rows: []
 
   componentWillMount: () ->
-    $(window).on("#{@props.searcherPrefix}.updated", @handleSearchUpdated)
-    $(window).on("#{@props.searcherPrefix}.setFilter", @handleSearchSetFilter)
     @tempImages = []
 
   componentWillUnmount: () ->
+    $(window).off "resize", @handleResize
     $(window).off("#{@props.searcherPrefix}.updated", @handleSearchUpdated)
     $(window).off("#{@props.searcherPrefix}.setFilter", @handleSearchSetFilter)
 
   componentDidMount: ->
-    @checkContainerWidth()
+    $(window).on "resize", @handleResize
+
+    # TODO collect these events after willMount, but process them after didMount (bacon.js?)
+    $(window).on("#{@props.searcherPrefix}.updated", @handleSearchUpdated)
+    $(window).on("#{@props.searcherPrefix}.setFilter", @handleSearchSetFilter)
+    $(window).trigger("#{@props.searcherPrefix}.notify")
 
   componentDidUpdate: ->
     @checkContainerWidth()
+
+
+  handleResize: ->
+    @checkContainerWidth()
+    @forceUpdate()
 
   checkContainerWidth: ->
     containerWidth = $(@getDOMNode()).innerWidth()
@@ -104,7 +112,6 @@ GalleryImage = React.createClass
     @clearImages = true
 
   handleSearchUpdated: (event, data) ->
-    console.log 'handleSearchUpdated', data
     if @clearImages
       items = []
       @tempImages = []
@@ -136,7 +143,6 @@ GalleryImage = React.createClass
     @handleNextPage()
 
   handleNextPage: (event) ->
-    console.log 'next page'
     $(window).trigger("#{@props.searcherPrefix}.nextPage")
     event?.preventDefault()
 
@@ -148,8 +154,8 @@ GalleryImage = React.createClass
     $.doTimeout('imagesloaded', 200, @triggerRender)
 
   triggerRender: ->
-    @setState {null: null}
     @checkContainerWidth()
+    @setState {null: null}
 
   render: ->
     rowHeight = @props.rowHeight || 200

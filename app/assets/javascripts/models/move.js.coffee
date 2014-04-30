@@ -8,6 +8,8 @@ class Sembl.Move extends Backbone.Model
     @game = options?.game or @collection?.game
     @targetNode = new Sembl.Node(@get("target_node"), game: @game)
     @links = new Sembl.Links(@get("links"), game: @game)
+
+    @semblLinks = @game.links.where(target_id: @targetNode.id)
     @resemblances = {}
     @placement = {node_id: @targetNode?.id}
 
@@ -21,6 +23,11 @@ class Sembl.Move extends Backbone.Model
     link = @links.at(index)
     link.active = true 
     link
+
+  isValid: ->
+    numLinks = @semblLinks.length
+    numResemblances = (desc for linkId,desc of @resemblances).filter((desc)-> !!desc).length
+    !!@placement.thing_id && numLinks == numResemblances
 
   toJSON: -> 
     move:

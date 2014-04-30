@@ -15,6 +15,7 @@
 #= require viewloader
 #= require views/uploader/contributions_view
 #= require views/uploader/avatar_view
+#= require views/utils/masthead
 #= require views/games/index
 #= require views/games/setup/new_view
 #= require views/games/setup/edit_view

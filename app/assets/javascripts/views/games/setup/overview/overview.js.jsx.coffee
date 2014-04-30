@@ -107,6 +107,9 @@
               </ul>
           </div>
         </div>
+        <div className="setup__overview__upload">
+          <span className="setup__overview__item-title">Custom images:</span> {editLink('upload', 'Upload')}
+        </div>
         <div className="setup__overview__bottom">
           {filterComponent}
         </div>
