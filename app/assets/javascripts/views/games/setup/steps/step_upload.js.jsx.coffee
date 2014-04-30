@@ -96,9 +96,12 @@
     # TODO: add fields for setting source and other metadata?
     hasImage = !!@state.remoteImageUrl
     hasTitle = !!@state.title
+    submitDisabled = hasImage && hasTitle # TODO disable the button
 
     transloadit = `<TransloaditUploadComponent finishedUpload={this.finishedUpload} />`
     image = `<img src={this.state.remoteImageUrl} alt={this.state.title} />`
+
+
 
     `<div className="setup__steps__upload">
       <div className="setup__steps__title">Upload some images for this game</div>
@@ -112,7 +115,7 @@
         <div>
           <label>Description: <input name="description" value={this.state.description} onChange={this.handleChange} /></label>
         </div>
-        <input class="button--disabled" type="submit" onClick={this.handleSubmit} />
+        <input type="submit" onClick={this.handleSubmit} />
 
         <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
       </div>
