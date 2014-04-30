@@ -44,8 +44,8 @@
       `<MoveResult result={result} />`
 
     `<div className="results__player-move">
-      <h1 className="results__player-move__email">
-        <i className="fa fa-user"></i> {user.email}
+      <h1 className="results__player-move__name">
+        <i className="fa fa-user"></i> {user.name}
       </h1>
       <div className="results__player-move__moves">
         {moveResults}
@@ -55,32 +55,36 @@
 @Sembl.Games.Results.PlayerRoundResults = React.createClass
   render: ->
     playerRoundResults = @props.players.map (player) ->
-      email = player.user?.email
+      name = player.user?.name
       score = Math.floor(player.score * 100)
+      # TODO: Add a highlight class to "results__player-score" <div> to indicate "you"
+      # you = if @Sembl.id is id then " results__player-score--you" else ""
       `<div className="results__player-score">
-        <h1 className="results__player-score__email">
-          <i className="fa fa-user"></i> {email}
-        </h1>
-        <div className="results__player-score__score">
-          <i className="fa fa-star"></i><em>{score}</em>
-        </div>
-      </div>`
+          <h1 className="results__player-score__name">
+            <em>{name}</em>
+          </h1>
+          <div className="results__player-score__score">
+            <i className="fa fa-star"></i><em>{score}</em>
+          </div>
+        </div>`
 
     `<div className="results__player-scores-wrapper">
       <div className="results__player-scores">
-        <h2 className="results__player-scores-message">Scores so far:</h2>
-        {playerRoundResults}
+        <h2 className="results__player-scores-title"><i className="fa fa-trophy"></i> The scores so far:</h2>
+        <div className="results__player-scores__inner">
+          {playerRoundResults}
+        </div>
       </div>
     </div>`
 
 @Sembl.Games.Results.PlayerFinalResults = React.createClass
   render: ->
     playerRoundResults = @props.players.map (player) ->
-      email = player.user?.email
+      name = player.user?.name
       score = Math.floor(player.score * 100)
       `<div className="results__player-score">
         <h1 className="results__player-score__email">
-          <i className="fa fa-user"></i> {email}
+          <i className="fa fa-user"></i> {name}
         </h1>
         <div className="results__player-score__score">
           <i className="fa fa-star"></i><em>{score}</em>
@@ -93,7 +97,6 @@
         {playerRoundResults}
       </div>
     </div>`
-
 
 {PlayerMoveResults, PlayerRoundResults, PlayerFinalResults} = @Sembl.Games.Results
 @Sembl.Games.Results.ResultsView = React.createClass
@@ -114,9 +117,15 @@
       `<PlayerMoveResults key={key} results={results} />`
 
     `<div className="results">
-      <a className="results__back-to-game" href="#">Back to game</a>
-      {playerOverallResults}
+      <div className="results__aside">
+        <a className="results__back-to-game" href="#">
+          <i className="fa fa-chevron-left"></i>
+          Back to gameboard
+        </a>
+        {playerOverallResults}
+      </div>
       <div className="results__player-moves">
+        <p>Moves in here!</p>
         {playerMoveResults}
       </div>
     </div>`
