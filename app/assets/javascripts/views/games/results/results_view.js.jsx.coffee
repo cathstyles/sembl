@@ -45,7 +45,7 @@
 
     `<div className="results__player-move">
       <h1 className="results__player-move__name">
-        <em>{user.name} ({user.email})</em>
+        <em><span className="results__player-move__name-username">{user.name}</span> ({user.email})</em>
       </h1>
       <div className="results__player-move__moves">
         {moveResults}

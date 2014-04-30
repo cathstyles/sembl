@@ -3,6 +3,7 @@
 .results {
   @extend %clearfix-micro;
   @include pad(top, large);
+  @include pad(bottom, medium);
 }
 
 .results__aside {
@@ -54,13 +55,27 @@
   }
 }
 
+.results__player-move__name-username {
+  color: $link-color;
+}
+
 .results__player-move__move {
   @extend %clearfix-micro;
   @include pad(vert, small);
   @include inset(bottom, smaller);
-  border: 1px solid blue;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  background-color: $background-color;
   float: left;
-  width: 50%;
+  margin-left: 2%;
+  margin-right: 2%;
+  width: 48%;
+  &:nth-child(odd) { margin-left: 0; }
+  &:nth-child(even) { margin-right: 0; }
+}
+
+.results__player-move__move--won {
+  @extend %highlight-box;
 }
 
 .results__player-move__move__node-wrapper {
@@ -128,6 +143,7 @@
 
 .results__player-move__move__score {
   @include inset(left, large);
+  @include font-size(18);
   @include pad(all, small);
   background-color: #c6cc8a;
   border: 3px solid #bdd73b;
