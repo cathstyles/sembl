@@ -83,16 +83,25 @@ GalleryImage = React.createClass
     @tempImages = []
 
   componentWillUnmount: () ->
+    $(window).off "resize", @handleResize
     $(window).off("#{@props.searcherPrefix}.updated", @handleSearchUpdated)
     $(window).off("#{@props.searcherPrefix}.setFilter", @handleSearchSetFilter)
 
   componentDidMount: ->
+    $(window).on "resize", @handleResize
+
+    # TODO collect these events after willMount, but process them after didMount (bacon.js?)
     $(window).on("#{@props.searcherPrefix}.updated", @handleSearchUpdated)
     $(window).on("#{@props.searcherPrefix}.setFilter", @handleSearchSetFilter)
     $(window).trigger("#{@props.searcherPrefix}.notify")
 
   componentDidUpdate: ->
     @checkContainerWidth()
+
+
+  handleResize: ->
+    @checkContainerWidth()
+    @forceUpdate()
 
   checkContainerWidth: ->
     containerWidth = $(@getDOMNode()).innerWidth()
