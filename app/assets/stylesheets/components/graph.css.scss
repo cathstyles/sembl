@@ -79,12 +79,14 @@
 }
 
 .game__placement-wrapper {
+  backface-visibility: hidden;
   margin-left: -60px;
   margin-top: -60px;
+  position: absolute;
   .body-enter & {
-    opacity: 0;
-    transform: scale(0,0);
-    transform: scale3d(0,0,0);
+    opacity: 0.01;
+    transform: scale(0.5,0.5);
+    transform: scale3d(0.5,0.5,0.5);
   }
   .body-enter.body-enter-active & {
     opacity: 1;
@@ -109,9 +111,9 @@
     // transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
   }
   .body-leave.body-leave-active & {
-    opacity: 0;
-    transform: scale(0,0);
-    transform: scale3d(0,0,0);
+    opacity: 0.01;
+    transform: scale(0.5,0.5);
+    transform: scale3d(0.5,0.5,0.5);
   }
 }
 
@@ -135,7 +137,7 @@
     border: 2px solid #ecdcc6;
     box-shadow: none;
     &:before {
-      @extend %white-drop-shadow;
+      // @extend %white-drop-shadow;
       @include font-size(50);
       font-family: "FontAwesome";
       color: #ecdcc6;
@@ -156,7 +158,7 @@
     cursor: pointer;
     &:before,
     &:after {
-      @extend %white-drop-shadow;
+      // @extend %white-drop-shadow;
       font-family: "FontAwesome";
       color: #b99f7a;
       position: absolute;
@@ -229,7 +231,7 @@
   width: 16px;
   text-indent: -9999em;
   .body-enter & {
-    opacity: 0;
+    opacity: 0.01;
     transform: scale(0,0);
     transform: scale3d(0,0,0);
   }
@@ -250,7 +252,7 @@
     // transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
   }
   .body-leave.body-leave-active & {
-    opacity: 0;
+    opacity: 0.01;
     transform: scale(0,0);
     transform: scale3d(0,0,0);
   }
@@ -328,7 +330,7 @@
 }
 
 @keyframes reveal {
-  0%    { opacity: 0; }
+  0%    { opacity: 0.01; }
   100%   { opacity: 1; }
 }
 
