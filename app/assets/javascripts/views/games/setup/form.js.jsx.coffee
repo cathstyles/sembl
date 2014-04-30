@@ -83,9 +83,10 @@
         mature_allowed:  if @state.collectedFields.settings?.mature_allowed then 1 else 0
         uploads_allowed: if @state.collectedFields.settings?.uploads_allowed then 1 else 0
       authenticity_token: this.props.game.get('auth_token')
-    # TODO add filter for power users
+    
+    # TODO only use filter for power users
     # if @props.user.power
-      # params.filter_content_by = @state.collectedFields.filter
+    params.game.filter_content_by = @state.collectedFields.filter
     params
 
   handleSave: ->
@@ -109,7 +110,9 @@
 
   updateGame: (params) ->
     params._method = "patch"
-    @postGame(params)
+    success = ->
+      $(window).trigger('flash.notice', 'Game saved')
+    @postGame(params, success)
 
   createGame: (params) ->
     success = (data) => 
