@@ -9,7 +9,7 @@
 {Masthead} = Sembl.Masthead
 {Modal, Flash, SlideViewer} = Sembl.Components
 {AnimationItem} = Sembl.Utils
-ReactCSSTransitionGroup = React.addons.TransitionGroup
+ReactTransitionGroup = React.addons.TransitionGroup
 
 Sembl.Layouts.Default = React.createClass
   getInitialState: ->
@@ -34,15 +34,15 @@ Sembl.Layouts.Default = React.createClass
     `<div className={this.state.className}>
       <Modal />
       <Masthead>
-        <ReactCSSTransitionGroup transitionName="header">
+        <ReactTransitionGroup transitionName="header">
           {this.state.header}
-        </ReactCSSTransitionGroup>
+        </ReactTransitionGroup>
       </Masthead>
       <div className="content container">
         <Flash />
-        <ReactCSSTransitionGroup transitionName="body">
+        <ReactTransitionGroup transitionName="body">
           {this.state.body}
-        </ReactCSSTransitionGroup>
+        </ReactTransitionGroup>
       </div>
       <SlideViewer />
     </div>`
