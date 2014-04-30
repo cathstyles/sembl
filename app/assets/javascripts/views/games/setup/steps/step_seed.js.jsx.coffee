@@ -42,7 +42,7 @@
     )
     event?.preventDefault()
 
-  isValid: -> @props.seed?
+  isValid: -> @props.seed? && @props.seed.id?
 
   render: ->
     seed = @props.seed
