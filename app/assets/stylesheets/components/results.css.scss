@@ -2,6 +2,33 @@
 
 .results__player-moves {
   @include pad(top, mid);
+  .body-enter & {
+    opacity: 0;
+    transform:   translate(0,100px,0);
+    transform: translate3d(0,100px,0);
+  }
+  .body-enter.body-enter-active & {
+    opacity: 1;
+    transform:   translate(0,0,0);
+    transform: translate3d(0,0,0);
+    transition-property: tranform, opacity;
+    transition-duration: 150ms;
+    transition-timing-function: ease-in, linear;
+    transition-delay: 250ms;
+  }
+  .body-leave & {
+    opacity: 1;
+    transform:   translate(0,0,0);
+    transform: translate3d(0,0,0);
+    transition-property: tranform, opacity;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out, linear;
+  }
+  .body-leave.body-leave-active & {
+    opacity: 0;
+    transform:   translate(0,100px,0);
+    transform: translate3d(0,100px,0);
+  }
 }
 
 .results__player-move {
@@ -130,6 +157,33 @@
 .results__player-scores-wrapper {
   @include pad(top, large);
   text-align: center;
+  .body-enter & {
+    opacity: 0;
+    transform:   translate(0,-50px,0);
+    transform: translate3d(0,-50px,0);
+  }
+  .body-enter.body-enter-active & {
+    opacity: 1;
+    transform:   translate(0,0,0);
+    transform: translate3d(0,0,0);
+    transition-property: tranform, opacity;
+    transition-duration: 100ms;
+    transition-timing-function: ease-in, linear;
+    transition-delay: 180ms;
+  }
+  .body-leave & {
+    opacity: 1;
+    transform:   translate(0,0,0);
+    transform: translate3d(0,0,0);
+    transition-property: tranform, opacity;
+    transition-duration: 100ms;
+    transition-timing-function: ease-out, linear;
+  }
+  .body-leave.body-leave-active & {
+    opacity: 0;
+    transform:   translate(0,-50px,0);
+    transform: translate3d(0,-50px,0);
+  }
 }
 
 .results__player-scores {

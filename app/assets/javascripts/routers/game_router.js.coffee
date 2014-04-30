@@ -8,7 +8,7 @@
 class Sembl.GameRouter extends Backbone.Router
   routes:
     "": "board"
-    "move/:node_id": "add_move"
+    "move/:node_id": "move"
     "results/:round": "results"
     "rate": "rate"
 
@@ -19,23 +19,23 @@ class Sembl.GameRouter extends Backbone.Router
     )
 
   board: ->
-    @layout.setState 
+    @layout.setProps
       body: Sembl.Games.Gameboard.GameView({model: @game}),
       header: Sembl.Games.Gameboard.GameHeaderView(model: @game)
 
-  add_move: (nodeID) ->
+  move: (nodeID) ->
     node = @game.nodes.get(nodeID)
-    @layout.setState 
+    @layout.setProps
       body: Sembl.Games.Move.MoveView({node: node, game: @game}),
-      header: Sembl.Games.HeaderView(model: @game, title: 'Your Move') 
-      
-  rate: -> 
+      header: Sembl.Games.HeaderView(model: @game, title: 'Your Move')
+
+  rate: ->
     moves = new Sembl.Moves([], {rating: true, game: @game})
     res = moves.fetch()
-    res.done => 
-      @layout.setState 
+    res.done =>
+      @layout.setProps
         body: Sembl.Games.Rate.RatingView({moves: moves, game: @game}),
-        header: Sembl.Games.HeaderView(model: @game, title: 'Rate Sembls') 
+        header: Sembl.Games.HeaderView(model: @game, title: 'Rate Sembls')
 
 
   results: (round) ->
@@ -44,7 +44,7 @@ class Sembl.GameRouter extends Backbone.Router
     title = if @game.get('state') is 'completed' then "Final results" else "Round #{round} Results"
 
     res.done =>
-      @layout.setState 
+      @layout.setProps
         body:  Sembl.Games.Results.ResultsView({results: results, game: @game}),
-        header: Sembl.Games.HeaderView(model: @game, title: title) 
+        header: Sembl.Games.HeaderView(model: @game, title: title)
 
