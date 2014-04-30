@@ -1,6 +1,7 @@
 #= require react
 #= require jquery
 #= require views/utils/transition_ender
+#= require request_animation_frame
 
 ###* @jsx React.DOM ###
 
@@ -9,10 +10,9 @@
     @$el = $(@getDOMNode())
     @$el.addClass("#{@props.prefix}-enter")
 
-    setTimeout =>
+    requestAnimationFrame =>
       @$el.addClass("#{@props.prefix}-enter-active")
       new Sembl.Utils.TransitionEnder(@$el, done)
-    , 0
   componentDidEnter: ->
     @$el
       .removeClass("#{@props.prefix}-enter")
@@ -21,10 +21,9 @@
   componentWillLeave: (done) ->
     @$el = $(@getDOMNode())
     @$el.addClass("#{@props.prefix}-leave")
-    setTimeout =>
+    requestAnimationFrame =>
       @$el.addClass("#{@props.prefix}-leave-active")
       new Sembl.Utils.TransitionEnder(@$el, done)
-    , 0
   componentDidLeave: ->
     @$el
       .removeClass("#{@props.prefix}-leave")
