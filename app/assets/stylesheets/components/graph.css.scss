@@ -5,29 +5,12 @@
 
 .animation-wrapper {}
 
-.body-enter {
-  // opacity: 0.01;
-}
-
-.body-enter.body-enter-active {
-  // opacity: 1;
-  // transition: all 500ms ease-in;
-  // transition-delay: 1000ms;
-}
-
-.body-leave {
-  // opacity: 1;
-  // transition: all 500ms ease-in;
-  // transition-delay: 1000ms;
+.body-leave,
+.header-leave {
   position: absolute;
   top: 0;
   left:  2rem;
   right: 2rem;
-}
-
-.body-leave.body-leave-active {
-  // opacity: 0.01;
-  // outline: 10px #0c0 solid;
 }
 
 

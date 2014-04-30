@@ -35,9 +35,10 @@
     round = node.game.get('current_round')
     alertedClass = ""
     alertedClass = " alerted" if round == 1 and userState == 'available'
-
+    styleBlock =
+      backgroundImage: "url(#{image_url})"
     `<div className={className + alertedClass} onClick={this.handleClick}>
-      <img className="game__placement__image" src={image_url} />
+      <div className="game__placement__image" style={styleBlock} />
     </div>`
 
 

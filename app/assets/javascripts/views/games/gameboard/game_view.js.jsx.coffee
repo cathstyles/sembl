@@ -8,43 +8,43 @@
 
 {GameGraph, PlayersView, StatusView} = Sembl.Games.Gameboard
 
-Sembl.Games.Gameboard.GameView = React.createBackboneClass 
-  handleJoin: ->  
+Sembl.Games.Gameboard.GameView = React.createBackboneClass
+  handleJoin: ->
     postData = authenticity_token: @model().get('auth_token')
     result = $.post "#{@model().url()}/join.json", postData, (data) =>
       @model().set(data)
       console.log 'trigger add first image'
-      $(window).trigger('flash.notice', "Let's go! Add your first image to begin the game..") 
+      $(window).trigger('flash.notice', "Let's go! Add your first image to begin the game..")
 
-    result.fail (response) -> 
+    result.fail (response) ->
       responseObj = JSON.parse response.responseText;
-      if response.status == 422 
+      if response.status == 422
         msgs = (value for key, value of responseObj.errors)
-        $(window).trigger('flash.error', msgs.join(", "))   
+        $(window).trigger('flash.error', msgs.join(", "))
       else
         $(window).trigger('flash.error', "Error joining game: #{responseObj.errors}")
 
-  handleEndTurn: -> 
+  handleEndTurn: ->
     postData = authenticity_token: @model().get('auth_token')
     result = $.post "#{@model().url()}/end_turn.json", postData, (data) =>
       @model().set(data)
       if @model().get('player')?.state == 'rating'
         $(window).trigger('flash.notice', "Round complete! Beginning rating...")
-        setTimeout => 
+        setTimeout =>
           @redirectOnStateChange('playing_turn')
         , 1000
       else
-        $(window).trigger('flash.notice', "Turn ended. You will be redirected to rating when your opponents have added their moves.") 
+        $(window).trigger('flash.notice', "Turn ended. You will be redirected to rating when your opponents have added their moves.")
 
-    result.fail (response) -> 
+    result.fail (response) ->
       responseObj = JSON.parse response.responseText;
-      if response.status == 422 
+      if response.status == 422
         msgs = (value for key, value of responseObj.errors)
-        $(window).trigger('flash.error', msgs.join(", "))   
+        $(window).trigger('flash.error', msgs.join(", "))
       else
         $(window).trigger('flash.error', "Error ending turn: #{responseObj.errors}")
 
-      
+
   componentWillMount: ->
     $(window).on('resize', @handleResize)
     $(window).on('header.joinGame', @handleJoin)
@@ -55,7 +55,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     @timer = $.timer =>
       previousState = @model().get('player')?.state
       res = @model().fetch()
-      res.done => 
+      res.done =>
         @redirectOnStateChange(previousState)
 
     @timer.set
@@ -64,7 +64,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
 
   componentDidUpdate: ->
     @handleResize()
-    
+
   componentWillUnmount: ->
     $(window).off('resize', @handleResize)
     $(window).off('header.joinGame', @handleJoin)
@@ -76,7 +76,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     $(@refs.graph.getDOMNode()).css('height', (windowHeight - mastheadHeight) + 'px')
     $(window).trigger('graph.resize')
 
-  redirectOnStateChange: (previousState) -> 
+  redirectOnStateChange: (previousState) ->
     currentState = @model().get('player')?.state
     if currentState == "rating" and currentState != previousState
       Sembl.router.navigate("rate", trigger: true)
@@ -94,5 +94,5 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
       <PlayersView players={this.model().players} />
       <StatusView game={this.model()} handleEndTurn={this.handleEndTurn} />
     </div>`
-  
+
 

@@ -2,18 +2,20 @@
 #= require views/components/modal
 #= require views/components/flash
 #= require views/components/slide_viewer
+#= require views/utils/animation_item
 
 ###* @jsx React.DOM ###
 
 {Masthead} = Sembl.Masthead
 {Modal, Flash, SlideViewer} = Sembl.Components
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
+{AnimationItem} = Sembl.Utils
+ReactCSSTransitionGroup = React.addons.TransitionGroup
 
 Sembl.Layouts.Default = React.createClass
   getInitialState: ->
     key = Date.now()
-    body: [@wrapWithDiv(@props.body, "body", key)],
-    header: [@wrapWithDiv(@props.header, "header", key)],
+    body: [AnimationItem(key: "body-#{key}", prefix: "body", component: @props.body)]
+    header: [AnimationItem(key: "header-#{key}", prefix: "header", component: @props.header)]
     className: null,
     key: key
 
@@ -21,15 +23,10 @@ Sembl.Layouts.Default = React.createClass
     # Push into a new array
     key = Date.now()
     @setState
-      body: [@wrapWithDiv(nextProps.body, "body", key)]
-      header: [@wrapWithDiv(nextProps.header, "header", key)]
+      body: [AnimationItem(key: "body-#{key}", prefix: "body", component: nextProps.body)]
+      header: [AnimationItem(key: "header-#{key}", prefix: "header", component: nextProps.header)]
       className: nextProps.className
       key: key
-
-  wrapWithDiv: (component, prefix, key) ->
-    key = key || this.state.key
-    `<div className="animation-wrapper" key={prefix + '-' + key}>{component}</div>`
-
   render: ->
     console.log 'clear flash message on layout render'
     $(window).trigger('flash.hide')
