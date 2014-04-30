@@ -6,16 +6,18 @@
     score = Math.floor(score * 100)
     key = "#{source.node.id}.#{target.node.id}"
     `<div className="results__player-move__move" key={key}>
+      <div className="results__player-move__move__sembl">{description}</div>
       <div className="results__player-move__move__node-wrapper">
-        <div className="results__player-move__move__source">
-          <img className="results__player-move__move__thing" src={source.thing.image_admin_url} />
-        </div>
-        <div className="results__player-move__move__target">
-          <img className="results__player-move__move__thing" src={target.thing.image_admin_url} />
+        <div className="results__player-move__move__node-wrapper__inner">
+          <div className="results__player-move__move__score"><i className="fa fa-star"></i><em>{score}</em></div>
+          <div className="results__player-move__move__source">
+            <img className="results__player-move__move__thing" src={source.thing.image_admin_url} />
+          </div>
+          <div className="results__player-move__move__target">
+            <img className="results__player-move__move__thing" src={target.thing.image_admin_url} />
+          </div>
         </div>
       </div>
-      <div className="results__player-move__move__sembl">{description}</div>
-      <div className="results__player-move__move__score"><i className="fa fa-star"></i><em>{score}</em></div>
     </div>`
 
 {SemblResult} = @Sembl.Games.Results
@@ -45,7 +47,7 @@
 
     `<div className="results__player-move">
       <h1 className="results__player-move__name">
-        <em><span className="results__player-move__name-username">{user.name}</span> ({user.email})</em>
+        <em><span className="results__player-move__name-username">{user.name}</span></em>
       </h1>
       <div className="results__player-move__moves">
         {moveResults}
@@ -121,7 +123,7 @@
     `<div className="results">
       <div className="results__aside">
         <a className="results__back-to-game" href="#">
-          <i className="fa fa-chevron-left"></i>
+          <i className="fa fa-chevron-left"></i>&nbsp;
           Back to gameboard
         </a>
         {playerOverallResults}
