@@ -9,7 +9,7 @@
 
 @Sembl.Games.Setup.StepUpload = React.createClass
   galleryPrefix: "setup.steps.upload.gallery"
-  searcherPrefix: "setup.steps.upload.searcher" # we don't really do any searching
+  searcherPrefix: "setup.steps.upload.searcher" # we don't actually search
 
   getInitialState: ->
     title: null
@@ -54,6 +54,8 @@
     url = '/api/things.json'
     success = (data) =>
       console.log 'success!', data
+      @getThings()
+      @setState title: "", description: "", remoteImageUrl: null
     error = (response) =>
       console.error 'error!', response
       try 
@@ -90,16 +92,28 @@
 
   render: ->
     game = @props.game
+
+    # TODO: add fields for setting source and other metadata?
+    hasImage = !!@state.remoteImageUrl
+    hasTitle = !!@state.title
+
+    transloadit = `<TransloaditUploadComponent finishedUpload={this.finishedUpload} />`
+    image = `<img src={this.state.remoteImageUrl} alt={this.state.title} />`
+
     `<div className="setup__steps__upload">
       <div className="setup__steps__title">Upload some images for this game</div>
       <div className="setup__steps__inner">
-        <TransloaditUploadComponent finishedUpload={this.finishedUpload} />
-        <img src={this.state.remoteImageUrl} />
-        <form onSubmit={this.handleSubmit}>
-          <input name="title" value={this.state.title} onChange={this.handleChange} />
-          <input name="description" value={this.state.description} onChange={this.handleChange} />
-          <input type="submit" />
-        </form>
+        <div class="setup__steps__upload__uploader">
+          {hasImage ? image : transloadit}
+        </div>
+        <div>
+          <label>Title: <input name="title" value={this.state.title} onChange={this.handleChange} /></label>
+        </div>
+        <div>
+          <label>Description: <input name="description" value={this.state.description} onChange={this.handleChange} /></label>
+        </div>
+        <input class="button--disabled" type="submit" onClick={this.handleSubmit} />
+
         <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
       </div>
     </div>`
