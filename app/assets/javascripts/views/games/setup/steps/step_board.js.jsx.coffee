@@ -11,7 +11,7 @@
     selectedBoardId: null
 
   isValid: ->
-    !!@props.board?
+    @props.board? && @props.board.id?
 
   render: ->
     boards = $.map(@props.boards, (board) =>

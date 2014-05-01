@@ -225,6 +225,7 @@
     transition-property: transform, opacity;
     transition-duration: 250ms;
     transition-delay: 200ms;
+    transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
   }
   .body-leave & {
     opacity: 1;
@@ -232,7 +233,7 @@
     transform: scale3d(1,1,1);
     transition-property: transform, opacity;
     transition-duration: 200ms;
-    // transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
+    transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
   }
   .body-leave.body-leave-active & {
     opacity: 0.01;

@@ -12,7 +12,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
   handleJoin: ->
     postData = authenticity_token: @model().get('auth_token')
     result = $.post "#{@model().url()}/join.json", postData, (data) =>
-      @model().set(data)
+      @model().fetch()
       console.log 'trigger add first image'
       $(window).trigger('flash.notice', "Let's go! Add your first image to begin the game..")
 

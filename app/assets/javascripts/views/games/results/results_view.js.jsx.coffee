@@ -6,16 +6,18 @@
     score = Math.floor(score * 100)
     key = "#{source.node.id}.#{target.node.id}"
     `<div className="results__player-move__move" key={key}>
+      <div className="results__player-move__move__sembl">{description}</div>
       <div className="results__player-move__move__node-wrapper">
-        <div className="results__player-move__move__source">
-          <img className="results__player-move__move__thing" src={source.thing.image_admin_url} />
-        </div>
-        <div className="results__player-move__move__target">
-          <img className="results__player-move__move__thing" src={target.thing.image_admin_url} />
+        <div className="results__player-move__move__node-wrapper__inner">
+          <div className="results__player-move__move__score"><i className="fa fa-star"></i><em>{score}</em></div>
+          <div className="results__player-move__move__source">
+            <img className="results__player-move__move__thing" src={source.thing.image_admin_url} />
+          </div>
+          <div className="results__player-move__move__target">
+            <img className="results__player-move__move__thing" src={target.thing.image_admin_url} />
+          </div>
         </div>
       </div>
-      <div className="results__player-move__move__sembl">{description}</div>
-      <div className="results__player-move__move__score"><i className="fa fa-star"></i><em>{score}</em></div>
     </div>`
 
 {SemblResult} = @Sembl.Games.Results
@@ -44,8 +46,9 @@
       `<MoveResult result={result} />`
 
     `<div className="results__player-move">
-      <h1 className="results__player-move__email">
-        <i className="fa fa-user"></i> {user.name}
+      <h1 className="results__player-move__name">
+        <i className="fa fa-user"></i><em><span className="results__player-move__name-username">{user.name}</span></em>
+         {user.name}
       </h1>
       <div className="results__player-move__moves">
         {moveResults}
@@ -57,9 +60,11 @@
     playerRoundResults = @props.players.map (player) ->
       name = player.user?.name || player.user?.email
       score = Math.floor(player.score * 100)
+      # TODO: Add a highlight class to "results__player-score" <div> to indicate "you"
+      # you = if @Sembl.id is id then " results__player-score--you" else ""
       `<div className="results__player-score">
-        <h1 className="results__player-score__email">
-          <i className="fa fa-user"></i> {name}
+        <h1 className="results__player-score__name">
+          <i className="fa fa-user"></i> <em>{name}</em>
         </h1>
         <div className="results__player-score__score">
           <i className="fa fa-star"></i><em>{score}</em>
@@ -68,8 +73,10 @@
 
     `<div className="results__player-scores-wrapper">
       <div className="results__player-scores">
-        <h2 className="results__player-scores-message">Scores so far:</h2>
-        {playerRoundResults}
+        <h2 className="results__player-scores-title"><i className="fa fa-trophy"></i> The scores so far:</h2>
+        <div className="results__player-scores__inner">
+          {playerRoundResults}
+        </div>
       </div>
     </div>`
 
@@ -109,11 +116,11 @@
   
   render: ->
     playerRoundResults = @props.players.map (player) ->
-      email = player.user?.email
+      name = player.user?.name
       score = Math.floor(player.score * 100)
       `<div className="results__player-score">
-        <h1 className="results__player-score__email">
-          <i className="fa fa-user"></i> {email}
+        <h1 className="results__player-score__name">
+          <em>{name}</em>
         </h1>
         <div className="results__player-score__score">
           <i className="fa fa-star"></i><em>{score}</em>
@@ -122,8 +129,10 @@
 
     `<div className="results__player-scores-wrapper">
       <div className="results__player-scores">
-        <h2 className="results__player-scores-message">Final scores</h2>
-        {playerRoundResults}
+        <h2 className="results__player-scores-title"><i className="fa fa-trophy"></i> Final Results!</h2>
+        <div className="results__player-scores__inner">
+          {playerRoundResults}
+        </div>
       </div>
     </div>`
 
@@ -149,10 +158,18 @@
       `<PlayerMoveResults key={key} results={results} />`
 
     `<div className="results">
-      <a className="results__back-to-game" href="#">Back to game</a>
-      {playerAwards}
-      {playerOverallResults}
+      <div className="results__aside">
+        <a className="results__back-to-game" href="#">
+          <i className="fa fa-chevron-left"></i>&nbsp;
+          Back to gameboard
+        </a>
+        {playerAwards}
+        {playerOverallResults}
+      </div>
+
       <div className="results__player-moves">
         {playerMoveResults}
       </div>
     </div>`
+
+
