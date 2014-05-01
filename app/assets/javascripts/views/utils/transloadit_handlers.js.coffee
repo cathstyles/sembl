@@ -38,4 +38,10 @@ class @Sembl.Handlers.TransloaditSignature
         xhr.setRequestHeader 'X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')
       success: (data) ->
         @successCallback data
+      error: (response) ->
+        @getTransloaditSignatureAgain
+
+    getTransloaditSignatureAgain: ->
+      setTimeout @getTransloaditSignature, 1000 # TODO debounce
+
 

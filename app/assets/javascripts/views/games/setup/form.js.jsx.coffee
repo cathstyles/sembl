@@ -84,9 +84,6 @@
         uploads_allowed: if @state.collectedFields.settings?.uploads_allowed then 1 else 0
         filter_content_by: @state.collectedFields.filter
       authenticity_token: this.props.game.get('auth_token')
-    
-    # TODO only use filter for power users
-    # if @props.user.power
     params
 
   handleSave: ->
