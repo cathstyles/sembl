@@ -21,7 +21,10 @@ class Services
     end
 
     def search(clazz, search_query)
-      return clazz.all.offset(search_query.offset).limit(search_query.limit)
+      {
+        total: clazz.all.length,
+        hits: clazz.all.offset(search_query.offset).limit(search_query.limit)
+      }
     end
   end
 end
