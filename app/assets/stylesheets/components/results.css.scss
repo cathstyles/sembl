@@ -95,6 +95,21 @@
   }
 }
 
+.results__player-move__moves {
+  @extend %clearfix-micro;
+}
+
+.results__move-result {
+  @extend %clearfix-micro;
+  .results__player-move__move {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 48%;
+    &:nth-child(odd) { margin-left: 0; }
+    &:nth-child(even) { margin-right: 0; }
+  }
+}
+
 .results__player-move__name-username {
   color: $link-color;
 }
@@ -108,11 +123,6 @@
   border-top-right-radius: $border-radius-inner;
   background-color: #f8eac8;
   float: left;
-  margin-left: 2%;
-  margin-right: 2%;
-  width: 48%;
-  &:nth-child(odd) { margin-left: 0; }
-  &:nth-child(even) { margin-right: 0; }
 }
 
 .results__player-move__move--won {
