@@ -87,7 +87,11 @@
         results = for i,thing of things
           index: Number.parseInt(i)
           thing: thing
-        $(window).trigger("#{this.searcherPrefix}.updated", {results: results})
+        $(window).trigger("#{this.searcherPrefix}.updated", {
+          results: 
+            hits: results
+            total: results.length
+        })
     )
 
   render: ->
