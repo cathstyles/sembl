@@ -114,6 +114,6 @@ Gallery = @Sembl.Games.Gallery
     `<div className="move">
       <Searcher filter={this.props.game.get('filter')} prefix={this.searcherPrefix} game={this.props.game} />
       <MoveGraph target={target} links={links} />
-      <Actions move={this.state.move} />
+      <Actions move={this.state.move} game={this.props.game} />
     </div>`
 

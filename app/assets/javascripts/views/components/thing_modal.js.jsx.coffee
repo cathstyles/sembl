@@ -16,9 +16,9 @@
   render: () ->
     thing = @props.thing
 
-    dates = thing.general_attributes['Date/s']
-    places = thing.general_attributes['Places']?.join(', ')
-    type = thing.general_attributes['Node type']
+    dates = thing.general_attributes?['Date/s']
+    places = thing.general_attributes?['Places']?.join(', ')
+    type = thing.general_attributes?['Node type']
 
     `<div className="move__thing-modal">
       <div className="move__thing-modal__wrapper">

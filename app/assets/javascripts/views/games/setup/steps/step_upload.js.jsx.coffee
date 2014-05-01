@@ -32,7 +32,10 @@
     $(window).trigger('setup.steps.change', {description: state.description})
 
   handleGalleryThingClick: (event, thing) ->
-    $(window).trigger('modal.open', `<ThingModal thing={thing} />`)
+    if @props.galleryClickEvent?
+      $(window).trigger(@props.galleryClickEvent, thing)
+    else
+      $(window).trigger('modal.open', `<ThingModal thing={thing} />`)
 
   handleSubmit: (event) ->
     event.preventDefault()
