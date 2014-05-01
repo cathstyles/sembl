@@ -10,12 +10,12 @@
       $(window).off("slideViewer.#{name}", @handleEvent)
 
   componentDidMount: ->
-    windowHeight = $(window).height()
-    # Margin offset + height of the "Close gallery" row
-    extraOffset = 130 + 35
-    sliderOffset = $(".slide-viewer").offset().top
-    sliderCalculation = (windowHeight - sliderOffset) + extraOffset
-    $(".slide-viewer .games__gallery").css('height', sliderCalculation)
+    # windowHeight = $(window).height()
+    ## Margin offset + height of the "Close gallery" row
+    # extraOffset = 130 + 35
+    # sliderOffset = $(".slide-viewer").offset().top
+    # sliderCalculation = (windowHeight - sliderOffset) + extraOffset
+    # $(".slide-viewer .games__gallery").css('height', sliderCalculation)
 
   handleEvent: (event, data) ->
     name = event.namespace
