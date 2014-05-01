@@ -38,9 +38,7 @@
   float: right;
   width: 30%;
   @media screen and (max-width: 1100px) {
-    float: none;
-    width: 100%;
-    text-align: center;
+    width: 40%;
   }
 }
 
@@ -51,9 +49,6 @@
     @include font-size(12);
     padding-right: 4px;
   }
-  @media screen and (max-width: 1100px) {
-    float: none;
-  }
 }
 
 .results__player-moves {
@@ -61,8 +56,7 @@
   float: left;
   width: 70%;
   @media screen and (max-width: 1100px) {
-    float: none;
-    width: 100%;
+    width: 60%;
   }
 }
 
@@ -107,6 +101,11 @@
     width: 48%;
     &:nth-child(odd) { margin-left: 0; }
     &:nth-child(even) { margin-right: 0; }
+    @media screen and (max-width: 1100px) {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 }
 
@@ -240,15 +239,6 @@
   @include pad(top, medium);
   float: right;
   clear: both;
-  @media screen and (max-width: 1100px) {
-    float: none;
-    margin-left: auto;
-    margin-right: auto;
-    width: 300px;
-    .results__player-scores {
-      width: 300px;
-    }
-  }
 }
 
 .results__player-scores,
@@ -258,7 +248,7 @@
   border: 1px solid $border-color;
   border-radius: $border-radius;
   box-shadow: 0 0 10px 5px rgba(#888,.1);
-  width: 300px; // Fix border alignment
+  width: 300px;
 }
 
 .results__player-scores-title,
@@ -326,7 +316,6 @@
 .results__awards-wrapper {
   @include pad(top, medium);
   float: right;
-  overflow: hidden; // TEMPORARY
 }
 
 .results__awards {
@@ -373,7 +362,7 @@
   color: $link-color;
   display: block;
   font-weight: 600;
-  padding-top: 8px;
+  padding-top: 6px;
   padding-bottom: 5px;
 }
 
