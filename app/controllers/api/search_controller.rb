@@ -6,7 +6,10 @@ class Api::SearchController < ApiController
       user = User.find_by_email(search_params[:email])
       render partial: "user", locals: {users: user ? [user] : []}
     else
-      @things = Services.search_service.search(Thing, Search::ThingQuery.new(search_params))
+      
+      result = Services.search_service.search(Thing, Search::ThingQuery.new(search_params))
+      @things = result[:hits]
+      @total = result[:total]
       respond_with @things
     end
   end
@@ -20,7 +23,8 @@ class Api::SearchController < ApiController
       :text, :place_filter, :access_filter, :date_from, :date_to, :created_to, :random_seed,
       :offset, 
       :limit,
-      :suggested_seed
+      :suggested_seed,
+      :exclude_sensitive, :exclude_mature
     ).delete_if do |k,v|
       v.strip.empty?
     end

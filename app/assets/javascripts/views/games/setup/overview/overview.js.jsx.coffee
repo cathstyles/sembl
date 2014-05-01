@@ -43,24 +43,39 @@
       `<a href="#" onClick={handleClick}>{text ? text : "Edit"}</a>`
 
     # TODO add invitation step, but only once the user has saved the game
-    filterComponent = if filter 
+    queryFilterParts = []
+    checkboxFilterParts = []
+    if filter 
+      console.log 'filter!', filter
       showQuery = (query) -> `<span className="setup__overview__filter__query">{query}</span>`
-      textFilter = if filter.text && filter.text != "*"
-        `<span>that match {showQuery(filter.text)}</span>`
-      placeFilter = if filter.place_filter
-        `<span>from place {showQuery(filter.place_filter)}</span>`
-      sourceFilter = if filter.access_filter
-        `<span>sourced from {showQuery(filter.access_filter)}</span>`
+      if filter.text && filter.text != "*"
+        queryFilterParts.push `<span>that match {showQuery(filter.text)} </span>`
+      if filter.place_filter
+        queryFilterParts.push `<span>from place {showQuery(filter.place_filter)} </span>`
+      if filter.access_filter
+        queryFilterParts.push  `<span>sourced from {showQuery(filter.access_filter)} </span>`
 
-      if textFilter || placeFilter || sourceFilter
-        `<div className="setup__overview__filter">
-          <span className="setup__overview__item-title">Filters:</span> Images {textFilter} {placeFilter} {sourceFilter} {isDraft ? editLink('filter') : null}
-        </div>`
-    if !filterComponent
-      filterComponent = 
-        `<div className="setup__overview__item setup__overview__filter">
-          <span className="setup__overview__item-title">Filters:</span> All images are available {isDraft ? editLink('filter') : null}
-        </div>`
+      if filter.exclude_mature
+        checkboxFilterParts.push `<div>Mature content is excluded. </div>`
+      if filter.exclude_sensitive 
+        checkboxFilterParts.push `<div>Sensitive content is excluded. </div>`
+
+    console.log 'checkboxFilterParts', checkboxFilterParts
+        
+    filterComponent = if queryFilterParts.length > 0 || checkboxFilterParts.length > 0
+      queryFilter = if queryFilterParts.length > 0
+        `<div>Images {queryFilterParts}.</div>`
+
+      `<div className="setup__overview__filter">
+        <span className="setup__overview__item-title">Filters:</span>
+        {queryFilter}
+        {checkboxFilterParts}
+        {isDraft ? editLink('filter') : null}
+      </div>`
+    else
+      `<div className="setup__overview__item setup__overview__filter">
+        <span className="setup__overview__item-title">Filters:</span> All images are available {isDraft ? editLink('filter') : null}
+      </div>`
 
     {invite_only, uploads_allowed} = @props.settings
     settingsComponent = 
@@ -69,7 +84,7 @@
           {invite_only ? 'Game is invite only' : 'Anyone may join game'}
         </li>
         <li className="setup__overview__settings-list-item">
-        {uploads_allowed ? 'Users can upload images' : 'Users cannot upload images' }
+          {uploads_allowed ? 'Users can upload images' : 'Users cannot upload images' }
         </li>
       </ul>`
 

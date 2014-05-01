@@ -50,12 +50,19 @@
         console.error 'error when searching', response.responseText
         @results = []
         @handleNotify()
-      success: (things) =>
+      success: (data) =>
+        total = data.total
+        things = data.hits
         if things.length == 0
           @maxOffset = offset
-        @results = for i,thing of things
+        hits = for i,thing of things
           index: offset + Number.parseInt(i)
           thing: thing
+
+        @results = 
+          total: total
+          hits: hits
+
         @handleNotify()
     )
 

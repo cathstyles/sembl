@@ -119,8 +119,9 @@ GalleryImage = React.createClass
     else 
       items = @state.images || []
 
-    for result in data.results
-      {index, thing} = result
+    @total = data.results?.total || 0
+    for hit in data.results?.hits || []
+      {index, thing} = hit
       item = {
         index: index
         id: thing.id

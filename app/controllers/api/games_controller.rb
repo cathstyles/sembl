@@ -48,7 +48,7 @@ class Api::GamesController < ApiController
     @game.creator = current_user
     @game.updator = current_user
     @game.state_event = 'publish' if params[:publish]
-    @game.filter_content_by = clean_search_query_json(game_params[:filter_content_by])
+    @game.filter_content_by = clean_search_query_json(params[:filter_content_by])
     
     copy_board_to_game
     update_seed_thing if game_params[:seed_thing_id].present? 
@@ -61,10 +61,12 @@ class Api::GamesController < ApiController
   end
 
   def update
+    puts 'updating with', params.inspect
+    puts 'updating with', game_params.inspect
     @game.assign_attributes(game_params)
     @game.updator = current_user
     @game.state_event = 'publish' if params[:publish]
-    @game.filter_content_by = clean_search_query_json(game_params[:filter_content_by])
+    @game.filter_content_by = clean_search_query_json(params[:filter_content_by])
 
     copy_board_to_game
     update_seed_thing if game_params[:seed_thing_id].present? 
@@ -139,7 +141,6 @@ private
       :description, 
       :invite_only, 
       :uploads_allowed,
-      :filter_content_by, 
       :theme, 
       :allow_keyword_search,
       :seed_thing_id,

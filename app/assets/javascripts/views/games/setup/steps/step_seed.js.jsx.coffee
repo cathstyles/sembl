@@ -30,6 +30,7 @@
     $(window).trigger('modal.open', `<StepSeedThingModal selectEvent='setup.steps.seed.select' thing={thing} />`)
 
   handleSeedSelect: (event, thing) ->
+    $(window).trigger('slideViewer.hide')
     $(window).trigger('setup.steps.change', {seed: thing})
 
   handleSeedClick: (event) ->

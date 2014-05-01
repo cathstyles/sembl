@@ -19,7 +19,10 @@ class Search::ElasticSearchService
         size: search_query.limit
       }
       result = client.search index: 'sembl', type: type, body: body
-      result_to_active_record(clazz, result)
+      return {
+        total: result['hits']['total'],
+        hits: to_active_record(clazz, result['hits']['hits'])
+      }
     rescue Faraday::ConnectionFailed
       puts 'elasticsearch connection failed'
       @client = nil # reset client
@@ -38,11 +41,10 @@ class Search::ElasticSearchService
     @client ||= Elasticsearch::Client.new @client_config
   end
 
-  def result_to_active_record(clazz, result)
-    thing_ids = result['hits']['hits'].map do |hit|
+  def to_active_record(clazz, hits)
+    thing_ids = hits.map do |hit|
       hit['_source']['id']
     end
-    # preserve order
     clazz.find(thing_ids).index_by(&:id).slice(*thing_ids).values
   end
 end
