@@ -230,6 +230,8 @@
   float: right;
 }
 
+// Scores
+
 .results__player-scores-wrapper {
   @include pad(top, medium);
   float: right;
@@ -245,16 +247,18 @@
   }
 }
 
-.results__player-scores {
+.results__player-scores,
+.results__awards {
   @extend %clearfix-micro;
   background-color: $highlight-background-color;
   border: 1px solid $border-color;
   border-radius: $border-radius;
   box-shadow: 0 0 10px 5px rgba(#888,.1);
-  width: 260px;
+  width: 300px; // Fix border alignment
 }
 
-.results__player-scores-title {
+.results__player-scores-title,
+.results__awards-title {
   @extend .small-tracked-out-heading;
   @include pad(all, small);
   background-color: lighten($text-color, 10%);
@@ -311,4 +315,40 @@
     text-shadow: 1px 1px 1px darken(#ffdc52, 20%);
     padding-right: 4px;
   }
+}
+
+// Awards
+
+.results__awards-wrapper {
+  @include pad(top, medium);
+  float: right;
+  overflow: hidden; // TEMPORARY
+}
+
+.results__awards {
+  width: 300px;
+}
+
+.results__award {
+  @include pad(all, small);
+  border-bottom: 1px solid $border-color;
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.results__award__icon {
+  //
+}
+
+.results__award__player {
+  //
+}
+
+.results_award__result-name {
+  //
+}
+
+.results_award__result {
+  //
 }
