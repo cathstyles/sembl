@@ -8,11 +8,8 @@
 
 .slide-viewer__inner {
   background-color: $text-color;
+  overflow-x: hidden;
   width: 100%;
-  & > .games__gallery {
-    overflow-x: hidden;
-    overflow-y: scroll;
-  }
 }
 
 .slide-viewer--active {
@@ -27,18 +24,68 @@
   overflow: hidden;
 }
 
+.slide-viewer__controls {
+  float: left;
+}
+
+.setup__steps__seed__suggested_seed,
+.setup__steps__seed__search {
+  float: left;
+  label {
+    @extend %clearfix-micro;
+    @extend .small-tracked-out-heading;
+    @include pad(horz, smaller);
+    @include pad(vert, small);
+    cursor: pointer;
+    display: block;
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(#000,.3);
+    &:hover {
+      background-color: darken($text-color, 5%);
+      color: $border-color;
+    }
+  }
+}
+
+.setup__steps__seed__search {
+  label {
+    position: relative;
+  }
+  input {
+    @include font-size(14);
+    background-color: lighten($text-color, 10%);
+    border: none;
+    color: #fff;
+    position: absolute;
+    top: 5px;
+    right: -210px;
+    padding: 3px;
+    width: 200px;
+  }
+}
+
+.setup__steps__seed__suggested_seed {
+  float: left;
+  label {
+    span {
+      float: right;
+    }
+    input {
+      float: left;
+      margin-right: 10px;
+    }
+  }
+}
+
 .slide-viewer__close-button {
-  @include pad(right, smaller);
+  @include pad(horz, smaller);
   @extend .small-tracked-out-heading;
   background-color: $text-color;
   color: #fff;
   cursor: pointer;
-  display: block;
-  height: 35px;
-  vertical-align: middle;
-  text-align: right;
+  display: inline-block;
+  float: right;
   text-shadow: 1px 1px 1px rgba(#000,.3);
-  width: 100%;
   &:hover {
     background-color: darken($text-color, 5%);
     color: $border-color;
@@ -49,6 +96,6 @@
 }
 
 .slide-viewer__close-button__inner {
-  padding-top: 12px;
+  @include pad(vert, small);
   display: inline-block;
 }

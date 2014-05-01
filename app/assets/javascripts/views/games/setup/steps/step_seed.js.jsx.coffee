@@ -44,10 +44,12 @@ Checkbox = React.createClass
       `<div>
         <div className="slide-viewer__controls">
           <Checkbox name='suggested_seed' label="Suggested seeds" handleChange={this.handleCheckboxChange} />
-          <label>
-            Search for a seed: 
-            <input name='text' onChange={this.handleInputChange}/>
-          </label>
+          <div className="setup__steps__seed__search">
+            <label>
+              Search for a seed: 
+              <input name='text' onChange={this.handleInputChange}/>
+            </label>
+          </div>
         </div>
         <Gallery searcherPrefix={this.props.searcherPrefix} eventPrefix={this.galleryPrefix} />
       </div>`
