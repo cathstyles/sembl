@@ -7,7 +7,7 @@
 @Sembl.Components.TransloaditUploadComponent = React.createClass
   getInitialState: ->
     state: 'initialising'
-    progress: 0
+    progress: 0.02
 
   componentWillMount: ->
     new TransloaditBoredInstance(@foundBoredInstance)
@@ -48,12 +48,14 @@
   uploadPoll: ->
     setTimeout @queryAssembly, 1000
 
-  updateProgress: (data) -> 
+  updateProgress: (data) ->
     console.log data
     pctProgress = 0
-    pctProgress = (data.bytes_received/data.bytes_expected) * 100 if data.bytes_expected
-    @state.progress = pctProgress
-    @state.state = 'processing' if pctProgress == 100
+    percent = data.bytes_received / data.bytes_expected
+    percent = 0.02 if percent < 0.02
+    @state.state = 'processing' if percent == 1
+    @state.progress = percent
+    
     @setState @state
 
   queryAssembly: ->
@@ -79,12 +81,15 @@
 
       when 'uploading'
         progressWidth = width: @state.progress + "%"
-        `<div className="upload__progress-bar">
-          <div className="upload__progress-bar__pct" style={progressWidth}/>
+        `<div>Uploading…
+          <progress className="uploader-progress-bar" key="file" value={this.state.progress}></progress>
         </div>`
 
       when 'processing'
-        `<span>Processing…</span>`
+        `<div>
+          <p>Processing…</p>
+          <progress className="uploader-progress-bar" key="process"></progress>
+        </div>`
 
       when 'ready'
         `<form

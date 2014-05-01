@@ -25,7 +25,6 @@ class @Sembl.Handlers.TransloaditSignature
   constructor: (@templateName, @successCallback, @postData) ->
     @getTransloaditSignature()
 
-
   getTransloaditSignature: ->
     $.ajax
       cache: false

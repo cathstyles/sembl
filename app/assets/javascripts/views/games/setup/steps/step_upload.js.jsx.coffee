@@ -55,9 +55,14 @@
     success = (data) =>
       console.log 'success!', data
       @getThings()
-      @setState title: "", description: "", remoteImageUrl: null
+      @setState 
+        title: ""
+        description: ""
+        remoteImageUrl: null
+        submitting: false
     error = (response) =>
       console.error 'error!', response
+      @setState submitting: false
       try 
         responseObj = JSON.parse(response.responseText)
         if response.status == 422 
@@ -67,6 +72,8 @@
           $(window).trigger('flash.error', "Error: #{responseObj.errors}")
       catch e
         console.error e
+
+    @setState submitting: true
     $.ajax(
       url: url
       data: data
@@ -92,7 +99,12 @@
             hits: results
             total: results.length
         })
+        @setState totalUploads: results.length
     )
+
+  getInitialState: ->
+    totalUploads: 0
+    submitting: false
 
   render: ->
     game = @props.game
@@ -103,24 +115,32 @@
     submitDisabled = hasImage && hasTitle # TODO disable the button
 
     transloadit = `<TransloaditUploadComponent finishedUpload={this.finishedUpload} />`
-    image = `<img src={this.state.remoteImageUrl} alt={this.state.title} />`
-
+    image = `<img className="setup__steps__upload__uploader__image" src={this.state.remoteImageUrl} alt={this.state.title} />`
+    uploadForm = if !@state.submitting
+        `<div>
+          <div className="setup__steps__upload__uploader">
+            {hasImage ? image : transloadit}
+          </div>
+          <div>
+            <label>Title: <input name="title" value={this.state.title} onChange={this.handleChange} /></label>
+          </div>
+          <div>
+            <label>Description: <input name="description" value={this.state.description} onChange={this.handleChange} /></label>
+          </div>
+          <input type="submit" onClick={this.handleSubmit} />
+        </div>`
+      else 
+        `<div>
+          <p>Processing…</p>
+          <progress className="uploader-progress-bar" key="process"></progress>
+        </div>`
 
 
     `<div className="setup__steps__upload">
       <div className="setup__steps__title">Upload some images for this game</div>
       <div className="setup__steps__inner">
-        <div class="setup__steps__upload__uploader">
-          {hasImage ? image : transloadit}
-        </div>
-        <div>
-          <label>Title: <input name="title" value={this.state.title} onChange={this.handleChange} /></label>
-        </div>
-        <div>
-          <label>Description: <input name="description" value={this.state.description} onChange={this.handleChange} /></label>
-        </div>
-        <input type="submit" onClick={this.handleSubmit} />
-
+        {uploadForm}
+        <div>There are {this.state.totalUploads} custom images for this game</div>
         <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
       </div>
     </div>`
