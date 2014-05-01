@@ -95,12 +95,11 @@
         `<div className="results__award">
           <img src={award.icon} className="results__award__icon"/>
           <span className="results__award__name">{award.name}</span>
-          <span className="results_award__result-name">{award.result_name}</span>
           <span className="results__award__player">{award.player.user.name}</span>
-          <span className="results_award__result">{award.result}</span>
+          <span className="results_award__result-name">{award.result_name + ": "}</span><span className="results_award__result">{award.result}</span>
         </div>`
     else 
-      `<div className="results__awards--fetching">Fetching awards...</div>`
+      `<div className="results__awards--fetching">Fetching awards&hellip;</div>`
 
 
     `<div className="results__awards-wrapper">

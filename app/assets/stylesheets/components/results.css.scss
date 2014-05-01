@@ -333,6 +333,10 @@
   width: 300px;
 }
 
+.results__awards--fetching {
+  @include pad(all, smaller);
+}
+
 .results__award {
   @extend %clearfix-micro;
   @include pad(all, small);
@@ -365,11 +369,14 @@
   white-space: nowrap;
 }
 
-// .results__award__player {
-//   border: 1px solid red;
-// }
+.results__award__player {
+  color: $link-color;
+  display: block;
+  font-weight: 600;
+  padding-top: 8px;
+  padding-bottom: 5px;
+}
 
-
-// .results_award__result {
-//   border: 1px solid red;
-// }
+.results_award__result-name {
+  font-weight: bold;
+}
