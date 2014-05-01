@@ -4,6 +4,21 @@
 
 ###* @jsx React.DOM ###
 
+
+Checkbox = React.createClass
+  handleChange: (event) ->
+    @props.handleChange(@props.name, event.target.checked)
+
+  render: () ->
+    checked = this.props.checked || false
+    className = "setup__steps__seed__#{@props.name}"
+    `<div className={className}>
+      <label>
+        {this.props.label}      
+        <input type="checkbox" checked={checked} onChange={this.handleChange} />
+      </label>
+    </div>`
+
 {StepSeedThingModal} = Sembl.Games.Setup
 {Searcher} = Sembl.Components
 {Gallery} = Sembl.Games
@@ -21,10 +36,27 @@
     $(window).off("#{@galleryPrefix}.thing.click", @handleGalleryClick)
 
   componentDidMount: ->
+    @setSlideViewer()    
+
+  setSlideViewer: ->
     seed = @props.seed
+    suggested_seed = @state.suggested_seed
     $(window).trigger('slideViewer.setChild', 
-      `<Gallery searcherPrefix={this.props.searcherPrefix} eventPrefix={this.galleryPrefix} />`
+      `<div>
+        <div className="slide-viewer__controls">
+          <Checkbox name='suggested_seed' checked={suggested_seed} label="Suggested seeds" handleChange={this.handleCheckboxChange} />
+        </div>
+        <Gallery searcherPrefix={this.props.searcherPrefix} eventPrefix={this.galleryPrefix} />
+      </div>`
     )
+
+  handleCheckboxChange: (name, value) ->
+    @state[name] = value
+    @setState @state
+    filter = _.extend({}, @props.filter)
+    filter[name] = 1 if value == true   
+    @setSlideViewer() 
+    $(window).trigger("#{this.props.searcherPrefix}.setFilter", filter)
 
   handleGalleryClick: (event, thing) ->
     $(window).trigger('modal.open', `<StepSeedThingModal selectEvent='setup.steps.seed.select' thing={thing} />`)
@@ -44,6 +76,9 @@
     event?.preventDefault()
 
   isValid: -> @props.seed? && @props.seed.id?
+
+  getInitialState: ->
+    suggested_seed: false
 
   render: ->
     seed = @props.seed

@@ -31,7 +31,7 @@
     @stepComponents =
       board: `<StepBoard boards={boards} />`
       title: `<StepTitle />`
-      seed: `<StepSeed searcherPrefix={this.seedSearcherPrefix} />`
+      seed: `<StepSeed searcherPrefix={this.seedSearcherPrefix} filter={this.props.game.get('filter')}/>`
       description: `<StepDescription />`
       filter: `<StepFilter searcherPrefix={this.filterSearcherPrefix} />`
       settings: `<StepSettings />`
