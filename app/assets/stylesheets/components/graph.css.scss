@@ -2,18 +2,6 @@
   0%, 100%  { transform: scale(1); }
   50%       { transform: scale(1.05); }
 }
-
-.animation-wrapper {}
-
-.body-leave,
-.header-leave {
-  position: absolute;
-  top: 0;
-  left:  2rem;
-  right: 2rem;
-}
-
-
 .graph {
   height: 100%;
   width: 100%;
