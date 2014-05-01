@@ -10,7 +10,7 @@ Checkbox = React.createClass
     @props.handleChange(@props.name, event.target.checked)
 
   render: () ->
-    checked = this.props.checked || false
+    checked = if @props.checked? then @props.checked else null
     className = "setup__steps__seed__#{@props.name}"
     `<div className={className}>
       <label>
@@ -40,23 +40,35 @@ Checkbox = React.createClass
 
   setSlideViewer: ->
     seed = @props.seed
-    suggested_seed = @state.suggested_seed
     $(window).trigger('slideViewer.setChild', 
       `<div>
         <div className="slide-viewer__controls">
-          <Checkbox name='suggested_seed' checked={suggested_seed} label="Suggested seeds" handleChange={this.handleCheckboxChange} />
+          <Checkbox name='suggested_seed' label="Suggested seeds" handleChange={this.handleCheckboxChange} />
+          <label>
+            Search for a seed: 
+            <input name='text' onChange={this.handleInputChange}/>
+          </label>
         </div>
         <Gallery searcherPrefix={this.props.searcherPrefix} eventPrefix={this.galleryPrefix} />
       </div>`
     )
 
   handleCheckboxChange: (name, value) ->
-    @state[name] = value
-    @setState @state
     filter = _.extend({}, @props.filter)
     filter[name] = 1 if value == true   
-    @setSlideViewer() 
     $(window).trigger("#{this.props.searcherPrefix}.setFilter", filter)
+
+  handleInputChange: (event) ->
+    name = event.target.name
+    value = event.target.value
+    filter = _.extend({}, @props.filter)
+    filter[name] = value
+    $.doTimeout('debounce.setup.steps.seed.search.text.change', 200, 
+      => 
+        @setSlideViewer() 
+        $(window).trigger("#{this.props.searcherPrefix}.setFilter", filter)  
+    )
+    
 
   handleGalleryClick: (event, thing) ->
     $(window).trigger('modal.open', `<StepSeedThingModal selectEvent='setup.steps.seed.select' thing={thing} />`)
@@ -76,9 +88,6 @@ Checkbox = React.createClass
     event?.preventDefault()
 
   isValid: -> @props.seed? && @props.seed.id?
-
-  getInitialState: ->
-    suggested_seed: false
 
   render: ->
     seed = @props.seed

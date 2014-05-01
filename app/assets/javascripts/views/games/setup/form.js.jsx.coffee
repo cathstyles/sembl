@@ -180,7 +180,7 @@
     `<div className="setup">
       {show}
       <Searcher filter={filter} prefix={this.filterSearcherPrefix} game={this.props.game} />
-      <Searcher filter={filter} prefix={this.seedSearcherPrefix} game={this.props.game} />
+      <Searcher filter={{}} prefix={this.seedSearcherPrefix} game={this.props.game} />
       <Players game={this.props.game} />
     </div>`
 
