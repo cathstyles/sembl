@@ -151,8 +151,8 @@ ActiveRecord::Schema.define(version: 20140430080056) do
     t.integer  "random_seed"
     t.boolean  "suggested_seed",     default: false
     t.integer  "game_id"
-    t.boolean  "sensitive"
-    t.boolean  "mature"
+    t.boolean  "sensitive",          default: false
+    t.boolean  "mature",             default: false
   end
 
   add_index "things", ["creator_id"], name: "index_things_on_creator_id", using: :btree
