@@ -12,7 +12,7 @@
 # );
 
 
-class TransitionEnder
+class @Sembl.Utils.TransitionEnder
   constructor: (@el, @callback, @descendantSelector = "*") ->
     @longestTime = @getElementTransitionTime(@el) || 0
     @longestElement = @el
@@ -20,9 +20,9 @@ class TransitionEnder
     if @longestElement?
       safety = setTimeout(=>
         @callback()
-        @longestElement.off "transitionEnd.TransitionEnder"
+        @longestElement.off "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd"
       , @longestTime);
-      @longestElement.on "transitionEnd.TransitionEnder", =>
+      @longestElement.on "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", =>
         clearTimeout safety
         @callback()
     else

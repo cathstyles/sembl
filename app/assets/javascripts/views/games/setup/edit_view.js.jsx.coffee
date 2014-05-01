@@ -7,8 +7,8 @@
   render: ->
     game = @props.game
 
-    `<Form className="setup" 
-        game={this.props.game} 
+    `<Form className="setup"
+        game={this.props.game}
         user={this.props.user} />`
 
 @Sembl.views.setupEdit = ($el, el) ->
@@ -18,7 +18,7 @@
     Sembl.Layouts.Default()
     document.getElementsByTagName('body')[0]
   )
-  @layout.setState 
+  @layout.setProps
     body: Sembl.Games.Setup.Edit(game: Sembl.game, user: Sembl.user),
-    header: Sembl.Games.HeaderView(model: Sembl.game, title: "Edit Game") 
+    header: Sembl.Games.HeaderView(model: Sembl.game, title: "Edit Game")
 

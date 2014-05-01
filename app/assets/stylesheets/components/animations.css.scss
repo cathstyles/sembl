@@ -1,0 +1,18 @@
+// Set up for animations in the default layout
+
+.animation-wrapper {}
+
+.body-leave {
+  position: absolute;
+  top: 0;
+  left:  2rem;
+  right: 2rem;
+}
+
+.header-leave {
+  position: absolute;
+  top: 0;
+  left:  0;
+  right: 0;
+}
+

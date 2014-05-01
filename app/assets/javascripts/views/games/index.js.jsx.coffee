@@ -8,7 +8,7 @@
     Sembl.Layouts.Default()
     document.getElementsByTagName('body')[0]
   )
-  @layout.setState 
+  @layout.setProps
     body: `<div dangerouslySetInnerHTML={{__html: html}}></div>`,
-    header: Sembl.Games.HeaderView(model: Sembl.game, title: header) 
+    header: Sembl.Games.HeaderView(model: Sembl.game, title: header)
 

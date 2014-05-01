@@ -2,7 +2,6 @@
   0%, 100%  { transform: scale(1); }
   50%       { transform: scale(1.05); }
 }
-
 .graph {
   height: 100%;
   width: 100%;
@@ -31,11 +30,62 @@
 .game__graph__link {
   stroke: #d2d79b;
   stroke-width: 4px;
+  .body-enter & {
+    opacity: 0.01;
+  }
+  .body-enter.body-enter-active & {
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 250ms;
+    transition-delay: 200ms;
+  }
+  .body-leave & {
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 250ms;
+  }
+  .body-leave.body-leave-active & {
+    opacity: 0.01;
+  }
 }
 
 .game__placement-wrapper {
+  backface-visibility: hidden;
   margin-left: -60px;
   margin-top: -60px;
+  position: absolute;
+  .body-enter & {
+    opacity: 0.01;
+    transform: scale(0.5,0.5);
+    transform: scale3d(0.5,0.5,0.5);
+  }
+  .body-enter.body-enter-active & {
+    opacity: 1;
+    transform: scale(1,1);
+    transform: scale3d(1,1,1);
+    transition-property: transform, opacity;
+    transition-duration: 250ms;
+    transition-delay: 200ms;
+    // Offset each node
+    @for $i from 1 through 10 {
+      &.delay-#{$i} {
+        transition-delay: (40ms * $i) + 200ms;
+      }
+    }
+  }
+  .body-leave & {
+    opacity: 1;
+    transform: scale(1,1);
+    transform: scale3d(1,1,1);
+    transition-property: transform, opacity;
+    transition-duration: 200ms;
+    // transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
+  }
+  .body-leave.body-leave-active & {
+    opacity: 0.01;
+    transform: scale(0.5,0.5);
+    transform: scale3d(0.5,0.5,0.5);
+  }
 }
 
 .game__placement {
@@ -58,7 +108,7 @@
     border: 2px solid #ecdcc6;
     box-shadow: none;
     &:before {
-      @extend %white-drop-shadow;
+      // @extend %white-drop-shadow;
       @include font-size(50);
       font-family: "FontAwesome";
       color: #ecdcc6;
@@ -79,7 +129,7 @@
     cursor: pointer;
     &:before,
     &:after {
-      @extend %white-drop-shadow;
+      // @extend %white-drop-shadow;
       font-family: "FontAwesome";
       color: #b99f7a;
       position: absolute;
@@ -151,6 +201,33 @@
   height: 16px;
   width: 16px;
   text-indent: -9999em;
+  .body-enter & {
+    opacity: 0.01;
+    transform: scale(0,0);
+    transform: scale3d(0,0,0);
+  }
+  .body-enter.body-enter-active & {
+    opacity: 1;
+    transform: scale(1,1);
+    transform: scale3d(1,1,1);
+    transition-property: transform, opacity;
+    transition-duration: 250ms;
+    transition-delay: 200ms;
+    transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
+  }
+  .body-leave & {
+    opacity: 1;
+    transform: scale(1,1);
+    transform: scale3d(1,1,1);
+    transition-property: transform, opacity;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
+  }
+  .body-leave.body-leave-active & {
+    opacity: 0.01;
+    transform: scale(0,0);
+    transform: scale3d(0,0,0);
+  }
 }
 
 .game__resemblance__empty {
@@ -225,7 +302,7 @@
 }
 
 @keyframes reveal {
-  0%    { opacity: 0; }
+  0%    { opacity: 0.01; }
   100%   { opacity: 1; }
 }
 

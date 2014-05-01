@@ -204,10 +204,27 @@
   margin-left: -72px;
 
   // Call animation
-  animation-name: masthead-tab;
-  animation-duration: 500ms;
-  animation-timing-function: ease;
-  animation-iteration-count: 1;
+  // animation-name: masthead-tab;
+  // animation-duration: 500ms;
+  // animation-timing-function: ease;
+  // animation-iteration-count: 1;
+  .header-enter & {
+    transform: translate(0,-100%);
+  }
+  .header-enter.header-enter-active & {
+    transform: translate(0,0);
+    transition: transform 250ms ease-in;
+    transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
+    transition-delay: 50ms;
+  }
+  .header-leave & {
+    transform: translate(0,0);
+    transition: transform 250ms ease-in;
+    transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
+  }
+  .header-leave.header-leave-active & {
+    transform: translate(0,-100%);
+  }
 }
 
 .header__centre-title-word {
