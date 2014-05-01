@@ -13,15 +13,6 @@
   }
 }
 
-@keyframes masthead-tab {
-  0% {
-    margin-top: -100%;
-  }
-  100% {
-    margin-top: 0;
-  }
-}
-
 %header-tab {
   @include font-size(22);
   background-color: #fffbf3;
@@ -101,6 +92,9 @@
   float: right;
   list-style-type: none;
   padding-top: 6px;
+  .header-leave.header-leave-active & {
+    transform: translate(0,-200%);
+  }
 }
 
 .masthead__link,
@@ -160,6 +154,9 @@
   font-weight: 500;
   width: auto;
   max-width: 30%;
+  .header-leave.header-leave-active & {
+    transform: translate(0,-200%);
+  }
 }
 
 .header__more-info {
@@ -203,11 +200,6 @@
   // Approximate the offset as a no-JS fallback
   margin-left: -72px;
 
-  // Call animation
-  // animation-name: masthead-tab;
-  // animation-duration: 500ms;
-  // animation-timing-function: ease;
-  // animation-iteration-count: 1;
   .header-enter & {
     transform: translate(0,-100%);
   }
@@ -215,7 +207,7 @@
     transform: translate(0,0);
     transition: transform 250ms ease-in;
     transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
-    transition-delay: 50ms;
+    transition-delay: 250ms;
   }
   .header-leave & {
     transform: translate(0,0);

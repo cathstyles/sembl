@@ -73,7 +73,7 @@
 
     `<div className="results__player-scores-wrapper">
       <div className="results__player-scores">
-        <h2 className="results__player-scores-title"><i className="fa fa-trophy"></i> The scores so far:</h2>
+        <h2 className="results__player-scores-title"><i className="fa fa-star"></i> The scores so far:</h2>
         <div className="results__player-scores__inner">
           {playerRoundResults}
         </div>
@@ -106,8 +106,10 @@
 
     `<div className="results__awards-wrapper">
       <div className="results__awards">
-        <h2 className="results__awards-message">Awards</h2>
-        {awards}
+        <h2 className="results__awards-title"><i className="fa fa-trophy"></i> Stats and Awards</h2>
+        <div className="results__awards__inner">
+          {awards}
+        </div>
       </div>
     </div>`
 
@@ -129,7 +131,7 @@
 
     `<div className="results__player-scores-wrapper">
       <div className="results__player-scores">
-        <h2 className="results__player-scores-title"><i className="fa fa-trophy"></i> Final Results!</h2>
+        <h2 className="results__player-scores-title"><i className="fa fa-star"></i> Final Results!</h2>
         <div className="results__player-scores__inner">
           {playerRoundResults}
         </div>
@@ -163,8 +165,8 @@
           <i className="fa fa-chevron-left"></i>&nbsp;
           Back to gameboard
         </a>
-        {playerAwards}
         {playerOverallResults}
+        {playerAwards}
       </div>
 
       <div className="results__player-moves">
