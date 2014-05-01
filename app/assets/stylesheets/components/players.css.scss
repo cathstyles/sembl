@@ -4,6 +4,34 @@
   position: absolute;
   top: 0;
   right: 20px;
+  .body-enter & {
+    opacity: 0.01;
+    transform: scale(0,0);
+    transform: scale3d(0,0,0);
+  }
+  .body-enter.body-enter-active & {
+    opacity: 1;
+    transform: scale(1,1);
+    transform: scale3d(1,1,1);
+    transition-property: transform, opacity;
+    transition-duration: 250ms;
+    transition-delay: 200ms;
+    transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
+  }
+  .body-leave & {
+    opacity: 1;
+    transform: scale(1,1);
+    transform: scale3d(1,1,1);
+    transition-property: transform, opacity;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
+  }
+  .body-leave.body-leave-active & {
+    opacity: 0.01;
+    right: 0;
+    transform: scale(0,0);
+    transform: scale3d(0,0,0);
+  }
 }
 
 .game__player {
