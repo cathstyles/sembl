@@ -44,11 +44,13 @@ class Api::GamesController < ApiController
 
 
   def create
+    puts 'creating with', params.inspect
+    puts 'creating with', game_params.inspect
     @game = Game.new(game_params)
     @game.creator = current_user
     @game.updator = current_user
     @game.state_event = 'publish' if params[:publish]
-    @game.filter_content_by = clean_search_query_json(params[:filter_content_by])
+    @game.filter_content_by = clean_search_query_json(params[:game][:filter_content_by])
     
     copy_board_to_game
     update_seed_thing if game_params[:seed_thing_id].present? 
@@ -66,7 +68,7 @@ class Api::GamesController < ApiController
     @game.assign_attributes(game_params)
     @game.updator = current_user
     @game.state_event = 'publish' if params[:publish]
-    @game.filter_content_by = clean_search_query_json(params[:filter_content_by])
+    @game.filter_content_by = clean_search_query_json(params[:game][:filter_content_by])
 
     copy_board_to_game
     update_seed_thing if game_params[:seed_thing_id].present? 
@@ -125,10 +127,13 @@ private
     @game.crop_board
   end
 
-  def clean_search_query_json(search_query_json)
-    if search_query_json and not search_query_json.empty?
-      search_query_params = JSON.parse(search_query_json, symbolize_names: true)
-      Search::ThingQuery.new(search_query_params).to_json
+  def clean_search_query_json(search_query_params)
+    if search_query_params
+      clean_query_params = search_query_params.delete_if do |k,v|
+        v.strip.empty?
+      end.symbolize_keys
+      cleaned_json = Search::ThingQuery.new(clean_query_params).to_json
+      cleaned_json
     else
       nil
     end

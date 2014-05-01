@@ -4,7 +4,6 @@ class Search::ThingQuery
     :exclude_sensitive, :exclude_mature
 
   def initialize(params)
-    puts 'thing query params ' + params.inspect
     @text = params[:text] || "*"
     @place_filter = params[:place_filter]
     @access_filter = params[:access_filter]
@@ -31,14 +30,12 @@ class Search::ThingQuery
     query_builder.match_or_missing(:game_id, @game_id)
     query_builder.match(:mature, false) if exclude_mature == 1
     query_builder.match(:sensitive, false) if exclude_sensitive == 1
-    query_builder.match(:suggested_seed, suggested_seed) unless !suggested_seed
+    query_builder.match(:suggested_seed, true) if suggested_seed == 1
     query_builder.range(@date_field, date_from, date_to) unless !(date_from || date_to)
     query_builder.range(:created_at, nil, created_to) unless !created_to
     query_builder.text([@place_field], place_filter) unless !place_filter
     query_builder.text([@access_field], access_filter) unless !access_filter
     query_builder.random_order(random_seed) unless !random_seed
-
-    puts 'thing query query ' + query_builder.query.inspect
     return query_builder.query
   end
 
