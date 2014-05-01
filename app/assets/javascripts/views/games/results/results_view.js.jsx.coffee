@@ -47,8 +47,7 @@
 
     `<div className="results__player-move">
       <h1 className="results__player-move__name">
-        <i className="fa fa-user"></i><em><span className="results__player-move__name-username">{user.name}</span></em>
-         {user.name}
+        <em><span className="results__player-move__name-username">{user.name}</span></em>
       </h1>
       <div className="results__player-move__moves">
         {moveResults}
@@ -64,7 +63,7 @@
       # you = if @Sembl.id is id then " results__player-score--you" else ""
       `<div className="results__player-score">
         <h1 className="results__player-score__name">
-          <i className="fa fa-user"></i> <em>{name}</em>
+          <em>{name}</em>
         </h1>
         <div className="results__player-score__score">
           <i className="fa fa-star"></i><em>{score}</em>
@@ -96,8 +95,8 @@
         `<div className="results__award">
           <img src={award.icon} className="results__award__icon"/>
           <span className="results__award__name">{award.name}</span>
-          <span className="results__award__player">{award.player.user.name}</span>
           <span className="results_award__result-name">{award.result_name}</span>
+          <span className="results__award__player">{award.player.user.name}</span>
           <span className="results_award__result">{award.result}</span>
         </div>`
     else 

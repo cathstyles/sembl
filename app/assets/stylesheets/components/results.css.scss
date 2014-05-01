@@ -142,12 +142,6 @@
   font-weight: 600;
   line-height: 1.2;
   text-align: center;
-  &:before {
-    content: "\201C";
-  }
-  &:after {
-    content: "\201D";
-  }
 }
 
 .results__player-move__move__node-wrapper {
@@ -340,25 +334,42 @@
 }
 
 .results__award {
+  @extend %clearfix-micro;
   @include pad(all, small);
   border-bottom: 1px solid $border-color;
   &:last-child {
     border-bottom: none;
+    border-bottom-left-radius: $border-radius-inner;
+    border-bottom-right-radius: $border-radius-inner;
+  }
+  &:nth-child(even) {
+    background-color: darken($highlight-background-color, 4%);
   }
 }
 
 .results__award__icon {
-  //
+  @include inset(right, smaller);
+  @include inset(bottom, smaller);
+  border: 2px solid $border-color;
+  float: left;
 }
 
-.results__award__player {
-  //
+.results__award__name {
+  @extend .small-tracked-out-heading;
+  background-color: darken($highlight-color, 10%);
+  border-radius: $border-radius;
+  color: #fff;
+  display: inline-block;
+  padding: 3px;
+  text-shadow: 1px 1px 1px rgba(#000,.4);
+  white-space: nowrap;
 }
 
-.results_award__result-name {
-  //
-}
+// .results__award__player {
+//   border: 1px solid red;
+// }
 
-.results_award__result {
-  //
-}
+
+// .results_award__result {
+//   border: 1px solid red;
+// }
