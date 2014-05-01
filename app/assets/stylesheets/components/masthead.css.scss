@@ -92,6 +92,9 @@
   float: right;
   list-style-type: none;
   padding-top: 6px;
+  .header-leave.header-leave-active & {
+    transform: translate(0,-200%);
+  }
 }
 
 .masthead__link,
@@ -151,6 +154,9 @@
   font-weight: 500;
   width: auto;
   max-width: 30%;
+  .header-leave.header-leave-active & {
+    transform: translate(0,-200%);
+  }
 }
 
 .header__more-info {
