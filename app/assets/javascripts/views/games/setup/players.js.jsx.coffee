@@ -13,7 +13,7 @@
     $(window).off('setup.players.get', @handleGet)
 
   getInitialState: ->
-    players: null
+    players: []
 
   handleAjaxError: (response) ->
     responseObj = JSON.parse(response.responseText)
@@ -25,15 +25,16 @@
       $(window).trigger('flash.error', "Error: #{responseObj.errors}")
 
   loadInvitedPlayers: (callback) ->
-    $.ajax(
-      url: "#{@props.game.url()}/players"
-      dataType: 'json'
-      type: 'GET'
-      success: (data) =>
-        @players = new Sembl.Players(data.players).models
-        $(window).trigger('setup.players.give', {players: @players})
-      error: @handleAjaxError
-    )
+    if @props.game.id?
+      $.ajax(
+        url: "#{@props.game.url()}/players"
+        dataType: 'json'
+        type: 'GET'
+        success: (data) =>
+          @players = new Sembl.Players(data.players).models
+          $(window).trigger('setup.players.give', {players: @players})
+        error: @handleAjaxError
+      )
 
   getPlayers: ->
     return @state.players
