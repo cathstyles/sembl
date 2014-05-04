@@ -70,19 +70,19 @@
   width: 96px;
   height: 84px;
   position: absolute;
-  top: -3px;
-  left: -6px;
+  top: 3px;
+  left: 10px;
   z-index: 20;
-  @media
-  only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and ( min--moz-device-pixel-ratio: 2),
-  only screen and ( -o-min-device-pixel-ratio: 2/1),
-  only screen and ( min-device-pixel-ratio: 2),
-  only screen and ( min-resolution: 192dpi),
-  only screen and ( min-resolution: 2dppx)
-  {
-    background-image: image-url("logo-2x.png");
-  }
+  // @media
+  // only screen and (-webkit-min-device-pixel-ratio: 2),
+  // only screen and ( min--moz-device-pixel-ratio: 2),
+  // only screen and ( -o-min-device-pixel-ratio: 2/1),
+  // only screen and ( min-device-pixel-ratio: 2),
+  // only screen and ( min-resolution: 192dpi),
+  // only screen and ( min-resolution: 2dppx)
+  // {
+  //   background-image: image-url("logo-2x.png");
+  // }
 }
 
 .masthead__links,
