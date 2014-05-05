@@ -37,27 +37,27 @@ class User < ActiveRecord::Base
     :banned => 0
   }.freeze
 
-  state_machine :role, initial: :participant do 
+  state_machine :role, initial: :participant do
     ROLES.each do |name, value|
       state name, :value => value
-    end 
+    end
 
-    event :make_participant do 
+    event :make_participant do
       transition all => :participant
     end
 
-    event :make_power_user do 
+    event :make_power_user do
       transition all => :power
-    end 
+    end
 
-    event :make_admin do 
+    event :make_admin do
       transition all => :admin
-    end 
+    end
 
-    event :ban do 
+    event :ban do
       transition all => :banned
     end
-  end 
+  end
 
   def to_s
     email
@@ -66,22 +66,22 @@ class User < ActiveRecord::Base
   def join_games
     Player.find_by_email(email).try(:each) do |player|
       player.user = self
-      if player.save 
+      if player.save
         # Only transition state to playing if player has actually been sent an invitation.
-        player.join if player.invited? 
+        player.join if player.invited?
       else
-        errors.add(:base, "Could not join the game #{player.game.title}, hosted by #{player.game.creator.email}.") 
+        errors.add(:base, "Could not join the game #{player.game.title}, hosted by #{player.game.creator.email}.")
       end
     end
   end
 
-  def self.roles 
+  def self.roles
     ROLES
   end
 
-  private 
+  private
 
-    def create_profile 
+    def create_profile
       self.profile = Profile.create(user: self)
     end
 
