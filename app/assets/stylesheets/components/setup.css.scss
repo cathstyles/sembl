@@ -116,8 +116,11 @@
 
 // Title and description
 
-.setup__steps__title__input {
+input.setup__steps__title__input {
+  @include font-size(18);
+  @include pad(horz, small);
   width: 80%;
+  height: 40px;
 }
 
 .setup__steps__description__textarea {
