@@ -33,7 +33,7 @@
 
     `<div className="setup__steps__settings">
       <div className="setup__steps__title">Settings</div>
-      <div className="setup__steps__inner">
+      <div className="setup__steps__inner setup__steps__inner--flush">
         <SettingsCheckbox name='invite_only' checked={invite_only} label="Game is invite only" handleChange={this.handleChange} />
         <SettingsCheckbox name='uploads_allowed' checked={uploads_allowed} label="Users can upload images" handleChange={this.handleChange} />
       </div>

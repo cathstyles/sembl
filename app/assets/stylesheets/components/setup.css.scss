@@ -163,9 +163,20 @@ input.setup__steps__title__input {
 // Settings
 
 .games-setup__settings-item {
+  @include pad(horz, smaller);
+  border-top: 1px solid $border-color;
   text-align: left;
   label {
     @include font-size(16);
+    @include pad(vert, small);
+    display: inline-block;
+    cursor: pointer;
+  }
+  input {
+    margin-right: 6px;
+  }
+  .setup__steps__settings__invite_only & {
+    border-top: none;
   }
 }
 
