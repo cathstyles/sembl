@@ -13,6 +13,15 @@
   }
 }
 
+@keyframes masthead-logo {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 %header-tab {
   @include font-size(22);
   background-color: #fffbf3;
@@ -73,6 +82,13 @@
   top: 3px;
   left: 10px;
   z-index: 20;
+
+  // Call animation
+  animation-name: masthead-logo;
+  animation-duration: 300ms;
+  animation-timing-function: ease;
+  animation-iteration-count: 1;
+
   @media
   only screen and (-webkit-min-device-pixel-ratio: 2),
   only screen and ( min--moz-device-pixel-ratio: 2),
