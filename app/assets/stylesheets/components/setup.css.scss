@@ -398,12 +398,14 @@ input.setup__steps__title__input {
 }
 
 .setup__overview__settings-list,
-.setup__overview__players-list {
+.setup__overview__players-list,
+.setup__overview__filters-list {
   padding-top: 4px;
 }
 
 .setup__overview__settings-list-item,
-.setup__overview__players-list-item {
+.setup__overview__players-list-item,
+.setup__overview__filters-list-item {
   display: list-item;
   list-style: disc;
   margin-left: 1em;

@@ -56,9 +56,9 @@
         queryFilterParts.push  `<span>sourced from {showQuery(filter.access_filter)} </span>`
 
       if filter.exclude_mature
-        checkboxFilterParts.push `<div>Mature content is excluded. </div>`
+        checkboxFilterParts.push `<li className="setup__overview__filters-list-item">Mature content is excluded.</li>`
       if filter.exclude_sensitive 
-        checkboxFilterParts.push `<div>Sensitive content is excluded. </div>`
+        checkboxFilterParts.push `<li className="setup__overview__filters-list-item">Sensitive content is excluded.</li>`
 
     console.log 'checkboxFilterParts', checkboxFilterParts
         
@@ -67,14 +67,18 @@
         `<div>Images {queryFilterParts}.</div>`
 
       `<div className="setup__overview__filter">
-        <span className="setup__overview__item-title">Filters:</span>
-        {queryFilter}
-        {checkboxFilterParts}
-        {isDraft ? editLink('filter') : null}
+        <span className="setup__overview__item-title">Filters:</span> {isDraft ? editLink('filter') : null}
+        <ul className="setup__overview__filters-list">
+          <li className="setup__overview__filters-list-item">{queryFilter}</li>
+          {checkboxFilterParts}
+        </ul>
       </div>`
     else
       `<div className="setup__overview__item setup__overview__filter">
-        <span className="setup__overview__item-title">Filters:</span> All images are available {isDraft ? editLink('filter') : null}
+        <span className="setup__overview__item-title">Filters:</span> {isDraft ? editLink('filter') : null}
+        <ul className="setup__overview__filters-list">
+          <li className="setup__overview__filters-list-item">All images are available</li>
+        </ul>
       </div>`
 
     {invite_only, uploads_allowed} = @props.settings
