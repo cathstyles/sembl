@@ -10,19 +10,19 @@
         = link_to new_game_path, class: "home__new-game-button" do
           <i class="fa fa-gamepad"></i> Create a new game
     .home__my-games
-      h1.home__my-games-heading My games
+      h1.home__my-games-heading Games I&rsquo;m playing
       .home__my-games-container
         - @games[:participating].each do |game|
           = render partial: "game", locals: {game: game}
 
     .home__games-hosting
-      h1.home__games-hosting-heading Games I'm hosting
+      h1.home__games-hosting-heading Games I&rsquo;m hosting
       .home__games-hosting-container
         - @games[:hosted].each do |game|
           = render partial: "game", locals: {game: game}
 
   .home__all-games
-    h1.home__all-games-heading Browse games
+    h1.home__all-games-heading All games
     .home__all-games-container
       - @games[:open].each do |game|
         = render partial: "game", locals: {game: game}
