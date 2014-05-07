@@ -119,7 +119,7 @@
 .game-individual__description {
   @include pad(bottom, small);
   line-height: 1.15em;
-  max-height: 5.5em;
+  height: 5.5em;
   overflow: hidden;
   &:after {
     @include linear-gradient(to bottom, rgba($background-color, 0), rgba($background-color, 1) 50%);
@@ -129,6 +129,9 @@
     left: 0;
     right: 0;
     height: 30px;
+  }
+  a {
+    height: 100%;
   }
 }
 
