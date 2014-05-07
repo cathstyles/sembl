@@ -244,11 +244,27 @@ input.setup__steps__title__input {
 
 .setup__steps__filters__gallery {
   overflow-y: scroll;
-  overflow-x: visible;
+  overflow-x: hidden;
   height: 500px;
 }
 
-// Step upload
+.setup__steps__filter__exclude_mature,
+.setup__steps__filter__exclude_sensitive {
+  @include pad(horz, smaller);
+  border-top: 1px solid $border-color;
+  text-align: left;
+  label {
+    @include pad(vert, small);
+    display: inline-block;
+    cursor: pointer;
+  }
+  input {
+    margin-right: 6px;
+  }
+}
+
+// Uploads
+
 .setup__steps__upload__uploader__image { 
   height: 300px;
 }
