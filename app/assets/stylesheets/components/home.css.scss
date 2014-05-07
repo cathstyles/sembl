@@ -17,7 +17,7 @@
   @include inset(bottom, normal);
   width: 32%;
   margin-right: 2%;
-  height: 175px;
+  height: 152px;
   float: left;
   &:nth-child(3n) {
     margin-right: 0;
@@ -28,7 +28,7 @@
   @extend %clearfix-micro;
   @include pad(all, small);
   display: block;
-  height: 175px;
+  height: 152px;
   border: 1px solid $border-color;
   border-radius: $border-radius;
   background-color: $background-color;
@@ -100,22 +100,28 @@
 }
 
 .game-individual__details-container {
-  height: 145px;
+  height: 130px;
   overflow: hidden;
   position: relative;
 }
 
 .game-individual__title {
+  @extend %clearfix-micro;
   @extend %white-drop-shadow;
   @include font-size(18);
   @include pad(bottom, small);
   font-weight: 500;
 }
 
+.game__individual-anchor--title {
+  float: left;
+  display: inline !important;
+}
+
 .game-individual__description {
   @include pad(bottom, small);
   line-height: 1.15em;
-  max-height: 6.8em;
+  max-height: 5.5em;
   overflow: hidden;
   &:after {
     @include linear-gradient(to bottom, rgba($background-color, 0), rgba($background-color, 1) 50%);
@@ -130,18 +136,13 @@
 
 .game-individual__edit {
   @extend .small-tracked-out-heading;
-  @include inset(top, small);
   color: $link-color;
-  display: block;
-  text-align: center;
+  float: left;
+  padding-left: 6px;
+  padding-top: 3px;
   i {
     padding-left: 2px;
     vertical-align: middle;
-  }
-  @media screen and (max-width: 1200px) {
-    i {
-      display: none;
-    }
   }
 }
 

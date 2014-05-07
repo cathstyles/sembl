@@ -6,13 +6,14 @@
           = image_tag game.seed_thing.try(:image).try(:admin_thumb).try(:url)
           - if game.open_to_join?
             span.game-individual__play-button Play
-      - if policy(game).edit?
-        a.game-individual__edit href="#{edit_game_path(game)}"
-          | Edit game <i class="fa fa-edit"></i>
-    a href="#{game_path(game)}" class="game__individual-anchor"
-      .game-individual__details-container
-        h1.game-individual__title
+    .game-individual__details-container
+      h1.game-individual__title
+        a href="#{game_path(game)}" class="game__individual-anchor game__individual-anchor--title"
           = game.title
-        .game-individual__description
+        - if policy(game).edit?
+          a.game-individual__edit href="#{edit_game_path(game)}"
+            | (Edit <i class="fa fa-edit"></i>)
+      .game-individual__description
+        a href="#{game_path(game)}" class="game__individual-anchor"
           = game.description
     -# span.game-individual__theme = game.theme
