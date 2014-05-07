@@ -30,6 +30,12 @@
       transition-property: scale;
       transition-duration: 100ms;
     }
+    .games__gallery__overlay {
+      border: 3px solid #fff;
+      display: block;
+      transform: scale(1.1);
+      z-index: 150;
+    }
   }
 }
 
@@ -66,4 +72,33 @@
 .games__gallery__next i {
   text-align: right;
   padding-left: 2px;
+}
+
+.games__gallery__overlay {
+  display: none;
+  color: #fff;
+  background-color: rgba(#000,.8);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.games__gallery__overlay-inner {
+  @include pad(vert, large);
+  @include pad(horz, smaller);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  h1 {
+    @extend .small-tracked-out-heading;
+    line-height: 1.2;
+    text-shadow: none !important;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
 }

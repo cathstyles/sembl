@@ -67,6 +67,9 @@ GalleryImage = React.createClass
     image = @props.image
     `<div key={image.id} className={image.className} onClick={this.handleClick}
       onClick={this.handleClick} >
+        <div className="games__gallery__overlay">
+          <div className="games__gallery__overlay-inner"><h1>{image.thing.title}</h1></div>
+        </div>
         <img src={image.src} width={image.width} height={image.height} />
       </div>`
 
