@@ -12,5 +12,5 @@
   render: ->
     thing = @props.thing
     `<ThingModal thing={thing}>
-      <button onClick={this.handleSelectSeed} className="games__setup__selected_thing-set-as-seed-node" href="#"><i className="fa fa-check"></i> <em>Set as seed node</em></button>
+      <button onClick={this.handleSelectSeed} className="games__setup__selected_thing-set-as-seed-node"><i className="fa fa-check"></i> <em>Set as seed node</em></button>
     </ThingModal>`

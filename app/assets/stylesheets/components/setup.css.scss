@@ -147,6 +147,20 @@ input.setup__steps__title__input {
   max-width: 126px;
 }
 
+.games__setup__selected_thing-set-as-seed-node {
+  @extend %button;
+  @include inset(top, mid);
+  box-shadow: 0 0 20px 5px rgba(#fff,.3);
+  i {
+    padding-right: 3px;
+  }
+  em {
+    @extend %uppercase-heading;
+    font-size: 14px !important;
+    font-size: 1.4rem !important;
+  }
+}
+
 .setup__steps__seed-randomise {
   @extend .small-tracked-out-heading;
   @include pad(top, smaller);
