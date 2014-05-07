@@ -224,7 +224,8 @@ input.setup__steps__title__input {
 
 // Filters
 
-.setup__steps__filters__filter {
+.setup__steps__filters__filter,
+.setup__steps__upload-step {
   text-align: left;
   padding-bottom: 5px;
 }
@@ -235,28 +236,34 @@ input.setup__steps__title__input {
   padding-right: 3px;
 }
 
-.setup__steps__filters__filter__label {
+.setup__steps__filters__filter__label,
+.setup__steps__upload-step__label {
   @extend .small-tracked-out-heading;
   cursor: pointer;
   display: inline-block;
   width: 80px;
 }
 
-.games-setup__filter-input {
+.games-setup__filter-input,
+.setup__steps__upload-step__input {
   width: 70%;
 }
 
-.setup__steps__filters__available {
+.setup__steps__filters__available,
+.setup__steps__uploads__available {
   @extend .small-tracked-out-heading;
   @include pad(vert, smaller);
   background-color: #fff9ea;
   border-top: 1px solid $border-color;
 }
 
-.setup__steps__filters__gallery {
+.setup__steps__filters__gallery,
+.setup__steps__uploads__gallery {
+  background-color: #fff9ea;
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 500px;
+  max-height: 500px;
+  text-align: left;
 }
 
 .setup__steps__filter__exclude_mature,
@@ -276,8 +283,27 @@ input.setup__steps__title__input {
 
 // Uploads
 
-.setup__steps__upload__uploader__image { 
-  height: 300px;
+.setup__steps__upload__uploader {
+  @include pad(all, smaller);
+  @include inset(bottom, smaller);
+  border: 1px dashed $border-color;
+}
+
+.setup__steps__upload__uploader__image {
+  border: 3px solid #fff;
+  max-height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.setup__steps__upload-step__label {
+  width: 120px;
+}
+
+.setup__steps__upload-step__submit {
+  @extend %button;
+  @include inset(top, small);
+  margin-left: 120px;
 }
 
 // Overview

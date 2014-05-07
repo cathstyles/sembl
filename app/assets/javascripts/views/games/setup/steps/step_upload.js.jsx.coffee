@@ -120,30 +120,36 @@
     transloadit = `<TransloaditUploadComponent finishedUpload={this.finishedUpload} />`
     image = `<img className="setup__steps__upload__uploader__image" src={this.state.remoteImageUrl} alt={this.state.title} />`
     uploadForm = if !@state.submitting
-        `<div>
+        `<div className="setup__steps__upload-fields">
           <div className="setup__steps__upload__uploader">
             {hasImage ? image : transloadit}
           </div>
-          <div>
-            <label>Title: <input name="title" value={this.state.title} onChange={this.handleChange} /></label>
+          <div className="setup__steps__upload-step">
+            <label className="setup__steps__upload-step__label">Title:</label>
+            <input name="title" value={this.state.title} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
           </div>
-          <div>
-            <label>Description: <input name="description" value={this.state.description} onChange={this.handleChange} /></label>
+          <div className="setup__steps__upload-step">
+            <label className="setup__steps__upload-step__label">Description:</label>
+            <textarea name="description" value={this.state.description} onChange={this.handleChange} className="setup__steps__upload-step__input" rows="5"></textarea>
           </div>
-          <input type="submit" onClick={this.handleSubmit} />
+          <div className="setup__steps__upload-step">
+            <input type="submit" onClick={this.handleSubmit} className="setup__steps__upload-step__submit" value="Add this image" />
+          </div>
         </div>`
       else 
         `<div>
-          <p>Processing…</p>
+          <p>Processing&hellip;</p>
           <progress className="uploader-progress-bar" key="process"></progress>
         </div>`
 
 
     `<div className="setup__steps__upload">
-      <div className="setup__steps__title">Upload some images for this game</div>
+      <div className="setup__steps__title">Upload your own images for use in the game:</div>
       <div className="setup__steps__inner">
         {uploadForm}
-        <div>There are {this.state.totalUploads} custom images for this game</div>
+      </div>
+      <div className="setup__steps__uploads__available">There are {this.state.totalUploads} custom images for this game</div>
+      <div className="setup__steps__uploads__gallery">
         <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
       </div>
     </div>`
