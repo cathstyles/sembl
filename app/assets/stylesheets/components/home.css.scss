@@ -32,6 +32,7 @@
   border: 1px solid $border-color;
   border-radius: $border-radius;
   background-color: $background-color;
+  padding: 15px;
   img {
     border-radius: $border-radius;
     border: 3px solid #fff;
@@ -52,7 +53,6 @@
   }
   &.game-individual__wrapper--playable {
     @extend %highlight-box;
-    padding: 15px;
     img {
       border-color: $highlight-color;
     }
@@ -76,7 +76,6 @@
 
 .game-individual__image-container {
   @include inset(right, normal);
-  @include inset(bottom, normal);
   position: relative;
   float: left;
   overflow: hidden;
