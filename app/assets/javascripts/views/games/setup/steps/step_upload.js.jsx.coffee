@@ -95,7 +95,7 @@
       dataType: 'json'
       success: (things) =>
         results = for i,thing of things
-          index: Number.parseInt(i)
+          index: parseInt(i)
           thing: thing
         $(window).trigger("#{this.searcherPrefix}.updated", {
           results: 

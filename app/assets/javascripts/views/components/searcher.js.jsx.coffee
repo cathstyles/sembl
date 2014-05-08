@@ -56,7 +56,7 @@
         if things.length == 0
           @maxOffset = offset
         hits = for i,thing of things
-          index: offset + Number.parseInt(i)
+          index: offset + parseInt(i)
           thing: thing
 
         @results = 
