@@ -17,19 +17,11 @@
         li Click a node then press backspace or delete to remove the node
         li Double-click a node to edit the round
 
-  - if Rails.env.development?
-    = form.input :nodes_attributes, label: "Nodes" do
-      = form.text_area :nodes_attributes, class: "input-block-level", rows: 5
-      p.help-block This text area appears only in development.
-  - else
-    = form.hidden_field :nodes_attributes
+  = form.input :nodes_attributes, label: "Nodes" do
+    = form.text_area :nodes_attributes, class: "input-block-level", rows: 5
 
-  - if Rails.env.development?
-    = form.input :links_attributes, label: "Links" do
-      = form.text_area :links_attributes, class: "input-block-level", rows: 5
-      p.help-block This text area appears only in development.
-  - else
-    = form.hidden_field :links_attributes
+  = form.input :links_attributes, label: "Links" do
+    = form.text_area :links_attributes, class: "input-block-level", rows: 5
 
   - unless @board.new_record?
     .control-group
