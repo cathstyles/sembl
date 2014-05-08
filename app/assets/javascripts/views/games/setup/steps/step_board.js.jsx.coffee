@@ -19,8 +19,10 @@
       className = "setup__steps__board__item"
       className += " selected" if @props.board?.id == board.id
       `<div className={className} onClick={selectBoard}>
-        <a key={board.id} href="#" onClick={selectBoard}>{board.get('title')}</a>
-        <ThumbBoardGraph board={board} style={{width: 50, height: 50}} />
+        <div className="setup__steps__board__item__inner">
+          <a key={board.id} href="#" onClick={selectBoard}>{board.get('title')}</a>
+          <ThumbBoardGraph board={board} style={{width: 50, height: 50}} />
+        </div>
       </div>`
     )
 

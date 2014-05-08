@@ -71,15 +71,14 @@
 
 .setup__steps__board__item {
   @extend .small-tracked-out-heading;
-  @include pad(all, small);
-  border: 1px solid transparent;
+  border-top: 1px solid $border-color;
   cursor: pointer;
   float: left;
   text-align: center;
   width: 50%;
   &:nth-child(1),
   &:nth-child(2) {
-    border-bottom: 1px solid $border-color;
+    border-top: none;
   }
   &:nth-child(odd) {
     border-right: 1px solid $border-color;
@@ -89,12 +88,19 @@
   }
   &.selected {
     background-color: #fcf8f0;
-    border: 1px dashed $text-color;
+    .setup__steps__board__item__inner {
+      border: 1px dashed $text-color;
+    }
   }
   a {
     color: $link-color;
     display: block;
   }
+}
+
+.setup__steps__board__item__inner {
+  @include pad(all, small);
+  border: 1px solid transparent;
 }
 
 .setup__thumb-board-graph {
