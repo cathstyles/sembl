@@ -7,12 +7,17 @@ class GamesController < ApplicationController
   before_filter :find_game, except: [:index, :new, :create]
 
   def index
-    @games = {
-      open: Game.open_to_join,
-      participating:  Game.participating(current_user),
-      hosted: Game.hosted_by(current_user), 
-      browse: Game.where(invite_only: false).without_states(:open, :joining)
-    }
+    @games = case filter_scope
+    when :participating
+      Game.participating(current_user)
+    when :hosted
+      Game.hosted_by(current_user)
+    when :browse
+      Game.where(invite_only: false).without_states(:open, :joining)
+    else
+      Game.open_to_join
+    end
+    @filter = filter_scope
     respond_with @games
   end
 
@@ -47,18 +52,27 @@ private
 
   def game_params
     params.require(:game).permit(
-      :board_id, 
-      :title, 
-      :description, 
-      :invite_only, 
+      :board_id,
+      :title,
+      :description,
+      :invite_only,
       :uploads_allowed,
-      :filter_content_by, 
-      :theme, 
+      :filter_content_by,
+      :theme,
       :allow_keyword_search,
       :seed_thing_id,
       players_attributes: [:id, :email, :user_id, :_destroy]
     )
   end
 
+  def filter_scope
+    if params[:filter].blank? && current_user
+      :participating
+    elsif params[:filter].present?
+      params[:filter].to_sym
+    else
+      :open
+    end
+  end
 
 end
