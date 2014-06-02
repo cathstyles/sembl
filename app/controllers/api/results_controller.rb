@@ -16,7 +16,7 @@ class Api::ResultsController < ApiController
   def show
     authorize @game
     round = params[:id]
-    placements = @game.completed? ? Placement.for_game(@game) : Placement.for_round(@game, round) 
+    placements = @game.completed? ? Placement.for_game(@game) : Placement.for_round(@game, round)
     @moves = placements.collect{|p| Move.new(placement: p)}
     respond_with :api, @moves
   end
@@ -24,10 +24,10 @@ class Api::ResultsController < ApiController
   def awards
     @awards = MedalAwarder.new(@game)
     authorize @awards
-    respond_with :api, @awards    
+    respond_with :api, @awards
   end
 
-  private 
+  private
 
   def find_game
     @game = Game.find(params[:game_id])

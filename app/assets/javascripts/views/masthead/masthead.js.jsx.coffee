@@ -2,7 +2,7 @@
 
 Sembl.Masthead.Link = React.createClass
   render: ->
-    url = @props.href 
+    url = @props.href
     iconClassName = @props.icon
     `<li className="masthead__link">
       <i className={"masthead__link-icon fa " +iconClassName}></i>
@@ -10,7 +10,7 @@ Sembl.Masthead.Link = React.createClass
     </li>`
 
 {Link} = Sembl.Masthead
-Sembl.Masthead.Masthead = React.createClass 
+Sembl.Masthead.Masthead = React.createClass
   componentDidMount: ->
     # TODO: Need to call this function on every page.
     # Currently only applies to gameplay screens and not, for example, index.

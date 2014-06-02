@@ -1,8 +1,8 @@
-class Move 
+class Move
   attr_accessor :user, :placement
 
   include ActiveModel::Validations
-  
+
   # validate :associations_valid
   validate :placement, presence: true
   validate :target_node, presence: true
@@ -14,7 +14,7 @@ class Move
   end
 
   def placement_exists
-    if @placement.nil? 
+    if @placement.nil?
       errors.add(:placement, "must be entered in target node.")
     end
   end
@@ -24,16 +24,16 @@ class Move
     if options[:placement]
       @placement = options[:placement]
       @user = @placement.creator
-    end 
+    end
   end
 
-  def target_node 
+  def target_node
     @target_node ||= @placement.node
   end
 
-  def links 
+  def links
     @links ||= Link.where(target_id: target_node.id)
-  end 
+  end
 
   def resemblances
     #One sembl per user per link
@@ -45,7 +45,7 @@ class Move
     link.resemblances.where(creator: user).take
   end
 
-  # Pass target node_id and thing_id in attributes. 
+  # Pass target node_id and thing_id in attributes.
   def placement=(attributes)
     attributes[:creator] = @user
     @placement ||= Placement.where(node_id: attributes[:node_id], creator: @user).take
@@ -59,9 +59,9 @@ class Move
 
     resemblances_params.each do |sembl_attributes|
       link = Link.find(sembl_attributes[:link_id])
-      link.resemblances.where(creator: @user).map(&:destroy) 
-      
-      # Get source and target placements. 
+      link.resemblances.where(creator: @user).map(&:destroy)
+
+      # Get source and target placements.
       # Source is final placement on source node
       # Target is @placement
       # Note: source and target placements is a bit of duplication but will future proof
@@ -73,12 +73,12 @@ class Move
     end if resemblances_params
   end
 
-  def calculate_score 
+  def calculate_score
     sembl_ratings = resemblances.map { |r| r.ratings.sum(:rating)/r.ratings.size }
     avg = sembl_ratings.inject(0.0) { |sum, el| sum + el } / sembl_ratings.size
     placement.score = avg
     placement.save
-  end 
+  end
 
   def score
     @score ||= @placement.try(:score) || 0
@@ -106,5 +106,5 @@ class Move
       end
     end
   end
-  
+
 end
