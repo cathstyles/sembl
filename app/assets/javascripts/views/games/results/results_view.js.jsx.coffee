@@ -28,13 +28,14 @@
     Sembl.results = Sembl.results || []
     Sembl.results.push(result)
     semblResults = for resemblance in result.get('resemblances')
-      params = 
+      params =
         source: resemblance.source
         target: target
         description: resemblance.description
         score: result.get('score') || 0 # TODO: This should be the Resemblance score as for multi sembl moves there is a score for each sembl.
       SemblResult(params)
     `<div className="results__move-result">
+      <h2>Round {this.props.round}</h2>
       {semblResults}
     </div>`
 
@@ -42,8 +43,8 @@
 @Sembl.Games.Results.PlayerMoveResults = React.createClass
   render: ->
     user = @props.results[0].get('user')
-    moveResults = for result in @props.results
-      `<MoveResult result={result} />`
+    moveResults = _.map @props.results, (result, index) ->
+      `<MoveResult result={result} round={index + 1} />`
 
     `<div className="results__player-move">
       <h1 className="results__player-move__name">
@@ -80,25 +81,25 @@
     </div>`
 
 @Sembl.Games.Results.PlayerAwards = React.createClass
-  getInitialState: -> 
+  getInitialState: ->
     awards: null
 
-  componentDidMount: -> 
+  componentDidMount: ->
     result = $.get "/api/games/#{@props.game.id}/results/awards.json", (data) =>
       @state.awards = data
       @setState @state
-    
 
-  render: -> 
+
+  render: ->
     awards = if @state.awards
-      @state.awards.map (award) -> 
+      @state.awards.map (award) ->
         `<div className="results__award">
           <img src={award.icon} className="results__award__icon"/>
           <span className="results__award__name">{award.name}</span>
           <span className="results__award__player">{award.player.user.name}</span>
           <span className="results_award__result-name">{award.result_name + ": "}</span><span className="results_award__result">{award.result}</span>
         </div>`
-    else 
+    else
       `<div className="results__awards--fetching">Fetching awards&hellip;</div>`
 
 
@@ -113,7 +114,7 @@
 
 
 @Sembl.Games.Results.PlayerFinalResults = React.createClass
-  
+
   render: ->
     playerRoundResults = @props.players.map (player) ->
       name = player.user?.name
@@ -140,7 +141,7 @@
 {PlayerMoveResults, PlayerRoundResults, PlayerFinalResults, PlayerAwards} = @Sembl.Games.Results
 @Sembl.Games.Results.ResultsView = React.createClass
 
-  render: -> 
+  render: ->
     userGroupedResults = {}
     for result in @props.results.models
       email = result.get('user').email
