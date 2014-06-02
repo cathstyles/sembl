@@ -1,5 +1,6 @@
 ###* @jsx React.DOM ###
 
+{classSet} = React.addons
 @Sembl.Games.Results.SemblResult = React.createClass
   render: ->
     {source, target, description, score} = @props
@@ -45,8 +46,12 @@
     user = @props.results[0].get('user')
     moveResults = _.map @props.results, (result, index) ->
       `<MoveResult result={result} round={index + 1} />`
+    className = classSet
+      "results__player-move": true
+      "results__player-move--winner": (@props.game.get('state') is 'completed' and @props.leader is true)
+      "results__player-move--leader": (@props.game.get('state') is not 'completed' and @props.leader is true)
 
-    `<div className="results__player-move">
+    `<div className={className}>
       <h1 className="results__player-move__name">
         <em><span className="results__player-move__name-username">{user.name}</span></em>
       </h1>
@@ -114,9 +119,9 @@
 
 
 @Sembl.Games.Results.PlayerFinalResults = React.createClass
-
   render: ->
-    playerRoundResults = @props.players.map (player) ->
+    playersSorted = _.sortBy(@props.players.slice(0), (player) -> player.score).reverse()
+    playerRoundResults = _.map playersSorted, (player) ->
       name = player.user?.name
       score = Math.floor(player.score * 100)
       `<div className="results__player-score">
@@ -142,6 +147,10 @@
 @Sembl.Games.Results.ResultsView = React.createClass
 
   render: ->
+    _this = @
+    players = @props.game.get('players')
+    winner = _.sortBy(players, (player) -> player.score).reverse()[0]
+
     userGroupedResults = {}
     for result in @props.results.models
       email = result.get('user').email
@@ -149,14 +158,15 @@
       userGroupedResults[email].push(result)
 
     if @props.game.get('state') is 'completed'
-      playerOverallResults = `<PlayerFinalResults players={this.props.game.get('players')} />`
+      playerOverallResults = `<PlayerFinalResults players={players} />`
       playerAwards = `<PlayerAwards game={this.props.game}/>`
     else
-      playerOverallResults = `<PlayerRoundResults players={this.props.game.get('players')} />`
+      playerOverallResults = `<PlayerRoundResults players={players} />`
 
     playerMoveResults = for email, results of userGroupedResults
       key = email
-      `<PlayerMoveResults key={key} results={results} />`
+      leader = (winner.user.email is email)
+      `<PlayerMoveResults key={key} results={results} game={_this.props.game} leader={leader}/>`
 
     `<div className="results">
       <div className="results__aside">
