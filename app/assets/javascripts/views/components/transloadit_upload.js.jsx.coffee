@@ -1,5 +1,5 @@
-#= require views/utils/utils 
-#= require views/utils/transloadit_handlers 
+#= require views/utils/utils
+#= require views/utils/transloadit_handlers
 
 ###* @jsx React.DOM ###
 {TransloaditBoredInstance, TransloaditSignature} = @Sembl.Handlers
@@ -13,7 +13,7 @@
     new TransloaditBoredInstance(@foundBoredInstance)
     new TransloaditSignature('thingsStoreOriginal', @signatureLoaded)
 
-  componentDidMount: -> 
+  componentDidMount: ->
     @submitOnFileSelected()
 
   componentDidUpdate: ->
@@ -27,21 +27,22 @@
     @uploadTemplate = template
     @checkInitComplete()
 
-  checkInitComplete: -> 
+  checkInitComplete: ->
     if @transloaditInstance and @uploadTemplate
       @assemblyId  = window.Sembl.Utils.genUUID()
       @assemblyUrl = "#{window.Sembl.Utils.PROTOCOL}://#{@transloaditInstance}/assemblies/#{@assemblyId}"
       @postUrl     = "#{@assemblyUrl}?redirect=false"
       @setState state: 'ready'
 
-  submitOnFileSelected: -> 
+  submitOnFileSelected: ->
     $el = $(@getDOMNode())
-    $el.find('input:file').on('change', => 
+    $el.find('input:file').on('change', =>
       $el.find('form').submit()
       @handleSubmit()
     )
 
   handleSubmit: ->
+    @props.startUpload?()
     @setState state: 'uploading'
     @uploadPoll()
 
@@ -49,13 +50,12 @@
     setTimeout @queryAssembly, 1000
 
   updateProgress: (data) ->
-    console.log data
     pctProgress = 0
     percent = data.bytes_received / data.bytes_expected
     percent = 0.02 if percent < 0.02
     @state.state = 'processing' if percent == 1
     @state.progress = percent
-    
+
     @setState @state
 
   queryAssembly: ->
@@ -65,7 +65,6 @@
       url: @assemblyUrl
       success: (data) ->
         if data.ok is 'ASSEMBLY_COMPLETED'
-          console.log 'assembly completed'
           @props.finishedUpload data.results
         else
           @updateProgress(data)
@@ -102,7 +101,7 @@
           <input name="params" type="hidden" value={JSON.stringify(this.uploadTemplate.params)} />
           <input name="signature" type="hidden" value={this.uploadTemplate.signature} />
           <input name="thing" type="file" />
-        </form>` 
+        </form>`
 
     `<div className="upload">
       <iframe name="transloadit" style={hidden} />
