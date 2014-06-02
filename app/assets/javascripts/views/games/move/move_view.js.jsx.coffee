@@ -20,34 +20,36 @@ Gallery = @Sembl.Games.Gallery
   galleryPrefix: 'move.gallery'
 
   componentWillMount: ->
-    $(window).on('move.actions.submitMove', @handleSubmitMove)
-    $(window).on('move.resemblance.change', @handleResemblanceChange)
-    $(window).on("#{@galleryPrefix}.selectTargetThing", @handleSelectTargetThing)
-    $(window).on("#{@galleryPrefix}.thing.click", @handleGalleryClick)
-    $(window).on('move.resemblance.click', @handleResemblanceClick)
-    $(window).on('move.placement.click', @handlePlacementClick)
-    $(window).on('resize', @handleResize)
+    @$window = $(window)
+    @$window.on('move.actions.submitMove', @handleSubmitMove)
+    @$window.on('move.resemblance.change', @handleResemblanceChange)
+    @$window.on("#{@galleryPrefix}.selectTargetThing", @handleSelectTargetThing)
+    @$window.on("#{@galleryPrefix}.thing.click", @handleGalleryClick)
+    @$window.on('move.resemblance.click', @handleResemblanceClick)
+    @$window.on('move.placement.click', @handlePlacementClick)
+    @$window.on('resize', @handleResize)
 
   componentWillUnmount: ->
-    $(window).off('move.actions.submitMove', @handleSubmitMove)
-    $(window).off('move.resemblance.change', @handleResemblanceChange)
-    $(window).off("#{@galleryPrefix}.selectTargetThing", @handleSelectTargetThing)
-    $(window).off("#{@galleryPrefix}.thing.click", @handleGalleryClick)
-    $(window).off('move.resemblance.click', @handleResemblanceClick)
-    $(window).off('move.placement.click', @handlePlacementClick)
-    $(window).off('resize', @handleResize)
+    @$window.off('move.actions.submitMove', @handleSubmitMove)
+    @$window.off('move.resemblance.change', @handleResemblanceChange)
+    @$window.off("#{@galleryPrefix}.selectTargetThing", @handleSelectTargetThing)
+    @$window.off("#{@galleryPrefix}.thing.click", @handleGalleryClick)
+    @$window.off('move.resemblance.click', @handleResemblanceClick)
+    @$window.off('move.placement.click', @handlePlacementClick)
+    @$window.off('resize', @handleResize)
 
   componentDidMount: ->
-    $(window).trigger('slideViewer.setChild', 
+    @$window.trigger('slideViewer.setChild',
       `<Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />`
     )
 
   handleResize: ->
-    $(window).trigger('graph.resize')
+    @$window.trigger('graph.resize')
 
   handleResemblanceClick: (event, data) ->
-    link = data.link
-    $(window).trigger('modal.open', `<ResemblanceModal description={data.description} link={link} targetThing={this.state.targetThing}/>`)
+    if @state.move.thing?
+      link = data.link
+      @$window.trigger('modal.open', `<ResemblanceModal description={data.description} link={link} targetThing={this.state.targetThing}/>`)
 
   handleResemblanceChange: (event, resemblance) ->
     resemblance.description
@@ -55,19 +57,19 @@ Gallery = @Sembl.Games.Gallery
     @state.move.addResemblance(resemblance.link, resemblance.description)
     self = @
     $.doTimeout('debounce.move.resemblance.change', 200, -> self.forceUpdate())
-  
+
   handlePlacementClick: (event, data) ->
     if data.userState in ['proposed', 'available']
-      $(window).trigger('slideViewer.show')
+      @$window.trigger('slideViewer.show')
     else if data.thing
-      $(window).trigger('modal.open', `<ThingModal thing={data.thing} />`)
+      @$window.trigger('modal.open', `<ThingModal thing={data.thing} />`)
 
   handleGalleryClick: (event, thing) ->
-    $(window).trigger('modal.open', `<GalleryThingModal thing={thing} />`)
+    @$window.trigger('modal.open', `<GalleryThingModal thing={thing} />`)
 
   handleSelectTargetThing: (event, thing) ->
-    $(window).trigger('move.node.setThing', {node: @state.target, thing: thing})
-    $(window).trigger('slideViewer.hide')
+    @$window.trigger('move.node.setThing', {node: @state.target, thing: thing})
+    @$window.trigger('slideViewer.hide')
     @state.move.addPlacementThing(thing)
     @setState
       targetThing: thing
@@ -75,16 +77,16 @@ Gallery = @Sembl.Games.Gallery
 
   handleSubmitMove: (event) ->
     @state.move.save({}, {
-      success: => 
+      success: =>
         @handleMoveComplete()
-      error: (model, response) => 
+      error: (model, response) =>
         responseObj = JSON.parse response.responseText;
-        
-        if response.status == 422 
+
+        if response.status == 422
           msgs = (value for key, value of responseObj.errors)
-          $(window).trigger('flash.error', msgs.join(", "))   
+          @$window.trigger('flash.error', msgs.join(", "))
         else
-          $(window).trigger('flash.error', "Error saving move: #{responseObj.errors}")
+          @$window.trigger('flash.error', "Error saving move: #{responseObj.errors}")
     })
 
   handleMoveComplete: () ->
@@ -93,7 +95,7 @@ Gallery = @Sembl.Games.Gallery
 
   getInitialState: () ->
     target = @props.node
-    links = 
+    links =
       for link in @props.game.links.where({target_id: target.id})
         _.extend({}, link)
     move = new Sembl.Move({
@@ -107,7 +109,7 @@ Gallery = @Sembl.Games.Gallery
       links: links
       editResemblance: null
 
-  render: -> 
+  render: ->
     target = @state.target
     links = @state.links
 

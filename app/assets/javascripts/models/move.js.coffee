@@ -1,7 +1,7 @@
-# Attributes: node, thing, resemblances 
+# Attributes: node, thing, resemblances
 
 class Sembl.Move extends Backbone.Model
-  url: -> 
+  url: ->
     "/api/games/#{@game.id}/moves"
 
   initialize: (options) ->
@@ -19,9 +19,9 @@ class Sembl.Move extends Backbone.Model
   addResemblance: (link, description) ->
     @resemblances[link.id] = description || null
 
-  activateLinkAt: (index) -> 
+  activateLinkAt: (index) ->
     link = @links.at(index)
-    link.active = true 
+    link.active = true
     link
 
   isValid: ->
@@ -29,7 +29,7 @@ class Sembl.Move extends Backbone.Model
     numResemblances = (desc for linkId,desc of @resemblances).filter((desc)-> !!desc).length
     !!@placement.thing_id && numLinks == numResemblances
 
-  toJSON: -> 
+  toJSON: ->
     move:
       game_id: @game.id
       placement: @placement || null

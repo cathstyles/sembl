@@ -16,7 +16,7 @@
     buttonClassName = "move__actions__button"
     if !@props.move.isValid()
       buttonClassName += " button--disabled"
-      
+
     uploadButton = if @props.game.get('uploads_allowed')
       `<button className="move__actions__button" onClick={this.handleUpload}>
         <i className="fa fa-thumbs-up"></i> Upload image

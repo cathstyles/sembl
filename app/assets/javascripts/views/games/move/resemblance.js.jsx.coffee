@@ -11,7 +11,7 @@
     $(window).off('move.node.setThing', @handleSetThing)
     $(window).off('move.resemblance.change', @handleResemblanceChange)
 
-      
+
   handleClick: (event, link) ->
     $(window).trigger('move.resemblance.click', {link: @props.link, description: @state.description})
 
@@ -20,7 +20,7 @@
       @setState
         description: resemblance.description
 
-  handleSetThing: (event, data) -> 
+  handleSetThing: (event, data) ->
     if data.node.id == @props.link.target().id
       @setState
         nodeState: 'proposed'
@@ -29,11 +29,11 @@
     link = @props.link
     resemblance = link.get('viewable_resemblance')
     description = if !!resemblance then resemblance.description
-    state = 
+    state =
       description: description
       nodeState: link.target().get('user_state')
 
-  componentDidUpdate: -> 
+  componentDidUpdate: ->
     round = window.Sembl.game.get('current_round')
     if round == 1 and !!@state.description
       $(window).trigger('flash.notice', 'Happy with your move? Submit to keep playing')
@@ -41,7 +41,7 @@
   render: () ->
     toggleEvent = 'toggle.graph.resemblance.'+@props.link.id
 
-    child = if @state.description 
+    child = if @state.description
       `<div className="game__resemblance__expanded">
         <div className="game__resemblance__expanded__inner">
           {this.state.description}
