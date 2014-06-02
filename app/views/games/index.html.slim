@@ -6,6 +6,19 @@
 ul
   - if user_signed_in?
     li
+      = link_to "Profile", edit_profile_path
+    li
+      = link_to "Sign out", destroy_user_session_path
+  - else
+    li
+      = link_to "Sign in", new_user_session_path
+    li
+      = link_to "Sign up", new_user_registration_path
+
+
+ul
+  - if user_signed_in?
+    li
       a href="#{games_path}/?filter=participating" Games you’re playing
     li
       a href="#{games_path}/?filter=hosted" Games you’re hosting
@@ -26,3 +39,5 @@ ul
     .home__all-games-container
       - @games.each do |game|
         = render partial: "game", locals: {game: game}
+
+    = paginate @games

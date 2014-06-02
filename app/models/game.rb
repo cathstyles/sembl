@@ -21,18 +21,18 @@
 #  filter_content_by    :json
 #
 
-# == States 
+# == States
 #   draft:     Will not be published
 #   open:      Open to join but no players have joined, can still be edited
 #   joining:   Players have joined and can begin play, but there are still places available
 #   playing:   Players are adding placements and sembls
-#   rating:    Players are rating 
-#   completed: Game is over 
+#   rating:    Players are rating
+#   completed: Game is over
 class Game < ActiveRecord::Base
   validates :title, presence: true
   validates :board, presence: true
   validates :seed_thing_id, presence: true
-  #validates :number_of_players, presence: true, numericality: {greater_than: 1} 
+  #validates :number_of_players, presence: true, numericality: {greater_than: 1}
 
   validate :uploads_disabled_for_public_game
   validate :players_must_not_outnumber_board_number
@@ -44,12 +44,14 @@ class Game < ActiveRecord::Base
   has_many :users, through: :players
   has_many :players
 
-  accepts_nested_attributes_for :players, 
+  accepts_nested_attributes_for :players,
     allow_destroy: true,
     reject_if: :all_blank
 
   has_many :nodes, dependent: :destroy, autosave: true
   has_many :links, dependent: :destroy, autosave: true
+
+  default_scope order('created_at DESC')
 
   before_create :generate_random_seed
 
@@ -61,7 +63,7 @@ class Game < ActiveRecord::Base
 
   # == State Machine
 
-  state_machine initial: :draft do 
+  state_machine initial: :draft do
     after_transition :draft => :open, do: :remove_draft_players
     after_transition :draft => :playing, do: :invite_players
     after_transition :rating => :playing, do: :increment_round
@@ -70,38 +72,38 @@ class Game < ActiveRecord::Base
     after_transition :rating => :playing, do: :players_begin_playing
     after_transition :rating => :completed, do: :players_finish_playing
 
-    event :publish do 
+    event :publish do
       transition :draft => :open, if: lambda { |game| !game.invite_only }
       transition :draft => :playing
     end
 
-    event :unpublish do 
+    event :unpublish do
       transition :open => :draft
     end
 
     # This happens after a player has successfully been created.
-    event :join do 
+    event :join do
       transition [:open, :joining] => :joining, if: lambda {|game| game.with_open_places? }
       transition [:joining, :open] => :playing
     end
 
-    event :turns_completed do 
+    event :turns_completed do
       transition :playing => :rating
     end
 
-    event :ratings_completed do 
+    event :ratings_completed do
       transition :rating => :completed, if: lambda {|game| game.final_round? }
       transition :rating => :playing
     end
 
     state :draft, :open do
-      def configurable? 
+      def configurable?
         true
       end
     end
 
     state :joining, :playing, :rating, :complete do
-      def configurable? 
+      def configurable?
         false
       end
     end
@@ -109,7 +111,7 @@ class Game < ActiveRecord::Base
     # validate correct number of players have been invited.
     state :playing do
       validate :all_players_created
-    end 
+    end
 
   end
 
@@ -129,33 +131,33 @@ class Game < ActiveRecord::Base
   end
 
   # == Helpers
-  def with_open_places? 
+  def with_open_places?
     number_of_players && players.count < number_of_players
-  end 
+  end
 
   def open_to_join?
     invite_only == false && can_join?
   end
 
-  def seed_thing 
+  def seed_thing
     if seed_thing_id.present?
       Thing.find(seed_thing_id)
-    else 
+    else
       seed_node.try(:final_placement).try(:thing)
     end
   end
 
- 
 
-  def seed_node 
+
+  def seed_node
     nodes.where(round: 0).take
   end
 
-  def final_round 
+  def final_round
     nodes.maximum(:round)
   end
 
-  def final_round? 
+  def final_round?
     current_round == final_round
   end
 
@@ -184,14 +186,14 @@ class Game < ActiveRecord::Base
     players.each {|player| player.finish_playing }
   end
 
-  def invite_players 
+  def invite_players
     players.each do |player|
       player.invite
     end if invite_only
-  end 
+  end
 
   def remove_draft_players
-    players.with_state(:draft).destroy_all 
+    players.with_state(:draft).destroy_all
   end
 
   # Increment round if all placements have been finalised
@@ -202,24 +204,24 @@ class Game < ActiveRecord::Base
     end
 
     if round_complete
-      self.current_round += 1 
+      self.current_round += 1
       save!
       unlock_nodes_for_round
     end
   end
 
-  def unlock_nodes_for_round 
+  def unlock_nodes_for_round
     nodes.where(round: current_round).each do |node|
       node.unlock
-    end 
+    end
   end
 
-  def calculate_scores 
+  def calculate_scores
     calculate_placement_scores
     calculate_player_scores
   end
 
-  def calculate_placement_scores 
+  def calculate_placement_scores
     nodes.where(round: current_round).each do |node|
       winning_move = nil
       node.placements.with_state('proposed').each do |placement|
@@ -250,7 +252,7 @@ class Game < ActiveRecord::Base
     if number_of_players && players.count < number_of_players
       if invite_only
         errors.add(:base, "This game is invite only. #{number_of_players} players must be invited to publish this game.")
-      else 
+      else
         errors.add(:base, "#{number_of_players} players are required to publish this game.")
       end
     end
@@ -272,7 +274,7 @@ class Game < ActiveRecord::Base
   end
 
   # == Stuff that shouln't be here
-  
+
   def crop_board
     xarr = nodes.map {|n| n.x}
     yarr = nodes.map {|n| n.y}
@@ -288,14 +290,14 @@ class Game < ActiveRecord::Base
     scaleX = 800.0/width
     scaleY = 600.0/height
 
-    nodes.each do |node| 
+    nodes.each do |node|
       node.x = (node.x - min_x) * scaleX
       node.y = (node.y - min_y) * scaleY
     end
   end
 
 
-  private 
+  private
 
     def generate_random_seed
       self.random_seed = SecureRandom.random_number(2147483646)

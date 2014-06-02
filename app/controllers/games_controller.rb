@@ -7,17 +7,20 @@ class GamesController < ApplicationController
   before_filter :find_game, except: [:index, :new, :create]
 
   def index
-    @games = case filter_scope
+    filtered_games = case filter_scope
     when :participating
       Game.participating(current_user)
     when :hosted
       Game.hosted_by(current_user)
     when :browse
-      Game.where(invite_only: false).without_states(:open, :joining)
+      Game.where(invite_only: false).without_states(:open, :joining, :completed)
+    when :completed
+      Game.where(invite_only: false).with_states(:completed)
     else
       Game.open_to_join
     end
     @filter = filter_scope
+    @games = filtered_games.page(params[:page])
     respond_with @games
   end
 
