@@ -33,7 +33,7 @@
         source: resemblance.source
         target: target
         description: resemblance.description
-        score: result.get('score') || 0 # TODO: This should be the Resemblance score as for multi sembl moves there is a score for each sembl.
+        score: resemblance.score || 0
       SemblResult(params)
     `<div className="results__move-result">
       <h2>Round {this.props.round}</h2>
