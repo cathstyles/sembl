@@ -4,6 +4,7 @@
 
 ###* @jsx React.DOM ###
 
+{classSet} = React.addons
 {Gallery} = @Sembl.Games
 {TransloaditUploadComponent, ThingModal} = @Sembl.Components
 
@@ -15,7 +16,7 @@
     title: null
     description: null
     remoteImageUrl: null
-  
+
   componentDidMount:->
     $(window).on("#{@galleryPrefix}.thing.click", @handleGalleryThingClick)
     @getThings()
@@ -39,14 +40,15 @@
 
   handleSubmit: (event) ->
     event.preventDefault()
-    data = 
-      thing:
-        title: @state.title
-        description: @state.description
-        remote_image_url: @state.remoteImageUrl
-      game_id: @props.game.id
-      authenticity_token: @props.game.get('auth_token')
-    @postThing(data)
+    if @_uploadValid()
+      data =
+        thing:
+          title: @state.title
+          description: @state.description
+          remote_image_url: @state.remoteImageUrl
+        game_id: @props.game.id
+        authenticity_token: @props.game.get('auth_token')
+      @postThing(data)
 
   finishedUpload: (results) ->
     console.log 'finished transloadit upload', results
@@ -58,7 +60,7 @@
     success = (data) =>
       console.log 'success!', data
       @getThings()
-      @setState 
+      @setState
         title: ""
         description: ""
         remoteImageUrl: null
@@ -66,9 +68,9 @@
     error = (response) =>
       console.error 'error!', response
       @setState submitting: false
-      try 
+      try
         responseObj = JSON.parse(response.responseText)
-        if response.status == 422 
+        if response.status == 422
           msgs = (value for key, value of responseObj.errors)
           $(window).trigger('flash.error', msgs.join(", "))
         else
@@ -98,7 +100,7 @@
           index: parseInt(i)
           thing: thing
         $(window).trigger("#{this.searcherPrefix}.updated", {
-          results: 
+          results:
             hits: results
             total: results.length
         })
@@ -112,15 +114,17 @@
   render: ->
     game = @props.game
 
-    # TODO: add fields for setting source and other metadata?
-    hasImage = !!@state.remoteImageUrl
-    hasTitle = !!@state.title
-    submitDisabled = hasImage && hasTitle # TODO disable the button
+    hasImage = @state.remoteImageUrl?
 
+    uploadFormClassName = classSet
+      "setup__steps__upload-fields": true
+      "setup__steps__upload-fields--disabled": !@_uploadValid()
+
+    # TODO: add fields for setting source and other metadata?
     transloadit = `<TransloaditUploadComponent finishedUpload={this.finishedUpload} />`
     image = `<img className="setup__steps__upload__uploader__image" src={this.state.remoteImageUrl} alt={this.state.title} />`
     uploadForm = if !@state.submitting
-        `<div className="setup__steps__upload-fields">
+        `<div className={uploadFormClassName}>
           <div className="setup__steps__upload__uploader">
             {hasImage ? image : transloadit}
           </div>
@@ -133,10 +137,10 @@
             <textarea name="description" value={this.state.description} onChange={this.handleChange} className="setup__steps__upload-step__input" rows="5"></textarea>
           </div>
           <div className="setup__steps__upload-step">
-            <input type="submit" onClick={this.handleSubmit} className="setup__steps__upload-step__submit" value="Add this image" />
+            <button onClick={this.handleSubmit} className="setup__steps__upload-step__submit">Add this image</button>
           </div>
         </div>`
-      else 
+      else
         `<div>
           <p>Processing&hellip;</p>
           <progress className="uploader-progress-bar" key="process"></progress>
@@ -153,3 +157,6 @@
         <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
       </div>
     </div>`
+
+  _uploadValid: ->
+    (@state.remoteImageUrl? && @state.title?)

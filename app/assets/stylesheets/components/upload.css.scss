@@ -7,3 +7,15 @@
 .upload__progress-bar__pct {
   background: red;
 }
+
+
+// User upload
+.setup__steps__inner {
+  background-color: #fff9ea;
+}
+
+.setup__steps__upload-fields--disabled {
+  button {
+    opacity: 0.5;
+  }
+}
