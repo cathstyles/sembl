@@ -3,7 +3,8 @@ class ProfilesController < ApplicationController
 
   before_filter :find_profile
 
-  def edit    
+  def edit
+    @new_user = params[:new_user] || false
     authorize @profile
     respond_with @profile
   end
@@ -15,7 +16,7 @@ class ProfilesController < ApplicationController
     params_copy[:user_attributes] = params_copy[:user_attributes].delete_if { |key, value| key.in? %w(password password_confirmation) and value.blank? }
 
     @profile.assign_attributes(params_copy)
-    
+
     if @profile.save
       flash[:notice] = "Profile updated." if @profile.save
       # updating a user in device signs them out by default.
@@ -29,13 +30,13 @@ class ProfilesController < ApplicationController
 
   def find_profile
     @profile = Profile.where(user: current_user).take
-  end 
+  end
 
-  def profile_params 
+  def profile_params
     params.require(:profile).permit(
-      :name, 
-      :bio, 
-      :remote_avatar_url, 
+      :name,
+      :bio,
+      :remote_avatar_url,
       user_attributes: [:id, :email, :password, :password_confirmation]
     )
   end
