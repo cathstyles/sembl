@@ -3,10 +3,15 @@
 {classSet} = React.addons
 @Sembl.Games.Results.SemblResult = React.createClass
   render: ->
-    {source, target, description, score} = @props
+    {source, target, description, score, roundWinner} = @props
     score = Math.floor(score * 100)
     key = "#{source.node.id}.#{target.node.id}"
-    `<div className="results__player-move__move" key={key}>
+
+    className = classSet
+      "results__player-move__move": true
+      "results__player-move__move--won": roundWinner
+
+    `<div className={className} key={key}>
       <div className="results__player-move__move__sembl">{description}</div>
       <div className="results__player-move__move__node-wrapper">
         <div className="results__player-move__move__node-wrapper__inner">
@@ -30,6 +35,7 @@
     Sembl.results.push(result)
     semblResults = for resemblance in result.get('resemblances')
       params =
+        roundWinner: _.contains(_.pluck(@props.roundWinners, "id"), resemblance.id)
         source: resemblance.source
         target: target
         description: resemblance.description
@@ -43,9 +49,10 @@
 {MoveResult} = @Sembl.Games.Results
 @Sembl.Games.Results.PlayerMoveResults = React.createClass
   render: ->
+    _this = @
     user = @props.results[0].get('user')
     moveResults = _.map @props.results, (result, index) ->
-      `<MoveResult result={result} round={index + 1} />`
+      `<MoveResult result={result} round={index + 1} roundWinners={_this.props.roundWinners}/>`
     className = classSet
       "results__player-move": true
       "results__player-move--winner": (@props.game.get('state') is 'completed' and @props.leader is true)
@@ -155,6 +162,29 @@
     players = @props.game.get('players')
     winner = _.sortBy(players, (player) -> player.score).reverse()[0]
 
+    # Munge into better format
+    rounds = {}
+    for result in @props.results.models
+      targetNode = result.get("target").node
+      for resemblance in result.get("resemblances")
+        sourceNode = resemblance.source.node
+        key = "round-#{targetNode.round}-#{sourceNode.id}-to-#{targetNode.id}"
+        unless rounds[key]?
+          rounds[key] = []
+        rounds[key].push
+          score: resemblance.score
+          id:    resemblance.id
+
+    # Calculate winning nodes for each rounds
+    roundWinners = []
+    for round in _.compact rounds
+      highscore = 0
+      for move in round
+        if move.score > highscore
+          highscore = move.score
+          roundWinner = move
+      roundWinners.push(roundWinner)
+
     userGroupedResults = {}
     for result in @props.results.models
       email = result.get('user').email
@@ -170,7 +200,7 @@
     playerMoveResults = for email, results of userGroupedResults
       key = email
       leader = (winner.user.email is email)
-      `<PlayerMoveResults key={key} results={results} game={_this.props.game} leader={leader}/>`
+      `<PlayerMoveResults key={key} results={results} game={_this.props.game} leader={leader} roundWinners={roundWinners}/>`
 
     `<div className="results">
       <div className="results__aside">
