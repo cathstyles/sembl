@@ -21,11 +21,8 @@ Sembl.Masthead.Masthead = React.createClass
     $('.heading h1').css 'margin-left', ((headerTabWidth / 2) * -1) + 'px'
 
   render: ->
-    if Sembl.user
-      profile = `<Link href={Sembl.paths.edit_profile_path} icon="fa-user">Profile</Link>`
-      if Sembl.user.admin
-        admin = `<Link href={Sembl.paths.admin_root_path} icon="fa-cog">Admin</Link>`
-      sign_out = `<Link href={Sembl.paths.destroy_user_session_path} icon="fa-power-off ">Sign out</Link>`
+    if Sembl.user and Sembl.user.admin
+      admin = `<Link href={Sembl.paths.admin_root_path} icon="fa-cog">Admin</Link>`
     else
       sign_in = `<Link href={Sembl.paths.new_user_session_path} icon="fa-key">Sign in</Link>`
       sign_up = `<Link href={Sembl.paths.new_user_registration_path} icon="fa-user">Sign up</Link>`
@@ -34,9 +31,7 @@ Sembl.Masthead.Masthead = React.createClass
       <a className="masthead__logo" href="/">Sembl</a>
       <div className="masthead__inner">
         <ul className="masthead__links">
-          {profile}
           {admin}
-          {sign_out}
           {sign_in}
           {sign_up}
         </ul>
