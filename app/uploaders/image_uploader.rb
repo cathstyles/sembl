@@ -15,7 +15,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version(:browse_thumb) do
-    process resize_to_fit: [100000, 350]
+    process resize_to_fit: [1000, 350]
+  end
+
+  version(:large) do
+    process resize_to_fit: [1200, 1200]
   end
 
   def filename
