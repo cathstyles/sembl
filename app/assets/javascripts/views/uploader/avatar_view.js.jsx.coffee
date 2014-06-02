@@ -10,25 +10,29 @@
       step: 2
     else
       step: 1
-  
+
+  componentDidMount: ->
+    @$form = $(@props.avatarFormSelector)
+
   # Click to upload a different image
-  handleOnClick: -> 
+  handleOnClick: ->
     @setState step: 1
 
   finishedUpload: (results) ->
     @avatarRemoteUrl = results[':original'][0].url
-    console.log @avatarRemoteUrl
     $("#profile_remote_avatar_url").val(@avatarRemoteUrl)
     @setState step: 2
+    @_enableForm()
 
   render: ->
     currentComponent = switch @state.step
       when 1
         `<TransloaditUploadComponent
+          startUpload={this._startUpload}
           finishedUpload={this.finishedUpload}
         />`
 
-      #TODO: some sort of design/text directive for click to edit
+      # TODO: some sort of design/text directive for click to edit
       when 2
         srcURL = this.avatarRemoteUrl || this.props.avatarUrl
         `<img src={srcURL}/>`
@@ -37,7 +41,31 @@
       {currentComponent}
     </div>`
 
+  _disabledClassName: ->
+    "#{@props.avatarFormSelector.replace(/^\./, "")}--disabled"
+
+  _startUpload: ->
+    @_disableForm()
+
+  _catchSubmission: (e) ->
+    e.preventDefault()
+
+  _disableForm: ->
+    console.log "DISABLE"
+    @$form
+      .on("submit", @_catchSubmission)
+      .addClass(@_disabledClassName())
+
+  _enableForm: ->
+    console.log "ENABLE"
+    @$form
+      .off("submit", @_catchSubmission)
+      .removeClass(@_disabledClassName())
+
 @Sembl.views.avatarView = ($el, el) ->
-  React.renderComponent window.Sembl.NewAvatar(avatarUrl: $el.data().avatarUrl), el
+  React.renderComponent window.Sembl.NewAvatar(
+    avatarUrl:          $el.data().avatarUrl,
+    avatarFormSelector: $el.data().avatarFormSelector
+  ), el
 
 

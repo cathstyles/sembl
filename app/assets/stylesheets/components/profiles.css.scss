@@ -71,3 +71,9 @@
   @extend %button;
   margin-left: 0 !important;
 }
+
+// TODO make this make sense
+.profile__edit-form {}
+.profile__edit-form--disabled {
+  opacity: 0.5;
+}

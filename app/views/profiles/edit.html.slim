@@ -13,9 +13,9 @@
   .profile__avatar-container
     h3.profile__avatar-title Upload an avatar
     .profile__avatar-container__inner
-      div data-view="avatarView" data-avatar-url="#{@profile.avatar.try(:thumb).try(:url)}"
+      div data-view="avatarView" data-avatar-url="#{@profile.avatar.try(:thumb).try(:url)}" data-avatar-form-selector=".profile__edit-form"
 
-  = simple_form_for @profile do |f|
+  = simple_form_for @profile, html: {class: "profile__edit-form"} do |f|
     div.profile__meta-data
       = f.input :name, label: "Name"
       = f.input :bio, label: "Bio", as: :text, placeholder: "Tell us a little about yourself"
