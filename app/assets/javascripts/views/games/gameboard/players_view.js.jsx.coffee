@@ -1,23 +1,23 @@
 ###* @jsx React.DOM ###
 
 @Sembl.Games.Gameboard.PlayersView = React.createClass
-  getAvatar: (user) -> 
-    if user.avatar and user.avatar.avatar_tiny_thumb
-      `<img src={user.avatar.avatar_tiny_thumb} />` 
-    else 
+  getAvatar: (user) ->
+    if user.avatar_tiny_thumb
+      `<img src={user.avatar_tiny_thumb} />`
+    else
       # Get initials from name
-      _.map(user.name.split(' ', 2), (item) -> 
+      _.map(user.name.split(' ', 2), (item) ->
         item[0].toUpperCase()
       ).join('')
 
-  getNameAndStatus: (player) -> 
+  getNameAndStatus: (player) ->
     state = player.get('state').replace('_', ' ')
     `<div>
       {player.get('user').name}
       <strong>{state}</strong>
     </div>`
 
-  render: -> 
+  render: ->
     # Can also use the .player--highlighted class to indicate "you"
     players = @props.players.map((player) =>
       user = player.get('user')
@@ -37,7 +37,7 @@
           </div>
         </li>`
     )
-    
+
     `<ul className="game__players">
         <li className="game__player game__player--icon">
           <i className="fa fa-smile-o"></i>
