@@ -15,20 +15,10 @@ html
         = link_to "Sembl", root_path, class: 'masthead__logo'
         .masthead__inner
           ul.masthead__links
-            - if user_signed_in?
+            - if user_signed_in? && current_user.admin?
               li.masthead__link
-                i(class="fa fa-user masthead__link-icon")
-                = link_to "Profile", edit_profile_path, class: 'masthead__link-anchor'
-              / li.masthead__link
-                / i(class="fa fa-cog masthead__link-icon")
-                / = link_to "Edit Password", admin_root_path, class: 'masthead__link-anchor'
-              - if current_user.admin?
-                li.masthead__link
-                  i(class="fa fa-cog masthead__link-icon")
-                  = link_to "Admin", admin_root_path, class: 'masthead__link-anchor'
-              li.masthead__link
-                i(class="fa fa-power-off masthead__link-icon")
-                = link_to "Sign out", destroy_user_session_path, class: 'masthead__link-anchor'
+                i(class="fa fa-cog masthead__link-icon")
+                = link_to "Admin", admin_root_path, class: 'masthead__link-anchor'
             - else
               li.masthead__link
                 i(class="fa fa-key masthead__link-icon")
@@ -36,7 +26,7 @@ html
               li.masthead__link
                 i(class="fa fa-user masthead__link-icon")
                 = link_to "Sign up", new_user_registration_path, class: 'masthead__link-anchor'
-    
+
     .content.container
       = area :content do
         = flashes
