@@ -67,7 +67,11 @@
       score = Math.floor(player.score * 100)
       # TODO: Add a highlight class to "results__player-score" <div> to indicate "you"
       # you = if @Sembl.id is id then " results__player-score--you" else ""
-      `<div className="results__player-score">
+      className = classSet
+        "results__player-score": true
+        "results__player-score--you": (player.user?email is Sembl.user.email)
+
+      `<div className={className}>
         <h1 className="results__player-score__name">
           <em>{name}</em>
         </h1>
