@@ -4,6 +4,9 @@
 #= require collections/moves
 #= require views/games/rate/rating_view
 #= require views/games/results/results_view
+#= require views/utils/page_title
+
+{PageTitle} = Sembl.Utils
 
 class Sembl.GameRouter extends Backbone.Router
   routes:
@@ -22,12 +25,14 @@ class Sembl.GameRouter extends Backbone.Router
     @layout.setProps
       body: Sembl.Games.Gameboard.GameView({model: @game}),
       header: Sembl.Games.Gameboard.GameHeaderView(model: @game)
+    PageTitle.set @game.get("title")
 
   move: (nodeID) ->
     node = @game.nodes.get(nodeID)
     @layout.setProps
       body: Sembl.Games.Move.MoveView({node: node, game: @game}),
       header: Sembl.Games.HeaderView(model: @game, title: 'Your Move')
+    PageTitle.set "Your move"
 
   rate: ->
     moves = new Sembl.Moves([], {rating: true, game: @game})
@@ -36,12 +41,14 @@ class Sembl.GameRouter extends Backbone.Router
       @layout.setProps
         body: Sembl.Games.Rate.RatingView({moves: moves, game: @game}),
         header: Sembl.Games.HeaderView(model: @game, title: 'Rate Sembls')
+      PageTitle.set "Rate Sembls"
 
 
   results: (round) ->
     results = new Sembl.Results([], {game: @game, round: round})
     res = results.fetch()
     title = if @game.get('state') is 'completed' then "Final Results" else "Round #{round} Results"
+    PageTitle.set title
 
     res.done =>
       @layout.setProps
