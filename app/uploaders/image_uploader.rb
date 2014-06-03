@@ -26,6 +26,16 @@ class ImageUploader < CarrierWave::Uploader::Base
     @name ||= "#{secure_token}.#{file.extension.downcase}" if original_filename
   end
 
+  # These two methods are for our specs so images are stored locally
+  if Rails.env.test? || Rails.env.cucumber?
+    def cache_dir
+      "#{Rails.root}/spec/support/uploads/tmp"
+    end
+
+    def store_dir
+      "#{Rails.root}/spec/support/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    end
+  end
 
 private
 

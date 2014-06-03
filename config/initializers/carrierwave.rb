@@ -19,4 +19,9 @@ CarrierWave.configure do |config|
   if ENV["CLOUDFRONT_DOMAIN"].present?
     config.asset_host = "https://#{ENV['CLOUDFRONT_DOMAIN']}"
   end
+
+  if Rails.env.test? || Rails.env.cucumber?
+    config.storage = :file
+    config.enable_processing = false
+  end
 end
