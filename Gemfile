@@ -34,7 +34,12 @@ group :development do
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'debugger'
+
+  # Guard et al
+  gem "guard", "~> 2"
+  gem "guard-rspec"
+  gem "guard-livereload"
+  gem "rb-fsevent"
 end
 
 group :doc do
@@ -42,6 +47,7 @@ group :doc do
 end
 
 group :development, :test do
+  gem 'debugger'
   gem 'dotenv-rails'
   gem 'factory_girl_rails'
   gem 'pry-rails'
