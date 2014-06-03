@@ -18,15 +18,16 @@ require 'spec_helper'
 describe Node do
   subject(:node) { described_class.new }
   let(:user) { FactoryGirl.create(:user) }
+  let(:thing) { FactoryGirl.create(:thing) }
 
 
   describe "helpers" do 
     context "has placements" do 
       before do 
         node.round = 1
-        node.placements.build(creator: user, state: 'proposed')
-        node.placements.build(creator: nil, state: 'proposed')
-        node.placements.build(creator: user, state: 'final')
+        node.placements.build(creator: user, state: 'proposed', thing: thing)
+        node.placements.build(creator: nil, state: 'proposed', thing: thing)
+        node.placements.build(creator: user, state: 'final', thing: thing)
         node.save!
       end
 
