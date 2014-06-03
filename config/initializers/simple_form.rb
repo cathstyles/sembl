@@ -103,7 +103,7 @@ SimpleForm.setup do |config|
   config.error_notification_tag = :aside
 
   # CSS class to add for error notification helper.
-  config.error_notification_class = 'flash alert'
+  config.error_notification_class = 'block-error block-error--flash block-error--alert'
 
   # ID to add for error notification helper.
   # config.error_notification_id = nil
