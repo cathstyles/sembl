@@ -18,10 +18,13 @@
       rating: {resemblance_id: sembl.id, rating: ratio}
       authenticity_token: @props.move.game.get('auth_token')
 
-    result = $.post "#{@props.move.collection.url()}.json", postData, (data) =>
+    setData = =>
       sembl.rating = ratio
       link = @props.link.set('viewable_resemblance', sembl)
       @props.handleRated(link)
+
+    result = $.post "#{@props.move.collection.url()}.json", postData, (data) =>
+      setData()
       $(window).trigger('flash.hidden')
 
     result.fail (response) ->
