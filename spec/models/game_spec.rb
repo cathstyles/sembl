@@ -30,10 +30,10 @@ describe Game do
   describe "validations" do
     it { should validate_presence_of :title }
     it { should validate_presence_of :board }
-    it { should validate_presence_of :number_of_players }
-    it { should validate_numericality_of :number_of_players}
+    pending { should validate_presence_of :number_of_players }
+    pending { should validate_numericality_of :number_of_players}
 
-    it { should_not allow_value(1).for(:number_of_players) }
+    pending { should_not allow_value(1).for(:number_of_players) }
     it { should allow_value(2).for(:number_of_players) }
 
     it "is invalid if players > 3" do
