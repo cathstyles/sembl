@@ -1,12 +1,12 @@
 class GamePolicy < ApplicationPolicy
-  def index? 
+  def index?
     true
   end
 
   def show?
     !record.invite_only ||
     record.participating?(user) ||
-    record.creator_id == user.try(:id) 
+    record.creator_id == user.try(:id)
   end
 
   def create?
@@ -22,29 +22,29 @@ class GamePolicy < ApplicationPolicy
   end
 
   def join?
-    !!user && record.open_to_join? 
+    !!user && record.open_to_join?
   end
 
-  def end_turn? 
+  def end_turn?
     record.participating?(user) &&
     record.player(user).can_end_turn?
   end
 
-  def end_rating? 
+  def end_rating?
     record.participating?(user) &&
     record.player(user).can_end_rating?
     # true
-  end 
+  end
 
   def summary?
     show?
   end
 
-  def customise? 
-    create? && (user.power? || user.admin?)
+  def customise?
+    create? && (user.power_user? || user.admin?)
   end
 
-  def save_template? 
+  def save_template?
     customise?
   end
 end
