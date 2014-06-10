@@ -5,23 +5,52 @@
 }
 
 .game__graph {
-  width: 100%;
   position: relative;
+  width: 100%;
 }
 
-.game__status__button {
-  @extend %button;
+%next-action {
+  @include background-image(linear-gradient($highlight-background-color, #fffdf2));
+  background-color: $highlight-background-color;
+  border-top: 1px solid $border-color;
+  bottom: 0;
+  box-shadow: 0 0 10px 5px rgba(#888,.1);
+  left: 0;
   position: absolute;
-  bottom: 20px;
-  right: 20px;
-  i {
-    padding-right: 6px;
+  right: 0;
+  z-index: 10;
+}
+  %next-action__inner {
+    @include pad(vert, smaller);
+    @include pad(horz, normal);
+    max-width: $container-max-width;
+    min-width: 920px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 100%;
   }
-}
 
-.game__status__waiting {
-  pointer-events: none;
+.game__status {
+  @extend %next-action;
 }
+  .game__status-inner {
+  @extend %next-action__inner;
+  }
+
+  .game__status__button {
+    @extend %button;
+    // position: absolute;
+    // bottom: 20px;
+    // right: 20px;
+    i {
+      padding-right: 6px;
+    }
+  }
+
+  .game__status__waiting {
+    pointer-events: none;
+  }
 
 /* TODO: I think we can delete everything below because we use the graph component instead now */
 

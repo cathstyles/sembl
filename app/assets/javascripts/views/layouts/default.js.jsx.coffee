@@ -38,12 +38,14 @@ Sembl.Layouts.Default = React.createClass
           {this.state.header}
         </ReactTransitionGroup>
       </Masthead>
-      <div className="content container">
-        <Flash />
-        <ReactTransitionGroup transitionName="body">
-          {this.state.body}
-        </ReactTransitionGroup>
+      <div className="main">
+        <div className="content container">
+          <Flash />
+          <ReactTransitionGroup transitionName="body">
+            {this.state.body}
+          </ReactTransitionGroup>
+        </div>
+        <SlideViewer />
       </div>
-      <SlideViewer />
     </div>`
 

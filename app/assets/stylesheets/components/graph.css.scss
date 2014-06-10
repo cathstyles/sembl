@@ -54,6 +54,10 @@
   margin-left: -60px;
   margin-top: -60px;
   position: absolute;
+  @media screen and (max-width: 1023px) {
+    margin-left: -40px;
+    margin-top: -40px;
+  }
   .body-enter & {
     opacity: 0.01;
     transform: scale(0.5,0.5);
@@ -97,6 +101,10 @@
   height: 120px;
   text-align: center;
   position: relative;
+  @media screen and (max-width: 1023px) {
+    width:  80px;
+    height: 80px;
+  }
 
   &.state-filled {
     background-color: $highlight-background-color;
@@ -118,6 +126,11 @@
       left: 50%;
       margin-left: -16px;
       margin-top: -22px;
+      @media screen and (max-width: 1023px) {
+        @include font-size(30);
+        margin-left: -9px;
+        margin-top: -15px;
+      }
     }
     img {
       display: none;
@@ -141,12 +154,22 @@
       left: 50%;
       margin-top: -18px;
       margin-left: -22px;
+      @media screen and (max-width: 1023px) {
+        @include font-size(26);
+        margin-left: -14px;
+        margin-top: -10px;
+      }
     }
     &:after {
       @include font-size(20);
       content: "\f067";
       top: 25px;
       right: 25px;
+      @media screen and (max-width: 1023px) {
+        @include font-size(16);
+        top:  15px;
+        right: 13px;
+      }
     }
     img {
       display: none;
@@ -179,7 +202,14 @@
   border-radius: $border-radius-inner;
   height: 100%;
   width: 100%;
+  transition: opacity 2000ms linear;
 }
+  .game__placement__image--invisible {
+    opacity: 0;
+  }
+  .game__placement__image--visible {
+    opacity: 1;
+  }
 
 .game__resemblance,
 .move__resemblance,

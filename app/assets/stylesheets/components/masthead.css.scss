@@ -43,8 +43,12 @@
   @include background-image(linear-gradient($highlight-background-color, #fffdf2));
   border-bottom: 1px solid $border-color;
   box-shadow: 0 0 10px 5px rgba(#888,.1);
-  position: relative;
+  position: absolute;
   min-width: 920px;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
 
   // Call animation
   animation-name: masthead;
@@ -154,8 +158,9 @@
   h1 {
     @extend %header-tab;
     position: absolute;
-    top: -55px;
+    top: 0;
     left: 50%;
+    z-index: 15;
   }
 }
 

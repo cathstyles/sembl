@@ -33,11 +33,13 @@ ESC_KEY = 27
   render: ->
     if this.state.modalChild
       `<div className="modal">
-        <div className="modal__inner metadata-is-not-visible">
-          <span className="move__thing__modal__button" onClick={this.handleClose}>
-            <i className="fa fa-times"></i>
-          </span>
-          {this.state.modalChild}
+        <div className="modal__wrapper">
+          <div className="modal__inner metadata-is-not-visible">
+            <span className="move__thing__modal__button" onClick={this.handleClose}>
+              <i className="fa fa-times"></i>
+            </span>
+            {this.state.modalChild}
+          </div>
         </div>
       </div>`
     else

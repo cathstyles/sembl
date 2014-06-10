@@ -88,8 +88,12 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     game = @model()
     console.log 'rendering game'
     `<div className="game">
-      <div ref="graph" className="game__graph">
-        <GameGraph game={game} />
+      <div className="body-wrapper">
+        <div className="body-wrapper__inner">
+          <div ref="graph" className="game__graph">
+            <GameGraph game={game} />
+          </div>
+        </div>
       </div>
       <PlayersView players={this.model().players} />
       <StatusView game={this.model()} handleEndTurn={this.handleEndTurn} />

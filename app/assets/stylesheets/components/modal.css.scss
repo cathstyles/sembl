@@ -18,6 +18,14 @@
   z-index: 200;
 }
 
+.modal__wrapper {
+  position: absolute;
+  top: 50%;
+  transform: translate3d(0,-50%,0);
+  left: 0;
+  right: 0;
+}
+
 .modal__inner {
   @extend %clearfix-micro;
   margin-left: auto;

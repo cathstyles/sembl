@@ -47,7 +47,6 @@
     }
     .game-individual__play-button {
       transition-property: bottom;
-      transition-duration: 250ms;
       bottom: 40%;
     }
   }
@@ -88,14 +87,15 @@
 
 .game-individual__play-button {
   @extend %button;
+  bottom: -100%;
   box-shadow: 0 0 5px 5px rgba(#fff,.6);
   display: inline-block;
-  position: absolute;
-  bottom: -100%;
   left: 50%;
   margin-left: -35px;
-  width: 70px;
+  position: absolute;
   text-align: center;
+  transition-duration: 250ms;
+  width: 70px;
 }
 
 .game-individual__details-container {

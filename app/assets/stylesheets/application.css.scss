@@ -24,10 +24,7 @@ $rating-medium: #919753;
 $rating-high: #9ba532;
 $rating-very-high: #aab81d;
 
-// Import components and patterns
-
-@import "forms";
-@import "common";
+// Call patterns
 @import "patterns/_accessibility";
 @import "patterns/_clearing";
 @import "patterns/_font-size";
@@ -36,6 +33,12 @@ $rating-very-high: #aab81d;
 @import "patterns/_spacing-classes";
 @import "patterns/_touch";
 @import "patterns/_type";
+@include reset();
+
+// Import components and patterns
+
+@import "forms";
+@import "common";
 @import "components/base";
 @import "components/animations";
 @import "components/gallery";
@@ -56,6 +59,3 @@ $rating-very-high: #aab81d;
 @import "components/profiles";
 @import "components/slide_viewer";
 
-// Call patterns
-
-@include reset();

@@ -15,11 +15,12 @@
 .slide-viewer--active {
   transition-property: margin-top;
   transition-duration: 250ms;
-  margin-top: -200px;
+  margin-top: -81px;
   height: auto;
 }
 
 .slide-viewer--hidden {
+  margin-top: 200px;
   height: 0;
   overflow: hidden;
 }

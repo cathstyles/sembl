@@ -23,9 +23,11 @@
       </button>`
 
     `<div className="move__actions">
-      {uploadButton}
+      <div className="move__actions-inner">
+        {uploadButton}
 
-      <button className={buttonClassName} onClick={this.handleSubmitMove}>
-        <i className="fa fa-thumbs-up"></i> Submit move
-      </button>
+        <button className={buttonClassName} onClick={this.handleSubmitMove}>
+          <i className="fa fa-thumbs-up"></i> Submit move
+        </button>
+      </div>
     </div>`

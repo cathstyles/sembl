@@ -38,10 +38,11 @@
 }
 
 .move__actions {
-  @include pad(top, medium);
-  margin-top: 60px;
-  text-align: right;
+  @extend %next-action;
 }
+  .move__actions-inner {
+    @extend %next-action__inner;
+  }
 
 .move__actions__button {
   @extend %button;
