@@ -202,18 +202,21 @@
       leader = (winner.user.email is email)
       `<PlayerMoveResults key={key} results={results} game={_this.props.game} leader={leader} roundWinners={roundWinners}/>`
 
-    `<div className="results">
-      <div className="results__aside">
-        <a className="results__back-to-game" href="#">
-          <i className="fa fa-chevron-left"></i>&nbsp;
-          Back to gameboard
-        </a>
-        {playerOverallResults}
-        {playerAwards}
-      </div>
 
-      <div className="results__player-moves">
-        {playerMoveResults}
+    `<div className="body-wrapper">
+      <div className="results">
+        <div className="results__aside">
+          <a className="results__back-to-game" href="#">
+            <i className="fa fa-chevron-left"></i>&nbsp;
+            Back to gameboard
+          </a>
+          {playerOverallResults}
+          {playerAwards}
+        </div>
+
+        <div className="results__player-moves">
+          {playerMoveResults}
+        </div>
       </div>
     </div>`
 

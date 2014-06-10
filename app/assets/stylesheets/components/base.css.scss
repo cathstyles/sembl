@@ -20,7 +20,8 @@ body {
   font-family: "Archer", "Georgia", "Hoefler Text", serif;
   height: 100%;
   min-width: 1024px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   position: relative;
 }
 
@@ -59,14 +60,17 @@ a {
     // height: 100%;
   }
 
-.container {
+%wrapper {
   @include pad(vert, mid);
   @include pad(horz, normal);
   max-width: $container-max-width;
   min-width: 920px;
   margin-left: auto;
   margin-right: auto;
-  // position: relative;
+}
+
+.container {
+  @extend %wrapper;
   margin-top: 54px;
   width: 100%;
 }

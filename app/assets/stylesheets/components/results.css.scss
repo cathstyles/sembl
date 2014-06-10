@@ -2,6 +2,7 @@
 
 .results {
   @extend %clearfix-micro;
+  @extend %wrapper;
   @include pad(top, large);
   @include pad(bottom, medium);
   .body-enter & {
