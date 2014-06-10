@@ -13,7 +13,9 @@ class ProfilesController < ApplicationController
     authorize @profile
 
     params_copy = profile_params
-    params_copy[:user_attributes] = params_copy[:user_attributes].delete_if { |key, value| key.in? %w(password password_confirmation) and value.blank? }
+    if params_copy[:user_attributes].present?
+      params_copy[:user_attributes] = params_copy[:user_attributes].delete_if { |key, value| key.in? %w(password password_confirmation) and value.blank? }
+    end
 
     @profile.assign_attributes(params_copy)
 
