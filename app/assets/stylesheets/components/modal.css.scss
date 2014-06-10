@@ -13,10 +13,22 @@
   right: 0;
   bottom: 0;
   position: fixed;
-  background-color: rgba(#000,.8);
+  background-color: rgba(#1a1814,.8);
   overflow-y: scroll;
   z-index: 200;
 }
+
+.modal--hidden,
+.modal--visible {
+  transition-property: opacity;
+  transition-duration: 120ms;
+}
+  .modal--hidden {
+    opacity: 0;
+  }
+  .modal--visible {
+    opacity: 1;
+  }
 
 .modal__wrapper {
   position: absolute;
