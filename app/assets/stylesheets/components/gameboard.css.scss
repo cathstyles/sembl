@@ -7,6 +7,7 @@
 .game__graph {
   position: relative;
   width: 100%;
+  max-width: $container-max-width;
 }
 
 %next-action {
