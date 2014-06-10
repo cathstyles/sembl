@@ -6,7 +6,7 @@
 ###* @jsx React.DOM ###
 
 {Links, Midpoints, Nodes} =  Sembl.Components.Graph
-Sembl.Components.Graph.Graph = React.createClass 
+Sembl.Components.Graph.Graph = React.createClass
   getInitialState: ->
     state =
       width: null
@@ -22,7 +22,7 @@ Sembl.Components.Graph.Graph = React.createClass
   componentWillUnmount: ->
     $(window).off "graph.resize", @handleResize
     $(window).off "resize", @handleResize
-    
+
   componentDidMount: ->
     @handleResize()
 
@@ -40,7 +40,7 @@ Sembl.Components.Graph.Graph = React.createClass
     xScale = d3.scale.linear()
     xScale.range([0, @state.width || 1])
     xScale.domain(@domainWidth())
-    
+
     yScale = d3.scale.linear()
     yScale.range([0, @state.height || 1])
     yScale.domain(@domainHeight())
@@ -90,7 +90,7 @@ Sembl.Components.Graph.Graph = React.createClass
     # we use the @props.nodes as the authoritive source on x and y values, so links defer their sources/targets to these.
     @nodeIndex = {}
     for node in @props.nodes
-      if node.id 
+      if node.id
         node.key = node.id
         @nodeIndex[node.id] = node
       else
@@ -110,7 +110,7 @@ Sembl.Components.Graph.Graph = React.createClass
     childClasses = this.props.childClasses || {}
     {height, width} = @state
 
-    `<div className="graph">
+    `<div className={"graph graph--nodes-"+(scaledNodes.length + 1)}>
         <Links links={scaledLinks} width={width} height={height} pathClassName={this.props.pathClassName} />
         <Nodes nodes={scaledNodes} nodeFactory={nodeFactory} />
         <Midpoints links={scaledLinks} midpointFactory={midpointFactory} />

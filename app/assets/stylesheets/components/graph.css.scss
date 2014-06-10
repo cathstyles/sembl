@@ -60,6 +60,15 @@
     margin-left: -40px;
     margin-top: -40px;
   }
+  // Larger graphs can have smaller nodes
+  .graph--nodes-24 & {
+    margin-left: -40px;
+    margin-top: -40px;
+    .setup__overview__graph & {
+      margin-left: -30px;
+      margin-top:  -30px;
+    }
+  }
   .body-enter & {
     opacity: 0.01;
     transform: scale(0.5,0.5);
@@ -107,6 +116,15 @@
     width:  80px;
     height: 80px;
   }
+  // Larger graphs can have smaller nodes
+  .graph--nodes-24 & {
+    width:  80px;
+    height: 80px;
+    .setup__overview__graph & {
+      height: 60px;
+      width:  60px;
+    }
+  }
 
   &.state-filled {
     background-color: $highlight-background-color;
@@ -129,6 +147,12 @@
       margin-left: -16px;
       margin-top: -22px;
       @media screen and (max-width: 1023px) {
+        @include font-size(30);
+        margin-left: -9px;
+        margin-top: -15px;
+      }
+      // Larger graphs can have smaller nodes
+      .graph--nodes-24 & {
         @include font-size(30);
         margin-left: -9px;
         margin-top: -15px;
@@ -161,6 +185,12 @@
         margin-left: -14px;
         margin-top: -10px;
       }
+      // Larger graphs can have smaller nodes
+      .graph--nodes-24 & {
+        @include font-size(26);
+        margin-left: -14px;
+        margin-top: -10px;
+      }
     }
     &:after {
       @include font-size(20);
@@ -168,6 +198,12 @@
       top: 25px;
       right: 25px;
       @media screen and (max-width: 1023px) {
+        @include font-size(16);
+        top:  15px;
+        right: 13px;
+      }
+      // Larger graphs can have smaller nodes
+      .graph--nodes-24 & {
         @include font-size(16);
         top:  15px;
         right: 13px;
