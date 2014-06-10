@@ -2,7 +2,7 @@
 
 Sembl.Games.Gameboard.ResemblanceFactory = class ResemblanceFactory
   constructor: (linkModels, @resemblanceClass) ->
-    @lookup = {} 
+    @lookup = {}
     for model in linkModels
       @lookup[model.id] = model
 

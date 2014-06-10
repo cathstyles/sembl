@@ -11,7 +11,7 @@ Midpoint = React.createClass
     length = Raphael.getTotalLength(path)
     midpoint = Raphael.getPointAtLength(path, length / 2)
 
-    style = 
+    style =
       left: midpoint.x
       top: midpoint.y
 
@@ -24,7 +24,7 @@ Midpoint = React.createClass
     {links, midpointFactory} = @props
     midpoints = for link in @props.links
       `<Midpoint key={link.key} link={link} midpointFactory={midpointFactory} />`
-        
+
     `<div className="graph__midpoints">
       {midpoints}
     </div>`
