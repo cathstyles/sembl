@@ -229,6 +229,11 @@
 
 .move__resemblance {
   cursor: pointer;
+  &:hover {
+    .game__resemblance__tip {
+      transform: translate3d(10px,0,0);
+    }
+  }
 }
 
 .game__resemblance__tip {
@@ -238,10 +243,14 @@
   @include background-image(linear-gradient($highlight-background-color, #fffdf2));
   border: 1px solid $border-color;
   box-shadow: 0 0 10px 5px rgba(#888,.1);
+  left: 100%;
+  margin-left: 15px;
   position: absolute;
   top: -1.2em;
-  margin-left: 1.2em;
-  left: 100%;
+  transform: translate3d(0,0,0);
+  transition-property: transform;
+  transition-duration: 130ms;
+  transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
   white-space: nowrap;
   &:after,
   &:before {
