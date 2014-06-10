@@ -22,8 +22,7 @@
 
   handleSetThing: (event, data) ->
     if data.node.id == @props.link.target().id
-      @setState
-        nodeState: 'proposed'
+      console.log "@state", @state
 
   getInitialState: ->
     link = @props.link
@@ -32,6 +31,7 @@
     state =
       description: description
       nodeState: link.target().get('user_state')
+      linkFilled: _.contains @props.placedNodes, link.target().id
 
   componentDidUpdate: ->
     round = window.Sembl.game.get('current_round')
@@ -50,7 +50,13 @@
     else
       `<div className={"game__resemblance__empty"} />`
 
+    tooltip = if @state.linkFilled && !@state.description
+      `<div className="game__resemblance__tip">Add a description</div>`
+    else
+      ""
+
     `<div className="move__resemblance" onClick={this.handleClick}>
+      {tooltip}
       {child}
     </div>`
 

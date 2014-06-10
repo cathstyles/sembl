@@ -9,7 +9,7 @@
   Custom graph midpoint factory because the links we pass in wont have ids
 ###
 class ResemblanceFactory
-  constructor: (linkModels, @resemblanceClass) ->
+  constructor: (linkModels, @resemblanceClass, @additionalProps) ->
     @lookup = {}
     for link in linkModels
       @lookup[link.source().id] = @lookup[link.source().id]||{}
@@ -17,16 +17,23 @@ class ResemblanceFactory
 
   createComponent: (data) ->
     link = @lookup[data.source.id][data.target.id]
-    @resemblanceClass({link: link})
+    @resemblanceClass _.extend {link: link}, @additionalProps
 
 {Graph} = Sembl.Components.Graph
 {Placement, Resemblance} = Sembl.Games.Move
 {PlacementFactory} = Sembl.Games.Gameboard
 
-@Sembl.Games.Move.MoveGraph = React.createClass 
+@Sembl.Games.Move.MoveGraph = React.createClass
+  getInitialState: ->
+    placedNodes: []
+
   componentDidMount: ->
     $(window).trigger('graph.resize')
-    
+    $(window).on('move.node.setThing', @_handleSetThing)
+
+  componentWillUnmount: ->
+    $(window).off('move.node.setThing', @_handleSetThing)
+
   render: ->
     target = @props.target
     sources = (link.source() for link in @props.links)
@@ -45,12 +52,15 @@ class ResemblanceFactory
     nodeModels = sources
     nodeModels.push(target)
     nodeFactory = new PlacementFactory(nodeModels, Placement)
-    midpointFactory = new ResemblanceFactory(@props.links, Resemblance)
+    midpointFactory = new ResemblanceFactory(@props.links, Resemblance, {placedNodes: @state.placedNodes})
 
     `<div className="move__graph">
       <Graph nodes={nodes} links={links}
         midpointFactory={midpointFactory}
         nodeFactory={nodeFactory} pathClassName="game__graph__link" />
     </div>`
-    
 
+  _handleSetThing: (event, data) ->
+    placedNodes = @state.placedNodes.slice(0)
+    placedNodes.push data.node.id
+    @setState placedNodes: placedNodes
