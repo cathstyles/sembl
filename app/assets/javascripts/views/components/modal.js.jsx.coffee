@@ -32,7 +32,7 @@ ESC_KEY = 27
 
   render: ->
     if this.state.modalChild
-      `<div className="modal modal--visible">
+      `<div className="modal modal--visible" onClick={this.handleClose}>
         <div className="modal__wrapper">
           <div className="modal__inner metadata-is-not-visible">
             <span className="move__thing__modal__button" onClick={this.handleClose}>
@@ -43,4 +43,4 @@ ESC_KEY = 27
         </div>
       </div>`
     else
-      `<div className="modal--hidden"/>`
+      `<div className="modal modal--hidden"/>`

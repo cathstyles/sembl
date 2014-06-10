@@ -20,10 +20,12 @@
 
 .modal--hidden,
 .modal--visible {
-  transition-property: opacity;
+  transition-property: all;
   transition-duration: 120ms;
 }
   .modal--hidden {
+    padding: 0;
+    bottom: auto;
     opacity: 0;
   }
   .modal--visible {
