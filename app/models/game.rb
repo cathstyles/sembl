@@ -284,8 +284,8 @@ class Game < ActiveRecord::Base
 
     width = max_x - min_x
     height = max_y - min_y
-    width = 1 if width = 0
-    height = 1 if height = 0
+    width = 800 if width = 0
+    height = 600 if height = 0
 
     scaleX = 800.0/width
     scaleY = 600.0/height
