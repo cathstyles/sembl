@@ -37,6 +37,7 @@ Gallery = @Sembl.Games.Gallery
     @$window.off('move.resemblance.click', @handleResemblanceClick)
     @$window.off('move.placement.click', @handlePlacementClick)
     @$window.off('resize', @handleResize)
+    @$window.trigger('slideViewer.hide')
 
   componentDidMount: ->
     @$window.trigger('slideViewer.setChild',
