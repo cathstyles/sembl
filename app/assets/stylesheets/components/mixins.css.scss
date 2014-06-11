@@ -8,6 +8,7 @@
   @include font-size(12);
   -webkit-font-smoothing: antialiased;
   font-weight: bold;
+  font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
 }
@@ -28,7 +29,7 @@
   color: #fff;
   cursor: pointer;
   text-shadow: 1px 1px 1px rgba(#000,.5);
-  padding: 6px 15px 5px;
+  padding: 5px 15px 6px;
   &:hover {
     @include background-image(linear-gradient(#657220, #657220));
     background-color: #657220;
