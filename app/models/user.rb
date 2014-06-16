@@ -27,8 +27,7 @@ class User < ActiveRecord::Base
   has_many :created_things, class_name: 'Thing', foreign_key: :creator_id, inverse_of: :creator
   has_many :updated_things, class_name: 'Thing', foreign_key: :updator_id, inverse_of: :updator
 
-  before_create :join_games
-  after_create :create_profile
+  after_create :create_profile, :join_games
 
   ROLES = {
     :participant => 1,
@@ -64,7 +63,7 @@ class User < ActiveRecord::Base
   end
 
   def join_games
-    Player.find_by_email(email).try(:each) do |player|
+    Player.where(email: email).try(:each) do |player|
       player.user = self
       if player.save
         # Only transition state to playing if player has actually been sent an invitation.
