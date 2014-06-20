@@ -76,3 +76,27 @@ On rails console:
 
 2. If images are in different directory
     Thing.import_csv("path/to/filename.csv", image_path: "path/to/images")
+
+
+### Elasticsearch
+
+We use Elasticsearch for:
+
+* Filtering the Things in games created by power users.
+* Sorting the Things with a random seed.
+
+On Heroku. we use the [Bonsai](http://bonsai.io) add-on. This gives us a 10MB index. Currently this is much more than is needed.
+
+Elasticsearch is configured by setting `ELASTICSEARCH_URL` in `.env`. This is overridden by `BONSAI_URL` if it exists (ie. on heroku). If you don't have elasticsearch configured searches default to returning all `Things` (offset and limit are still used though).
+
+Things are indexed on create and update. So if you need to reindex, you can simply run:
+
+```ruby
+Thing.all.each { |thing| thing.save }
+```
+
+If setting up elasticsearch for the first time, you will need to manually create the "sembl" index:
+
+```
+curl -X POST http://#{elasticsearch_url}/sembl
+```
