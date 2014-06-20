@@ -5,8 +5,9 @@
     if user.avatar_tiny_thumb
       `<img src={user.avatar_tiny_thumb} />`
     else
+      name = if user.name? then user.name else user.email
       # Get initials from name
-      _.map(user.name.split(' ', 2), (item) ->
+      _.map(name.split(' ', 2), (item) ->
         item[0].toUpperCase()
       ).join('')
 
