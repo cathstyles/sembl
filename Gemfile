@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 ruby '2.0.0'
 
@@ -20,6 +21,7 @@ gem 'nestive'
 gem 'pg'
 gem 'puma'
 gem 'pundit'
+gem 'rails-assets-es5-shim'
 gem 'react-rails'
 gem 'sass-rails'
 gem 'simple_form'

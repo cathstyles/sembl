@@ -1,3 +1,4 @@
+#= require es5-shims
 #= require jquery
 #= require jquery.color
 #= require jquery.ba-dotimeout
