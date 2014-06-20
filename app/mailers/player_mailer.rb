@@ -8,7 +8,13 @@ class PlayerMailer < ActionMailer::Base
   #
   def game_invitation(player)
     @game = player.game
-    email = player.try(:user).try(:email) || player.email
+    if player.user.present?
+      @existing_user = true
+      email = player.try(:user).try(:email)
+    else
+      @existing_user = false
+      email = player.email
+    end
 
     mail to: email
   end

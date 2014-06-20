@@ -1,4 +1,9 @@
 p
   = "You have been invited by #{@game.creator.email} to join a game on Sembl."
-p
-  = link_to "Join the game", game_url(@game, only_path: false)
+
+- if @existing_user
+  p
+    = link_to "Join the game", game_url(@game, only_path: false)
+- else
+  p
+    = link_to "Join the game on sembl", new_user_registration_url(only_path: false)
