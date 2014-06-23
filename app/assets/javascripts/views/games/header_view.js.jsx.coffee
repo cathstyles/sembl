@@ -32,7 +32,7 @@ Sembl.Games.HeaderView = React.createBackboneClass
 
   render: ->
     game = @model()
-    resultsAvailableForRound = game?.resultsAvailableForRound() 
+    resultsAvailableForRound = game?.resultsAvailableForRound()
 
     headerTitle = `<h1 className="header__title">
         <a href="#">{game.get('title')}</a>
@@ -49,7 +49,7 @@ Sembl.Games.HeaderView = React.createBackboneClass
     editUrl = "/games/" + game.get('id') + "/edit" if game
     edit = `<li className="header__link">
         <i className="fa fa-pencil header__link-icon"></i>
-        <a href={editUrl} className="header__link-anchor">Edit</a>
+        <a href={editUrl} className="header__link-anchor">Edit game</a>
       </li>` if game?.get('is_hosting')
 
     if resultsAvailableForRound
@@ -61,10 +61,10 @@ Sembl.Games.HeaderView = React.createBackboneClass
           </a>
         </li>`
 
-    help = `<li className="header__link">
-        <i className="fa fa-question-circle header__link-icon"></i> 
-        <a href="#" className="header__link-anchor">Help</a>
-      </li>`
+    # help = `<li className="header__link">
+    #     <i className="fa fa-question-circle header__link-icon"></i>
+    #     <a href="#" className="header__link-anchor">Help</a>
+    #   </li>`
 
     return `<div className="header__components">
       {headerTitle}

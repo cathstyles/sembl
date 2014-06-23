@@ -14,7 +14,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     result = $.post "#{@model().url()}/join.json", postData, (data) =>
       @model().fetch()
       console.log 'trigger add first image'
-      $(window).trigger('flash.notice', "Let's go! Add your first image to begin the game..")
+      $(window).trigger('flash.notice', "Let's go! Add your first image to begin the game.")
 
     result.fail (response) ->
       responseObj = JSON.parse response.responseText;

@@ -4,7 +4,7 @@
 
 HeaderView = Sembl.Games.HeaderView
 Sembl.Games.Gameboard.GameHeaderView = React.createBackboneClass
-  render: -> 
+  render: ->
     round = `<div>
         <span className="header__centre-title-word">Round</span>
         <span className="header__centre-title-number">
@@ -12,5 +12,5 @@ Sembl.Games.Gameboard.GameHeaderView = React.createBackboneClass
         </span>
       </div>`
 
-    
+
     @transferPropsTo `<HeaderView title={round} />`
