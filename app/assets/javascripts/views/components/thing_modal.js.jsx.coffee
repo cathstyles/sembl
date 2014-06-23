@@ -13,6 +13,9 @@
     $('.move__thing-modal__place-button').hover ->
       $('.move__thing-modal__image').toggleClass 'move__thing-modal__image--toggled'
 
+    $('.move__thing-modal__zoom-toggle').click ->
+      $('.modal').toggleClass('modal--large-image-visible')
+
   render: () ->
     thing = @props.thing
 
@@ -23,7 +26,9 @@
     `<div className="move__thing-modal">
       <div className="move__thing-modal__wrapper">
         <div className="move__thing-modal__body">
-          <img src={thing.image_browse_url} alt={thing.title} className="move__thing-modal__image" />
+          <a href="#" className="move__thing-modal__zoom-toggle"><em>Zoom In/Out</em></a>
+          <img src={thing.image_browse_url} alt={thing.title} className="move__thing-modal__image move__thing-modal__browse-image" />
+          <img src={thing.image_large_url} alt={thing.title} className="move__thing-modal__image move__thing-modal__large-image" />
           <div className="modal__actions">
             {this.props.children}
           </div>

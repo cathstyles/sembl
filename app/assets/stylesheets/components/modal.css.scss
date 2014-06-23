@@ -99,10 +99,49 @@
   max-width: 100%;
 }
 
+.move__thing-modal__large-image {
+  display: none;
+}
+
+.move__thing-modal__zoom-toggle {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  background-color: $highlight-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px 5px rgba(#000,.2);
+  color: #fff;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 25px;
+  height: 25px;
+  text-shadow: 1px 1px 1px rgba(#000,.5);
+  em {
+    display: none;
+  }
+  &:after {
+    @include font-size(16);
+    content: "\f00e";
+    font-family: "FontAwesome";
+    position: absolute;
+    top: 4px;
+    left: 5px;
+  }
+  &:hover {
+    color: $highlight-color;
+    background-color: #fff;
+    text-shadow: none;
+  }
+}
+
 .move__thing-modal__image--toggled {
   transition-property: scale;
   transition-duration: 250ms;
   transform: scale(1.05);
+}
+
+.move__thing-modal__meta {
+  background-color: $background-color;
 }
 
 .move__thing-modal__title {
@@ -127,14 +166,12 @@
 
 .move__thing-modal__wrapper {
   border-radius: $border-radius;
-  background-color: $background-color;
   box-shadow: 0 0 100px 10px rgba(#000,.5);
+  overflow: hidden;
 }
 
 .move__thing-modal__body {
   background-color: $text-color;
-  border-top-left-radius: $border-radius-inner;
-  border-top-right-radius: $border-radius-inner;
   position: relative;
   overflow: hidden;
 }
@@ -143,7 +180,7 @@
   @include pad(all, normal);
   @extend .small-tracked-out-heading;
   color: $link-color;
-  cursor: pointer; 
+  cursor: pointer;
   &:after {
     font-family: "FontAwesome";
     content: "\f0da";
@@ -223,5 +260,34 @@
   text-align: center;
   input {
     width: 80%;
+  }
+}
+
+// Show large images
+
+.modal--large-image-visible {
+  .move__thing-modal__browse-image,
+  .move__thing-modal__meta {
+    display: none;
+  }
+  .move__thing-modal__large-image {
+    display: block;
+    max-height: 100%;
+  }
+  .modal__wrapper {
+    @include pad(all, huge);
+    top: 0;
+    transform: translate(0,0);
+    height: 100%;
+  }
+  .modal__inner {
+    margin-top: 0;
+    margin-bottom: 0;
+    width: auto;
+  }
+  .move__thing-modal__zoom-toggle {
+    &:after {
+      content: "\f010";
+    }
   }
 }
