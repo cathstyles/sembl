@@ -77,6 +77,7 @@ Sembl.Games.Gameboard.StatusView = React.createClass
   render: ->
     player = @props.game.get('player')
 
+
     statusHTML = if player.state is "playing_turn" && player.move_state is "open"
       statusButton = @getButtonForStatus(player.state, player.move_state)
       `<div className="game__status">
@@ -92,10 +93,16 @@ Sembl.Games.Gameboard.StatusView = React.createClass
           {statusButton}
         </div>
       </div>`
+    else if player.state is "waiting" and @props.game.get('state') is "rating"
+      `<div className="game__status">
+        <div className="game__status-inner">
+          <p>Too quick! We’re just waiting for everyone else to finish rating.</p>
+        </div>
+      </div>`
     else if player.state is "waiting"
       `<div className="game__status">
         <div className="game__status-inner">
-          <p>We’re waiting for other players to finish their turns, then you’ll get a chance to rate their Sembls.</p>
+          <p>We’re waiting for the other players to finish their turns, then you’ll get a chance to rate their Sembls.</p>
         </div>
       </div>`
     else

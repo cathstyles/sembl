@@ -24,15 +24,16 @@
 }
 
 .rating__nav {
-  @include pad(top, medium);
+  @include pad(top, tiny);
+  @include pad(bottom, smaller);
   text-align: center;
   position: relative;
-  margin-top: 120px;
 }
 
 .rating__nav__links {
   display: inline-block;
   text-align: center;
+  padding-top: 5px;
 }
 
 .rating__nav__link {
@@ -40,6 +41,10 @@
   float: left;
   padding-left: 1px;
   padding-right: 1px;
+  margin-right: 8px;
+  &:first-child {
+    padding-left: 260px;
+  }
   &:hover {
     a {
       color: $highlight-color;
@@ -54,18 +59,20 @@
 .rating__nav__next,
 .rating__nav__back {
   @extend %button;
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  margin-top: -1px;
   i {
     @include font-size(12);
     padding-left: 4px;
   }
 }
 
+.rating__nav__next-text,
+.rating__nav__next {
+  float: right;
+}
+
 .rating__nav__back {
-  left: 0;
-  right: auto;
+  float: left;
   i {
     padding-left: 0;
     padding-right: 4px;

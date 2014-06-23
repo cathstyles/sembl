@@ -27,17 +27,22 @@
 
     if currentResemblance.rating?
       nextBtn = `<div className="rating__nav__next" onClick={this.handleNext}>
-        Next
+        Go to the next Sembl
         <i className="fa fa-chevron-right"></i>
        </div>`
     else
       nextBtn = `<div className="rating__nav__next rating__nav__next--disabled">
-        Next
+        Go to the next Sembl
         <i className="fa fa-chevron-right"></i>
        </div>`
 
-    `<div className="rating__nav">
-      {backBtn}
-      <ul className="rating__nav__links">{spots}</ul>
-      {nextBtn}
+    `<div className="game__status">
+      <div className="game__status-inner">
+        <div className="rating__nav">
+          {backBtn}
+          <ul className="rating__nav__links">{spots}</ul>
+           {nextBtn}
+          <p className="rating__nav__next-text">Done rating?</p>
+        </div>
+      </div>
     </div>`

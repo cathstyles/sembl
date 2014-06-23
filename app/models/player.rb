@@ -23,14 +23,14 @@ class Player < ActiveRecord::Base
   validates :user_id, uniqueness: {scope: :game_id}, allow_nil: true
 
   # == States
-  # draft 
+  # draft
   # invited
   # playing_turn
-  # waiting 
-  # rating 
+  # waiting
+  # rating
   # finished
 
-  state_machine initial: :draft do 
+  state_machine initial: :draft do
     after_transition :playing_turn => :waiting, do: :check_turn_completion
     after_transition :rating => :waiting, do: :check_rating_completion
     after_transition :draft => any, do: :send_invitation
@@ -39,64 +39,64 @@ class Player < ActiveRecord::Base
       player.begin_move
     end
 
-    event :invite do 
-      transition :draft => :playing_turn, 
+    event :invite do
+      transition :draft => :playing_turn,
         if: lambda {|player| player.user.present? }
       transition :draft => :invited
     end
 
-    event :join do 
+    event :join do
       transition :invited => :playing_turn
     end
 
-    event :end_turn do 
+    event :end_turn do
       transition :playing_turn => :waiting,
         if: lambda {|player|  player.move_created? }
     end
 
-    event :begin_rating do 
+    event :begin_rating do
       transition :waiting => :rating
     end
 
-    event :end_rating do 
+    event :end_rating do
       transition :rating => :waiting
     end
 
-    event :begin_turn do 
+    event :begin_turn do
       transition :waiting => :playing_turn
     end
 
-    event :finish_playing do 
+    event :finish_playing do
       transition [:rating, :waiting] => :finished
     end
 
-    state :invited do 
-      validates_presence_of :email 
+    state :invited do
+      validates_presence_of :email
     end
 
-    state :playing_turn do 
+    state :playing_turn do
       validates_presence_of :user
-    end 
+    end
 
   end
 
   #== Move States
   # open
   # created
-  
-  state_machine :move_state, initial: :open, namespace: 'move' do 
-    event :create do 
+
+  state_machine :move_state, initial: :open, namespace: 'move' do
+    event :create do
       transition :open => :created
     end
 
-    event :begin do 
+    event :begin do
       transition :created => :open
     end
   end
 
-  def self.playing 
+  def self.playing
     without_states(:draft, :invited)
-  end 
+  end
 
   #TODO record locking.
   def allocate_first_node
@@ -105,14 +105,14 @@ class Player < ActiveRecord::Base
     if playing_turn?
       return if game.nodes.where(allocated_to_id: user.id).present?
       node = game.nodes.with_state(:in_play).where(allocated_to_id: nil).take
-      if node 
+      if node
         node.allocated_to = self.user
         node.save!
       end
     end
   end
 
-  def remove_node_allocation 
+  def remove_node_allocation
     node = game.nodes.where(allocated_to_id: id).take
     if node
       node.allocated_to_id = nil
@@ -137,7 +137,7 @@ class Player < ActiveRecord::Base
   end
 
   # Average of all placement scores for game
-  def calculate_score 
+  def calculate_score
     self.score = Placement.joins(:node).where("nodes.game_id = ? AND creator_id = ? AND score IS NOT NULL", game.id, user.id).average(:score)
   end
 end

@@ -1,11 +1,18 @@
 // Moves
 
 .move {
-  @include pad(top, medium);
+}
+
+.move__inner {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: 100%;
+  max-width: $container-max-width;
 }
 
 .move__graph {
-  height: 250px;
+  height: 300px;
   margin-top: 60px; // Compensate for the node offset
 }
 
