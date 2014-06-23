@@ -6,7 +6,7 @@ feature "Creating games", js: true do
   let!(:user3) { FactoryGirl.create(:user) }
 
   scenario "Creating a game" do
-    create_game_for user1
+    create_game user1, "Animals"
     # debugger
     # page.driver.debug
   end
