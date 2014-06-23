@@ -185,6 +185,12 @@
         margin-left: -14px;
         margin-top: -10px;
       }
+      .game & {
+        @include font-size(50);
+        content: "\f059";
+        margin-top: -24px;
+        margin-left: -22px;
+      }
       // Larger graphs can have smaller nodes
       .graph--nodes-24 & {
         @include font-size(26);
@@ -207,6 +213,9 @@
         @include font-size(16);
         top:  15px;
         right: 13px;
+      }
+      .game & {
+        display: none;
       }
     }
     img {
