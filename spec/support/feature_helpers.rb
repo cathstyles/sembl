@@ -18,6 +18,7 @@ module FeatureHelpers
   def create_game(user, game_name)
     FactoryGirl.create(:board, number_of_players: 3, title: "Lotus 3")
     FactoryGirl.create(:thing)
+    FactoryGirl.create(:thing)
     sign_in user
     click_on "Create a new game"
     expect(page).to have_content "Let’s get started! First, choose a board"
