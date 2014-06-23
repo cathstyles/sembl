@@ -9,8 +9,8 @@ describe "Home page", js: true do
 
   context "User is not signed in" do
     it "show sign in and sign up links" do
-      expect(page).to have_content "Sign in"
-      expect(page).to have_content "Sign up"
+      expect(page).to have_content "SIGN IN"
+      expect(page).to have_content "SIGN UP"
     end
     it "shows open games" do
       expect(page).to have_content "My game, yo"
