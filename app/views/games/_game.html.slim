@@ -19,10 +19,11 @@
     - if game.players.present?
       .game-individual__players
         - game.players.each do |player|
-          - if player.user.profile.avatar.present?
-            .game-individual__player
-              = image_tag player.user.profile.avatar.try(:thumb).try(:url)
-          - else
-            .game-individual__player
-              span= user_initials player.user
+          - if player.user.present?
+            - if player.user.profile.avatar.present?
+              .game-individual__player
+                = image_tag player.user.profile.avatar.try(:thumb).try(:url)
+            - else
+              .game-individual__player
+                span= user_initials player.user
     -# span.game-individual__theme = game.theme
