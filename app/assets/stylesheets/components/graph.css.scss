@@ -190,9 +190,14 @@
         content: "\f059";
         margin-top: -24px;
         margin-left: -22px;
+        @media screen and (max-width: 1023px) {
+          @include font-size(40);
+          margin-left: -17px;
+          margin-top: -20px;
+        }
       }
       // Larger graphs can have smaller nodes
-      .graph--nodes-24 & {
+      .game .graph--nodes-24 & {
         @include font-size(26);
         margin-left: -14px;
         margin-top: -10px;
