@@ -65,6 +65,7 @@
         right: 0;
         z-index: 10;
         font-weight: 600;
+        white-space: nowrap;
         strong {
           @extend .small-tracked-out-heading;
           background-color: $text-color;
