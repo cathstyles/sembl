@@ -96,7 +96,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
         </div>
       </div>
       <PlayersView players={this.model().players} />
-      <StatusView game={this.model()} handleEndTurn={this.handleEndTurn} />
+      <StatusView game={game} handleEndTurn={this.handleEndTurn} />
     </div>`
 
 
