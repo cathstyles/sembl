@@ -1,12 +1,21 @@
 // Home
 
+.home__intro {
+  @include pad(bottom, medium);
+  @include outset(bottom, mid);
+  @include font-size(18);
+  border-bottom: 1px solid lighten($border-color, 10%);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .home__all-games-heading {
   @extend %white-drop-shadow;
   @include font-size(32);
   @include inset(top, huge);
   @include inset(bottom, large);
   @include pad(top, normal);
-  // border-top: 1px solid lighten($border-color, 10%);
   font-weight: 700;
   text-align: center;
 }

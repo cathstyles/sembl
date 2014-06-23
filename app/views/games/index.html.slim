@@ -5,18 +5,23 @@
 
 
 .home
-  ul.games-nav
-    - if user_signed_in?
+  - unless user_signed_in?
+    .home__intro.copy
+      h2 Welcome to Sembl!
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      p Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  - if user_signed_in?
+    ul.games-nav
       li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=participating/) || url_matches?(/^\/$/))
         a href="#{games_path}/?filter=participating" Games you’re playing
       li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=hosted/))
         a href="#{games_path}/?filter=hosted" Games you’re hosting
       li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=open/))
         a href="#{games_path}/?filter=open" Open games
-    li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=browse/))
-      a href="#{games_path}/?filter=browse" In progress
-    li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=completed/))
-      a href="#{games_path}/?filter=completed" Completed
+      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=browse/))
+        a href="#{games_path}/?filter=browse" In progress
+      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=completed/))
+        a href="#{games_path}/?filter=completed" Completed
   - if user_signed_in?
     .home__new-game-button-container
       .home__new-game-button-container__inner
