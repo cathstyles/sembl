@@ -3,41 +3,30 @@
   .heading
     h1 Games
 
-ul
-  - if user_signed_in?
-    li
-      = link_to "Profile", edit_profile_path
-    li
-      = link_to "Sign out", destroy_user_session_path
-  - else
-    li
-      = link_to "Sign in", new_user_session_path
-    li
-      = link_to "Sign up", new_user_registration_path
-
-
-ul
-  - if user_signed_in?
-    li
-      a href="#{games_path}/?filter=participating" Games you’re playing
-    li
-      a href="#{games_path}/?filter=hosted" Games you’re hosting
-  li
-    a href="#{games_path}/?filter=open" Games you can join
-  li
-    a href="#{games_path}/?filter=browse" Games in progress
-  li
-    a href="#{games_path}/?filter=completed" Completed games
 
 .home
+  ul.games-nav
+    - if user_signed_in?
+      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=participating/) || url_matches?(/^\/$/))
+        a href="#{games_path}/?filter=participating" Games you’re playing
+      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=hosted/))
+        a href="#{games_path}/?filter=hosted" Games you’re hosting
+      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=open/))
+        a href="#{games_path}/?filter=open" Open games
+    li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=browse/))
+      a href="#{games_path}/?filter=browse" In progress
+    li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=completed/))
+      a href="#{games_path}/?filter=completed" Completed
   - if user_signed_in?
     .home__new-game-button-container
       .home__new-game-button-container__inner
         = link_to new_game_path, class: "home__new-game-button" do
-          <i class="fa fa-gamepad"></i> Create a new game
+          i class="fa fa-gamepad"
+          span Create a
+          ' new game
 
   .home__all-games
-    h1.home__all-games-heading #{@filter} games
+    h1.home__all-games-heading= games_filter_title(@filter)
     .home__all-games-container
       - @games.each do |game|
         = render partial: "game", locals: {game: game}

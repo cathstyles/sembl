@@ -1,16 +1,23 @@
 // Home
 
-.home__my-games-heading,
-.home__games-hosting-heading,
 .home__all-games-heading {
-  @extend .large-heading;
+  @extend %white-drop-shadow;
+  @include font-size(32);
+  @include inset(top, huge);
+  @include inset(bottom, large);
+  @include pad(top, normal);
+  // border-top: 1px solid lighten($border-color, 10%);
+  font-weight: 700;
+  text-align: center;
 }
 
-.home__my-games-container,
-.home__all-games-container,
 .home__games-hosting-container {
   @extend %clearfix-micro;
   @include pad(vert, smaller);
+}
+
+.home__all-games {
+  clear: both;
 }
 
 .game-individual {
@@ -155,18 +162,58 @@
 
 .home__new-game-button-container {
   @include inset(bottom, mid);
-  text-align: center;
+  float: right;
 }
 .home__new-game-button-container__inner {
   @extend %highlight-box;
-  @include pad(all, normal);
+  @include pad(all, smaller);
   display: inline-block;
   text-align: center;
 }
 
 .home__new-game-button {
   @extend %button;
+  display: block;
   i {
     padding-right: 4px;
   }
 }
+
+@media screen and (max-width: 1023px) {
+  .home__new-game-button span {
+    display: none;
+  }
+}
+
+
+// Games nav
+
+.games-nav {
+  border: 1px solid lighten($border-color, 15%);
+  border-radius: $border-radius;
+  float: left;
+  a {
+    @include pad(all, small);
+    border-radius: $border-radius - 1px;
+    display: block;
+    transition: all 200ms linear;
+    &:hover {
+      background-color: #fff;
+    }
+  }
+}
+  .games-nav__item {
+    @include pad(all, small);
+    border-right: 1px solid lighten($border-color, 15%);
+    float: left;
+    &:last-child {
+      border: none;
+    }
+  }
+  .games-nav__item--active a {
+    background-color: $link-color;
+    color: #fff;
+    &:hover {
+      background-color: darken($link-color, 10%);
+    }
+  }

@@ -27,4 +27,8 @@ module ApplicationHelper
       content_tag :aside, flash[key], class: [:flash, key]
     })
   end
+
+  def url_matches?(url_string)
+    request.fullpath.match(url_string)
+  end
 end
