@@ -22,7 +22,11 @@
 
   handleSetThing: (event, data) ->
     if data.node.id == @props.link.target().id
-      console.log "@state", @state
+      round = window.Sembl.game.get('current_round')
+      @setState
+        linkFilled: true
+      if round == 1 and !!!@state.description
+        $(window).trigger('flash.notice', 'Top choice!')
 
   getInitialState: ->
     link = @props.link
@@ -36,7 +40,7 @@
   componentDidUpdate: ->
     round = window.Sembl.game.get('current_round')
     if round == 1 and !!@state.description
-      $(window).trigger('flash.notice', 'Happy with your move? Submit to keep playing')
+      $(window).trigger('flash.notice', 'Well assembled, you.')
 
   render: () ->
     toggleEvent = 'toggle.graph.resemblance.'+@props.link.id

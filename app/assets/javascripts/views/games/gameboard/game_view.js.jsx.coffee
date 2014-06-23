@@ -34,7 +34,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
           @redirectOnStateChange('playing_turn')
         , 1000
       else
-        $(window).trigger('flash.notice', "Turn ended. You will be redirected to rating when your opponents have added their moves.")
+        $(window).trigger('flash.notice', "Nice, your turn is complete.")
 
     result.fail (response) ->
       responseObj = JSON.parse response.responseText;

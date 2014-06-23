@@ -20,23 +20,51 @@
   position: absolute;
   right: 0;
   z-index: 10;
+  .body-enter & {
+    opacity: 0.01;
+    transform: translate(0,100%);
+  }
+  .body-enter.body-enter-active & {
+    opacity: 1;
+    transition-property: transform, opacity;
+    transition-duration: 250ms;
+    transition-delay: 200ms;
+    transform: translate(0,0);
+  }
+  .body-leave & {
+    opacity: 1;
+    transition-property: transform, opacity;
+    transition-duration: 250ms;
+    transform: translate(0,0);
+  }
+  .body-leave.body-leave-active & {
+    opacity: 0.01;
+    transform: translate(0,100%);
+  }
 }
   %next-action__inner {
-    @include pad(vert, smaller);
+    @include pad(top, normal);
+    @include pad(bottom, mid);
     @include pad(horz, normal);
     max-width: $container-max-width;
     min-width: 920px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
     position: relative;
     width: 100%;
+    p {
+      @include font-size(20);
+      @include pad(right, normal);
+      display: inline-block;
+    }
   }
 
 .game__status {
   @extend %next-action;
 }
   .game__status-inner {
-  @extend %next-action__inner;
+    @extend %next-action__inner;
   }
 
   .game__status__button {

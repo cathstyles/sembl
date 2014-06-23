@@ -2,7 +2,7 @@
 
 @Sembl.Components.Searcher = React.createClass
   maxOffset: Number.MAX_VALUE
-  defautLimit: 40
+  defautLimit: 60
 
   getInitialState: ->
     offset: 0

@@ -17,17 +17,22 @@
     if !@props.move.isValid()
       buttonClassName += " button--disabled"
 
-    uploadButton = if @props.game.get('uploads_allowed')
-      `<button className="move__actions__button" onClick={this.handleUpload}>
-        <i className="fa fa-thumbs-up"></i> Upload image
-      </button>`
-
-    `<div className="move__actions">
-      <div className="move__actions-inner">
-        {uploadButton}
-
-        <button className={buttonClassName} onClick={this.handleSubmitMove}>
-          <i className="fa fa-thumbs-up"></i> Submit move
-        </button>
-      </div>
-    </div>`
+    if @props.move.isValid()
+      `<div className="move__actions">
+        <div className="move__actions-inner">
+          <p>Happy with your move? Submit it to keep playing.</p>
+          <button className={buttonClassName} onClick={this.handleSubmitMove}>
+            <i className="fa fa-thumbs-up"/> Submit move
+          </button>
+        </div>
+      </div>`
+    else if !@props.move.isValid() and @props.game.get('uploads_allowed')
+      `<div className="move__actions">
+        <div className="move__actions-inner">
+          <button className="move__actions__button" onClick={this.handleUpload}>
+            <i className="fa fa-thumbs-up"/> Upload image
+          </button>
+        </div>
+      </div>`
+    else
+      `<div className="move__actions"/>`

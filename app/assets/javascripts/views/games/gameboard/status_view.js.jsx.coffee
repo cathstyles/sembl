@@ -2,6 +2,7 @@
 
 ###* @jsx React.DOM ###
 
+{classSet} = React.addons
 {Tooltip} = @Sembl.Components
 Sembl.Games.Gameboard.StatusView = React.createClass
 
@@ -20,25 +21,30 @@ Sembl.Games.Gameboard.StatusView = React.createClass
     buttonAlertedClass = ""
     if state is 'playing_turn'
       disabled = true if move_state == "open"
-      buttonText = "End Turn"
-      buttonClassName = "game__status__button game__status__end-turn"
+      buttonText = "End your turn"
+      buttonClassExtra = "game__status__end-turn"
       buttonAlertedClass = " alerted" if move_state is 'created'
       buttonIcon = "fa fa-clock-o"
       buttonClickHandler = @handleEndTurn
     else if state is 'waiting'
       disabled = true
       buttonText = "Waiting ..."
-      buttonClassName = "game__status__button game__status__waiting button--disabled"
+      buttonClassExtra = "game__status__waiting"
       buttonIcon = "fa fa-clock-o"
       buttonClickHandler = null
     else if state is 'rating'
       buttonText = "Continue Rating"
-      buttonClassName = "game__status__button game__status__rating"
+      buttonClassExtra = "game__status__rating"
       buttonIcon = "fa fa-thumbs-o-up"
       buttonClickHandler = @handleContinueRating
 
+    buttonClassNames = classSet
+      "game__status__button": true
+      "button--disabled": disabled
+
     `<button
-      className={buttonClassName + buttonAlertedClass}
+      className={buttonClassNames + " " + buttonClassExtra + " " + buttonAlertedClass}
+      disabled={disabled}
       onClick={buttonClickHandler}>
         {<i className={buttonIcon}></i>}
         {buttonText}
@@ -50,7 +56,7 @@ Sembl.Games.Gameboard.StatusView = React.createClass
     console.log state, move_state
     if state is 'playing_turn' and move_state is 'created'
       if round == 1
-        tooltip = "Submit your turn to let us know you are finished."
+        tooltip = "On the board — nice work!"
       else if round == 2
         tooltip = "If you have made all the moves you want to make, end your turn to let us know you are finished."
 
@@ -69,16 +75,29 @@ Sembl.Games.Gameboard.StatusView = React.createClass
     @triggerNotice()
 
   render: ->
-    game_status = @props.game.get('status')
     player = @props.game.get('player')
 
-    if player
-      statusHTML = @getButtonForStatus(player.state, player.move_state)
+    statusHTML = if player.state is "playing_turn" && player.move_state is "open"
+      statusButton = @getButtonForStatus(player.state, player.move_state)
+      `<div className="game__status">
+        <div className="game__status-inner">
+          <p>Select an open position to create a Sembl.</p>
+        </div>
+      </div>`
+    else if player.state is "playing_turn"
+      statusButton = @getButtonForStatus(player.state, player.move_state)
+      `<div className="game__status">
+        <div className="game__status-inner">
+          <p>End your turn to let us know when you’re done.</p>
+          {statusButton}
+        </div>
+      </div>`
+    else if player.state is "waiting"
+      `<div className="game__status">
+        <div className="game__status-inner">
+          <p>We’re waiting for other players to finish their turns, then you’ll get a chance to rate their Sembls.</p>
+        </div>
+      </div>`
     else
-      statusHTML = game_status
-
-    `<div className="game__status">
-      <div className="game__status-inner">
-        {statusHTML}
-      </div>
-    </div>`
+      `<div className="game__status"/>`
+    return statusHTML
