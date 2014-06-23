@@ -8,11 +8,6 @@
     showMetadata: false
     zoom: false
 
-  componentDidMount: ->
-    # TODO THIS IS BAD
-    $('.move__thing-modal__place-button').hover ->
-      $('.move__thing-modal__image').toggleClass 'move__thing-modal__image--toggled'
-
   render: () ->
     thing = @props.thing
 

@@ -143,12 +143,6 @@
   }
 }
 
-.move__thing-modal__image--toggled {
-  transition-property: scale;
-  transition-duration: 250ms;
-  transform: scale(1.05);
-}
-
 .move__thing-modal__meta {
   background-color: $background-color;
 }
@@ -254,6 +248,11 @@
 .move__thing-modal__place-button {
   @include inset(top, mid);
   box-shadow: 0 0 20px 5px rgba(#fff,.3);
+  &:hover {
+    transform: scale(1.05);
+    transition-property: scale;
+    transition-duration: 100ms;
+  }
 }
 
 // Add resemblances modal
