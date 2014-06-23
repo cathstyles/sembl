@@ -1,11 +1,22 @@
 .header
   .heading
     h1 Sign up
-= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-  = f.error_notification
+
+- if params[:email].present?
+  .sign-in-up-content.copy
+    h2 Hello there!
+    p You’ve been invited to play a game of Sembl. You’ll need to create an account to play, so just enter a password below and you’ll be off and running.
+
+= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name, :email => params[:email])) do |f|
   .sign-up-form
+    = f.error_notification
     .form-inputs
-      = f.input :email, :required => true, :autofocus => true
+      - if params[:email].present?
+        = f.label :email, :required => true
+        .input-proxy= params[:email]
+        = f.input :email, :as => "hidden", :input_html => {:value => params[:email]}
+      - else
+        = f.input :email, :required => true, :autofocus => true
       = f.input :password, :required => true
       = f.input :password_confirmation, :required => true
     .form-actions

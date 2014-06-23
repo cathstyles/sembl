@@ -1,3 +1,6 @@
 = "You have been invited by #{@game.creator.email} to join a game on Sembl.\n"
 
-= "You can join the game here #{game_url(@game, only_path: false)} "
+- if @existing_user
+  = "You can join the game here #{game_url(@game, only_path: false)}"
+- else
+  = "You can join the game here #{new_user_registration_url(only_path: false, :email => @email)}"

@@ -10,12 +10,12 @@ class PlayerMailer < ActionMailer::Base
     @game = player.game
     if player.user.present?
       @existing_user = true
-      email = player.try(:user).try(:email)
+      @email = player.try(:user).try(:email)
     else
       @existing_user = false
-      email = player.email
+      @email = player.email
     end
 
-    mail to: email
+    mail to: @email
   end
 end

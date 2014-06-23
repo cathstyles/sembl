@@ -6,4 +6,4 @@ p
     = link_to "Join the game", game_url(@game, only_path: false)
 - else
   p
-    = link_to "Join the game on sembl", new_user_registration_url(only_path: false)
+    = link_to "Join the game on sembl", new_user_registration_url(only_path: false, :email => @email)
