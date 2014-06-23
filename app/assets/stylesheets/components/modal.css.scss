@@ -15,6 +15,7 @@
   position: fixed;
   background-color: rgba(#1a1814,.8);
   overflow-y: scroll;
+  text-align: center;
   z-index: 200;
 }
 
@@ -53,21 +54,29 @@
   margin-left: auto;
   margin-right: auto;
   position: relative;
+  display: inline-block;
   max-width: 90%;
-  width: 460px;
   margin-top: 20px;
   margin-bottom: 20px;
-  &.metadata-is-visible {
-    transition-property: width;
-    transition-duration: 250ms;
-    width: 650px;
-  }
-  &.metadata-is-not-visible {
-    transition-property: width;
-    transition-duration: 250ms;
-    width: 460px;
-  }
+  text-align: left;
 }
+
+  .move__thing-modal {
+    width: 460px;
+    &.metadata-is-visible {
+      transition-property: width;
+      transition-duration: 250ms;
+      width: 650px;
+    }
+    &.metadata-is-not-visible {
+      transition-property: width;
+      transition-duration: 250ms;
+      width: 460px;
+    }
+    &.modal--large-image-visible {
+      width: auto;
+    }
+  }
 
 .move__thing__modal__button {
   @include font-size(14);
@@ -195,7 +204,15 @@
 }
 
 .move__thing-modal__attributes {
-  @include pad(bottom, normal);
+  overflow: hidden;
+  transition-property: max-height;
+  transition-duration: 150ms;
+  .metadata-is-not-visible & {
+    max-height: 0;
+  }
+  .metadata-is-visible & {
+    max-height: 600px;
+  }
 }
 
 .move__thing-modal__attribute-row {
@@ -206,6 +223,9 @@
   padding-bottom: 5px;
   &:nth-child(odd) {
     background-color: darken($background-color, 2%);
+  }
+  &:last-child {
+    @include inset(bottom, normal);
   }
 }
 
@@ -279,11 +299,6 @@
     top: 0;
     transform: translate(0,0);
     height: 100%;
-  }
-  .modal__inner {
-    margin-top: 0;
-    margin-bottom: 0;
-    width: auto;
   }
   .move__thing-modal__zoom-toggle {
     &:after {
