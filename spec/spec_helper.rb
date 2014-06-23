@@ -6,6 +6,7 @@ require "rspec/autorun"
 require 'capybara-screenshot/rspec'
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
+Capybara.asset_host = "http://sembl.dev/"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
@@ -39,11 +40,11 @@ if defined?(CarrierWave)
     next if klass.anonymous?
     klass.class_eval do
       def cache_dir
-        "#{Rails.root}/spec/support/uploads/tmp"
+        "#{Rails.root}/public/uploads/tmp"
       end
 
       def store_dir
-        "#{Rails.root}/spec/support/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+        "#{Rails.root}/public/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
       end
     end
   end

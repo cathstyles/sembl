@@ -29,11 +29,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   # These two methods are for our specs so images are stored locally
   if Rails.env.test? || Rails.env.cucumber?
     def cache_dir
-      "#{Rails.root}/spec/support/uploads/tmp"
+      "#{Rails.root}/public/uploads/tmp"
     end
 
     def store_dir
-      "#{Rails.root}/spec/support/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+      "#{Rails.root}/public/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     end
   end
 
