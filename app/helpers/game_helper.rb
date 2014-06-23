@@ -54,4 +54,16 @@ module GameHelper
     end
   end
 
+  def user_initials(user)
+    name = if user.profile.name.present? && user.profile.name != ""
+      user.profile.name
+    else
+      user.email
+    end
+    # Get initials from name
+    name.split(' ').collect do |word|
+      word[0,1].upcase
+    end.join('')
+  end
+
 end
