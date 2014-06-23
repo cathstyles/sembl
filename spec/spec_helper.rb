@@ -32,7 +32,7 @@ RSpec.configure do |config|
 end
 
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, {js_errors: false})
+  Capybara::Poltergeist::Driver.new(app, {js_errors: false, inspector: true})
 end
 
 # put logic in this file or initializer/carrierwave.rb
