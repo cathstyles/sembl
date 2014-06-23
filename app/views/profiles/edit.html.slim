@@ -6,10 +6,12 @@
       - else
         ' Edit your profile
 
+/ TODO @andymccray
+- if @new_user
+  .profile-intro.copy
+    p Add a name and picture below so people know who you are!
+
 .profile
-  / TODO @andymccray
-  - if @new_user
-    p It’s great to have a proper profile!
   .profile__avatar-container
     h3.profile__avatar-title Upload an avatar
     .profile__avatar-container__inner
@@ -26,4 +28,4 @@
           = user_fields.input :password
           = user_fields.input :password_confirmation
 
-      = f.button :submit, class: "profile__update-button"
+      = f.button :submit, (@new_user) ? "Create your profile" : "Update your profile", class: "profile__update-button"

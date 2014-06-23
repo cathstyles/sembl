@@ -1,5 +1,15 @@
 // Profiles
 
+.profile-intro {
+  @include font-size(20);
+  @include pad(horz, normal);
+  @include inset(bottom, medium);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 60%;
+}
+
 .profile {
   @extend %clearfix-micro;
   @include pad(all, normal);
