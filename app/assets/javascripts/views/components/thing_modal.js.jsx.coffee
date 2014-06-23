@@ -35,37 +35,37 @@
           <div className="move__thing-modal__attributes">
             <div className="move__thing-modal__attribute-row">
               <div className="move__thing-modal__attribute">
-                <h2>Copyright:</h2> 
+                <h2>Copyright:</h2>
                 <span className="move__thing-modal__attribute-text">{thing.copyright}</span>
               </div>
             </div>
             <div className="move__thing-modal__attribute-row">
               <div className="move__thing-modal__attribute">
-                <h2>Attribution:</h2> 
+                <h2>Attribution:</h2>
                 <span className="move__thing-modal__attribute-text">{thing.attribution}</span>
               </div>
             </div>
             <div className="move__thing-modal__attribute-row">
               <div className="move__thing-modal__attribute">
-                <h2>Access via:</h2> 
+                <h2>Access via:</h2>
                 <span className="move__thing-modal__attribute-text">{thing.access_via}</span>
               </div>
             </div>
             <div className="move__thing-modal__attribute-row">
               <div className="move__thing-modal__attribute">
-                <h2>Dates:</h2> 
+                <h2>Dates:</h2>
                 <span className="move__thing-modal__attribute-text">{dates}</span>
               </div>
             </div>
             <div className="move__thing-modal__attribute-row">
               <div className="move__thing-modal__attribute">
-                <h2>Associated places:</h2> 
+                <h2>Associated places:</h2>
                 <span className="move__thing-modal__attribute-text">{places}</span>
               </div>
             </div>
             <div className="move__thing-modal__attribute-row">
               <div className="move__thing-modal__attribute">
-                <h2>Type:</h2> 
+                <h2>Type:</h2>
                 <span className="move__thing-modal__attribute-text">{type}</span>
               </div>
             </div>
