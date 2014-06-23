@@ -5,7 +5,7 @@ FactoryGirl.define do
     title { Forgery(:lorem_ipsum).word }
     theme { Forgery(:lorem_ipsum).word }
     board { FactoryGirl.create(:board) }
-    seed_thing_id { FactoryGirl.create(:thing) }
+    seed_thing_id { FactoryGirl.create(:thing).id }
     number_of_players { 3 }
     creator { FactoryGirl.create(:user) }
 

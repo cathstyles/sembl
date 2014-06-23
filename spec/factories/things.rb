@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :thing do
-    title { Forgery(:lorem_ipsum).words(3) }
-    description { Forgery(:lorem_ipsum).paragraphs(2) }
+    title { "Little Monkey" }
+    description { "Monkeys are clearly the coolest things on Earth." }
     image { File.open(File.join(Rails.root, '/spec/support/images/monkey.jpg')) }
   end
 end

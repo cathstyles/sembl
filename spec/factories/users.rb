@@ -3,6 +3,10 @@ FactoryGirl.define do
     email { Forgery(:email).address }
     password { Forgery(:basic).password(at_least: 8) }
     password_confirmation { password }
+    after(:create) do |user|
+      user.profile.name = Forgery(:lorem_ipsum).words(2)
+      user.profile.save!
+    end
 
     trait :admin do
       role_event { 'make_admin' }
