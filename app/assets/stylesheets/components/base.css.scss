@@ -114,27 +114,31 @@ textarea {
 }
 
 @keyframes notice {
-  0%, 100% { transform: scale(1.03); }
+  0%, 100% { transform: scale(1.01); }
   50% { transform: scale(1); }
 }
 
 .flash,
 .notice {
-  @include pad(all, small);
+  @include font-size(20);
+  @include pad(vert, smaller);
+  @include pad(horz, normal);
   animation-name: flash;
   animation-duration: 250ms;
   animation-iteration-count: 1;
-  border-bottom-left-radius: $border-radius;
-  border-bottom-right-radius: $border-radius;
+  border-radius: $border-radius;
   background-color: $highlight-color;
   box-shadow: 0 0 10px 2 rgba(#888,.1);
   color: #fff;
+  line-height: 1.2;
   position: absolute;
-  top: 0;
-  right: 20px;
-  text-shadow: 1px 1px 1px rgba(#000,.3);
+  top: 30px;
+  left: 50%;
+  width: 300px;
+  margin-left: -150px;
+  text-align: center;
   transition-property: right;
-  transition-duration: 100ms;
+  transition-duration: 300ms;
   z-index: 100;
   &.error {
     background-color: #f75454;
