@@ -64,8 +64,8 @@
       border-color: #fff;
     }
     .game-individual__play-button {
-      transition-property: bottom;
-      bottom: 40%;
+      opacity: 1;
+      transform: translate3d(0,0,0);
     }
   }
   &.game-individual__wrapper--playable {
@@ -105,14 +105,17 @@
 
 .game-individual__play-button {
   @extend %button;
-  bottom: -100%;
+  bottom: 40%;
   box-shadow: 0 0 5px 5px rgba(#fff,.6);
   display: inline-block;
   left: 50%;
   margin-left: -35px;
   position: absolute;
   text-align: center;
-  transition-duration: 250ms;
+  transition-property: opacity, transform;
+  transition-duration: 200ms;
+  transform: translate3d(0,80px,0);
+  opacity: 0;
   width: 70px;
 }
 
