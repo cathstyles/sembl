@@ -110,6 +110,9 @@
     -webkit-transition-property: scale;
     -webkit-transition-duration: 250ms;
   }
+  img {
+    height: 100%;
+  }
 }
 
 .player--highlighted {
