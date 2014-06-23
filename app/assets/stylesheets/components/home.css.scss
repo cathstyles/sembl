@@ -20,12 +20,13 @@
   text-align: center;
 }
 
-.home__games-hosting-container {
+.home__all-games-container {
   @extend %clearfix-micro;
   @include pad(vert, smaller);
 }
 
 .home__all-games {
+  @include pad(bottom, large);
   clear: both;
 }
 
