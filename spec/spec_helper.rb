@@ -22,6 +22,7 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
   config.include Devise::TestHelpers, type: :controller
+  config.include FeatureHelpers, type: :feature
 
   config.after(:all) do
     if Rails.env.test?
