@@ -14,7 +14,12 @@ class ApplicationController < ActionController::Base
 
     def user_not_authorized
       puts 'ApplicationController.user_not_authorized'
-      flash[:error] = "You are not authorized to perform this action."
-      redirect_to request.headers["Referer"] || root_path
+      if current_user.present?
+        flash[:error] = "You are not authorized to perform this action."
+        redirect_to request.headers["Referer"] || root_path
+      else
+        flash[:error] = "Please sign in or sign up"
+        redirect_to new_user_session_path
+      end
     end
 end
