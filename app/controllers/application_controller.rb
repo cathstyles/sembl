@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
         flash[:error] = "You are not authorized to perform this action."
         redirect_to request.headers["Referer"] || root_path
       else
-        flash[:error] = "Please sign in or sign up"
+        flash[:error] = "Please sign in below<br/>or sign up #{ActionController::Base.helpers.link_to "here", new_user_registration_path}.".html_safe
         redirect_to new_user_session_path
       end
     end
