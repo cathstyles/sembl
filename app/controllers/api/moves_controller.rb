@@ -23,7 +23,7 @@ class Api::MovesController < ApiController
     move = params.require(:move).permit(
       :game_id,
       {
-        resemblances: [ :description, :link_id ]
+        resemblances: [ :description, :link_id, :link_description, :target_description ]
       },
       placement: [:node_id, :thing_id]
     )

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140430080056) do
+ActiveRecord::Schema.define(version: 20140625001441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,8 +118,8 @@ ActiveRecord::Schema.define(version: 20140430080056) do
   add_index "ratings", ["resemblance_id"], name: "index_ratings_on_resemblance_id", using: :btree
 
   create_table "resemblances", force: true do |t|
-    t.text     "description", null: false
-    t.string   "state",       null: false
+    t.text     "description",        null: false
+    t.string   "state",              null: false
     t.float    "score"
     t.integer  "link_id"
     t.integer  "creator_id"
@@ -127,6 +127,8 @@ ActiveRecord::Schema.define(version: 20140430080056) do
     t.datetime "updated_at"
     t.integer  "source_id"
     t.integer  "target_id"
+    t.text     "link_description"
+    t.text     "target_description"
   end
 
   add_index "resemblances", ["creator_id"], name: "index_resemblances_on_creator_id", using: :btree
