@@ -43,9 +43,21 @@
   }
 }
 
+
+.results__back-to-game__container {
+  @include inset(bottom, mid);
+  text-align: center;
+}
+
+.results__back-to-game__border {
+  @extend %highlight-box;
+  @include pad(all, smaller);
+  display: inline-block;
+}
+
 .results__back-to-game {
   @extend %button;
-  float: right;
+  display: block;
   i {
     @include font-size(12);
     padding-right: 4px;
@@ -97,9 +109,7 @@
 .results__move-result {
   @extend %clearfix-micro;
   .results__player-move__move {
-    margin-left: 2%;
-    margin-right: 2%;
-    width: 48%;
+    width: 100%;
     &:nth-child(odd) { margin-left: 0; }
     &:nth-child(even) { margin-right: 0; }
     @media screen and (max-width: 1100px) {
@@ -116,13 +126,7 @@
 
 .results__player-move__move {
   @extend %clearfix-micro;
-  @include inset(bottom, smaller);
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  border-top-left-radius: $border-radius-inner;
-  border-top-right-radius: $border-radius-inner;
-  background-color: #f8eac8;
-  float: left;
+  border: 1px solid lighten($border-color, 15%);
 }
 
 .results__player-move__move--won {

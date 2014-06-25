@@ -259,11 +259,15 @@
 
     `<div className="body-wrapper">
       <div className="results">
+        <div className="results__back-to-game__container">
+          <span className="results__back-to-game__border">
+            <a className="results__back-to-game" href="#">
+              <i className="fa fa-chevron-left"></i>&nbsp;
+              Back to the gameboard
+            </a>
+          </span>
+        </div>
         <div className="results__aside">
-          <a className="results__back-to-game" href="#">
-            <i className="fa fa-chevron-left"></i>&nbsp;
-            Back to gameboard
-          </a>
           {playerOverallResults}
           {playerAwards}
         </div>
