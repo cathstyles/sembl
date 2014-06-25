@@ -125,8 +125,8 @@
       </div>`
 
     `<div className="results__player-scores-wrapper">
+      <h1 className="results__aside__heading">Scores and awards</h1>
       <div className="results__player-scores">
-        <h2 className="results__player-scores-title"><i className="fa fa-star"></i> The scores so far:</h2>
         <div className="results__player-scores__inner">
           {playerRoundResults}
         </div>
@@ -182,8 +182,8 @@
       </div>`
 
     `<div className="results__player-scores-wrapper">
+      <h1 className="results__aside__heading">Scores and awards</h1>
       <div className="results__player-scores">
-        <h2 className="results__player-scores-title"><i className="fa fa-star"></i> Final Results!</h2>
         <div className="results__player-scores__inner">
           {playerRoundResults}
         </div>

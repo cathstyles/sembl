@@ -70,7 +70,8 @@
   @include inset(bottom, huge);
 }
 
-.results__round__heading {
+.results__round__heading,
+.results__aside__heading {
   @extend %white-drop-shadow;
   @include font-size(28);
   @include inset(bottom, smaller);
@@ -271,10 +272,12 @@
 
 // Scores
 
+.results__aside__heading {
+  text-align: center;
+}
+
 .results__player-scores-wrapper {
-  @include pad(top, medium);
   float: right;
-  clear: both;
 }
 
 .results__player-scores,
@@ -283,41 +286,21 @@
   background-color: $highlight-background-color;
   border: 1px solid $border-color;
   border-radius: $border-radius;
-  box-shadow: 0 0 10px 5px rgba(#888,.1);
+  box-shadow: 0 0 10px 5px rgba(#888,.05);
   width: 300px;
-}
-
-.results__player-scores-title,
-.results__awards-title {
-  @extend .small-tracked-out-heading;
-  @include pad(all, small);
-  background-color: lighten($text-color, 10%);
-  border-top-left-radius: $border-radius-inner;
-  border-top-right-radius: $border-radius-inner;
-  color: #fff;
-  text-align: center;
-  text-shadow: 1px 1px 1px rgba(#000,.4);
-  i {
-    color: #fff788;
-    padding-right: 4px;
+  overflow: hidden;
+  &:last-child {
+    border-bottom: none;
   }
 }
 
 .results__player-score {
   @extend %clearfix-micro;
-  border-bottom: 1px dashed $border-color;
-  &:last-child {
-    border-bottom: none;
-    border-bottom-left-radius: $border-radius-inner;
-    border-bottom-right-radius: $border-radius-inner;
-    .results__player-score__score {
-      border-bottom-right-radius: $border-radius-inner;
-    }
-  }
+  border-bottom: 1px solid $border-color;
 }
 
 .results__player-score--you {
-  color: $link-color;
+  background-color: darken($highlight-background-color, 4%);
 }
 
 .results__player-score__name {
@@ -336,13 +319,11 @@
   @extend %white-drop-shadow;
   @include font-size(18);
   @include pad(all, small);
-  background-color: darken($highlight-background-color, 4%);
   color: $link-color;
   font-weight: 600;
   float: right;
   i {
-    color: #ffdc52;
-    text-shadow: 1px 1px 1px darken(#ffdc52, 20%);
+    color: darken(#ffdc52, 20%);
     padding-right: 4px;
   }
 }
