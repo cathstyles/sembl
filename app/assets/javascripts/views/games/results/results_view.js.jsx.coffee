@@ -3,7 +3,7 @@
 {classSet} = React.addons
 @Sembl.Games.Results.SemblResult = React.createClass
   render: ->
-    {source, target, description, score, scoreRounded, roundWinner} = @props
+    {source, target, description, score, scoreRounded, roundWinner, user} = @props
     score = Math.floor(score * 100)
     scoreRounded = Math.floor(score / 10) * 10
     key = "#{source.node.id}.#{target.node.id}"
@@ -29,7 +29,21 @@
       <div className="results__player-move__move__description">
         <p>{description}</p>
       </div>
+      <div className="results__player-move__move__avatar">
+        <span className="game__player__details__avatar">
+          {this._getAvatar(this.props.user)}
+        </span>
+      </div>
     </div>`
+  _getAvatar: (user) ->
+    if user.avatar_tiny_thumb
+      `<img src={user.avatar_tiny_thumb} />`
+    else
+      name = if user.name? && user.name != "" then user.name else user.email
+      # Get initials from name
+      _.map(name.split(' ', 2), (item) ->
+        item[0].toUpperCase()
+      ).join('')
 
 {SemblResult} = @Sembl.Games.Results
 @Sembl.Games.Results.MoveResult = React.createClass
@@ -45,6 +59,7 @@
         target: target
         description: resemblance.description
         score: resemblance.score || 0
+        user: _this.props.user
       SemblResult(params)
     `<div className="results__move-result">
       <h2>Round {this.props.round}</h2>
@@ -74,23 +89,8 @@
 @Sembl.Games.Results.PlayerGroup = React.createClass
   render: ->
     `<div className="results__grouped">
-      <div>
-        <span className="game__player__details__avatar">
-          {this._getAvatar(this.props.user)}
-        </span>
-        {this.props.user.email}
-      </div>
       {this._formatSemblResults()}
     </div>`
-  _getAvatar: (user) ->
-    if user.avatar_tiny_thumb
-      `<img src={user.avatar_tiny_thumb} />`
-    else
-      name = if user.name? && user.name != "" then user.name else user.email
-      # Get initials from name
-      _.map(name.split(' ', 2), (item) ->
-        item[0].toUpperCase()
-      ).join('')
   _formatSemblResults: ->
     _this = @
     _.map @props.results, (result) ->
@@ -104,6 +104,7 @@
           target: target
           description: resemblance.description
           score: resemblance.score || 0
+          user: _this.props.user
         SemblResult(params)
 
 {PlayerGroup} = @Sembl.Games.Results
