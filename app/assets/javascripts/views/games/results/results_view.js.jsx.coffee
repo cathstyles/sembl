@@ -3,8 +3,9 @@
 {classSet} = React.addons
 @Sembl.Games.Results.SemblResult = React.createClass
   render: ->
-    {source, target, description, score, roundWinner} = @props
+    {source, target, description, score, scoreRounded, roundWinner} = @props
     score = Math.floor(score * 100)
+    scoreRounded = Math.floor(score / 10) * 10
     key = "#{source.node.id}.#{target.node.id}"
 
     className = classSet
@@ -12,17 +13,21 @@
       "results__player-move__move--won": roundWinner
 
     `<div className={className} key={key}>
-      <div className="results__player-move__move__sembl">{description}</div>
-      <div className="results__player-move__move__node-wrapper">
-        <div className="results__player-move__move__node-wrapper__inner">
-          <div className="results__player-move__move__score"><i className="fa fa-star"></i><em>{score}</em></div>
+      <div className="results__player-move__move__sembl">
+        <div className="results__player-move__move__sembl__inner">
           <div className="results__player-move__move__source">
             <img className="results__player-move__move__thing" src={source.thing.image_admin_url} />
           </div>
           <div className="results__player-move__move__target">
             <img className="results__player-move__move__thing" src={target.thing.image_admin_url} />
           </div>
+          <div className={"results__player-move__move__score score--" + scoreRounded}>
+            {score}
+          </div>
         </div>
+      </div>
+      <div className="results__player-move__move__description">
+        <p>{description}</p>
       </div>
     </div>`
 
@@ -62,19 +67,14 @@
       <h1 className="results__player-move__name">
         <em><span className="results__player-move__name-username">{user.name}</span></em>
       </h1>
-      <div className="results__player-move__moves">
-        {moveResults}
-      </div>
+      {moveResults}
     </div>`
 
 
 @Sembl.Games.Results.PlayerGroup = React.createClass
   render: ->
-    `<div>
-      {this.props.user.email}
-      <div style={{overflow: 'hidden'}}>
-        {this._formatSemblResults()}
-      </div>
+    `<div className="results__grouped">
+      {this._formatSemblResults()}
     </div>`
   _formatSemblResults: ->
     _.map @props.results, (result) ->
@@ -93,8 +93,8 @@
 {PlayerGroup} = @Sembl.Games.Results
 @Sembl.Games.Results.ResultsRound = React.createClass
   render: ->
-    `<div>
-      Round {this.props.round}
+    `<div className="results__round">
+      <h1 className="results__round__heading">Round {this.props.round}</h1>
       <div>
         {this._formatPlayerGroups()}
       </div>
@@ -256,7 +256,6 @@
     resultsRounds = _.map resultsByRoundByUsers, (round, index) ->
       `<ResultsRound round={index + 1} resultsByPlayer={round}/>`
 
-
     `<div className="body-wrapper">
       <div className="results">
         <div className="results__back-to-game__container">
@@ -267,11 +266,13 @@
             </a>
           </span>
         </div>
+        <div className="results__container">
+          {resultsRounds}
+        </div>
         <div className="results__aside">
           {playerOverallResults}
           {playerAwards}
         </div>
-        {resultsRounds}
       </div>
     </div>`
 
