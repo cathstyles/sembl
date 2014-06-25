@@ -67,6 +67,43 @@
       </div>
     </div>`
 
+
+@Sembl.Games.Results.PlayerGroup = React.createClass
+  render: ->
+    `<div>
+      {this.props.user.email}
+      <div style={{overflow: 'hidden'}}>
+        {this._formatSemblResults()}
+      </div>
+    </div>`
+  _formatSemblResults: ->
+    _.map @props.results, (result) ->
+      target = result.get('target')
+      Sembl.results = Sembl.results || []
+      Sembl.results.push(result)
+      semblResults = for resemblance in result.get('resemblances')
+        params =
+          # roundWinner: _.contains(_.pluck(@props.roundWinners, "id"), resemblance.id)
+          source: resemblance.source
+          target: target
+          description: resemblance.description
+          score: resemblance.score || 0
+        SemblResult(params)
+
+{PlayerGroup} = @Sembl.Games.Results
+@Sembl.Games.Results.ResultsRound = React.createClass
+  render: ->
+    `<div>
+      Round {this.props.round}
+      <div>
+        {this._formatPlayerGroups()}
+      </div>
+    </div>`
+  _formatPlayerGroups: ->
+    _.map @props.resultsByPlayer, (group) ->
+      user = group[0].get("user")
+      `<PlayerGroup user={user} results={group}/>`
+
 @Sembl.Games.Results.PlayerRoundResults = React.createClass
   render: ->
     playerRoundResults = @props.players.map (player) ->
@@ -154,7 +191,7 @@
     </div>`
 
 
-{PlayerMoveResults, PlayerRoundResults, PlayerFinalResults, PlayerAwards} = @Sembl.Games.Results
+{ResultsRound, PlayerRoundResults, PlayerFinalResults, PlayerAwards} = @Sembl.Games.Results
 @Sembl.Games.Results.ResultsView = React.createClass
 
   render: ->
@@ -185,6 +222,20 @@
           roundWinner = move
       roundWinners.push(roundWinner)
 
+    # Group the results into their rounds
+    resultsByRound = []
+    for result in @props.results.models
+      round = false
+      resemblances = result.get("resemblances")
+      if resemblances.length > 0
+        round = resemblances[0].source.node.round
+        resultsByRound[round] = resultsByRound[round] || []
+        resultsByRound[round].push result
+    # Then group by users too
+    resultsByRoundByUsers = _.map resultsByRound, (round) ->
+      _.groupBy round, (result) ->
+        result.get("user").email
+
     userGroupedResults = {}
     for result in @props.results.models
       email = result.get('user').email
@@ -197,10 +248,13 @@
     else
       playerOverallResults = `<PlayerRoundResults players={players} />`
 
-    playerMoveResults = for email, results of userGroupedResults
-      key = email
-      leader = (winner.user.email is email)
-      `<PlayerMoveResults key={key} results={results} game={_this.props.game} leader={leader} roundWinners={roundWinners}/>`
+    # playerMoveResults = for email, results of userGroupedResults
+    #   key = email
+    #   leader = (winner.user.email is email)
+    #   `<PlayerMoveResults key={key} results={results} game={_this.props.game} leader={leader} roundWinners={roundWinners}/>`
+
+    resultsRounds = _.map resultsByRoundByUsers, (round, index) ->
+      `<ResultsRound round={index + 1} resultsByPlayer={round}/>`
 
 
     `<div className="body-wrapper">
@@ -213,10 +267,7 @@
           {playerOverallResults}
           {playerAwards}
         </div>
-
-        <div className="results__player-moves">
-          {playerMoveResults}
-        </div>
+        {resultsRounds}
       </div>
     </div>`
 
