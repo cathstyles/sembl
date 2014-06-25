@@ -74,16 +74,32 @@
 @Sembl.Games.Results.PlayerGroup = React.createClass
   render: ->
     `<div className="results__grouped">
+      <div>
+        <span className="game__player__details__avatar">
+          {this._getAvatar(this.props.user)}
+        </span>
+        {this.props.user.email}
+      </div>
       {this._formatSemblResults()}
     </div>`
+  _getAvatar: (user) ->
+    if user.avatar_tiny_thumb
+      `<img src={user.avatar_tiny_thumb} />`
+    else
+      name = if user.name? && user.name != "" then user.name else user.email
+      # Get initials from name
+      _.map(name.split(' ', 2), (item) ->
+        item[0].toUpperCase()
+      ).join('')
   _formatSemblResults: ->
+    _this = @
     _.map @props.results, (result) ->
       target = result.get('target')
       Sembl.results = Sembl.results || []
       Sembl.results.push(result)
       semblResults = for resemblance in result.get('resemblances')
         params =
-          # roundWinner: _.contains(_.pluck(@props.roundWinners, "id"), resemblance.id)
+          roundWinner: _.contains(_.pluck(_this.props.roundWinners, "id"), resemblance.id)
           source: resemblance.source
           target: target
           description: resemblance.description
@@ -100,9 +116,10 @@
       </div>
     </div>`
   _formatPlayerGroups: ->
+    _this = @
     _.map @props.resultsByPlayer, (group) ->
       user = group[0].get("user")
-      `<PlayerGroup user={user} results={group}/>`
+      `<PlayerGroup user={user} results={group} roundWinners={_this.props.roundWinners}/>`
 
 @Sembl.Games.Results.PlayerRoundResults = React.createClass
   render: ->
@@ -254,7 +271,7 @@
     #   `<PlayerMoveResults key={key} results={results} game={_this.props.game} leader={leader} roundWinners={roundWinners}/>`
 
     resultsRounds = _.map resultsByRoundByUsers, (round, index) ->
-      `<ResultsRound round={index + 1} resultsByPlayer={round}/>`
+      `<ResultsRound round={index + 1} resultsByPlayer={round} roundWinners={roundWinners}/>`
 
     `<div className="body-wrapper">
       <div className="results">
