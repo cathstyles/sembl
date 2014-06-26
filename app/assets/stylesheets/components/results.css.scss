@@ -403,6 +403,9 @@
 
 .results__awards--fetching {
   @include pad(all, smaller);
+  background-color: $highlight-background-color;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
 }
 
 .results__award {
