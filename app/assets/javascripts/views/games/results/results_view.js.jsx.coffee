@@ -179,18 +179,15 @@
     awards = if @state.awards
       @state.awards.map (award) ->
         `<div className="results__award">
-          <img src={award.icon} className="results__award__icon"/>
           <span className="results__award__name">{award.name}</span>
           <span className="results__award__player">{award.player.user.name}</span>
-          <span className="results_award__result-name">{award.result_name + ": "}</span><span className="results_award__result">{award.result}</span>
+          <span className="results_award__result-name">{award.result_name + ": "}</span><span className="results_award__result">{award.result.description}</span>
         </div>`
     else
       `<div className="results__awards--fetching">Fetching awards&hellip;</div>`
 
-
     `<div className="results__awards-wrapper">
       <div className="results__awards">
-        <h2 className="results__awards-title"><i className="fa fa-trophy"></i> Stats and Awards</h2>
         <div className="results__awards__inner">
           {awards}
         </div>

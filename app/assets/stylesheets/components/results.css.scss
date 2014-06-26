@@ -38,6 +38,9 @@
   width: 68%;
   margin-right: 2%;
   float: left;
+  @media screen and(max-width: 1120px) {
+    width: 64%;
+  }
 }
 
 .results__aside {
@@ -285,6 +288,9 @@
   .results__player-move__move--won & {
     @include font-size(22);
   }
+  @media screen and(max-width: 1120px) {
+    width: 55%;
+  }
 }
 
 .results__player-move__move__avatar {
@@ -319,6 +325,12 @@
   box-shadow: 0 0 10px 5px rgba(#888,.05);
   width: 300px;
   overflow: hidden;
+}
+
+.results__awards {
+  background-color: $highlight-background-color;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
 }
 
 .results__player-score {
