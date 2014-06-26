@@ -31,7 +31,7 @@ class MedalAwarder
     nodes_won = @game.nodes.select{|node| node.final_placement.creator == player.user}.count
     {
       name: 'Winner',
-      icon: 'http://placekitten.com/50/50',
+      icon: 'fa-trophy',
       player: player,
       result_name: 'Nodes won',
       result: nodes_won
@@ -45,7 +45,7 @@ class MedalAwarder
     sembl = @resemblances.order("score DESC").limit(1).take
     {
       name: 'Highest rated sembl',
-      icon: 'http://placekitten.com/50/50',
+      icon: 'fa-star',
       player: @game.player(sembl.creator),
       result_name: 'Sembl',
       result: sembl
@@ -56,7 +56,7 @@ class MedalAwarder
     rater = @average_player_ratings.max_by { |k, v| v }
     {
       name: 'Highest Rater',
-      icon: 'http://placekitten.com/50/50',
+      icon: 'fa-thumbs-up',
       player: @game.player(User.find(rater[0])),
       result_name: 'Average rating given',
       result: rater[1].to_f
@@ -67,7 +67,7 @@ class MedalAwarder
     rater = @average_player_ratings.min_by { |k, v| v }
     {
       name: 'Lowest rater',
-      icon: 'http://placekitten.com/50/50',
+      icon: 'fa-thumbs-down',
       player: @game.player(User.find(rater[0])),
       result_name: 'Average rating given',
       result: rater[1].to_f

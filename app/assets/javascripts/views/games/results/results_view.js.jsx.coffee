@@ -178,7 +178,15 @@
   render: ->
     awards = if @state.awards
       @state.awards.map (award) ->
-        `<div className="results__award">
+
+        className = classSet
+          "results__award": true
+          "results__award--you": (award.player.user.email is Sembl.user.email)
+
+        `<div className={className}>
+          <span className="results__award__icon">
+            <i className={"fa " + award.icon}></i>
+          </span>
           <span className="results__award__name">{award.name}</span>
           <span className="results__award__player">{award.player.user.name}</span>
           <span className="results_award__result-name">{award.result_name + ": "}</span><span className="results_award__result">{award.result.description}</span>
