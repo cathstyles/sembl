@@ -79,6 +79,10 @@
   font-weight: 700;
 }
 
+.results__aside__heading {
+  padding-left: 0;
+}
+
 .results__player-moves {
   @include pad(top, mid);
   float: left;
@@ -312,7 +316,6 @@
 .results__player-scores,
 .results__awards {
   @extend %clearfix-micro;
-  background-color: $highlight-background-color;
   box-shadow: 0 0 10px 5px rgba(#888,.05);
   width: 300px;
   overflow: hidden;
@@ -320,8 +323,10 @@
 
 .results__player-score {
   @extend %clearfix-micro;
+  background-color: $highlight-background-color;
   border: 1px solid $border-color;
   margin-top: -1px;
+  position: relative;
   &:first-child {
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;

@@ -127,13 +127,18 @@
     playerRoundResults = @props.players.map (player) ->
       name = player.user?.name || player.user?.email
       score = Math.floor(player.score * 100)
-      # TODO: Add a highlight class to "results__player-score" <div> to indicate "you"
-      # you = if @Sembl.id is id then " results__player-score--you" else ""
+      user = player.user
+
       className = classSet
         "results__player-score": true
         "results__player-score--you": (player.user?email is Sembl.user.email)
 
       `<div className={className}>
+        <div className="results__player-score__avatar">
+          <span className="game__player__details__avatar">
+            {_this._getAvatar(user)}
+          </span>
+        </div>
         <h1 className="results__player-score__name">
           <em>{name}</em>
         </h1>
@@ -150,6 +155,15 @@
         </div>
       </div>
     </div>`
+  _getAvatar: (user) ->
+    if user.avatar_tiny_thumb
+      `<img src={user.avatar_tiny_thumb} />`
+    else
+      name = if user.name? && user.name != "" then user.name else user.email
+      # Get initials from name
+      _.map(name.split(' ', 2), (item) ->
+        item[0].toUpperCase()
+      ).join('')
 
 @Sembl.Games.Results.PlayerAwards = React.createClass
   getInitialState: ->
