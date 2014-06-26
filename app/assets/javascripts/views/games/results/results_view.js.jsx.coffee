@@ -186,13 +186,25 @@
 
 @Sembl.Games.Results.PlayerFinalResults = React.createClass
   render: ->
+    _this = this
     playersSorted = _.sortBy(@props.players.slice(0), (player) -> player.score).reverse()
     playerRoundResults = _.map playersSorted, (player) ->
       name = player.user?.name
       score = Math.floor(player.score * 100)
-      `<div className="results__player-score">
+      user = player.user
+
+      className = classSet
+        "results__player-score": true
+        "results__player-score--you": (user.email is Sembl.user.email)
+
+      `<div className={className}>
+        <div className="results__player-score__avatar">
+          <span className="game__player__details__avatar">
+            {_this._getAvatar(user)}
+          </span>
+        </div>
         <h1 className="results__player-score__name">
-          <em>{name}</em>
+          <em>{name}</em><br />
         </h1>
         <div className="results__player-score__score">
           <i className="fa fa-star"></i><em>{score}</em>
@@ -207,6 +219,15 @@
         </div>
       </div>
     </div>`
+  _getAvatar: (user) ->
+    if user.avatar_tiny_thumb
+      `<img src={user.avatar_tiny_thumb} />`
+    else
+      name = if user.name? && user.name != "" then user.name else user.email
+      # Get initials from name
+      _.map(name.split(' ', 2), (item) ->
+        item[0].toUpperCase()
+      ).join('')
 
 
 {ResultsRound, PlayerRoundResults, PlayerFinalResults, PlayerAwards} = @Sembl.Games.Results

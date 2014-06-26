@@ -148,8 +148,9 @@
 }
 
 .results__player-move__move--won {
-  border-color: $border-color;
   background-color: #fff;
+  border-color: $border-color;
+  box-shadow: 0 0 10px 5px rgba(#888,.05);
   position: relative;
   z-index: 10;
   &:before {
@@ -312,32 +313,54 @@
 .results__awards {
   @extend %clearfix-micro;
   background-color: $highlight-background-color;
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
   box-shadow: 0 0 10px 5px rgba(#888,.05);
   width: 300px;
   overflow: hidden;
-  &:last-child {
-    border-bottom: none;
-  }
 }
 
 .results__player-score {
   @extend %clearfix-micro;
-  border-bottom: 1px solid $border-color;
+  border: 1px solid $border-color;
+  margin-top: -1px;
+  &:first-child {
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    margin-top: 0;
+  }
+  &:last-child {
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  }
 }
 
 .results__player-score--you {
   background-color: darken($highlight-background-color, 4%);
+  border: 1px solid darken($border-color, 20%);
+  z-index: 10;
+  .game__player__details__avatar {
+    border: 2px solid darken($border-color, 10%);
+  }
+}
+
+.results__player-score__avatar {
+  float: left;
+  transform: scale(0.8);
+  width: 40px;
+  .game__player__details__avatar {
+    &:hover {
+      transform: none;
+    }
+  }
 }
 
 .results__player-score__name {
-  @include pad(horz, small);
+  @include pad(right, small);
   @include truncate;
   float: left;
   font-weight: 600;
+  padding-left: 5px;
   text-align: left;
-  width: 70%;
+  width: 60%;
   em {
     line-height: 2.5;
   }
