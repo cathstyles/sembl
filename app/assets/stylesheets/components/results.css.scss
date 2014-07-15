@@ -161,25 +161,16 @@
   position: relative;
   z-index: 10;
   &:before {
-    background-image: image-url('winner-trophy.png');
-    background-size: 77px 52px;
-    content: "";
+    @include font-size(24);
+    content: "\f005";
+    color: #ebbb00;
     display: block;
-    width: 77px;
-    height: 52px;
+    font-family: "FontAwesome";
     position: absolute;
-    top: -15px;
+    top: -12px;
     right: -12px;
-    @media
-    only screen and (-webkit-min-device-pixel-ratio: 2),
-    only screen and ( min--moz-device-pixel-ratio: 2),
-    only screen and ( -o-min-device-pixel-ratio: 2/1),
-    only screen and ( min-device-pixel-ratio: 2),
-    only screen and ( min-resolution: 192dpi),
-    only screen and ( min-resolution: 2dppx)
-    {
-      background-image: image-url('winner-trophy-2x.png');
-    }
+    text-shadow: 1px 1px 1px darken(#ebbb00, 10%);
+    transform: rotate(20deg);
   }
 }
 
