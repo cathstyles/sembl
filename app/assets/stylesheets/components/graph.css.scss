@@ -15,7 +15,7 @@
 }
 .graph__node,
 .graph__midpoint {
-  position: absolute; 
+  position: absolute;
 }
 
 .game__graph {
@@ -402,6 +402,8 @@
   background-color: #d2d79b;
   box-shadow: 0 0 10px 5px rgba(#d2d79b,.2);
   cursor: pointer;
+  transition-property: scale;
+  transition-duration: 250ms;
   &:hover {
     box-shadow: 0 0 6px 2px rgba(#000,.1);
     // transform: scale(1.2);
