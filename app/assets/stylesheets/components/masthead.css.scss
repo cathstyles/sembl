@@ -104,7 +104,8 @@
     background-image: image-url("logo-2x.png");
   }
 
-  .games-show & {
+  .games-show &,
+  .games-edit & {
     background-size: 53px 58px;
     background-image: image-url("logo-smaller.png");
     width: 53px;
