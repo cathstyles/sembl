@@ -399,66 +399,31 @@
   animation-duration: 1s;
   animation-timing-function: ease;
   animation-iteration-count: infinite;
-  background-color: $highlight-background-color;
+  background-color: #d2d79b;
+  box-shadow: 0 0 10px 5px rgba(#d2d79b,.2);
   cursor: pointer;
   &:hover {
     box-shadow: 0 0 6px 2px rgba(#000,.1);
-    transform: scale(1.2);
-    transition-property: scale;
-    transition-duration: 250ms;
+    // transform: scale(1.2);
+    // transition-property: scale;
+    // transition-duration: 250ms;
   }
 }
 
-@keyframes glow--very-low {
-  0%, 100%    { box-shadow: 0 0 3px 0px $rating-very-low; }
-  50%         { box-shadow: 0 0 5px 1px $rating-very-low; }
-}
-
-@keyframes glow--low {
-  0%, 100%    { box-shadow: 0 0 4px 1px $rating-low; }
-  50%         { box-shadow: 0 0 7px 2px $rating-low; }
-}
-
-@keyframes glow--medium {
-  0%, 100%    { box-shadow: 0 0 5px 2px $rating-medium; }
-  50%         { box-shadow: 0 0 9px 2px $rating-medium; }
-}
-
-@keyframes glow--high {
-  0%, 100%    { box-shadow: 0 0 6px 3px $rating-high; }
-  50%         { box-shadow: 0 0 12px 4px $rating-high; }
-}
-
-@keyframes glow--very-high {
-  0%, 100%    { box-shadow: 0 0 9px 3px $rating-very-high; }
-  50%         { box-shadow: 0 0 15px 4px $rating-very-high; }
-}
-
 .game__resemblance__filled--very-low {
-  @include background(linear-gradient($rating-very-low, darken($rating-very-low, 10%)) bottom);
-  animation-name: glow--very-low;
-  animation-delay: 250ms;
-  border: 1px solid $rating-very-low;
+  transform: scale(1.1);
 }
 .game__resemblance__filled--low {
-  @include background(linear-gradient($rating-low, darken($rating-low, 10%)) bottom);
-  animation-name: glow--low;
-  animation-delay: 500ms;
+  transform: scale(1.2);
 }
 .game__resemblance__filled--medium {
-  @include background(linear-gradient($rating-medium, darken($rating-medium, 10%)) bottom);
-  animation-name: glow--medium;
-  animation-delay: 300ms;
+  transform: scale(1.3);
 }
 .game__resemblance__filled--high {
-  @include background(linear-gradient($rating-high, darken($rating-high, 10%)) bottom);
-  animation-name: glow--high;
-  animation-delay: 400ms;
+  transform: scale(1.4);
 }
 .game__resemblance__filled--very-high {
-  @include background(linear-gradient($rating-very-high, darken($rating-very-high, 10%)) bottom);
-  animation-name: glow--very-high;
-  animation-delay: 50ms;
+  transform: scale(1.5);
 }
 
 @keyframes reveal {
