@@ -10,12 +10,65 @@
 
 
 // User upload
+
 .setup__steps__inner {
-  background-color: #fff9ea;
+  background-color: $highlight-background-color;
 }
 
 .setup__steps__upload-fields--disabled {
   button {
     opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.games-show {
+  .setup__steps__upload {
+    width: 600px;
+  }
+  .setup__steps__title {
+    @extend .small-tracked-out-heading;
+    background-color: $text-color;
+    border-bottom: 0;
+    color: #fff;
+    text-align: center;
+    text-shadow: 1px 1px 1px rgba(#000,.2);
+  }
+  .setup__steps__upload-step__input {
+    width: 100%;
+  }
+  .setup__steps__upload-step {
+    @include pad(bottom, small);
+    &:last-child {
+      text-align: center;
+    }
+  }
+  .setup__steps__upload-step__label {
+    padding-bottom: 3px;
+  }
+  .setup__steps__upload-step__submit {
+    margin-left: 0;
+  }
+  .setup__steps__uploads__available {
+    // border-bottom-left-radius: $border-radius;
+    // border-bottom-right-radius: $border-radius;
+    text-align: center;
+  }
+  .setup__steps__upload__uploader__image {
+    max-height: 150px;
+  }
+  .setup__steps__uploads__gallery {
+    max-height: 150px;
+  }
+  .games__gallery__thing:hover,
+  .games__gallery__thing:focus {
+    &:before {
+      border: none;
+    }
+    img,
+    .games__gallery__overlay {
+      border: none;
+      transform: none;
+    }
   }
 }

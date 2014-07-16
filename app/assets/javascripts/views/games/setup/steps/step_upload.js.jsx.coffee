@@ -148,7 +148,7 @@
 
 
     `<div className="setup__steps__upload">
-      <div className="setup__steps__title">Upload your own images for use in the game:</div>
+      <div className="setup__steps__title">Upload your own images for use in the game</div>
       <div className="setup__steps__inner">
         {uploadForm}
       </div>

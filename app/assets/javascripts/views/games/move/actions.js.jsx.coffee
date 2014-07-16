@@ -30,7 +30,7 @@
       `<div className="move__actions">
         <div className="move__actions-inner">
           <button className="move__actions__button" onClick={this.handleUpload}>
-            <i className="fa fa-thumbs-up"/> Upload image
+            <i className="fa fa-thumbs-up"/> Upload or use custom image
           </button>
         </div>
       </div>`
