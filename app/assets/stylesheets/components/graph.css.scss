@@ -395,7 +395,13 @@
   border: 3px solid #d2d79b;
 }
 
+@keyframes glow {
+  0%, 100%    { box-shadow: 0 0 8px 5px rgba($rating-medium, .1); }
+  50%         { box-shadow: 0 0 12px 5px rgba($rating-medium, .3); }
+}
+
 .game__resemblance__filled {
+  animation-name: glow;
   animation-duration: 1s;
   animation-timing-function: ease;
   animation-iteration-count: infinite;
@@ -406,9 +412,6 @@
   transition-duration: 250ms;
   &:hover {
     box-shadow: 0 0 6px 2px rgba(#000,.1);
-    // transform: scale(1.2);
-    // transition-property: scale;
-    // transition-duration: 250ms;
   }
 }
 
@@ -422,10 +425,10 @@
   transform: scale(1.3);
 }
 .game__resemblance__filled--high {
-  transform: scale(1.4);
+  transform: scale(1.6);
 }
 .game__resemblance__filled--very-high {
-  transform: scale(1.5);
+  transform: scale(1.7);
 }
 
 @keyframes reveal {
