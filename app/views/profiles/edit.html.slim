@@ -16,8 +16,8 @@
     h3.profile__avatar-title Upload an avatar
     .profile__avatar-container__inner
       div data-view="avatarView" data-avatar-url="#{@profile.avatar.try(:thumb).try(:url)}" data-avatar-form-selector=".profile__edit-form"
-      span.profile__avatar-container__inner__change-message
-        | Edit
+      / span.profile__avatar-container__inner__change-message
+        / | Edit
 
   = simple_form_for @profile, html: {class: "profile__edit-form"} do |f|
     div.profile__meta-data

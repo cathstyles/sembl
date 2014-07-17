@@ -8,7 +8,6 @@
   background: red;
 }
 
-
 // User upload
 
 .setup__steps__inner {
@@ -22,17 +21,31 @@
   }
 }
 
-.games-show {
+.games-show .modal__inner {
   .setup__steps__upload {
-    width: 600px;
+    width: 660px;
   }
   .setup__steps__title {
     @extend .small-tracked-out-heading;
     background-color: $text-color;
     border-bottom: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     color: #fff;
     text-align: center;
     text-shadow: 1px 1px 1px rgba(#000,.2);
+  }
+  .setup__steps__inner {
+    border-right: 1px solid $border-color;
+    float: left;
+    height: 480px;
+    width: 460px;
+  }
+  .setup__steps__upload {
+    background-color: $highlight-background-color;
+    @include background-image(linear-gradient($text-color 0, $highlight-background-color 50%));
+    border-radius: $border-radius;
+    overflow: hidden;
   }
   .setup__steps__upload-step__input {
     width: 100%;
@@ -50,15 +63,19 @@
     margin-left: 0;
   }
   .setup__steps__uploads__available {
-    // border-bottom-left-radius: $border-radius;
-    // border-bottom-right-radius: $border-radius;
-    text-align: center;
+    display: none;
   }
   .setup__steps__upload__uploader__image {
     max-height: 150px;
   }
   .setup__steps__uploads__gallery {
-    max-height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    height: 480px;
+  }
+  .games__gallery__thing {
+    display: block;
   }
   .games__gallery__thing:hover,
   .games__gallery__thing:focus {
