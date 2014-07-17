@@ -417,16 +417,16 @@
 }
 
 .game__resemblance__filled--very-low {
-  transform: scale(1.1);
+  transform: scale(0.8);
 }
 .game__resemblance__filled--low {
-  transform: scale(1.2);
+  // transform: scale(1);
 }
 .game__resemblance__filled--medium {
-  transform: scale(1.3);
+  transform: scale(1.2);
 }
 .game__resemblance__filled--high {
-  transform: scale(1.6);
+  transform: scale(1.5);
 }
 .game__resemblance__filled--very-high {
   transform: scale(1.7);
