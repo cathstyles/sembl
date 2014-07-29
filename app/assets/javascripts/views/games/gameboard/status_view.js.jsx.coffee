@@ -52,8 +52,6 @@ Sembl.Games.Gameboard.StatusView = React.createClass
 
   getTooltip: (state, move_state) ->
     round = @props.game.get('current_round')
-
-    console.log state, move_state
     if state is 'playing_turn' and move_state is 'created'
       if round == 1
         tooltip = "On the board — nice work!"
@@ -97,6 +95,14 @@ Sembl.Games.Gameboard.StatusView = React.createClass
       statusHTML = `<div className="game__status">
         <div className="game__status-inner">
           <p>Too quick! We’re just waiting for everyone else to finish rating.</p>
+        </div>
+      </div>`
+    else if player.state is "rating"
+      statusButton = @getButtonForStatus(player.state, player.move_state)
+      statusHTML = `<div className="game__status">
+        <div className="game__status-inner">
+          <p>Make sure you finish rating everyone’s Sembls</p>
+          {statusButton}
         </div>
       </div>`
     else if player.state is "waiting"
