@@ -10,7 +10,7 @@
     resemblance = @props.link.get('viewable_resemblance')
     scoreClass = @props.link.scoreClass()
 
-    child = if resemblance?.description 
+    child = if resemblance?.description
       `<div>
         <div className={'game__resemblance__filled game__resemblance__filled--' + scoreClass} />
         <div className="game__resemblance__expanded">
@@ -18,7 +18,7 @@
             {resemblance.description}
           </div>
         </div>
-      </div>` 
+      </div>`
     else
       `<div className="game__resemblance__empty" />`
 

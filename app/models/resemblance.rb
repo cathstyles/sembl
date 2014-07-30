@@ -27,11 +27,11 @@ class Resemblance < ActiveRecord::Base
 
   has_many :ratings
 
-  # == States 
+  # == States
   #   proposed
   #   final
-  state_machine initial: :proposed do 
-    event :reify do 
+  state_machine initial: :proposed do
+    event :reify do
       transition :proposed => :final
     end
   end
@@ -40,7 +40,7 @@ class Resemblance < ActiveRecord::Base
     ratings.where(creator: user).take
   end
 
-  def calculate_score 
+  def calculate_score
     self.score = ratings.average(:rating)
   end
 

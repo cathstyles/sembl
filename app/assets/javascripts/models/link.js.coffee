@@ -23,7 +23,7 @@ class Sembl.Link extends Backbone.Model
   target_id: ->
     @target.id
 
-  scoreClass: (current_user_rating) -> 
+  scoreClass: (current_user_rating) ->
     resemblance = @get('viewable_resemblance')
     score = if current_user_rating then resemblance?.rating else resemblance?.score
     if score < 0.20
@@ -34,5 +34,5 @@ class Sembl.Link extends Backbone.Model
       'medium'
     else if score < 0.80
       'high'
-    else 
+    else
       'very-high'
