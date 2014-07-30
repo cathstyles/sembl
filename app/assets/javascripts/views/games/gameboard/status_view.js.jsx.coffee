@@ -76,39 +76,40 @@ Sembl.Games.Gameboard.StatusView = React.createClass
     player = @props.game.get('player')
 
     statusHTML = `<div className="game__status"/>`
-    if player.state is "playing_turn" && player.move_state is "open"
-      statusButton = @getButtonForStatus(player.state, player.move_state)
-      statusHTML = `<div className="game__status">
-        <div className="game__status-inner">
-          <p>Select an open position to create a Sembl.</p>
-        </div>
-      </div>`
-    else if player.state is "playing_turn"
-      statusButton = @getButtonForStatus(player.state, player.move_state)
-      statusHTML = `<div className="game__status">
-        <div className="game__status-inner">
-          <p>End your turn to let us know when you’re done.</p>
-          {statusButton}
-        </div>
-      </div>`
-    else if player.state is "waiting" and @props.game.get('state') is "rating"
-      statusHTML = `<div className="game__status">
-        <div className="game__status-inner">
-          <p>Too quick! We’re just waiting for everyone else to finish rating.</p>
-        </div>
-      </div>`
-    else if player.state is "rating"
-      statusButton = @getButtonForStatus(player.state, player.move_state)
-      statusHTML = `<div className="game__status">
-        <div className="game__status-inner">
-          <p>Make sure you finish rating everyone’s Sembls</p>
-          {statusButton}
-        </div>
-      </div>`
-    else if player.state is "waiting"
-      statusHTML = `<div className="game__status">
-        <div className="game__status-inner">
-          <p>We’re waiting for the other players to finish their turns, then you’ll get a chance to rate their Sembls.</p>
-        </div>
-      </div>`
+    if player?
+      if player.state is "playing_turn" && player.move_state is "open"
+        statusButton = @getButtonForStatus(player.state, player.move_state)
+        statusHTML = `<div className="game__status">
+          <div className="game__status-inner">
+            <p>Select an open position to create a Sembl.</p>
+          </div>
+        </div>`
+      else if player.state is "playing_turn"
+        statusButton = @getButtonForStatus(player.state, player.move_state)
+        statusHTML = `<div className="game__status">
+          <div className="game__status-inner">
+            <p>End your turn to let us know when you’re done.</p>
+            {statusButton}
+          </div>
+        </div>`
+      else if player.state is "waiting" and @props.game.get('state') is "rating"
+        statusHTML = `<div className="game__status">
+          <div className="game__status-inner">
+            <p>Too quick! We’re just waiting for everyone else to finish rating.</p>
+          </div>
+        </div>`
+      else if player.state is "rating"
+        statusButton = @getButtonForStatus(player.state, player.move_state)
+        statusHTML = `<div className="game__status">
+          <div className="game__status-inner">
+            <p>Make sure you finish rating everyone’s Sembls</p>
+            {statusButton}
+          </div>
+        </div>`
+      else if player.state is "waiting"
+        statusHTML = `<div className="game__status">
+          <div className="game__status-inner">
+            <p>We’re waiting for the other players to finish their turns, then you’ll get a chance to rate their Sembls.</p>
+          </div>
+        </div>`
     return statusHTML
