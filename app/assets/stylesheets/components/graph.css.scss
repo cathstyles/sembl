@@ -352,6 +352,7 @@
 
 .game__resemblance__empty,
 .game__resemblance__filled {
+  cursor: default;
   border-radius: 50%;
   height: 16px;
   width: 16px;
@@ -468,7 +469,12 @@
   font-weight: 600;
 }
 
-.move__resemblance,
+.move__resemblance {
+  .game__resemblance__expanded {
+    display: block;
+  }
+}
+
 .rate__resemblance {
   .game__resemblance__expanded {
     display: block;

@@ -16,8 +16,12 @@ class Sembl.Move extends Backbone.Model
   addPlacementThing: (@thing) ->
     @placement = {node_id: @targetNode.id, thing_id: @thing.id}
 
-  addResemblance: (link, description) ->
-    @resemblances[link.id] = description || null
+  addResemblance: (link, description, target_description, source_description) ->
+    console.log "addResemblance", @resemblances
+    @resemblances[link.id] = 
+      description: description || null
+      target_description: target_description || null
+      source_description: source_description || null
 
   activateLinkAt: (index) ->
     link = @links.at(index)
@@ -30,9 +34,10 @@ class Sembl.Move extends Backbone.Model
     !!@placement.thing_id && numLinks == numResemblances
 
   toJSON: ->
+    console.log "toJSON"
     move:
       game_id: @game.id
       placement: @placement || null
-      resemblances: ({link_id: link_id, description: description} for link_id, description of @resemblances)
+      resemblances: (_.extend({link_id: link_id}, descriptions) for link_id, descriptions of @resemblances)
     authenticity_token: @game.get('auth_token')
 

@@ -13,7 +13,12 @@
 
 
   handleClick: (event, link) ->
-    $(window).trigger('move.resemblance.click', {link: @props.link, description: @state.description})
+    $(window).trigger('move.resemblance.click',
+      link: @props.link
+      description: @state.description
+      target_description: @state.target_description
+      source_description: @state.source_description
+    )
 
   handleResemblanceChange: (event, resemblance) ->
     if resemblance.link.id == @props.link.id
@@ -32,8 +37,12 @@
     link = @props.link
     resemblance = link.get('viewable_resemblance')
     description = if !!resemblance then resemblance.description
+    target_description = if !!resemblance then resemblance.target_description
+    source_description = if !!resemblance then resemblance.source_description
     state =
       description: description
+      target_description: target_description
+      source_description: source_description
       nodeState: link.target().get('user_state')
       linkFilled: _.contains @props.placedNodes, link.target().id
 

@@ -50,12 +50,15 @@ Gallery = @Sembl.Games.Gallery
   handleResemblanceClick: (event, data) ->
     if @state.move.thing?
       link = data.link
-      @$window.trigger('modal.open', `<ResemblanceModal description={data.description} link={link} targetThing={this.state.targetThing}/>`)
+      @$window.trigger('modal.open', `<ResemblanceModal description={data.description} target_description={data.target_description} source_description={data.source_description} link={link} targetThing={this.state.targetThing}/>`)
 
   handleResemblanceChange: (event, resemblance) ->
-    resemblance.description
-    resemblance.link.set('viewable_resemblance', {description: resemblance.description})
-    @state.move.addResemblance(resemblance.link, resemblance.description)
+    resemblance.link.set('viewable_resemblance',
+      description: resemblance.description
+      target_description: resemblance.target_description
+      source_description: resemblance.source_description
+    )
+    @state.move.addResemblance(resemblance.link, resemblance.description, resemblance.target_description, resemblance.source_description)
     self = @
     $.doTimeout('debounce.move.resemblance.change', 200, -> self.forceUpdate())
 
