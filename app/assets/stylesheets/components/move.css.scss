@@ -75,12 +75,12 @@
 }
 
 .move__resemblance__nodes {
-  @include inset(bottom, mid);
+  @include inset(vert, mid);
   box-sizing: content-box;
   margin-left: auto;
   margin-right: auto;
   height: 120px;
-  width: 300px;
+  width: 600px;
   position: relative;
   &:before {
     background-color: #d2d79b;
@@ -93,7 +93,7 @@
     margin-top: -1px;
   }
 }
-  
+
 .move__resemblance__node {
   position: absolute;
   top: 0;
@@ -104,3 +104,37 @@
   left: auto;
   right: 0;
 }
+
+.move__resemblance__description {
+  position: absolute;
+  left: 150px;
+  top: 45px;
+  width: 300px;
+}
+
+  .move__resemblance__optional {
+    @extend %clearfix-micro;
+    @include pad(bottom, small);
+  }
+    .move__resemblance__optional .move__resemblance__optional-text {
+      @include pad(bottom, normal);
+      font-weight: 500;
+    }
+    .move__resemblance__optional-source {
+      float: left;
+      text-align: left;
+      width: 40%;
+      input {
+        opacity: 0.9;
+        width: 200px;
+      }
+    }
+    .move__resemblance__optional-target {
+      float: right;
+      text-align: right;
+      width: 40%;
+      input {
+        opacity: 0.9;
+        width: 200px;
+      }
+    }

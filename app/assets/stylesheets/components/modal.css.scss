@@ -263,6 +263,7 @@
   border-radius: $border-radius;
   box-shadow: 0 0 100px 10px rgba(#000,.5);
   text-align: center;
+  width: 740px;
   p {
     @include font-size(18);
     @extend %white-drop-shadow;
@@ -275,10 +276,8 @@
 }
 
 .move__resemblance__edit-form {
-  @include pad(top, mid);
-  text-align: center;
-  input {
-    width: 80%;
+  input::placeholder {
+    text-align: center;
   }
 }
 
