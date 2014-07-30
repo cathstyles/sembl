@@ -124,6 +124,7 @@
 
 @Sembl.Games.Results.PlayerRoundResults = React.createClass
   render: ->
+    _this = @
     playerRoundResults = @props.players.map (player) ->
       name = player.user?.name || player.user?.email
       score = Math.floor(player.score * 100)
