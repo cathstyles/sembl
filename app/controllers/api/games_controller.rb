@@ -27,12 +27,12 @@ class Api::GamesController < ApiController
     respond_with @game
   end
 
-  def end_rating 
+  def end_rating
     authorize @game
     player = @game.player(current_user)
 
-    # State transition callbacks handle: 
-    # * Check whether all players are in waiting state now 
+    # State transition callbacks handle:
+    # * Check whether all players are in waiting state now
     # * For each placement calculate the score as average of all sembl ratings
     # * Reify winning placement
     # * Transition game to next round or end of game.
@@ -51,9 +51,9 @@ class Api::GamesController < ApiController
     @game.updator = current_user
     @game.state_event = 'publish' if params[:publish]
     @game.filter_content_by = clean_search_query_json(params[:game][:filter_content_by])
-    
+
     copy_board_to_game
-    update_seed_thing if game_params[:seed_thing_id].present? 
+    update_seed_thing if game_params[:seed_thing_id].present?
 
     authorize @game
     if @game.save
@@ -71,7 +71,7 @@ class Api::GamesController < ApiController
     @game.filter_content_by = clean_search_query_json(params[:game][:filter_content_by])
 
     copy_board_to_game
-    update_seed_thing if game_params[:seed_thing_id].present? 
+    update_seed_thing if game_params[:seed_thing_id].present?
 
     authorize @game
     @game.save
@@ -82,7 +82,7 @@ private
   # Copy nodes and links from board
   def copy_board_to_game
     board = @game.board
-    return unless @game.board_id.present? && @game.board_id_changed? 
+    return unless @game.board_id.present? && @game.board_id_changed?
     if !@game.draft?
       raise ApiError.new, "Cannot change board once published"
     end
@@ -96,7 +96,7 @@ private
       node_array << @game.nodes.build(node_attr.except('fixed'))
     end
 
-    board.links_attributes.each do |link_attr| 
+    board.links_attributes.each do |link_attr|
       @game.links.build(
         source: node_array[link_attr['source']],
         target: node_array[link_attr['target']]
@@ -108,8 +108,8 @@ private
 
   def update_seed_thing
     if  seed_thing = Thing.find(game_params[:seed_thing_id])
-      seed_node = @game.nodes.detect {|node| 
-        node.round == 0 && !node.marked_for_destruction? 
+      seed_node = @game.nodes.detect {|node|
+        node.round == 0 && !node.marked_for_destruction?
       }
       return unless seed_node
 
@@ -118,7 +118,7 @@ private
         thing: seed_thing,
         creator: current_user
       )
-      
+
     end
   end
 
@@ -141,12 +141,12 @@ private
 
   def game_params
     params.require(:game).permit(
-      :board_id, 
-      :title, 
-      :description, 
-      :invite_only, 
+      :board_id,
+      :title,
+      :description,
+      :invite_only,
       :uploads_allowed,
-      :theme, 
+      :theme,
       :allow_keyword_search,
       :seed_thing_id,
       players_attributes: [:id, :email, :user_id, :_destroy]
