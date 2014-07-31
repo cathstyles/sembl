@@ -265,9 +265,11 @@
   .game__placement__sub-description {
     @include pad(all, small);
     @include inset(top, small);
-    border-radius: $border-radius;
-    background-color: rgba(darken($highlight-background-color, 3%),.6);
+    // border-radius: $border-radius;
+    // background-color: rgba(darken($highlight-background-color, 3%),.6);
     font-style: italic;
+    width: 300px;
+    margin-left: -90px;
   }
 
 .game__resemblance,
