@@ -24,10 +24,10 @@ class ResemblanceFactory
 {Resemblance} = Sembl.Games.Rate
 {PlacementFactory} = Sembl.Games.Gameboard
 
-@Sembl.Games.Rate.RateGraph = React.createClass 
+@Sembl.Games.Rate.RateGraph = React.createClass
   componentDidMount: ->
     $(window).trigger('graph.resize')
-    
+
   render: ->
     target = @props.target
     sources = (link.source() for link in @props.links)
@@ -45,7 +45,24 @@ class ResemblanceFactory
 
     nodeModels = sources
     nodeModels.push(target)
+
+    # Merge the `viewable_resemblance` source/target descriptions into
+    # the nodeModels
+    for node in nodeModels
+      node_id = node.get("id")
+      for link in @props.links
+        if link.active
+          source_id = link.get("source_id")
+          target_id = link.get("target_id")
+          if node_id is source_id
+            node.set("sub_description", link.get("viewable_resemblance").source_description)
+          else if node_id is target_id
+            node.set("sub_description", link.get("viewable_resemblance").target_description)
+          else
+            node.set("sub_description", null)
+
     nodeFactory = new PlacementFactory(nodeModels, Placement)
+
     midpointFactory = new ResemblanceFactory(@props.links, Resemblance)
 
     `<div className="move__graph">
@@ -53,5 +70,5 @@ class ResemblanceFactory
         midpointFactory={midpointFactory}
         nodeFactory={nodeFactory} pathClassName="game__graph__link" />
     </div>`
-    
+
 

@@ -262,6 +262,13 @@
   .game__placement__image--visible {
     opacity: 1;
   }
+  .game__placement__sub-description {
+    @include pad(all, small);
+    @include inset(top, small);
+    border-radius: $border-radius;
+    background-color: rgba(darken($highlight-background-color, 3%),.6);
+    font-style: italic;
+  }
 
 .game__resemblance,
 .move__resemblance,
