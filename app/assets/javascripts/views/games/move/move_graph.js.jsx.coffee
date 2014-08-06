@@ -60,9 +60,9 @@ class ResemblanceFactory
         source_id = link.get("source_id")
         target_id = link.get("target_id")
         if node_id is source_id
-          node.set("sub_description", link.get("viewable_resemblance").source_description)
+          node.set("sub_description", link.get("viewable_resemblance")?.source_description)
         else if node_id is target_id
-          node.set("sub_description", link.get("viewable_resemblance").target_description)
+          node.set("sub_description", link.get("viewable_resemblance")?.target_description)
 
     nodeFactory = new PlacementFactory(nodeModels, Placement)
     midpointFactory = new ResemblanceFactory(@props.links, Resemblance, {placedNodes: @state.placedNodes})
