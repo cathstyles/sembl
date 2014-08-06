@@ -102,6 +102,8 @@ Gallery = @Sembl.Games.Gallery
     links =
       for link in @props.game.links.where({target_id: target.id})
         _.extend({}, link)
+
+    # We _always_ create a new move object
     move = new Sembl.Move({
       game: @props.game
       target_node: @props.node
@@ -112,12 +114,12 @@ Gallery = @Sembl.Games.Gallery
       move: move
       target: target
       links: links
-      editResemblance: null
 
     # A move has been played already, we’re editing it
     existingPlacement = @props.node.get("viewable_placement")
     if existingPlacement? and existingPlacement.thing?
       move.addPlacementThing(existingPlacement.thing)
+      # move.addResemblance(resemblance.link, resemblance.description, resemblance.target_description, resemblance.source_description)
       state.targetThing = existingPlacement.thing
     return state
 

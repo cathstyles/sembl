@@ -13,12 +13,20 @@ class Sembl.Move extends Backbone.Model
     @resemblances = {}
     @placement = {node_id: @targetNode?.id}
 
+    # Construct the resemblances if there are any valid @semblLinks
+    _.each @semblLinks, (link) =>
+      resemblance = link.get("viewable_resemblance")
+      if resemblance?
+        @resemblances[link.get("id")] =
+          description: resemblance.description || null
+          target_description: resemblance.target_description || null
+          source_description: resemblance.source_description || null
+
   addPlacementThing: (@thing) ->
     @placement = {node_id: @targetNode.id, thing_id: @thing.id}
 
   addResemblance: (link, description, target_description, source_description) ->
-    console.log "addResemblance", @resemblances
-    @resemblances[link.id] = 
+    @resemblances[link.id] =
       description: description || null
       target_description: target_description || null
       source_description: source_description || null
@@ -34,7 +42,6 @@ class Sembl.Move extends Backbone.Model
     !!@placement.thing_id && numLinks == numResemblances
 
   toJSON: ->
-    console.log "toJSON"
     move:
       game_id: @game.id
       placement: @placement || null
