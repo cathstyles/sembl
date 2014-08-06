@@ -107,11 +107,19 @@ Gallery = @Sembl.Games.Gallery
       target_node: @props.node
     })
 
+    # Basic state
     state =
       move: move
       target: target
       links: links
       editResemblance: null
+
+    # A move has been played already, we’re editing it
+    existingPlacement = @props.node.get("viewable_placement")
+    if existingPlacement? and existingPlacement.thing?
+      move.addPlacementThing(existingPlacement.thing)
+      state.targetThing = existingPlacement.thing
+    return state
 
   render: ->
     target = @state.target
