@@ -46,6 +46,14 @@
     className = "game__placement state-#{userState}"
     image_url = @state.thing?.image_admin_url
 
+    # Format the sub-description
+    subDescription = @props.node.get("sub_description")
+    subDescriptionNode = if subDescription?
+      `<div className="game__placement__sub-description">{subDescription}</div>`
+    else
+      ""
+
     `<div className={className + alertedClass} onClick={this.handleClick}>
       <img className="game__placement__image" src={image_url} ref="image" />
+      {subDescriptionNode}
     </div>`

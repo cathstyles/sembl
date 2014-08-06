@@ -9,41 +9,38 @@
 {Graph} = Sembl.Components.Graph
 {Placement, Resemblance, ResemblanceFactory, PlacementFactory} = Sembl.Games.Gameboard
 
-Sembl.Games.Gameboard.GameGraph = React.createClass 
+Sembl.Games.Gameboard.GameGraph = React.createClass
   render: ->
     game = @props.game
     width = game.width()
     height = game.height()
 
     nodes = for node in game.nodes.models
-      {
-        id: node.id
-        x: node.get('x')
-        y: node.get('y')
-      }
+      id: node.id
+      x: node.get('x')
+      y: node.get('y')
 
     links = for link in game.links.models
       source = link.source()
       target = link.target()
-      {
-        id: link.id
-        source:
-          id: source.id
-          x: source.get('x')
-          y: source.get('y')
-        target:
-          id: target.id
-          x: target.get('x')
-          y: target.get('y')
-      }
+
+      id: link.id
+      source:
+        id: source.id
+        x: source.get('x')
+        y: source.get('y')
+      target:
+        id: target.id
+        x: target.get('x')
+        y: target.get('y')
 
     nodeFactory = new PlacementFactory(game.nodes.models, Placement)
     midpointFactory = new ResemblanceFactory(game.links.models, Resemblance)
 
-    @props.resemblance  
+    @props.resemblance
     `<Graph nodes={nodes} links={links}
       nodeFactory={nodeFactory}
       midpointFactory={midpointFactory}
       width={width} height={height} pathClassName="game__graph__link" />`
-  
+
 
