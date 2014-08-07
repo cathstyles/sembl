@@ -113,6 +113,6 @@ Sembl.Components.Graph.Graph = React.createClass
     `<div className={"graph graph--nodes-"+(scaledNodes.length + 1)}>
         <Links links={scaledLinks} width={width} height={height} pathClassName={this.props.pathClassName} />
         <Nodes nodes={scaledNodes} nodeFactory={nodeFactory} />
-        <Midpoints links={scaledLinks} midpointFactory={midpointFactory} />
+        <Midpoints links={scaledLinks} scaledNodes={scaledNodes} midpointFactory={midpointFactory} nodeModels={this.props.nodeModels} />
     </div>`
 

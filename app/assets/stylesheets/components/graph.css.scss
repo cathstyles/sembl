@@ -14,7 +14,8 @@
   position:absolute;
 }
 .graph__node,
-.graph__midpoint {
+.graph__midpoint,
+.game__resemblance__midpoint {
   position: absolute;
 }
 
@@ -283,6 +284,9 @@
     .game__resemblance__expanded {
       display: inline-block;
     }
+    .game__resemblance__sub-description {
+      display: block;
+    }
   }
 }
 
@@ -446,6 +450,26 @@
   0%    { opacity: 0.01; }
   100%   { opacity: 1; }
 }
+
+// Sub sembls
+
+.game__resemblance__sub-description {
+  display: none;
+  position: absolute;
+  height: 0;
+  width: 0;
+  .game__resemblance--sticky & {
+    display: block;
+  }
+}
+  .game__resemblance__sub-description__inner {
+    @include pad(all, small);
+    margin-top: 60px;
+    font-style: italic;
+    margin-left: -150px;
+    text-align: center;
+    width: 300px;
+  }
 
 .game__resemblance__expanded {
   width: 250px;

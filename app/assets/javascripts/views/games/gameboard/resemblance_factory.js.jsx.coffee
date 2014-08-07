@@ -6,6 +6,6 @@ Sembl.Games.Gameboard.ResemblanceFactory = class ResemblanceFactory
     for model in linkModels
       @lookup[model.id] = model
 
-  createComponent: (dataWithId) ->
+  createComponent: (dataWithId, props = {}) ->
     link = @lookup[dataWithId.id]
-    @resemblanceClass({link: link})
+    @resemblanceClass(_.extend {link: link}, props)
