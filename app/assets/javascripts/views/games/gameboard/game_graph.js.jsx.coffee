@@ -44,10 +44,11 @@ Sembl.Games.Gameboard.GameGraph = React.createClass
       for link in game.links.models
         viewableResemblance = link.get("viewable_resemblance")
         if viewableResemblance?
+          console.log "SETTING SUB descriptions"
           source_id = link.get("source_id")
           target_id = link.get("target_id")
-          subs = node.get("sub_descriptions")
-          if !subs? then subs = []
+          # subs = node.get("sub_descriptions")
+          subs = []
           if node_id is source_id and viewableResemblance.source_description?
             subs.push(source_id: source_id, target_id: target_id, sub_description: viewableResemblance.source_description)
             node.set("sub_descriptions", subs)

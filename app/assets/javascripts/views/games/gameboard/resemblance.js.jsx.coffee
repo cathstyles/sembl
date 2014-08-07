@@ -54,6 +54,7 @@
       expandedClassNames = classSet
         "game__resemblance__expanded": true
         "game__resemblance__expanded--sticky": @state.sticky
+        "game__resemblance__expanded--playing-turn": @props.playingTurn
       `<div>
         <div className={'game__resemblance__filled game__resemblance__filled--' + scoreClass} />
         <div className={expandedClassNames}>
@@ -69,6 +70,7 @@
     classNames = classSet
       "game__resemblance": true
       "game__resemblance--sticky": @state.sticky
+      "game__resemblance--playing-turn": @props.playingTurn
 
     `<div className={classNames}>
       {sourceSubDescriptionNode}
