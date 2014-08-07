@@ -26,10 +26,10 @@ class Api::PlayersController < ApiController
     end
 
     email = player_params[:email]
-    
+
     @player = Player.new(email: email)
     @player.game = @game
-    
+
     user =  User.find_by_email(player_params[:email])
     @player.user = user unless !user
 
@@ -47,7 +47,7 @@ class Api::PlayersController < ApiController
     render json: {message: "Player removed"}
   end
 
-  private 
+  private
   def find_game
     @game = Game.find(params[:game_id]) if params[:game_id]
   end

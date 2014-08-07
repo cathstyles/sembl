@@ -6,6 +6,10 @@
 Midpoint = React.createClass
   lineFunction: d3.svg.diagonal()
   render: ->
+    # FIXME Shouldn't be accessing directly
+    player = Sembl.game.get('player')
+    playingTurn = (player? && player.state is "playing_turn")
+
     {link, midpointFactory} = @props
     path = @lineFunction(link)
     length = Raphael.getTotalLength(path)
@@ -22,7 +26,8 @@ Midpoint = React.createClass
         targetNode: this.props.targetNode,
         scaledSourceNode: this.props.scaledSourceNode,
         scaledTargetNode: this.props.scaledTargetNode,
-        scaledLink: link
+        scaledLink: link,
+        playingTurn: playingTurn
       })}
     </div>`
 

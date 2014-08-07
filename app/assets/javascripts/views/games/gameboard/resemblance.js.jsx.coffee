@@ -45,6 +45,12 @@
       ""
 
     child = if resemblance?.description
+      editButton = if @props.playingTurn and @props.targetNode.get("user_state") == "proposed"
+        `<a className="game__resemblance__edit-move" href={"#move/" + this.props.targetNode.get("id")}>
+          Edit move
+        </a>`
+      else
+        ""
       expandedClassNames = classSet
         "game__resemblance__expanded": true
         "game__resemblance__expanded--sticky": @state.sticky
@@ -55,6 +61,7 @@
             {resemblance.description}
           </div>
         </div>
+        {editButton}
       </div>`
     else
       `<div className="game__resemblance__empty" />`

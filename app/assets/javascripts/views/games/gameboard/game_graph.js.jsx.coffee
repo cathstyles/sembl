@@ -37,7 +37,6 @@ Sembl.Games.Gameboard.GameGraph = React.createClass
     nodeFactory = new PlacementFactory(game.nodes.models, Placement)
     midpointFactory = new ResemblanceFactory(game.links.models, Resemblance)
 
-
     # Merge the `viewable_resemblance` source/target descriptions into
     # the nodeModels to we can pull them out appropriately
     for node in game.nodes.models

@@ -60,8 +60,6 @@ Sembl.Games.Gameboard.StatusView = React.createClass
 
   triggerNotice: ->
     player = @props.game.get('player')
-
-    console.log player
     if player
       tooltipText = @getTooltip(player.state, player.move_state)
       $(window).trigger("flash.notice", tooltipText) if !!tooltipText
@@ -74,6 +72,8 @@ Sembl.Games.Gameboard.StatusView = React.createClass
 
   render: ->
     player = @props.game.get('player')
+
+    console.log "PPPROPS", @props
 
     statusHTML = `<div className="game__status"/>`
     if player?
