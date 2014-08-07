@@ -73,7 +73,6 @@ Sembl.Games.Gameboard.StatusView = React.createClass
   render: ->
     player = @props.game.get('player')
 
-    console.log "PPPROPS", @props
 
     statusHTML = `<div className="game__status"/>`
     if player?
