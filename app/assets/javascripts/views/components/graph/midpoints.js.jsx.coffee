@@ -8,7 +8,8 @@ Midpoint = React.createClass
   render: ->
     # FIXME Shouldn't be accessing directly
     player = Sembl.game.get('player')
-    playingTurn = (player? && player.state is "playing_turn")
+    round = Sembl.game.get("current_round")
+    playingTurn = (round is @props.targetNode?.get("round") && player? && player.state is "playing_turn" && player.move_state is "created")
 
     {link, midpointFactory} = @props
     path = @lineFunction(link)
