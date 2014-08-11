@@ -54,6 +54,35 @@
   render: () ->
     toggleEvent = 'toggle.graph.resemblance.'+@props.link.id
 
+    # Format the sub-description
+    source_id = @props.link.get("source_id")
+    target_id = @props.link.get("target_id")
+    sourceSubDescriptions = _.where @props.sourceNode.get("sub_descriptions"), {source_id: source_id, target_id: target_id}
+    targetSubDescriptions = _.where @props.targetNode.get("sub_descriptions"), {source_id: source_id, target_id: target_id}
+
+    sourceSubDescriptionNode = if sourceSubDescriptions.length > 0
+      style =
+        left: @props.scaledSourceNode.x - @props.midpointPosition.x
+        top:  @props.scaledSourceNode.y - @props.midpointPosition.y
+      `<div style={style} className="game__resemblance__sub-description">
+        <div className="game__resemblance__sub-description__inner">
+          {sourceSubDescriptions[0].sub_description}
+        </div>
+      </div>`
+    else
+      ""
+    targetSubDescriptionNode = if targetSubDescriptions.length > 0
+      style =
+        left: @props.scaledTargetNode.x - @props.midpointPosition.x
+        top:  @props.scaledTargetNode.y - @props.midpointPosition.y
+      `<div style={style} className="game__resemblance__sub-description">
+        <div className="game__resemblance__sub-description__inner">
+          {targetSubDescriptions[0].sub_description}
+        </div>
+      </div>`
+    else
+      ""
+
     child = if @state.description
       `<div className="game__resemblance__expanded">
         <div className="game__resemblance__expanded__inner">
@@ -70,6 +99,8 @@
 
     `<div className="move__resemblance" onClick={this.handleClick}>
       {tooltip}
+      {sourceSubDescriptionNode}
       {child}
+      {targetSubDescriptionNode}
     </div>`
 

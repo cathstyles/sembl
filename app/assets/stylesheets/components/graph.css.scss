@@ -458,9 +458,9 @@
   position: absolute;
   height: 0;
   width: 0;
-  .game__resemblance--playing-turn & {
-    display: block;
-  }
+  // .game__resemblance--playing-turn & {
+  //   display: block;
+  // }
   .body-enter & {
     opacity: 0;
     transform: scale(0,0);

@@ -48,9 +48,6 @@ Sembl.Games.Gameboard.GameGraph = React.createClass
           target_id = link.get("target_id")
           subs = node.get("sub_descriptions")
           if !subs? then subs = []
-          # subs = []
-          # # Remove any old subs
-          subs = _.map subs, (sub) -> !(sub.source_id == source_id && sub.target_id == sub.target_id)
           if node_id is source_id and viewableResemblance.source_description?
             subs.push(source_id: source_id, target_id: target_id, sub_description: viewableResemblance.source_description)
             node.set("sub_descriptions", subs)

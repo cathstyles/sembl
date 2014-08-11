@@ -3,6 +3,27 @@
 .rating__info {
   @include pad(bottom, medium);
   text-align: center;
+  .body-enter & {
+    opacity: 0.01;
+    transform: translate(0,100%);
+  }
+  .body-enter.body-enter-active & {
+    opacity: 1;
+    transition-property: transform, opacity;
+    transition-duration: 250ms;
+    transition-delay: 200ms;
+    transform: translate(0,0);
+  }
+  .body-leave & {
+    opacity: 1;
+    transition-property: transform, opacity;
+    transition-duration: 250ms;
+    transform: translate(0,0);
+  }
+  .body-leave.body-leave-active & {
+    opacity: 0.01;
+    transform: translate(0,100%);
+  }
 }
 
 .rating__info__inner {

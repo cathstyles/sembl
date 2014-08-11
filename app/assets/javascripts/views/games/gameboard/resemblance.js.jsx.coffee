@@ -11,7 +11,6 @@
     @setState sticky: !@state.sticky
 
   render: ->
-
     resemblance = @props.link.get('viewable_resemblance')
     scoreClass = @props.link.scoreClass()
 

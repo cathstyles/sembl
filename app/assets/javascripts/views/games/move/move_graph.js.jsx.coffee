@@ -15,9 +15,9 @@ class ResemblanceFactory
       @lookup[link.source().id] = @lookup[link.source().id]||{}
       @lookup[link.source().id][link.target().id] = link
 
-  createComponent: (data) ->
+  createComponent: (data, props = {}) ->
     link = @lookup[data.source.id][data.target.id]
-    @resemblanceClass _.extend {link: link}, @additionalProps
+    @resemblanceClass _.extend {link: link}, @additionalProps, props
 
 {Graph} = Sembl.Components.Graph
 {Placement, Resemblance} = Sembl.Games.Move
@@ -57,18 +57,25 @@ class ResemblanceFactory
     for node in nodeModels
       node_id = node.get("id")
       for link in @props.links
-        source_id = link.get("source_id")
-        target_id = link.get("target_id")
-        if node_id is source_id
-          node.set("sub_description", link.get("viewable_resemblance")?.source_description)
-        else if node_id is target_id
-          node.set("sub_description", link.get("viewable_resemblance")?.target_description)
+        viewableResemblance = link.get("viewable_resemblance")
+        if viewableResemblance?
+          source_id = link.get("source_id")
+          target_id = link.get("target_id")
+          subs = node.get("sub_descriptions")
+          if !subs? then subs = []
+          if node_id is source_id and viewableResemblance.source_description?
+            subs.push(source_id: source_id, target_id: target_id, sub_description: viewableResemblance.source_description)
+            node.set("sub_descriptions", subs)
+          if node_id is target_id and viewableResemblance.target_description?
+            subs.push(source_id: source_id, target_id: target_id, sub_description: viewableResemblance.target_description)
+            node.set("sub_descriptions", subs)
 
     nodeFactory = new PlacementFactory(nodeModels, Placement)
     midpointFactory = new ResemblanceFactory(@props.links, Resemblance, {placedNodes: @state.placedNodes})
 
     `<div className="move__graph">
       <Graph nodes={nodes} links={links}
+        nodeModels={nodeModels}
         midpointFactory={midpointFactory}
         nodeFactory={nodeFactory} pathClassName="game__graph__link" />
     </div>`
