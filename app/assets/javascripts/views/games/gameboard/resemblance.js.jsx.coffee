@@ -46,7 +46,7 @@
     child = if resemblance?.description
       editButton = if @props.playingTurn and @props.targetNode.get("user_state") == "proposed"
         `<a className="game__resemblance__edit-move" href={"#move/" + this.props.targetNode.get("id")}>
-          Edit move
+          Edit
         </a>`
       else
         ""
