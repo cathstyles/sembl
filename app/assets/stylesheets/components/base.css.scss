@@ -143,6 +143,27 @@ textarea {
     background-color: #f75454;
   }
 }
+  .flash__close {
+    @include font-size(14);
+    @include pad(all, small);
+    background-color: $highlight-color;
+    border-radius: 50%;
+    box-shadow: 0 0 20px 0 rgba(#000,.2);
+    cursor: pointer;
+    position: absolute;
+    top: -11px;
+    right: -11px;
+    width: 23px;
+    height: 23px;
+    z-index: 200;
+    i {
+      color: #fff;
+      text-shadow: 1px 1px 1px rgba(#000,.5);
+      position: absolute;
+      top: 4px;
+      left: 6px;
+    }
+  }
 
 .notice {
   animation-name: notice;

@@ -1,35 +1,38 @@
 ###* @jsx React.DOM ###
 
-@Sembl.Components.Flash = React.createClass 
+@Sembl.Components.Flash = React.createClass
 
-  getInitialState: -> 
+  getInitialState: ->
     {
       msg: ""
       className: "hidden"
     }
 
-  componentWillMount: -> 
+  componentWillMount: ->
     $(window).on('flash.notice', @handleNotice)
     $(window).on('flash.error', @handleError)
     $(window).on('flash.hide', @handleHide)
 
-  componentWillUnmount: -> 
+  componentWillUnmount: ->
     $(window).off('flash.notice', @handleNotice)
     $(window).off('flash.error', @handleError)
     $(window).off('flash.hide', @handleHide)
 
-  handleNotice: (event, msg) -> 
+  handleNotice: (event, msg) ->
     console.log msg
-    @setState msg: msg, className: 'notice' 
+    @setState msg: msg, className: 'notice'
 
-  handleError: (event, msg) -> 
-    @setState msg: msg, className: 'error' 
-  
+  handleError: (event, msg) ->
+    @setState msg: msg, className: 'error'
+
   handleHide: (event) ->
-    @setState msg: "", className: 'hidden' 
+    @setState msg: "", className: 'hidden'
 
   render: ->
     className = "flash #{this.state.className}"
     `<aside className={className}>
+      <div className="flash__close" onClick={this.handleHide}>
+        <i className="fa fa-times"/>
+      </div>
       {this.state.msg}
     </aside>`
