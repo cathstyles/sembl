@@ -44,6 +44,14 @@ Gallery = @Sembl.Games.Gallery
       `<Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />`
     )
 
+    # Check turn is active
+    player = @props.game.get('player')
+    if player.state is "waiting"
+      Sembl.router.navigate("", trigger: true)
+      setTimeout(->
+        $(window).trigger('flash.error', "Sorry, you’ve already ended your turn!")
+      , 100)
+
   handleResize: ->
     @$window.trigger('graph.resize')
 
