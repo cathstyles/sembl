@@ -93,7 +93,7 @@
       `<div className={"game__resemblance__empty"} />`
 
     tooltip = if @state.linkFilled && !@state.description
-      `<div className="game__resemblance__tip">Add a description</div>`
+      `<div className="game__resemblance__tip">Add description</div>`
     else
       ""
 
