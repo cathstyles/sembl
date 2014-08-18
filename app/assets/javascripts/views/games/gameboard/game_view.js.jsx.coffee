@@ -13,7 +13,6 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     postData = authenticity_token: @model().get('auth_token')
     result = $.post "#{@model().url()}/join.json", postData, (data) =>
       @model().fetch()
-      console.log 'trigger add first image'
       $(window).trigger('flash.notice', "Let's go! Add your first image to begin the game.")
 
     result.fail (response) ->
@@ -86,7 +85,6 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
   render: ->
     # this width and height will be used to scale the x,y values of the nodes into the width and height of the graph div.
     game = @model()
-    console.log 'rendering game'
     `<div className="game">
       <div className="body-wrapper">
         <div className="body-wrapper__inner">
