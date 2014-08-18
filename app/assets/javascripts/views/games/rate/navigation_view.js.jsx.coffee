@@ -20,19 +20,30 @@
           <span><i className="fa fa-circle"></i></span>
         </li>`
 
-    backBtn = `<div className="rating__nav__back" onClick={this.handleBack}>
-        <i className="fa fa-chevron-left"></i>
-        Back
-     </div>`
+    console.log @props.combinedIndex, @props.totalLinks
 
-    if currentResemblance.rating?
-      nextBtn = `<div className="rating__nav__next" onClick={this.handleNext}>
-        Go to the next Sembl
+    backBtn = if @props.combinedIndex > 0
+      `<div className="rating__nav__back" onClick={this.handleBack}>
+          <i className="fa fa-chevron-left"></i>
+          Previous Sembl
+       </div>`
+    else
+      `<div className="rating__nav__back rating__nav__back--disabled">
+          <i className="fa fa-chevron-left"></i>
+          Previous Sembl
+       </div>`
+    nextBtnText = if @props.totalLinks <= @props.combinedIndex
+      "Finish rating"
+    else
+      "Go to the next Sembl"
+    nextBtn = if currentResemblance.rating?
+      `<div className="rating__nav__next" onClick={this.handleNext}>
+        {nextBtnText}
         <i className="fa fa-chevron-right"></i>
        </div>`
     else
-      nextBtn = `<div className="rating__nav__next rating__nav__next--disabled">
-        Go to the next Sembl
+      `<div className="rating__nav__next rating__nav__next--disabled">
+        {nextBtnText}
         <i className="fa fa-chevron-right"></i>
        </div>`
 

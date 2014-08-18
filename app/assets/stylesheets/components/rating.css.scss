@@ -100,7 +100,8 @@
   }
 }
 
-.rating__nav__next--disabled {
+.rating__nav__next--disabled,
+.rating__nav__back--disabled {
   filter:          alpha(opacity=30);
   -webkit-opacity: 0.3;
   -moz-opacity:    0.3;

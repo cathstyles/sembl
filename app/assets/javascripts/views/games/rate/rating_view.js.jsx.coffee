@@ -10,11 +10,16 @@
   getInitialState: ->
     link = @props.moves.at(0).links.at(0)
     link.active = true
+    totalLinks = 0
+    @props.moves.each (move) ->
+      totalLinks = totalLinks + move.links.length
     {
       moveIndex: 0
       linkIndex: 0
+      combinedIndex: 0
       progress: 'rating'
       currentLink: link
+      totalLinks: (totalLinks - 1)
     }
 
   componentWillMount: ->
@@ -51,6 +56,8 @@
         $(window).trigger('flash.error', "Error rating: #{responseObj.errors}")
 
   incrementIndexes: ->
+    @state.combinedIndex = @state.combinedIndex + 1
+    if @state.combinedIndex >= @state.totalLinks then @state.combinedIndex = @state.totalLinks
     move = @currentMove()
     linkCount = move.links.length
     moveCount = @props.moves.length
@@ -61,13 +68,16 @@
       @state.moveIndex++
       if (@state.moveIndex+moveCount) % moveCount == 0
         @state.moveIndex--
-        @state.progress = "finished"
+        @setState
+          progress: "finished"
 
     @props.moves.deactivateLinks()
     link = @currentMove().activateLinkAt(@state.linkIndex)
-    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: link
+    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: link, combinedIndex: @state.combinedIndex
 
   decrementIndexes: ->
+    @state.combinedIndex = @state.combinedIndex + 1
+    if @state.combinedIndex <= 0 then @state.combinedIndex = 0
     moveCount = @props.moves.length
 
     if @state.linkIndex == 0
@@ -81,7 +91,7 @@
 
     @props.moves.deactivateLinks()
     link = @currentMove().activateLinkAt(@state.linkIndex)
-    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: link
+    @setState linkIndex: @state.linkIndex, moveIndex: @state.moveIndex, currentLink: link, combinedIndex: @state.combinedIndex
 
   currentMove: ->
     @props.moves.at(@state.moveIndex)
@@ -122,6 +132,8 @@
       </div>
       <NavigationView
           moves={this.props.moves}
+          combinedIndex={this.state.combinedIndex}
+          totalLinks={this.state.totalLinks}
           currentLink={this.state.currentLink}
           handleNext={this.incrementIndexes}
           handleBack={this.decrementIndexes}/>
