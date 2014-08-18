@@ -6,10 +6,13 @@
 {GameNode} = Sembl.Components.Graph
 
 @Sembl.Games.Gameboard.Placement = React.createClass
+  getInitialState: ->
+    gameState: Sembl.game.get("state")
+
   handleClick: (event, data) ->
     node = @props.node
     userState = node.get('user_state')
-    if userState == 'available'
+    if userState == 'available' && @state.gameState is "playing"
       setTimeout ->
         Sembl.router.navigate("move/#{node.id}", trigger: true)
       , 0
@@ -27,6 +30,7 @@
   render: () ->
     node = @props.node
     userState = @props.userState || node.get('user_state')
+    if @state.gameState is "rating" and userState is "available" then userState = "locked"
     className = "game__placement state-#{userState} "
 
     thing = node.get('viewable_placement')?.thing
