@@ -12,7 +12,7 @@
   handleClick: (event, data) ->
     node = @props.node
     userState = node.get('user_state')
-    if userState == 'available' && @state.gameState is "playing"
+    if userState == 'available' && (@state.gameState is "playing" || @state.gameState is "joining")
       setTimeout ->
         Sembl.router.navigate("move/#{node.id}", trigger: true)
       , 0
