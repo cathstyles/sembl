@@ -280,7 +280,7 @@ class Game < ActiveRecord::Base
   def copy_nodes_and_links_from_board
     return unless board_id.present? && board_id_changed?
     if !draft?
-      raise ApiError.new, "Cannot change board once published"
+      errors.add(:base, "Cannot change board once published")
     end
 
     # So they are not destroyed if validation fails.
