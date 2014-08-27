@@ -72,10 +72,10 @@ Without Boxen:
 On rails console:
 
 1. If images are in the same directory as the file
-    Thing.import_csv("path/to/filename.csv")
+    ThingImporter.new("path/to/filename.csv")
 
 2. If images are in different directory
-    Thing.import_csv("path/to/filename.csv", image_path: "path/to/images")
+    ThingImporter.new("path/to/filename.csv", image_path: "path/to/images")
 
 
 ### Elasticsearch
