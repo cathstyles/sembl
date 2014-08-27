@@ -8,14 +8,11 @@
     description: @props?.description
 
   handleChange: (event) ->
-    state = 
-      description: @refs.description.getDOMNode().value
+    description = @refs.description.getDOMNode().value
+    state =
+      description: description
     @setState(state)
-    $.doTimeout('debounce.setup.steps.change', 200, @bubbleChange, state)
-
-
-  bubbleChange: (state) ->
-    $(window).trigger('setup.steps.change', {description: state.description})
+    $(window).trigger('setup.steps.change', {description: description})
 
   isValid: ->
     true # description is allowed to be empty
@@ -24,10 +21,10 @@
     `<div className="setup__steps__description">
       <div className="setup__steps__title"><label htmlFor="setup__steps__description__input">Give your game a short description:</label></div>
       <div className="setup__steps__inner">
-        <textarea id="setup__steps__description__textarea" 
-          className="setup__steps__description__textarea" 
+        <textarea id="setup__steps__description__textarea"
+          className="setup__steps__description__textarea"
           ref="description"
           onChange={this.handleChange}
-          value={this.state.description} />
+          defaultValue={this.state.description} />
       </div>
     </div>`

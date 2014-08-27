@@ -2,7 +2,7 @@
 
 ###
   Component for stepping through other components with next, back and done buttons.
-  if a step has a 'validate' properties set to true then the next/done buttons are disabled 
+  if a step has a 'validate' properties set to true then the next/done buttons are disabled
   until a setup.steps.change event occurs with {valid: true} in the data.
 
   Each step can aggregate any changes by sending a setup.steps.change event with {properties: ...}
@@ -34,15 +34,18 @@
     if valid != @state.valid
       @setState({valid:valid})
 
-  handleNext: ->
+  handleNext: (e) ->
+    e.preventDefault()
     @setState
       step: Math.min(@state.step + 1, @props.steps.length - 1)
 
-  handlePrevious: ->
+  handlePrevious: (e) ->
+    e.preventDefault()
     @setState
       step: Math.max(@state.step - 1, 0)
 
-  handleDone: ->
+  handleDone: (e) ->
+    e.preventDefault()
     $(window).trigger('setup.steps.done', @state.collectedFields)
 
   handleChange: (event, data) ->
@@ -51,24 +54,24 @@
 
   render: ->
     steps = @props.steps
-    
+
     if @state.step < steps.length
       isValid = @state.valid
-    
+
       childProperties = _.extend({ref: 'currentStep'}, @state.collectedFields)
       step = steps[@state.step]
       if React.isValidClass(step)
         step = step(childProperties)
       else if React.isValidComponent(step)
         step = React.addons.cloneWithProps(step, childProperties)
-      else 
+      else
         err = {message: "invalid step, must be react class or component", step: step}
         console.error err
         throw err.message
 
     isLast = @state.step == steps.length - 1
 
-    actionClassName = (action, disabled) -> 
+    actionClassName = (action, disabled) ->
       className = "setup__steps__actions__#{action}"
       className += " button--disabled" if disabled
       className
@@ -76,12 +79,12 @@
     previous = `<button className={actionClassName('previous')} onClick={this.handlePrevious}><i className="fa fa-chevron-left"></i>&nbsp;Back</button>`
     next = `<button className={actionClassName('next', !isValid)} onClick={this.handleNext}>Next&nbsp;<i className="fa fa-chevron-right"></i></button>`
     done = `<button className={actionClassName('done', !isValid)} onClick={this.handleDone}>Done!</button>`
+    formAction = if !isLast then @handleNext else @handleDone
 
-    `<div className="setup__steps">
+    `<form className="setup__steps" onSubmit={formAction}>
       {step}
       <div className="setup__steps__actions">
         {this.state.step > 0 ? previous : null}
         {!isLast ? next :  done}
       </div>
-    </div>`
-     
+    </form>`

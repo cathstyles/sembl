@@ -8,14 +8,11 @@
     title: @props?.title
 
   handleChange: (event) ->
-    state = 
-      title: @refs.title.getDOMNode().value
+    title = @refs.title.getDOMNode().value
+    state =
+      title: title
     @setState(state)
-    $.doTimeout('debounce.setup.steps.change', 200, @bubbleChange, state)
-
-
-  bubbleChange: (state) ->
-    $(window).trigger('setup.steps.change', {title: state.title})
+    $(window).trigger('setup.steps.change', {title: title})
 
   isValid: ->
     !!@state?.title
@@ -24,12 +21,12 @@
     `<div className="setup__steps__name">
       <div className="setup__steps__title"><label htmlFor="setup__steps__title__input">Now, give your game a name:</label></div>
       <div className="setup__steps__inner">
-        <input id="setup__steps__title__input" 
-          className="setup__steps__title__input" 
+        <input id="setup__steps__title__input"
+          className="setup__steps__title__input"
           ref="title"
           type="text"
           placeholder="E.g. Colonial Connections"
           onChange={this.handleChange}
-          value={this.state.title} />
+          defaultValue={this.state.title} />
       </div>
     </div>`
