@@ -13,6 +13,10 @@
   getInitialState: ->
     players: null
 
+  componentDidUpdate: (prevProps, prevState) ->
+    if prevState.players is null
+      @refs.emailInput.getDOMNode().focus()
+
   handleGivePlayers: (event, data) ->
     if data.players?
       @setState players: data.players
