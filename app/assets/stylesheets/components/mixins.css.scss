@@ -39,10 +39,10 @@
 
 %button--alternate {
   @extend %button;
-  @include background-image(linear-gradient(#b04848, #862b2b));
-  border: 1px solid #862b2b;
+  @include background-image(linear-gradient(#f1592e, darken(#f1592e, 10%)));
+  border: 1px solid darken(#f1592e, 20%);
   &:hover {
-    @include background-image(linear-gradient(#862b2b, #862b2b));
+    @include background-image(linear-gradient(darken(#f1592e, 25%), darken(#f1592e, 20%)));
   }
 }
 

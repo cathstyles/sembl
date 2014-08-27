@@ -77,6 +77,10 @@
     }
   }
 
+  .game__status__end-turn {
+    @extend %button--alternate;
+  }
+
   .game__status__waiting {
     pointer-events: none;
   }
