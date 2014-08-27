@@ -277,7 +277,7 @@ class Game < ActiveRecord::Base
     @filter_query
   end
 
-  def copy_nodes_and_links
+  def copy_nodes_and_links_from_board
     return unless board_id.present? && board_id_changed?
     if !draft?
       raise ApiError.new, "Cannot change board once published"

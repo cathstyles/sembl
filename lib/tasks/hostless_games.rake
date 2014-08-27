@@ -19,7 +19,7 @@ end
 
 def create_hostless_game_from(board)
   game = Game.new board: board, title: "#{board.title} - #{Time.now}", seed_thing_id: Thing.last.id, state: "draft"
-  game.copy_nodes_and_links
+  game.copy_nodes_and_links_from_board
   update_seed_thing(game, Thing.all.sample)
   game.state = "open"
   game.save!

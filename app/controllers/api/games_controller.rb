@@ -52,7 +52,7 @@ class Api::GamesController < ApiController
     @game.state_event = 'publish' if params[:publish]
     @game.filter_content_by = clean_search_query_json(params[:game][:filter_content_by])
 
-    @game.copy_nodes_and_links
+    @game.copy_nodes_and_links_from_board
     update_seed_thing if game_params[:seed_thing_id].present?
 
     authorize @game
@@ -70,7 +70,7 @@ class Api::GamesController < ApiController
     @game.state_event = 'publish' if params[:publish]
     @game.filter_content_by = clean_search_query_json(params[:game][:filter_content_by])
 
-    @game.copy_nodes_and_links
+    @game.copy_nodes_and_links_from_board
     update_seed_thing if game_params[:seed_thing_id].present?
 
     authorize @game
