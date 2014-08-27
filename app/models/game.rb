@@ -273,6 +273,30 @@ class Game < ActiveRecord::Base
     @filter_query
   end
 
+  def copy_nodes_and_links
+    return unless board_id.present? && board_id_changed?
+    if !draft?
+      raise ApiError.new, "Cannot change board once published"
+    end
+
+    # So they are not destroyed if validation fails.
+    nodes.each {|n| n.mark_for_destruction }
+    links.each {|l| l.mark_for_destruction }
+
+    node_array = []
+    board.nodes_attributes.each do |node_attr|
+      node_array << nodes.build(node_attr.except('fixed'))
+    end
+
+    board.links_attributes.each do |link_attr|
+      links.build(
+        source: node_array[link_attr['source']],
+        target: node_array[link_attr['target']]
+      )
+    end
+    self.number_of_players = board.number_of_players
+  end
+
   # == Stuff that shouln't be here
 
   def crop_board
