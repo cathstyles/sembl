@@ -130,6 +130,10 @@ class Game < ActiveRecord::Base
     where(creator: current_user)
   end
 
+  def self.hostless
+    where(creator_id: nil)
+  end
+
   # == Helpers
   def with_open_places?
     number_of_players && players.count < number_of_players
