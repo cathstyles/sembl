@@ -1,11 +1,11 @@
-# Hostless games not updated since this time will be considered stale
-STALE_TIME = Time.now
+# Hostless games that have players and have not been updated since this time and will be considered stale
+STALE_TIME = 1.day.ago
 
 namespace :hostless_games do
   desc "Unpublish any stale hostless games and create hostless games for each board type"
   task update: [:environment] do
-    unpublish_stale_hostless_games
-    existing_open_hostless_boards = Game.open_to_join.hostless.map(&:board)
+    mark_old_hostless_games_with_players_as_stale
+    existing_open_hostless_boards = Game.open_to_join.not_stale.hostless.map(&:board)
     boards_without_open_hostless_games = Board.all - existing_open_hostless_boards
     boards_without_open_hostless_games.each do |board|
       create_hostless_game_from board
@@ -13,8 +13,10 @@ namespace :hostless_games do
   end
 end
 
-def unpublish_stale_hostless_games
-  Game.hostless.where("updated_at < ?", STALE_TIME).map(&:unpublish)
+def mark_old_hostless_games_with_players_as_stale
+  Game.hostless.where("updated_at < ?", STALE_TIME).each do |game|
+    game.update_attribute(:stale, true) if game.players.count > 0
+  end
 end
 
 def create_hostless_game_from(board)
