@@ -134,6 +134,10 @@ class Game < ActiveRecord::Base
     where(creator_id: nil)
   end
 
+  def self.not_stale
+    where(stale: false)
+  end
+
   # == Helpers
   def with_open_places?
     number_of_players && players.count < number_of_players
