@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140625005906) do
+ActiveRecord::Schema.define(version: 20140828004519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20140625005906) do
     t.integer  "random_seed"
     t.integer  "number_of_players"
     t.json     "filter_content_by"
+    t.boolean  "stale",                default: false
   end
 
   add_index "games", ["creator_id"], name: "index_games_on_creator_id", using: :btree
