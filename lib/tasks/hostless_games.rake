@@ -20,9 +20,14 @@ def mark_old_hostless_games_with_players_as_stale
 end
 
 def create_hostless_game_from(board)
-  game = Game.new board: board, title: "#{board.title} - #{Time.now}", seed_thing_id: Thing.last.id, state: "draft"
+  seed_thing = Thing.where("title is not null").sample
+  game = Game.new(board: board,
+    title: "#{seed_thing.title}",
+    description: "A game for #{board.number_of_players} #{'player'.pluralize(board.number_of_players)}, starting with:",
+    seed_thing_id: Thing.last.id,
+    state: "draft")
   game.copy_nodes_and_links_from_board
-  update_seed_thing(game, Thing.all.sample)
+  update_seed_thing(game, seed_thing)
   game.state = "open"
   game.save!
 end
