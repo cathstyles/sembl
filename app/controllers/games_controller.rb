@@ -17,7 +17,7 @@ class GamesController < ApplicationController
     when :completed
       Game.where(invite_only: false).with_states(:completed)
     else
-      Game.open_to_join
+      Game.open_to_join.not_stale
     end
     @filter = filter_scope
     @games = filtered_games.page(params[:page])
