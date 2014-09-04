@@ -147,6 +147,10 @@ class Game < ActiveRecord::Base
     invite_only == false && can_join?
   end
 
+  def hostless?
+    creator_id == nil
+  end
+
   def seed_thing
     if seed_thing_id.present?
       Thing.find(seed_thing_id)
