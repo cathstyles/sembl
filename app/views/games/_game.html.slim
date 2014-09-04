@@ -7,15 +7,26 @@
           - if game.open_to_join?
             span.game-individual__play-button Play
     .game-individual__details-container
-      h1.game-individual__title
-        a href="#{game_path(game)}" class="game__individual-anchor game__individual-anchor--title"
-          = game.title
-        - if policy(game).edit?
-          a.game-individual__edit href="#{edit_game_path(game)}"
-            | (Edit <i class="fa fa-edit"></i>)
-      .game-individual__description
-        a href="#{game_path(game)}" class="game__individual-anchor"
-          = game.description
+      - if game.hostless?
+        .game-individual__description.game-individual__description--hostless
+          a href="#{game_path(game)}" class="game__individual-anchor"
+            = game.description
+        h1.game-individual__title
+          a href="#{game_path(game)}" class="game__individual-anchor game__individual-anchor--title"
+            = game.title
+          - if policy(game).edit?
+            a.game-individual__edit href="#{edit_game_path(game)}"
+              | (Edit <i class="fa fa-edit"></i>)
+      - else
+        h1.game-individual__title
+          a href="#{game_path(game)}" class="game__individual-anchor game__individual-anchor--title"
+            = game.title
+          - if policy(game).edit?
+            a.game-individual__edit href="#{edit_game_path(game)}"
+              | (Edit <i class="fa fa-edit"></i>)
+        .game-individual__description
+          a href="#{game_path(game)}" class="game__individual-anchor"
+            = game.description
     - if game.players.present?
       .game-individual__players
         - game.players.each do |player|

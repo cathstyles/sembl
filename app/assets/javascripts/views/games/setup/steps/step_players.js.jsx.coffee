@@ -13,25 +13,33 @@
   getInitialState: ->
     players: null
 
+  componentDidUpdate: (prevProps, prevState) ->
+    if prevState.players is null
+      @refs.emailInput.getDOMNode().focus()
+
   handleGivePlayers: (event, data) ->
     if data.players?
       @setState players: data.players
 
   handleDeletePlayer: (player) ->
-    data = 
+    data =
       player: player
       success: @reloadPlayers
     event.preventDefault();
     $(window).trigger('setup.players.remove', data)
 
   handleInvite: (event) ->
-    email = @refs.emailInput.getDOMNode().value
+    event.preventDefault()
+    event.stopPropagation()
+    input = @refs.emailInput.getDOMNode()
+    email = input.value
     emailPattern = /\S+@\S+/
     if emailPattern.exec(email)
-      data = 
+      input.value = ""
+      input.focus()
+      data =
         email: email
         success: =>
-          @refs.emailInput.getDOMNode().value = null
           @reloadPlayers()
       $(window).trigger('setup.players.add', data)
     else
@@ -59,11 +67,11 @@
 
 
       inviteComponent = if playerCount < maxPlayerCount
-        `<div className="setup__steps__players__invite">
+        `<form className="setup__steps__players__invite" onSubmit={this.handleInvite}>
           <label htmlFor="setup__steps__players__invite__input" className="setup__steps__players__invite__label">Enter email address: </label>
           <input ref='emailInput' id="setup__steps__players__invite__input" className="setup__steps__players__invite__input" type="text" />
-          <button className="setup__steps__players__invite__send-button" onClick={this.handleInvite}>Add</button>
-        </div>`
+          <button className="setup__steps__players__invite__send-button" type="submit">Add</button>
+        </form>`
 
       `<div className="setup__steps__players">
         <div className="setup__steps__title">
@@ -76,7 +84,7 @@
           {inviteComponent}
         </div>
       </div>`
-    else 
+    else
       `<div className="setup__steps__players">
         <div className="setup__steps__inner">
           <p>Checking invited players&hellip;</p>

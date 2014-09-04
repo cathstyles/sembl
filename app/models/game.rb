@@ -130,6 +130,14 @@ class Game < ActiveRecord::Base
     where(creator: current_user)
   end
 
+  def self.hostless
+    where(creator_id: nil)
+  end
+
+  def self.not_stale
+    where(stale: false)
+  end
+
   # == Helpers
   def with_open_places?
     number_of_players && players.count < number_of_players
@@ -137,6 +145,10 @@ class Game < ActiveRecord::Base
 
   def open_to_join?
     invite_only == false && can_join?
+  end
+
+  def hostless?
+    creator_id == nil
   end
 
   def seed_thing
@@ -271,6 +283,30 @@ class Game < ActiveRecord::Base
     @filter_query ||= Search::ThingQuery.new(filter_params)
     @filter_query.random_seed = random_seed
     @filter_query
+  end
+
+  def copy_nodes_and_links_from_board
+    return unless board_id.present? && board_id_changed?
+    if !draft?
+      errors.add(:base, "Cannot change board once published")
+    end
+
+    # So they are not destroyed if validation fails.
+    nodes.each {|n| n.mark_for_destruction }
+    links.each {|l| l.mark_for_destruction }
+
+    node_array = []
+    board.nodes_attributes.each do |node_attr|
+      node_array << nodes.build(node_attr.except('fixed'))
+    end
+
+    board.links_attributes.each do |link_attr|
+      links.build(
+        source: node_array[link_attr['source']],
+        target: node_array[link_attr['target']]
+      )
+    end
+    self.number_of_players = board.number_of_players
   end
 
   # == Stuff that shouln't be here

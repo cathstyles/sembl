@@ -52,7 +52,7 @@ class Api::GamesController < ApiController
     @game.state_event = 'publish' if params[:publish]
     @game.filter_content_by = clean_search_query_json(params[:game][:filter_content_by])
 
-    copy_board_to_game
+    @game.copy_nodes_and_links_from_board
     update_seed_thing if game_params[:seed_thing_id].present?
 
     authorize @game
@@ -70,7 +70,7 @@ class Api::GamesController < ApiController
     @game.state_event = 'publish' if params[:publish]
     @game.filter_content_by = clean_search_query_json(params[:game][:filter_content_by])
 
-    copy_board_to_game
+    @game.copy_nodes_and_links_from_board
     update_seed_thing if game_params[:seed_thing_id].present?
 
     authorize @game
@@ -79,32 +79,6 @@ class Api::GamesController < ApiController
   end
 
 private
-  # Copy nodes and links from board
-  def copy_board_to_game
-    board = @game.board
-    return unless @game.board_id.present? && @game.board_id_changed?
-    if !@game.draft?
-      raise ApiError.new, "Cannot change board once published"
-    end
-
-    # So they are not destroyed if validation fails.
-    @game.nodes.each {|n| n.mark_for_destruction }
-    @game.links.each {|l| l.mark_for_destruction }
-
-    node_array = []
-    board.nodes_attributes.each do |node_attr|
-      node_array << @game.nodes.build(node_attr.except('fixed'))
-    end
-
-    board.links_attributes.each do |link_attr|
-      @game.links.build(
-        source: node_array[link_attr['source']],
-        target: node_array[link_attr['target']]
-      )
-    end
-
-    @game.number_of_players = board.number_of_players
-  end
 
   def update_seed_thing
     if  seed_thing = Thing.find(game_params[:seed_thing_id])
