@@ -30,7 +30,7 @@ end
 def create_hostless_game_from(board)
   seed_thing = Thing.where("title is not null").sample
   game = Game.new(board: board,
-    title: "#{seed_thing.title}",
+    title: seed_thing.title,
     description: "A game for #{board.number_of_players} #{'player'.pluralize(board.number_of_players)}, starting with:",
     seed_thing_id: Thing.last.id,
     state: "draft")
