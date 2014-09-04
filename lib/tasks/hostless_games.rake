@@ -23,7 +23,7 @@ end
 
 def mark_old_hostless_games_without_players_as_stale
   Game.hostless.where("updated_at < ?", UNJOINED_STALE_TIME).each do |game|
-    game.update_attribute(:stale, true)
+    game.update_attribute(:stale, true) if game.players.count == 0
   end
 end
 
