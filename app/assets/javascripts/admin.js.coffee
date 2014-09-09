@@ -3,6 +3,8 @@
 #= require jquery
 #= require jquery_ujs
 #= require bootstrap
+#= require dataTables/jquery.dataTables
+#= require dataTables/bootstrap/2/jquery.dataTables.bootstrap
 
 #= require raphael
 #= require backbone-raphael
@@ -57,3 +59,9 @@ $ ->
       catch
         return
       Sembl.board.links.set(json)
+
+  $('.datatable').dataTable({
+    "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+    "sPaginationType": "bootstrap",
+    "pageLength": 25
+  });
