@@ -4,18 +4,24 @@ header
   .heading
     h1 User
   .actions
-    = link_to "New", new_admin_user_path, class: "btn"
+    = link_to "Create new user", new_admin_user_path, class: "btn"
 
 - if @users.any?
-  table.table.table-striped.table-hover.index
+  table.table.table-striped.table-hover.index.datatable
     thead
       tr
         th.email Email
+        th.name Name
+        th.role Role
+        th.playing Playing
         th.actions
     tbody
       - @users.each do |user|
         tr
           td.email = user.email
+          td.name = user.profile.name
+          td.role = friendly_user_role user
+          td.playing #{user.games.count} #{"game".pluralize user.games.count}
           td.actions
             .btn-group
               = link_to "Edit", edit_admin_user_path(user), class: "btn"

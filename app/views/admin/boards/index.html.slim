@@ -4,10 +4,10 @@ header
   .heading
     h1 Boards
   .actions
-    = link_to "New", new_admin_board_path, class: "btn"
+    = link_to "Create new board", new_admin_board_path, class: "btn"
 
 - if @boards.any?
-  table.table.table-striped.table-hover.index
+  table.table.table-striped.table-hover.index.datatable
     thead
       tr
         th.title Title

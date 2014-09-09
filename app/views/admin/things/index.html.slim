@@ -2,12 +2,12 @@
 
 header
   .heading
-    h1 Thing
+    h1 Things
   .actions
-    = link_to "New", new_admin_thing_path, class: "btn"
+    = link_to "Create new thing", new_admin_thing_path, class: "btn"
 
 - if @things.any?
-  table.table.table-striped.table-hover.index
+  table.table.table-striped.table-hover.index.datatable
     thead
       tr
         th.image

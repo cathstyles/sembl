@@ -10,4 +10,25 @@ module AdminHelper
 
     time_tag time, text, *args, options
   end
+
+  def friendly_game_state(game)
+    case game.state
+    when :joining
+      "Waiting for players"
+    when :playing
+      "In progress"
+    else
+      game.state.capitalize
+    end
+  end
+
+  def friendly_user_role(user)
+    role = User.roles.find {|name, value| value == user.role}
+    case role[0]
+    when :power
+      "Host"
+    else
+      role[0].capitalize
+    end
+  end
 end

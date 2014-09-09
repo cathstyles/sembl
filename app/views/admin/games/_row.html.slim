@@ -1,0 +1,11 @@
+tr
+  td.title
+    = link_to game.title, edit_admin_game_path(game)
+  td.status
+    = friendly_game_state game
+  td.invite-only
+    = (game.invite_only) ? "Invite only" : "Public"
+  td.actions
+    .btn-group
+      = link_to "Edit", edit_admin_game_path(game), class: "btn"
+      = link_to "Destroy", edit_admin_game_path(game), class: "btn btn-danger", method: "delete", confirm: "There is no undo.\n\nAre you sure you want to delete the game: #{game.title}?"

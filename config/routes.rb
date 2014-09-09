@@ -31,6 +31,7 @@ Sembl::Application.routes.draw do
 
   namespace :admin, module: :admin, constraints: AdminConstraint do
     resources :things, except: [:show]
+    resources :games, except: [:show]
     resources :boards, except: [:show]
     resources :users, except: [:show]
 

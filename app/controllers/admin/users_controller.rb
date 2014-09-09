@@ -19,6 +19,7 @@ class Admin::UsersController < AdminController
 
   def edit
     @user = User.find(params[:id])
+    @games_hosted_by_user = Game.hosted_by(@user)
     respond_with :admin, @user
   end
 
