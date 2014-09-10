@@ -1,0 +1,23 @@
+- area :title, "Games"
+
+header
+  .heading
+    h1 Games
+
+- if @games.any?
+  table.table.table-striped.table-hover.index.datatable
+    thead
+      tr
+        th.title Title
+        th.board Board
+        th.status Status
+        th.created Created
+        th.last-activity Last activity
+    tbody
+      - @games.each do |game|
+        tr
+          td.title = link_to game.title, edit_admin_game_path(game)
+          td.board = game.board.title
+          td.status = (game.invite_only) ? "Invite only" : "Open"
+          td.created == game.updated_at.strftime("%d&nbsp;%b&nbsp;%Y")
+          td.last-activity = time_ago_in_words game.updated_at

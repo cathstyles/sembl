@@ -12,19 +12,23 @@ header
       tr
         th.image
         th.title Title
+        th.description Description
+        th.access-via Access via
+        th.access-via Uploaded
         th.actions
     tbody
       - @things.each do |thing|
         tr
           td.image
             - if thing.image?
-              = image_tag thing.image.admin_thumb.url, alt: thing.description
-          td.title = thing.title
+              = link_to edit_admin_thing_path(thing) do
+                = image_tag thing.image.admin_thumb.url, alt: thing.description, class: "thing-image"
+          td.title = link_to thing.title, edit_admin_thing_path(thing)
+          td.description
+            .text-clip = thing.description
+          td.access-via = thing.access_via
+          td.uploaded == thing.created_at.strftime("%d&nbsp;%b&nbsp;%Y")
 
           td.actions
             .btn-group
-              = link_to "Edit", edit_admin_thing_path(thing), class: "btn"
-              = link_to "Destroy", admin_thing_path(thing), class: "btn btn-danger", method: "delete", confirm: "There is no undo.\n\nAre you sure you want to remove #{thing.title}?"
-
-- else
-  p.muted Nothing yet—better get cracking!
+              = link_to "Delete", admin_thing_path(thing), class: "btn btn-small btn-danger", method: "delete", confirm: "There is no undo.\n\nAre you sure you want to remove #{thing.title}?"

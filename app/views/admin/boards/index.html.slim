@@ -16,12 +16,11 @@ header
     tbody
       - @boards.each do |board|
         tr
-          td.title = board.title
+          td.title = link_to board.title, edit_admin_board_path(board)
           td.title = board.number_of_players
           td.actions
             .btn-group
-              = link_to "Edit", edit_admin_board_path(board), class: "btn"
-              = link_to "Destroy", admin_board_path(board), class: "btn btn-danger", method: "delete", confirm: "There is no undo.\n\nAre you sure you want to remove #{board.title}?"
+              = link_to "Delete", admin_board_path(board), class: "btn btn-small btn-danger", method: "delete", confirm: "There is no undo.\n\nAre you sure you want to remove #{board.title}?"
 
 - else
   p.muted None yet—better get cracking!
