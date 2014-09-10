@@ -1,0 +1,25 @@
+= simple_form_for [:admin, @game], wrapper: :bootstrap, html: {class: "form-horizontal"} do |form|
+
+  = form.error_notification
+
+  = form.input :title, input_html: {class: "input-block-level"}
+  = form.input :description, label: "Description" do
+    = form.text_area :description, class: "input-block-level", rows: 5
+  = form.input :theme, input_html: {class: "input-block-level"}
+  = form.input :invite_only, label: "Invite only?" do
+    = form.check_box :invite_only
+  = form.input :uploads_allowed, label: "Uploads allowed?" do
+    = form.check_box :uploads_allowed
+  = form.input :allow_keyword_search, label: "Allow keyword search?" do
+    = form.check_box :allow_keyword_search
+
+  p State: #{@game.state}
+  p Current round: #{@game.current_round}
+  p Number of players: #{@game.number_of_players}
+
+  p
+    ' Board:
+    = link_to @game.board.title, edit_admin_board_path(@game.board)
+
+  .form-actions
+    = form.button :submit, class: "btn-primary"
