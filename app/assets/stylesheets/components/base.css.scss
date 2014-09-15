@@ -47,18 +47,21 @@ a {
 .body-wrapper {
   position: absolute;
   top: 0;
-  bottom: 61px;
+  bottom: 0;
   left: 0;
   right: 0;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
 }
+.body-wrapper__outer {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
   .body-wrapper__inner {
-    position: absolute;
-    top: 50%;
-    transform: translate(0,-50%);
-    width: 100%;
-    // height: 100%;
+    padding: 0 0 60px;
+    display: table-cell;
+    vertical-align: middle;
   }
 
 %wrapper {

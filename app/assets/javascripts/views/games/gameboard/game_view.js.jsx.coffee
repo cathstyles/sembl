@@ -87,9 +87,11 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     game = @model()
     `<div className="game">
       <div className="body-wrapper">
-        <div className="body-wrapper__inner">
-          <div ref="graph" className="game__graph">
-            <GameGraph game={game} />
+        <div className="body-wrapper__outer">
+          <div className="body-wrapper__inner">
+            <div ref="graph" className="game__graph">
+              <GameGraph game={game} />
+            </div>
           </div>
         </div>
       </div>

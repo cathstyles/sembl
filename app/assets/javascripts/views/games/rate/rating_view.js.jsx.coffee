@@ -113,19 +113,21 @@
 
     `<div className="move">
       <div className="body-wrapper">
-        <div className="body-wrapper__inner">
-          <div className="move__inner">
-            <div className="rating__info">
-              <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
-            </div>
-            <UpdateRatingView
-              move={this.currentMove()}
-              link={this.state.currentLink}
-              key={this.state.currentLink.cid}
-              handleRated={this.updateRated}
-              />
-            <div className="rate__graph">
-              <RateGraph target={move.targetNode} links={move.links.models} />
+        <div className="body-wrapper__outer">
+          <div className="body-wrapper__inner">
+            <div className="move__inner">
+              <div className="rating__info">
+                <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
+              </div>
+              <UpdateRatingView
+                move={this.currentMove()}
+                link={this.state.currentLink}
+                key={this.state.currentLink.cid}
+                handleRated={this.updateRated}
+                />
+              <div className="rate__graph">
+                <RateGraph target={move.targetNode} links={move.links.models} />
+              </div>
             </div>
           </div>
         </div>
