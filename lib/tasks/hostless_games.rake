@@ -1,6 +1,19 @@
 # Hostless games that have players and have not been updated since this time and will be considered stale
-HOSTLESS_JOINED_STALE_TIME =   ENV["HOSTLESS_JOINED_STALE_TIME"].to_i || (60 * 60)
 HOSTLESS_UNJOINED_STALE_TIME = ENV["HOSTLESS_UNJOINED_STALE_TIME"].to_i || (60 * 60 * 24)
+
+HOSTLESS_JOINED_STALE_TIMES = [
+  { players: 2, hours: 3 },
+  { players: 3, hours: 6 },
+  { players: 4, hours: 12 },
+  { players: 5, hours: 24 },
+  { players: 6, hours: 48 },
+  { players: 7, hours: 24 * 3 },
+  { players: 8, hours: 24 * 6 },
+  { players: 9, hours: 24 * 9 },
+  { players: 10, hours: 24 * 12 },
+  { players: 11, hours: 24 * 24 },
+  { players: 12, hours: 24 * 30 }
+]
 
 namespace :hostless_games do
   desc "Unpublish any stale hostless games and create hostless games for each board type"
@@ -16,15 +29,14 @@ namespace :hostless_games do
 end
 
 def mark_old_hostless_games_with_players_as_stale
-  expiry_time = Time.now - HOSTLESS_JOINED_STALE_TIME
-  Game.hostless.where("updated_at < ?", expiry_time).each do |game|
-    game.update_attribute(:stale, true) if game.players.count > 0
+  Game.hostless.where(stale: false).where("number_of_players > 0").each do |game|
+    game.update_attribute(:stale, true) if game.updated_at < joined_expiry_time_for_game(game)
   end
 end
 
 def mark_old_hostless_games_without_players_as_stale
-  expiry_time = Time.now - HOSTLESS_UNJOINED_STALE_TIME
-  Game.hostless.where("updated_at < ?", expiry_time).each do |game|
+  unjoined_expiry_time = Time.now - HOSTLESS_UNJOINED_STALE_TIME
+  Game.hostless.where("updated_at < ?", unjoined_expiry_time).each do |game|
     game.update_attribute(:stale, true) if game.players.count == 0
   end
 end
@@ -54,6 +66,11 @@ def update_seed_thing(game, thing)
       thing: seed_thing
     )
   end
+end
+
+def joined_expiry_time_for_game(game)
+  expiry_in_hours = HOSTLESS_JOINED_STALE_TIMES.find {|t| t[:players] == game.board.number_of_players}[:hours] || 3
+  Time.now - (expiry_in_hours * 60 * 60)
 end
 
 
