@@ -35,4 +35,9 @@
         </div>
       </div>`
     else
-      `<div className="move__actions"/>`
+      `<div className="move__actions">
+        <div className="move__actions-inner">
+          <p>Make your move!</p>
+          <a className="move__actions__button" href="#">Back to the game board</a>
+        </div>
+      </div>`
