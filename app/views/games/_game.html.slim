@@ -14,14 +14,14 @@
         h1.game-individual__title
           a href="#{game_path(game)}" class="game__individual-anchor game__individual-anchor--title"
             = game.title
-          - if policy(game).edit?
+          - if policy(game).edit? && game.hosting?(current_user)
             a.game-individual__edit href="#{edit_game_path(game)}"
               | (Edit <i class="fa fa-edit"></i>)
       - else
         h1.game-individual__title
           a href="#{game_path(game)}" class="game__individual-anchor game__individual-anchor--title"
             = game.title
-          - if policy(game).edit?
+          - if policy(game).edit? && game.hosting?(current_user)
             a.game-individual__edit href="#{edit_game_path(game)}"
               | (Edit <i class="fa fa-edit"></i>)
         .game-individual__description

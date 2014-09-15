@@ -179,7 +179,7 @@ class Game < ActiveRecord::Base
   end
 
   def hosting?(user)
-    creator == user
+    creator.present? && user.present? && creator == user
   end
 
   def player(current_user)
