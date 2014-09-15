@@ -21,6 +21,10 @@
       "metadata-is-not-visible": !@state.showMetadata
       "modal--large-image-visible": @state.zoom
 
+    metadataToggleClasses = classSet
+      "move__thing-modal__attribute-toggle": true
+      "move__thing-modal__attribute-toggle--toggled": @state.showMetadata
+
     `<div className={classes}>
       <div className="move__thing-modal__wrapper">
         <div className="move__thing-modal__body">
@@ -34,7 +38,7 @@
         <div className="move__thing-modal__meta">
           <h1 className="move__thing-modal__title">{thing.title}</h1>
           <p className="move__thing-modal__description">{thing.description}</p>
-          <h3 className="move__thing-modal__attribute-toggle" onClick={this._toggleMetadata}>Show metadata</h3>
+          <h3 className={metadataToggleClasses} onClick={this._toggleMetadata}>{(this.state.showMetadata) ? "Hide" : "Show"} metadata</h3>
           <div className="move__thing-modal__attributes">
             <div className="move__thing-modal__attribute-row">
               <div className="move__thing-modal__attribute">

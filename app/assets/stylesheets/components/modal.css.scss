@@ -186,14 +186,14 @@
   cursor: pointer;
   &:after {
     font-family: "FontAwesome";
-    content: "\f0da";
+    content: "\f0d7";
     padding-left: 5px;
   }
 }
 
 .move__thing-modal__attribute-toggle--toggled {
   &:after {
-    content: "\f0d7";
+    content: "\f0d8";
   }
 }
 
