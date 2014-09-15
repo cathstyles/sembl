@@ -44,7 +44,7 @@ Sembl.Games.HeaderView = React.createBackboneClass
       </li>` if game?.canJoin()
 
 
-    moreInfo = `<MoreInfoView game={this.model()}/>` if  !!game?.get('description')
+    moreInfo = `<MoreInfoView game={this.model()}/>` if !!game?.get('description') && game?.get("hostless") != true
 
     editUrl = "/games/" + game.get('id') + "/edit" if game
     edit = `<li className="header__link">
