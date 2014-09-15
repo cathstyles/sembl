@@ -19,6 +19,7 @@
 #  random_seed          :integer
 #  number_of_players    :integer
 #  filter_content_by    :json
+#  stale                :boolean
 #
 
 # == States
