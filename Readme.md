@@ -100,3 +100,13 @@ If setting up elasticsearch for the first time, you will need to manually create
 ```
 curl -X POST http://#{elasticsearch_url}/sembl
 ```
+
+
+### Email testing
+
+Emails can be tested locally using [Mailcatcher](http://mailcatcher.me/). It’s intentionally excluded from the Gemfile as recommended in the Mailcatcher docs. Instead you need to:
+
+1. `gem install mailcatcher`
+2. `mailcatcher`
+3. Go to http://localhost:1080/
+

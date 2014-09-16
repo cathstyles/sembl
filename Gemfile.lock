@@ -157,8 +157,6 @@ GEM
       activesupport (>= 3.0.0)
     launchy (2.1.2)
       addressable (~> 2.3)
-    letter_opener (1.0.0)
-      launchy (>= 2.0.4)
     listen (2.7.1)
       celluloid (>= 0.15.2)
       celluloid-io (>= 0.15.0)
@@ -350,7 +348,6 @@ DEPENDENCIES
   jquery-datatables-rails (~> 2.2.3)
   jquery-rails
   kaminari
-  letter_opener
   mini_magick
   nestive
   pg
