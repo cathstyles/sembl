@@ -64,6 +64,9 @@ Sembl.Games.Gameboard.StatusView = React.createClass
       tooltipText = @getTooltip(player.state, player.move_state)
       $(window).trigger("flash.notice", tooltipText) if !!tooltipText
 
+  handleJoin: ->
+    $(window).trigger('header.joinGame')
+
   componentDidUpdate: ->
     @triggerNotice()
 
@@ -72,7 +75,6 @@ Sembl.Games.Gameboard.StatusView = React.createClass
 
   render: ->
     player = @props.game.get('player')
-
 
     statusHTML = `<div className="game__status"/>`
     if player?
@@ -111,4 +113,15 @@ Sembl.Games.Gameboard.StatusView = React.createClass
             <p>We’re waiting for the other players to finish their turns, then you’ll get a chance to rate their Sembls.</p>
           </div>
         </div>`
+    else
+      statusHTML = `<div className="game__status">
+        <div className="game__status-inner">
+          <p>We need {this._formatPlayerCount()} to get started!</p>
+          <button onClick={this.handleJoin} className="game__status__button game__status__end-turn">Join this game</button>
+        </div>
+      </div>`
     return statusHTML
+
+  _formatPlayerCount: ->
+    remaining = @props.game.get("number_of_players") - @props.game.players.length
+    "#{remaining} #{if @props.game.players.length > 0 then 'more' else ''} player#{if remaining > 0 then 's' else ''}"

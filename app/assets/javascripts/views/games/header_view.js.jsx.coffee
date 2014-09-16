@@ -26,10 +26,6 @@ Sembl.Games.HeaderView = React.createBackboneClass
     gameplayTabWidth = $('.header__centre-title').outerWidth()
     $('.header__centre-title').css 'margin-left', ((gameplayTabWidth / 2) * -1) + 'px'
 
-  handleJoin: ->
-    # @props.handleJoin()
-    $(window).trigger('header.joinGame')
-
   render: ->
     game = @model()
     resultsAvailableForRound = game?.resultsAvailableForRound() && game?.get("is_participating")
@@ -37,12 +33,6 @@ Sembl.Games.HeaderView = React.createBackboneClass
     headerTitle = `<h1 className="header__title">
         <a href="#">{game.get('title')}</a>
       </h1>` if game
-
-    join = `<li className="header__link">
-        <i className="fa fa-plus header__link-icon"></i>
-        <a href="#" className='header__link-anchor' onClick={this.handleJoin}>Join Game</a>
-      </li>` if game?.canJoin()
-
 
     moreInfo = `<MoreInfoView game={this.model()}/>` if !!game?.get('description') && game?.get("hostless") != true
 
@@ -73,7 +63,6 @@ Sembl.Games.HeaderView = React.createBackboneClass
         {this.props.title}
       </div>
       <ul className="header__links">
-        {join}
         {edit}
         {roundResults}
       </ul>
