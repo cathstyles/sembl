@@ -20,7 +20,7 @@
   handleKeyPress: (event) =>
     if event.keyCode == 13
       event.preventDefault()
-      @handleChange(event)
+      $(window).trigger('setup.steps.next')
 
   isValid: ->
     !!@state?.title

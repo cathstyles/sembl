@@ -14,9 +14,11 @@
 @Sembl.Games.Setup.Steps = React.createClass
   componentWillMount: ->
     $(window).on('setup.steps.change', @handleChange)
+    $(window).on('setup.steps.next', @handleNext)
 
   componentWillUnmount: ->
     $(window).off('setup.steps.change', @handleChange)
+    $(window).off('setup.steps.next', @handleNext)
 
   componentDidMount: ->
     @validateStep()
