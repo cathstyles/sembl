@@ -152,7 +152,7 @@
   @include font-size(20);
   @include pad(horz, normal);
   @include pad(top, normal);
-  @include pad(bottom, small);
+  @include pad(bottom, tiny);
   line-height: 1;
   @media screen and (max-height: 600px) {
     @include font-size(18);
@@ -162,9 +162,36 @@
 .move__thing-modal__description {
   @include pad(horz, normal);
   line-height: 1.15;
+  position: relative;
+  // Little hide-y things
+  &:before {
+    @include linear-gradient(to top, rgba($background-color, 0), rgba($background-color, 1));
+    content: "";
+    height: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  &:after {
+    @include linear-gradient(to bottom, rgba($background-color, 0), rgba($background-color, 1));
+    content: "";
+    height: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
   @media screen and (max-height: 600px) {
     @include font-size(14);
   }
+}
+
+.move__thing-modal__description__inner {
+  max-height: 200px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  overflow-y: scroll;
 }
 
 .move__thing-modal__wrapper {

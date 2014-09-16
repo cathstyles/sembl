@@ -37,7 +37,11 @@
         </div>
         <div className="move__thing-modal__meta">
           <h1 className="move__thing-modal__title">{thing.title}</h1>
-          <p className="move__thing-modal__description">{thing.description}</p>
+          <div className="move__thing-modal__description">
+            <div className="move__thing-modal__description__inner">
+              <p>{thing.description}</p>
+            </div>
+          </div>
           <h3 className={metadataToggleClasses} onClick={this._toggleMetadata}>{(this.state.showMetadata) ? "Hide" : "Show"} metadata</h3>
           <div className="move__thing-modal__attributes">
             <div className="move__thing-modal__attribute-row">
