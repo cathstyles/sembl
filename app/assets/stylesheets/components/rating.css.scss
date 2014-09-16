@@ -109,6 +109,16 @@
   pointer-events: none;
 }
 
+.rating__inner {
+  height: 540px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: 100%;
+  max-width: $container-max-width;
+}
+
+
 .rating__rate {
   @include pad(top, medium);
   @include pad(bottom, small);

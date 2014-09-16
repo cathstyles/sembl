@@ -115,7 +115,7 @@
       <div className="body-wrapper">
         <div className="body-wrapper__outer">
           <div className="body-wrapper__inner">
-            <div className="move__inner">
+            <div className="rating__inner">
               <div className="rating__info">
                 <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
               </div>
