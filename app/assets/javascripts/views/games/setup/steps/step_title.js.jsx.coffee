@@ -2,7 +2,10 @@
 
 @Sembl.Games.Setup.StepTitle = React.createClass
   componentDidMount: ->
-    @refs.title.getDOMNode().focus()
+    titleEl = @refs.title.getDOMNode()
+    titleEl.focus()
+    # FIXME Standard React events are failing for some reason
+    $(titleEl).on "keypress", @handleKeyPress
 
   getInitialState: ->
     title: @props?.title
@@ -13,6 +16,11 @@
       title: title
     @setState(state)
     $(window).trigger('setup.steps.change', {title: title})
+
+  handleKeyPress: (event) =>
+    if event.keyCode == 13
+      event.preventDefault()
+      @handleChange(event)
 
   isValid: ->
     !!@state?.title
