@@ -1,15 +1,15 @@
 Sembl::Application.routes.draw do
   namespace :api, module: :api do
-    resources :games, only: [:show, :create, :update] do 
-      member do 
+    resources :games, only: [:show, :create, :update, :destroy] do
+      member do
         post 'join'
         post 'end_turn'
         post 'end_rating'
       end
-      # Need a show route for the create route _url method to work when calling respond_with. 
-      resources :ratings, only: [:create, :index, :show] 
+      # Need a show route for the create route _url method to work when calling respond_with.
+      resources :ratings, only: [:create, :index, :show]
       resources :moves, only: [:create]
-      resources :results, only: [:show] do 
+      resources :results, only: [:show] do
         collection { get 'awards' }
       end
       resources :players, only: [:create, :destroy, :index, :show]
@@ -20,13 +20,13 @@ Sembl::Application.routes.draw do
 
     # TODO: this probably should be scoped under a game resource
 
-    resources :things, only: [:index, :show, :create] do 
-      collection do 
+    resources :things, only: [:index, :show, :create] do
+      collection do
         get 'random'
       end
     end
 
-    get 'search', to: 'search#index' 
+    get 'search', to: 'search#index'
   end
 
   namespace :admin, module: :admin, constraints: AdminConstraint do

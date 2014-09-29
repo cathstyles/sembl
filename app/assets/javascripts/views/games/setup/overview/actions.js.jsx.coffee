@@ -2,7 +2,7 @@
 
 @Sembl.Games.Setup.OverviewActions = React.createClass
   className: "setup__overview__actions"
-  
+
   handleSave: (event) ->
     $(window).trigger('setup.save')
     event.preventDefault();
@@ -14,6 +14,11 @@
   handleOpenGame: (event) ->
     $(window).trigger('setup.openGame')
     event.preventDefault();
+
+  handleDeleteGame: (event) ->
+    event.preventDefault()
+    if confirm("Are you sure you want to delete this game? There is no undo.")
+      $(window).trigger('setup.deleteGame')
 
   render: () ->
     isChanged = true
@@ -41,9 +46,10 @@
       <div className="setup__overview__actions__buttons">
         <div className="setup__overview__actions__save">
           <button className={saveButtonClassName} onClick={this.handleSave} disabled={!isChanged}>
-              {isSaved ? "Saved" : "Save"}
+            {isSaved ? "Saved" : "Save"}
           </button>
         </div>
         {publishOrShowGame}
       </div>
+      <a className="setup__overview__actions__delete" href="#delete" onClick={this.handleDeleteGame}>Delete game</a>
     </div>`

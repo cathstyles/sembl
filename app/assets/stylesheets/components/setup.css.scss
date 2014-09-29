@@ -459,14 +459,21 @@ input.setup__steps__title__input {
   @include pad(all, smaller);
   @extend %clearfix-micro;
   background-color: #fff9ea;
-  border-bottom-left-radius: $border-radius-inner;
-  border-bottom-right-radius: $border-radius-inner;
+  border-bottom: 1px solid $border-color;
 }
 
 .setup__overview__actions__save {
   float: left;
   button {
     @extend %button;
+  }
+}
+
+.setup__overview__actions__delete {
+  @include inset(all, smaller);
+  display: inline-block;
+  &:hover {
+    text-decoration: underline;
   }
 }
 

@@ -78,6 +78,15 @@ class Api::GamesController < ApiController
     respond_with @game
   end
 
+  def destroy
+    raise ApiError.new(params), 'Game not found' unless !!@game
+    authorize @game
+    @game.delete
+    message = "Game successfully deleted"
+    flash[:notice] = message
+    render json: {message: message}
+  end
+
 private
 
   def update_seed_thing

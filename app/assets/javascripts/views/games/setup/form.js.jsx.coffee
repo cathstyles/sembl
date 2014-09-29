@@ -26,6 +26,7 @@
     $(window).on('setup.save', @handleSave)
     $(window).on('setup.publish', @handlePublish)
     $(window).on('setup.openGame', @handleOpenGame)
+    $(window).on('setup.deleteGame', @handleDeleteGame)
 
     boards = @props.game.boards.sortBy('title')
     @stepComponents =
@@ -44,18 +45,19 @@
     $(window).off('setup.save', @handleSave)
     $(window).off('setup.publish', @handlePublish)
     $(window).off('setup.openGame', @handleOpenGame)
+    $(window).off('setup.deleteGame', @handleDeleteGame)
 
   componentDidMount: ->
     seed = @state.collectedFields.seed
     if seed?.id
       $.getJSON("/api/things/#{seed.id}.json", {}, (thing) =>
-        @setState 
+        @setState
           collectedFields: _.extend(@state.collectedFields, {seed: thing})
       )
 
   getInitialState: ->
     game = @props.game
-    formFields = 
+    formFields =
       title: game.get('title')
       description: game.get('description')
       seed: {id: game.get('seed_thing_id')}
@@ -67,7 +69,7 @@
 
     console.log 'formFields', formFields
 
-    return state = 
+    return state =
       game: game
       activeSteps: @props.firstSteps || []
       collectedFields: formFields
@@ -90,7 +92,7 @@
     params = @getGameParams()
     if @props.game.id
       @updateGame(params)
-    else 
+    else
       @createGame(params)
 
   handlePublish: ->
@@ -98,7 +100,7 @@
     params.publish = true
     if @props.game.id
       @updateGame(params)
-    else 
+    else
       @createGame(params)
 
   handleOpenGame: ->
@@ -112,7 +114,7 @@
     @postGame(params, success)
 
   createGame: (params) ->
-    success = (data) => 
+    success = (data) =>
       url = new Sembl.Game(data).showUrl() + '/edit'
       window.location = url
     @postGame(params, success)
@@ -127,9 +129,9 @@
     _error = (response) =>
       responseObj = JSON.parse(response.responseText)
       console.log responseObj
-      if response.status == 422 
+      if response.status == 422
         msgs = (value for key, value of responseObj.errors)
-        $(window).trigger('flash.error', msgs.join(", "))   
+        $(window).trigger('flash.error', msgs.join(", "))
       else
         $(window).trigger('flash.error', "Error: #{responseObj.errors}")
       error(response) if error?
@@ -142,6 +144,26 @@
       success: _success
       error: _error
     )
+
+  handleDeleteGame: (event) ->
+    $.ajax
+      url: "#{@props.game.url()}"
+      dataType: 'json'
+      type: 'DELETE'
+      data:
+        authenticity_token: this.props.game.get('auth_token')
+      success: (data) =>
+        window.location.href = "/"
+      error: @handleAjaxError
+
+  handleAjaxError: (response) ->
+    responseObj = JSON.parse(response.responseText)
+    console.error responseObj
+    if response.status == 422
+      msgs = (value for key, value of responseObj.errors)
+      $(window).trigger('flash.error', msgs.join(", "))
+    else
+      $(window).trigger('flash.error', "Error: #{responseObj.errors}")
 
   handleStepsDone: (event, collectedFields) ->
     if !@props.game.id
