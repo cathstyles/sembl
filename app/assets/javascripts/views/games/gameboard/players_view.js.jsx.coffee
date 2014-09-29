@@ -40,8 +40,5 @@
     )
 
     `<ul className="game__players">
-        <li className="game__player game__player--icon">
-          <i className="fa fa-smile-o"></i>
-        </li>
         {players}
       </ul>`
