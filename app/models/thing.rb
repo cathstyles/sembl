@@ -39,6 +39,10 @@ class Thing < ActiveRecord::Base
     Thing.distinct.pluck("json_object_keys(json_array_elements(general_attributes))")
   end
 
+  def self.not_user_uploaded
+    where(game_id: nil)
+  end
+
   def add_to_search_index
     Services.search_service.index(self)
   end

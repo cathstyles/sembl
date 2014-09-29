@@ -42,7 +42,7 @@ def mark_old_hostless_games_without_players_as_stale
 end
 
 def create_hostless_game_from(board)
-  seed_thing = Thing.where("title is not null").sample
+  seed_thing = Thing.not_user_uploaded.where("title is not null").sample
   game = Game.new(board: board,
     title: seed_thing.title,
     description: "A game for #{board.number_of_players} #{'player'.pluralize(board.number_of_players)}, starting with:",
