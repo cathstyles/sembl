@@ -7,13 +7,13 @@ class Api::ThingsController < ApiController
       @things = Thing.where(game_id: params[:game_id])
     else
       seed = @game.try(:random_seed) || SecureRandom.random_number(2147483646)
-      @things = Thing.all.random_fixed_order(seed)
+      @things = Thing.not_user_uploaded.random_fixed_order(seed)
     end
     respond_with @things
   end
 
   def random
-    things = Thing.all.select(:id)
+    things = Thing.not_user_uploaded.select(:id)
     @thing = Thing.find(things[SecureRandom.random_number(things.length-1)])
     respond_with @thing
   end
