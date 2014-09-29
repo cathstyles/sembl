@@ -34,5 +34,6 @@ json.player do
 end
 json.is_participating @game.participating?(current_user)
 json.is_hosting @game.hosting?(current_user)
+json.is_admin current_user.admin?
 json.errors @game.errors.full_messages
 json.auth_token form_authenticity_token
