@@ -214,6 +214,7 @@
 
 .home__new-game-button-container {
   @include inset(bottom, mid);
+  @include inset(left, mid);
   float: right;
 }
 .home__new-game-button-container__inner {
@@ -228,6 +229,17 @@
   display: block;
   i {
     padding-right: 4px;
+  }
+}
+
+.home__sign-up-block {
+  @include pad(vert, normal);
+  text-align: center;
+  a {
+    @extend %button;
+    @include font-size(16);
+    @include pad(vert, smaller);
+    @include pad(horz, mid);
   }
 }
 
@@ -254,6 +266,9 @@
     }
   }
 }
+  .games-nav--all {
+    float: right;
+  }
   .games-nav__item {
     @include pad(all, small);
     border-right: 1px solid lighten($border-color, 15%);

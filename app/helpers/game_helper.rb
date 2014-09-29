@@ -49,6 +49,8 @@ module GameHelper
       "Games in progress"
     when :completed
       "Completed games"
+    when :user_completed
+      "Your completed games"
     else
       "Games you’re playing"
     end

@@ -1,39 +1,47 @@
-/ div data-view="gameIndex" data-header="All Games"
 .header
   .heading
     h1 Games
 
-
 .home
   - unless user_signed_in?
-    .home__intro.copy
-      h2 Welcome to Sembl!
-      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      p Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  - if user_signed_in?
-    ul.games-nav
-      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=participating/) || url_matches?(/^\/$/))
-        a href="#{games_path}/?filter=participating" Games you’re playing
-      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=hosted/))
-        a href="#{games_path}/?filter=hosted" Games you’re hosting
-      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=open/))
-        a href="#{games_path}/?filter=open" Open games
-      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=browse/))
-        a href="#{games_path}/?filter=browse" In progress
-      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=completed/))
-        a href="#{games_path}/?filter=completed" Completed
-  - if user_signed_in?
+    .home__intro
+      .copy
+        h2 Welcome to Sembl!
+        p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        p Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      .home__sign-up-block
+        = link_to "Sign up now for free", new_user_registration_path
+  - if user_signed_in? && (current_user.power_user? || current_user.admin?)
     .home__new-game-button-container
       .home__new-game-button-container__inner
         = link_to new_game_path, class: "home__new-game-button" do
           i class="fa fa-gamepad"
           span Create a
           '  new game
+  - if user_signed_in?
+    ul.games-nav.games-nav--user
+      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=participating/) || url_matches?(/^\/$/))
+        a href="#{games_path}/?filter=participating" Games you’re playing
+      - if current_user.power_user? || current_user.admin?
+        li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=hosted/))
+          a href="#{games_path}/?filter=hosted" Games you’re hosting
+      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=user_completed/))
+        a href="#{games_path}/?filter=user_completed" Your completed games
+    ul.games-nav.games-nav--all
+      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=open/))
+        a href="#{games_path}/?filter=open" Open to join
+      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=browse/))
+        a href="#{games_path}/?filter=browse" In progress
+      li.games-nav__item class=("games-nav__item--active" if url_matches?(/filter=completed/))
+        a href="#{games_path}/?filter=completed" Completed
 
   .home__all-games
     h1.home__all-games-heading= games_filter_title(@filter)
-    .home__all-games-container
-      - @games.each do |game|
-        = render partial: "game", locals: {game: game}
+    - if (url_matches?(/filter=participating/) || url_matches?(/^\/$/)) && user_signed_in? && !@games.present?
+      p You haven’t joined any games yet!
+    - else
+      .home__all-games-container
+        - @games.each do |game|
+          = render partial: "game", locals: {game: game}
 
     = paginate @games

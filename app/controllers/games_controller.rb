@@ -9,13 +9,15 @@ class GamesController < ApplicationController
   def index
     filtered_games = case filter_scope
     when :participating
-      Game.participating(current_user)
+      Game.participating(current_user).without_states(:completed)
     when :hosted
       Game.hosted_by(current_user)
     when :browse
       Game.where(invite_only: false).without_states(:open, :joining, :completed)
     when :completed
       Game.where(invite_only: false).with_states(:completed)
+    when :user_completed
+      Game.participating(current_user).with_states(:completed)
     else
       Game.open_to_join.not_stale
     end
