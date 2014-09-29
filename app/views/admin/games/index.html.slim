@@ -13,6 +13,7 @@ header
         th.status Status
         th.created Created
         th.last-activity Last activity
+        th.actions
     tbody
       - @games.each do |game|
         tr
@@ -21,3 +22,6 @@ header
           td.status = (game.invite_only) ? "Invite only" : "Open"
           td.created == game.updated_at.strftime("%d&nbsp;%b&nbsp;%Y")
           td.last-activity = time_ago_in_words game.updated_at
+          td.actions
+            .btn-group
+              = link_to "Delete", admin_game_path(game), class: "btn btn-small btn-danger", method: "delete", confirm: "There is no undo.\n\nAre you sure you want to remove #{game.title}?"
