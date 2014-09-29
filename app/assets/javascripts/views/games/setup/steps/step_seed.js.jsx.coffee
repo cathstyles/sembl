@@ -14,7 +14,7 @@ Checkbox = React.createClass
     className = "setup__steps__seed__#{@props.name}"
     `<div className={className}>
       <label>
-        {this.props.label}      
+        {this.props.label}
         <input type="checkbox" checked={checked} onChange={this.handleChange} />
       </label>
     </div>`
@@ -36,17 +36,17 @@ Checkbox = React.createClass
     $(window).off("#{@galleryPrefix}.thing.click", @handleGalleryClick)
 
   componentDidMount: ->
-    @setSlideViewer()    
+    @setSlideViewer()
 
   setSlideViewer: ->
     seed = @props.seed
-    $(window).trigger('slideViewer.setChild', 
+    $(window).trigger('slideViewer.setChild',
       `<div>
         <div className="slide-viewer__controls">
           <Checkbox name='suggested_seed' label="Suggested seeds" handleChange={this.handleCheckboxChange} />
           <div className="setup__steps__seed__search">
             <label>
-              Search for a seed: 
+              Search for a seed:
               <input name='text' onChange={this.handleInputChange}/>
             </label>
           </div>
@@ -57,7 +57,7 @@ Checkbox = React.createClass
 
   handleCheckboxChange: (name, value) ->
     filter = _.extend({}, @props.filter)
-    filter[name] = 1 if value == true   
+    filter[name] = 1 if value == true
     $(window).trigger("#{this.props.searcherPrefix}.setFilter", filter)
 
   handleInputChange: (event) ->
@@ -65,12 +65,12 @@ Checkbox = React.createClass
     value = event.target.value
     filter = _.extend({}, @props.filter)
     filter[name] = value
-    $.doTimeout('debounce.setup.steps.seed.search.text.change', 200, 
-      => 
-        @setSlideViewer() 
-        $(window).trigger("#{this.props.searcherPrefix}.setFilter", filter)  
+    $.doTimeout('debounce.setup.steps.seed.search.text.change', 200,
+      =>
+        @setSlideViewer()
+        $(window).trigger("#{this.props.searcherPrefix}.setFilter", filter)
     )
-    
+
 
   handleGalleryClick: (event, thing) ->
     $(window).trigger('modal.open', `<StepSeedThingModal selectEvent='setup.steps.seed.select' thing={thing} />`)
@@ -96,7 +96,7 @@ Checkbox = React.createClass
     image_url = seed?.image_admin_url
     seedPlacementClassName = if seed?.id
       "game__placement state-filled"
-    else 
+    else
       "game__placement state-available"
 
     `<div className="setup__steps__seed">

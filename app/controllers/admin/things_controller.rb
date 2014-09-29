@@ -41,13 +41,13 @@ protected
 
   def thing_params
     params.require(:thing).permit(
-      :title, 
-      :description, 
+      :title,
+      :description,
       :image,
-      :suggested_seed, 
+      :suggested_seed,
       :attribution,
       :copyright,
-      :general_attributes, 
+      :general_attributes,
       :access_via
     )
   end
