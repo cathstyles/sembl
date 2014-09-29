@@ -6,6 +6,10 @@
 {Tooltip} = @Sembl.Components
 Sembl.Games.Gameboard.StatusView = React.createClass
 
+  componentWillMount: ->
+    state = @props.game.get('player')?.state
+    if state is 'rating' then @handleContinueRating()
+
   handleEndTurn: ->
     @props.handleEndTurn()
 
