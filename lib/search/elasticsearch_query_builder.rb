@@ -42,7 +42,7 @@ class Search::ElasticsearchQueryBuilder
 
   def match_or_missing(field, value)
     filters = [
-      { 
+      {
         missing: {
           field: field,
           existence: true,
@@ -63,15 +63,15 @@ class Search::ElasticsearchQueryBuilder
       }
     }
   end
-  
+
   def query
     @query
   end
-  
+
   private
-  
+
   def filter(query, filter)
-    if query 
+    if query
       {
         filtered: {
           query: query,
@@ -83,4 +83,3 @@ class Search::ElasticsearchQueryBuilder
     end
   end
 end
-

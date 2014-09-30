@@ -1,5 +1,5 @@
 class Search::ThingQuery
-  attr_accessor :text, :place_filter, :access_filter, :date_from, :date_to, 
+  attr_accessor :text, :place_filter, :access_filter, :date_from, :date_to,
     :created_to, :random_seed, :offset, :limit, :suggested_seed,
     :exclude_sensitive, :exclude_mature
 

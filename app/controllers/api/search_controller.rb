@@ -6,7 +6,6 @@ class Api::SearchController < ApiController
       user = User.find_by_email(search_params[:email])
       render partial: "user", locals: {users: user ? [user] : []}
     else
-      
       result = Services.search_service.search(Thing, Search::ThingQuery.new(search_params))
       @things = result[:hits]
       @total = result[:total]
@@ -21,7 +20,7 @@ class Api::SearchController < ApiController
       :type, :email,
       :game_id,
       :text, :place_filter, :access_filter, :date_from, :date_to, :created_to, :random_seed,
-      :offset, 
+      :offset,
       :limit,
       :suggested_seed,
       :exclude_sensitive, :exclude_mature

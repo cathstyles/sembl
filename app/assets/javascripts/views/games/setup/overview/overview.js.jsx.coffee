@@ -37,15 +37,15 @@
     filter = @props.filter
     boardTitle = board.get('title')
 
-    editLink = (stepName, text) => 
-      handleClick = (ev) => 
+    editLink = (stepName, text) =>
+      handleClick = (ev) =>
         @handleEdit(stepName); ev.preventDefault()
       `<a href="#" onClick={handleClick}>{text ? text : "Edit"}</a>`
 
     # TODO add invitation step, but only once the user has saved the game
     queryFilterParts = []
     checkboxFilterParts = []
-    if filter 
+    if filter
       console.log 'filter!', filter
       showQuery = (query) -> `<span className="setup__overview__filter__query">{query}</span>`
       if filter.text && filter.text != "*"
@@ -57,11 +57,9 @@
 
       if filter.exclude_mature
         checkboxFilterParts.push `<li className="setup__overview__filters-list-item">Mature content is excluded.</li>`
-      if filter.exclude_sensitive 
+      if filter.exclude_sensitive
         checkboxFilterParts.push `<li className="setup__overview__filters-list-item">Sensitive content is excluded.</li>`
 
-    console.log 'checkboxFilterParts', checkboxFilterParts
-        
     filterComponent = if queryFilterParts.length > 0 || checkboxFilterParts.length > 0
       queryFilter = if queryFilterParts.length > 0
         `<div>Images {queryFilterParts}.</div>`
@@ -82,7 +80,7 @@
       </div>`
 
     {invite_only, uploads_allowed} = @props.settings
-    settingsComponent = 
+    settingsComponent =
       `<ul className="setup__overview__settings-list">
         <li className="setup__overview__settings-list-item">
           {invite_only ? 'Game is invite only' : 'Anyone may join game'}
@@ -99,7 +97,7 @@
     if playerComponents.length == 0
       playerComponents = if invite_only
           "No players have been invited to this game"
-        else 
+        else
           "No players have joined this game"
 
     `<div className="setup__overview">
@@ -134,11 +132,9 @@
         </div>
         <OverviewActions status={status} />
       </div>
-      
+
       <div className="setup__overview__board">
         <div className="setup__overview__board-heading">Board: <em>{boardTitle} {isDraft ? editLink('board', '(Change)') : null}</em></div>
         <OverviewGraph board={board} seed={seed} isDraft={isDraft} />
       </div>
     </div>`
-
-    

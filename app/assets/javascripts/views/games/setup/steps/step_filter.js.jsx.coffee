@@ -6,7 +6,6 @@
 {ThingModal} = Sembl.Components
 {Gallery} = Sembl.Games
 
-
 Checkbox = React.createClass
   handleChange: (event) ->
     @props.handleChange(@props.name, event.target.checked)
@@ -60,7 +59,6 @@ Checkbox = React.createClass
     $(window).trigger("#{@props.searcherPrefix}.setFilter", filter)
     $(window).trigger('setup.steps.change', {filter: filter})
 
-  
   isValid: ->
     @state.totalImages > 0
 
@@ -69,7 +67,6 @@ Checkbox = React.createClass
     filterText = if (!filter.text || filter.text == "*") then null else filter.text
     {exclude_mature, exclude_sensitive} = filter
 
-        
     availableText = (if @state.totalImages? then @state.totalImages else "These") + " images will be available:"
 
     `<div className="setup__steps__filters">
@@ -90,9 +87,9 @@ Checkbox = React.createClass
       </div>
       <Checkbox name='exclude_mature' checked={exclude_mature} label="Exclude mature content" handleChange={this.handleCheckboxChange} />
       <Checkbox name='exclude_sensitive' checked={exclude_sensitive} label="Exclude culturally sensitive content" handleChange={this.handleCheckboxChange} />
-    
+
       <div className="setup__steps__filters__available">{availableText}</div>
-      
+
       <div className="setup__steps__filters__gallery">
         <Gallery searcherPrefix={this.props.searcherPrefix} eventPrefix={this.galleryPrefix} />
       </div>

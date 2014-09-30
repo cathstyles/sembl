@@ -3,7 +3,7 @@ class Search::ElasticSearchService
 
   def initialize(client_config={})
     @client_config = client_config
-  end 
+  end
 
   def index(object)
     type = object.class.name.downcase

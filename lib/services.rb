@@ -10,7 +10,7 @@ class Services
         @search_service ||= Services::StubSearchService.new
       end
     end
-    
+
     def search_service=(service)
       @search_service = service
     end
@@ -28,4 +28,3 @@ class Services
     end
   end
 end
-  
