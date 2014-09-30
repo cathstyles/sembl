@@ -32,7 +32,8 @@
         - game.players.without_states(:draft).each do |player|
           - if player.user.present?
             .game-individual__player
-              .game-individual__details #{player.user.profile.name} is #{player_state_message(player)}
+              - if player.user.profile.present?
+                .game-individual__details #{player.user.profile.display_name} is #{player_state_message(player)}
               .game-individual__avatar
                 - if player.user.profile.avatar.present?
                   = image_tag player.user.profile.avatar.try(:thumb).try(:url)

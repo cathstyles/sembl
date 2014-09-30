@@ -6,6 +6,10 @@ class Profile < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   def display_name
-    self.name || self.user.email
+    if self.name.present?
+      self.name
+    else
+      self.user.email[0]
+    end
   end
 end
