@@ -29,11 +29,12 @@
             = game.description
     - if game.players.present?
       .game-individual__players
-        - game.players.each do |player|
+        - game.players.without_states(:draft).each do |player|
           - if player.user.present?
-            - if player.user.profile.avatar.present?
-              .game-individual__player
-                = image_tag player.user.profile.avatar.try(:thumb).try(:url)
-            - else
-              .game-individual__player
-                span= user_initials player.user
+            .game-individual__player
+              .game-individual__details #{player.user.profile.name} is #{player_state_message(player)}
+              .game-individual__avatar
+                - if player.user.profile.avatar.present?
+                  = image_tag player.user.profile.avatar.try(:thumb).try(:url)
+                - else
+                  span= user_initials player.user

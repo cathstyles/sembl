@@ -169,20 +169,26 @@
 }
 
 .game-individual__player {
+  float: right;
+  height: 34px;
+  margin-left: 4px;
+  position: relative;
+  width: 34px;
+}
+.game-individual__avatar {
   @extend %white-drop-shadow;
   @include font-size(12);
   background-color: $subtle-highlight;
   border-radius: 50%;
   border: 2px solid $border-color;
   box-shadow: 0 0 3px 3px rgba(#fff,.4);
-  display: block;
   color: $border-color;
+  cursor: pointer;
+  display: block;
   font-weight: 500;
   height: 34px;
   overflow: hidden;
   width: 34px;
-  margin-left: 4px;
-  float: right;
   img {
     border: none;
     border-radius: 50%;
@@ -193,6 +199,44 @@
     display: block;
     padding-top: 9px;
     text-align: center;
+  }
+}
+
+.game-individual__details {
+  @include font-size(13);
+  background-color: $highlight-color;
+  border-radius: 3px;
+  bottom: 120%;
+  color: #fff;
+  left: 50%;
+  margin-left: -50px;
+  opacity: 0;
+  padding: 7px 10px 10px;
+  position: absolute;
+  pointer-events: none;
+  text-align: center;
+  transform: translate3d(0, 30px, 0);
+  transition: all 100ms;
+  width: 100px;
+  z-index: 1;
+  display: none\9;
+  &:after {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-top-color: $highlight-color;
+    border-width: 6px;
+    margin-left: -6px;
+  }
+  .game-individual__player:hover & {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    display: block\9;
   }
 }
 

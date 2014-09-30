@@ -68,4 +68,19 @@ module GameHelper
     end.join('')
   end
 
+  def player_state_message(player)
+    case player.state
+    when :playing_turn
+      "playing their turn"
+    when :rating
+      "rating sembls"
+    when :invited
+      "invited"
+    when :finished
+      "finished"
+    else
+      "waiting"
+    end
+  end
+
 end
