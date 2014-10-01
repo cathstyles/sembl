@@ -287,7 +287,8 @@ input.setup__steps__title__input {
 }
 
 .setup__steps__filter__exclude_mature,
-.setup__steps__filter__exclude_sensitive {
+.setup__steps__filter__exclude_sensitive,
+.setup__steps__filter__include_user_contributed {
   @include pad(horz, smaller);
   border-top: 1px solid $border-color;
   text-align: left;
