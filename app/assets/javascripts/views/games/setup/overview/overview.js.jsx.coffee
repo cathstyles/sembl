@@ -64,6 +64,8 @@
     filterComponent = if queryFilterParts.length > 0 || checkboxFilterParts.length > 0
       queryFilter = if queryFilterParts.length > 0
         `<div>Images {queryFilterParts}.</div>`
+      else
+        `<span>All images are available</span>`
 
       `<div className="setup__overview__filter">
         <span className="setup__overview__item-title">Filters:</span> {isDraft ? editLink('filter') : null}
