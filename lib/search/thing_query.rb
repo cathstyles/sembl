@@ -1,7 +1,7 @@
 class Search::ThingQuery
   attr_accessor :text, :place_filter, :access_filter, :date_from, :date_to,
-    :created_to, :random_seed, :offset, :limit, :suggested_seed,
-    :exclude_sensitive, :exclude_mature
+    :created_to, :random_seed, :offset, :limit, :suggested_seed, :game_id,
+    :exclude_sensitive, :exclude_mature, :include_user_contributed
 
   def initialize(params)
     @text = params[:text] || "*"
@@ -15,6 +15,7 @@ class Search::ThingQuery
     @game_id = Integer(params[:game_id])                      if params[:game_id]
     @exclude_mature = Integer(params[:exclude_mature])        if params[:exclude_mature]
     @exclude_sensitive = Integer(params[:exclude_sensitive])  if params[:exclude_sensitive]
+    @include_user_contributed = Integer(params[:include_user_contributed]) if params[:include_user_contributed]
     @offset = (Integer(params[:offset])                       if params[:offset]) || 0
     @limit = (Integer(params[:limit])                         if params[:limit]) || 10
 
@@ -30,6 +31,11 @@ class Search::ThingQuery
     query_builder.match_or_missing(:game_id, @game_id)
     query_builder.match(:mature, false) if exclude_mature == 1
     query_builder.match(:sensitive, false) if exclude_sensitive == 1
+    if include_user_contributed == 1
+      query_builder.match_any(:user_contributed, [true, false])
+    else
+      query_builder.match(:user_contributed, false)
+    end
     query_builder.match(:suggested_seed, true) if suggested_seed == 1
     query_builder.range(@date_field, date_from, date_to) unless !(date_from || date_to)
     query_builder.range(:created_at, nil, created_to) unless !created_to
@@ -51,6 +57,7 @@ class Search::ThingQuery
       json.random_seed random_seed.to_s unless not random_seed
       json.exclude_mature exclude_mature unless not exclude_mature
       json.exclude_sensitive exclude_sensitive unless not exclude_sensitive
+      json.include_user_contributed include_user_contributed if include_user_contributed
     end
   end
 end

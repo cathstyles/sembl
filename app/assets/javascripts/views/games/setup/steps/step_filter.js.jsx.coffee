@@ -65,7 +65,7 @@ Checkbox = React.createClass
   render: () ->
     filter = this.state.filter;
     filterText = if (!filter.text || filter.text == "*") then null else filter.text
-    {exclude_mature, exclude_sensitive} = filter
+    {exclude_mature, exclude_sensitive, include_user_contributed} = filter
 
     availableText = (if @state.totalImages? then @state.totalImages else "These") + " images will be available:"
 
@@ -87,6 +87,7 @@ Checkbox = React.createClass
       </div>
       <Checkbox name='exclude_mature' checked={exclude_mature} label="Exclude mature content" handleChange={this.handleCheckboxChange} />
       <Checkbox name='exclude_sensitive' checked={exclude_sensitive} label="Exclude culturally sensitive content" handleChange={this.handleCheckboxChange} />
+      <Checkbox name='include_user_contributed' checked={include_user_contributed} label="Include user contributed content" handleChange={this.handleCheckboxChange} />
 
       <div className="setup__steps__filters__available">{availableText}</div>
 

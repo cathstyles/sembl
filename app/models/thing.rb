@@ -39,11 +39,26 @@ class Thing < ActiveRecord::Base
     Thing.distinct.pluck("json_object_keys(json_array_elements(general_attributes))")
   end
 
+  ### Scopes
+
   def self.not_user_uploaded
     where(game_id: nil)
   end
 
+  ### Commands
+
+  # Return JSON serialization needed for the kind of search queries we use.
+  def as_indexed_json(options={})
+    as_json(options).merge({"user_contributed" => user_contributed?})
+  end
+
   def add_to_search_index
     Services.search_service.index(self)
+  end
+
+  ### Predicates
+
+  def user_contributed?
+    game_id.present?
   end
 end

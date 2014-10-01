@@ -16,14 +16,14 @@ class Api::SearchController < ApiController
   private
 
   def search_params
-    @search_params ||= params.permit(
+    params.permit(
       :type, :email,
       :game_id,
       :text, :place_filter, :access_filter, :date_from, :date_to, :created_to, :random_seed,
       :offset,
       :limit,
       :suggested_seed,
-      :exclude_sensitive, :exclude_mature
+      :exclude_sensitive, :exclude_mature, :include_user_contributed
     ).delete_if do |k,v|
       v.strip.empty?
     end

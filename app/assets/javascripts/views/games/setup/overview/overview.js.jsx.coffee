@@ -59,6 +59,8 @@
         checkboxFilterParts.push `<li className="setup__overview__filters-list-item">Mature content is excluded.</li>`
       if filter.exclude_sensitive
         checkboxFilterParts.push `<li className="setup__overview__filters-list-item">Sensitive content is excluded.</li>`
+      if filter.include_user_contributed
+        checkboxFilterParts.push `<li className="setup__overview__filters-list-item">User-contributed content is included.</li>`
 
     filterComponent = if queryFilterParts.length > 0 || checkboxFilterParts.length > 0
       queryFilter = if queryFilterParts.length > 0

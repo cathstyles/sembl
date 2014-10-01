@@ -24,6 +24,20 @@ class Search::ElasticsearchQueryBuilder
     }
   end
 
+  def match_any(field, values=[])
+    filters = values.map { |value|
+      {
+          term: {field => value }
+      }
+    }
+
+    @query = filter @query, {
+      bool: {
+        should: filters
+      }
+    }
+  end
+
   def random_order(seed)
     @query = {
       function_score: {

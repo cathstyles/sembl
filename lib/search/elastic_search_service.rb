@@ -7,7 +7,7 @@ class Search::ElasticSearchService
 
   def index(object)
     type = object.class.name.downcase
-    client.index  index: 'sembl', type: type, id: object.id, body: object.to_json
+    client.index  index: 'sembl', type: type, id: object.id, body: object.as_indexed_json.to_json
   end
 
   def search(clazz, search_query)
