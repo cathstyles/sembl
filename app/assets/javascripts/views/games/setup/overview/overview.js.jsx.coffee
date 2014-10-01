@@ -46,7 +46,6 @@
     queryFilterParts = []
     checkboxFilterParts = []
     if filter
-      console.log 'filter!', filter
       showQuery = (query) -> `<span className="setup__overview__filter__query">{query}</span>`
       if filter.text && filter.text != "*"
         queryFilterParts.push `<span>that match {showQuery(filter.text)} </span>`
