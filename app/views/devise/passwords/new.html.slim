@@ -1,8 +1,11 @@
-h2 Forgot your password?
+.header
+  .heading
+    h1 Forgot your password?
 = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
-  = f.error_notification
-  .form-inputs
-    = f.input :email, :required => true, :autofocus => true
-  .form-actions
-    = f.button :submit, "Send me reset password instructions"
+  .sign-in-form
+    = f.error_notification
+    .form-inputs
+      = f.input :email, :required => true, :autofocus => true
+    .form-actions
+      = f.button :submit, "Send reset password email", class: "sign-in-button"
 = render "links"
