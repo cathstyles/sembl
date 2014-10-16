@@ -24,9 +24,9 @@ Without Boxen:
     bundle exec rake db:create # Not for Boxen
     git remote add heroku git@heroku.com:sembl.git
     heroku pgbackups:capture --expire
-    wget `heroku pgbackups:url` -O dump.sql
-    pg_restore --verbose --clean --no-acl --no-owner -h localhost -d sembl_development < dump.sql
-    rm dump.sql
+    curl `heroku pgbackups:url` -o sembl_production_data.dump
+    pg_restore --verbose --clean --no-acl --no-owner -h localhost -d sembl_development < sembl_production_data.dump
+    rm sembl_production_data.dump
 
 ### Running
 
