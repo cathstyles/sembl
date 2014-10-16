@@ -27,8 +27,6 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.6)
-    annotate (2.5.0)
-      rake
     arel (4.0.2)
     asset_sync (1.0.0)
       activemodel
@@ -337,7 +335,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  annotate
   asset_sync
   autoprefixer-rails
   better_errors
