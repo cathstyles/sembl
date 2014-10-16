@@ -83,4 +83,13 @@ module GameHelper
     end
   end
 
+  def game_players_as_summarised_list_of_names(game, current_player=nil)
+    # Remove the current player (if specified)
+    all_names = (game.players - [current_player]).map(&:name).reject(&:blank?).shuffle
+
+    # We only want to return a list of 3 things, either all the names, or 2 names and "the others"
+    summarised_names = all_names.length > 3 ? all_names[0..1] + ["the others"] : all_names
+
+    summarised_names.to_sentence
+  end
 end

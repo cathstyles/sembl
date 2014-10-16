@@ -18,6 +18,7 @@ class Player < ActiveRecord::Base
   belongs_to :user
 
   after_create :allocate_first_node
+  before_save :set_state_changed_at
   after_destroy :remove_node_allocation
 
   validates :user_id, uniqueness: {scope: :game_id}, allow_nil: true
@@ -33,11 +34,12 @@ class Player < ActiveRecord::Base
   state_machine initial: :draft do
     after_transition :playing_turn => :waiting, do: :check_turn_completion
     after_transition :rating => :waiting, do: :check_rating_completion
-    after_transition :draft => any, do: :send_invitation
+    after_transition :draft => any, do: :deliver_invitation
     after_transition [:invited, :draft] => :playing_turn, do: :allocate_first_node
     after_transition any => :playing_turn do |player, transition|
       player.begin_move
     end
+    after_transition any => any, do: :reset_reminder_count_for_state
 
     event :invite do
       transition :draft => :playing_turn,
@@ -94,8 +96,43 @@ class Player < ActiveRecord::Base
     end
   end
 
+  delegate \
+    :avatar,
+    :bio,
+    :name,
+    to: :user
+
   def self.playing
     without_states(:draft, :invited)
+  end
+
+  def self.requiring_invitation_reminder
+    with_states(:invited).where("reminder_count_for_state = ? AND state_changed_at < ?", 1, 1.day.ago)
+  end
+
+  def self.requiring_turn_reminder
+    with_states(:playing_turn, :rating).where("
+      (reminder_count_for_state = ? AND state_changed_at < ?) OR
+      (reminder_count_for_state = ? AND state_changed_at < ?) OR
+      (reminder_count_for_state = ? AND state_changed_at < ?)",
+      0, 30.minutes.ago,
+      1, 1.day.ago,
+      2, 2.days.ago
+    )
+  end
+
+  def deliver_invitation
+    increment! :reminder_count_for_state
+    DeliverEmailJob.enqueue("GameMailer", "player_invitation", id)
+  end
+
+  def deliver_invitation_reminder
+    deliver_invitation
+  end
+
+  def deliver_turn_reminder
+    increment! :reminder_count_for_state
+    DeliverEmailJob.enqueue("GameMailer", "player_turn_reminder", id)
   end
 
   #TODO record locking.
@@ -132,12 +169,18 @@ class Player < ActiveRecord::Base
     end
   end
 
-  def send_invitation
-    PlayerMailer.game_invitation(self).deliver
-  end
-
   # Average of all placement scores for game
   def calculate_score
     self.score = Placement.joins(:node).where("nodes.game_id = ? AND creator_id = ? AND score IS NOT NULL", game.id, user.id).average(:score)
+  end
+
+  private
+
+  def set_state_changed_at
+    self.state_changed_at = Time.current if state_changed?
+  end
+
+  def reset_reminder_count_for_state
+    update reminder_count_for_state: 0
   end
 end

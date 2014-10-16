@@ -55,6 +55,7 @@ class Game < ActiveRecord::Base
   default_scope order('created_at DESC')
 
   before_create :generate_random_seed
+  before_save :set_state_changed_at
 
   # Convenience methods for persisting the seed_thing_id when there are validation errors.
   attr_accessor :seed_thing_id
@@ -67,11 +68,14 @@ class Game < ActiveRecord::Base
   state_machine initial: :draft do
     after_transition :draft => :open, do: :remove_draft_players
     after_transition :draft => :playing, do: :invite_players
+    after_transition [:draft, :open, :joining] => :playing, do: :deliver_game_started_notifications
     after_transition :rating => :playing, do: :increment_round
     before_transition :rating => [:playing, :completed], do: :calculate_scores
     after_transition :playing => :rating, do: :players_begin_rating
     after_transition :rating => :playing, do: :players_begin_playing
     after_transition :rating => :completed, do: :players_finish_playing
+    after_transition :rating => :completed, do: :deliver_game_completed_notifications
+    after_transition any => any, do: :reset_reminder_count_for_state
 
     event :publish do
       transition :draft => :open, if: lambda { |game| !game.invite_only }
@@ -137,6 +141,16 @@ class Game < ActiveRecord::Base
 
   def self.not_stale
     where(stale: false)
+  end
+
+  def self.requiring_stale_and_incomplete_player_set_notification
+    with_states(:open, :joining).
+      where(reminder_count_for_state: 0).
+      where("
+        (number_of_players >= ? AND number_of_players <= ? AND state_changed_at < ?) OR
+        (number_of_players > ? AND state_changed_at < ?)",
+        3, 6, 2.days.ago,
+        6,    3.days.ago)
   end
 
   # == Helpers
@@ -333,6 +347,27 @@ class Game < ActiveRecord::Base
     end
   end
 
+  ### Commands
+
+  def deliver_game_started_notifications
+    players.each do |player|
+      DeliverEmailJob.enqueue("GameMailer", "game_started", player.id)
+    end
+  end
+
+  def deliver_game_completed_notifications
+    players.each do |player|
+      DeliverEmailJob.enqueue("GameMailer", "game_completed", player.id)
+    end
+  end
+
+  def deliver_stale_and_incomplete_player_set_notifications
+    increment! :reminder_count_for_state
+
+    players.each do |player|
+      DeliverEmailJob.enqueue("GameMailer", "game_stale_and_incomplete_player_set", player.id)
+    end
+  end
 
   private
 
@@ -340,4 +375,11 @@ class Game < ActiveRecord::Base
       self.random_seed = SecureRandom.random_number(2147483646)
     end
 
+    def set_state_changed_at
+      self.state_changed_at = Time.current if state_changed?
+    end
+
+    def reset_reminder_count_for_state
+      update reminder_count_for_state: 0
+    end
 end

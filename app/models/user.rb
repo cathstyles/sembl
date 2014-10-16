@@ -59,6 +59,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  delegate \
+    :avatar,
+    :bio,
+    :name,
+    to: :profile
+
   def to_s
     email
   end

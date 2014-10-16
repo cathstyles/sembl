@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140828004519) do
+ActiveRecord::Schema.define(version: 20141014031053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,22 +32,24 @@ ActiveRecord::Schema.define(version: 20140828004519) do
 
   create_table "games", force: true do |t|
     t.integer  "board_id"
-    t.string   "title",                                null: false
+    t.string   "title",                                                    null: false
     t.text     "description"
     t.integer  "creator_id"
     t.integer  "updator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "invite_only",          default: false
-    t.boolean  "uploads_allowed",      default: false
+    t.boolean  "invite_only",              default: false
+    t.boolean  "uploads_allowed",          default: false
     t.string   "theme"
-    t.boolean  "allow_keyword_search", default: false
+    t.boolean  "allow_keyword_search",     default: false
     t.string   "state"
-    t.integer  "current_round",        default: 1
+    t.integer  "current_round",            default: 1
     t.integer  "random_seed"
     t.integer  "number_of_players"
     t.json     "filter_content_by"
-    t.boolean  "stale",                default: false
+    t.boolean  "stale",                    default: false
+    t.datetime "state_changed_at",         default: '2014-10-12 22:39:14', null: false
+    t.integer  "reminder_count_for_state", default: 0,                     null: false
   end
 
   add_index "games", ["creator_id"], name: "index_games_on_creator_id", using: :btree
@@ -92,12 +94,14 @@ ActiveRecord::Schema.define(version: 20140828004519) do
   create_table "players", force: true do |t|
     t.integer  "game_id"
     t.integer  "user_id"
-    t.float    "score",      default: 0.0, null: false
+    t.float    "score",                    default: 0.0,                   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",                    null: false
+    t.string   "state",                                                    null: false
     t.string   "email"
     t.string   "move_state"
+    t.datetime "state_changed_at",         default: '2014-10-16 01:05:05', null: false
+    t.integer  "reminder_count_for_state", default: 0,                     null: false
   end
 
   create_table "profiles", force: true do |t|
@@ -105,6 +109,17 @@ ActiveRecord::Schema.define(version: 20140828004519) do
     t.string  "name"
     t.text    "bio"
     t.string  "avatar"
+  end
+
+  create_table "que_jobs", id: false, force: true do |t|
+    t.integer  "priority",    limit: 2, default: 100,                                        null: false
+    t.datetime "run_at",                default: "now()",                                    null: false
+    t.integer  "job_id",      limit: 8, default: "nextval('que_jobs_job_id_seq'::regclass)", null: false
+    t.text     "job_class",                                                                  null: false
+    t.json     "args",                  default: [],                                         null: false
+    t.integer  "error_count",           default: 0,                                          null: false
+    t.text     "last_error"
+    t.text     "queue",                 default: "",                                         null: false
   end
 
   create_table "ratings", force: true do |t|

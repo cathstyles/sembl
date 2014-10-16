@@ -37,14 +37,14 @@ describe Player do
       end
 
       it "transitions to playing_turn on invite if registered user is present" do
-        PlayerMailer.stub(:game_invitation).and_return(double.tap{|d| d.stub(:deliver )})
+        GameMailer.stub(:player_invitation).and_return(double.tap{|d| d.stub(:deliver )})
         player.user = User.new
         player.invite
         player.should be_playing_turn
       end
 
       it "transitions to invited on invite if no registered user is present" do
-        PlayerMailer.stub(:game_invitation).and_return(double.tap{|d| d.stub(:deliver )})
+        GameMailer.stub(:player_invitation).and_return(double.tap{|d| d.stub(:deliver )})
         player.email = 'player@example.com'
         player.invite
         player.should be_invited
@@ -52,7 +52,7 @@ describe Player do
 
       it "sends and email invitation on any state transition" do
         player.email = 'player@example.com'
-        PlayerMailer.should receive(:game_invitation).and_return(double.tap{|d| d.stub(:deliver )})
+        GameMailer.should receive(:player_invitation).and_return(double.tap{|d| d.stub(:deliver )})
         player.invite
       end
 
