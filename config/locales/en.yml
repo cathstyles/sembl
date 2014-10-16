@@ -22,8 +22,19 @@
 en:
   hello: "Hello world"
   game_mailer:
+    game_completed:
+      subject: "Your Sembl game is complete."
+    game_stale_and_incomplete_player_set:
+      subject: "Your Sembl game has gone stale."
+    game_started:
+      subject: "Your Sembl game has started!"
     player_invitation:
       subject: "You have been invited to join a Sembl game."
+    player_turn_reminder:
+      subject: "It's your turn."
+  user_mailer:
+    welcome:
+      subject: "Welcome to Sembl."
 
   activerecord:
     attributes:
