@@ -42,8 +42,7 @@ class Player < ActiveRecord::Base
     after_transition any => any, do: :reset_reminder_count_for_state
 
     event :invite do
-      transition :draft => :playing_turn,
-        if: lambda {|player| player.user.present? }
+      transition :draft => :playing_turn, if: lambda { |player| player.user.present? }
       transition :draft => :invited
     end
 
@@ -52,8 +51,7 @@ class Player < ActiveRecord::Base
     end
 
     event :end_turn do
-      transition :playing_turn => :waiting,
-        if: lambda {|player|  player.move_created? }
+      transition :playing_turn => :waiting, if: lambda { |player| player.move_created? }
     end
 
     event :begin_rating do

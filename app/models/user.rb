@@ -69,6 +69,13 @@ class User < ActiveRecord::Base
     email
   end
 
+
+  def self.roles
+    ROLES
+  end
+
+  private
+
   def join_games
     Player.where(email: email).try(:each) do |player|
       player.user = self
@@ -81,14 +88,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.roles
-    ROLES
+  def create_profile
+    self.profile = Profile.create(user: self)
   end
-
-  private
-
-    def create_profile
-      self.profile = Profile.create(user: self)
-    end
-
 end

@@ -65,7 +65,6 @@
         </div>`
       )
 
-
       inviteComponent = if playerCount < maxPlayerCount
         `<form className="setup__steps__players__invite" onSubmit={this.handleInvite}>
           <label htmlFor="setup__steps__players__invite__input" className="setup__steps__players__invite__label">Enter email address: </label>

@@ -88,7 +88,7 @@ class Game < ActiveRecord::Base
 
     # This happens after a player has successfully been created.
     event :join do
-      transition [:open, :joining] => :joining, if: lambda {|game| game.with_open_places? }
+      transition [:open, :joining] => :joining, if: lambda { |game| game.with_open_places? }
       transition [:joining, :open] => :playing
     end
 
@@ -97,7 +97,7 @@ class Game < ActiveRecord::Base
     end
 
     event :ratings_completed do
-      transition :rating => :completed, if: lambda {|game| game.final_round? }
+      transition :rating => :completed, if: lambda { |game| game.final_round? }
       transition :rating => :playing
     end
 
@@ -173,8 +173,6 @@ class Game < ActiveRecord::Base
       seed_node.try(:final_placement).try(:thing)
     end
   end
-
-
 
   def seed_node
     nodes.where(round: 0).take
