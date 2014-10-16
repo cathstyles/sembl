@@ -20,6 +20,11 @@
         / | Edit
 
   = simple_form_for @profile, html: {class: "profile__edit-form"} do |f|
+    / If the user is setting up their profile after having been invited to a
+    / particular game, pass the game ID along so that we can take them
+    / straight to the game board afterward.
+    = hidden_field_tag :for_game, params[:for_game]
+
     div.profile__meta-data
       = f.input :name, label: "Name"
       = f.input :bio, label: "Bio", as: :text, placeholder: "Tell us a little about yourself"

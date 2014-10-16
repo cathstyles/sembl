@@ -10,6 +10,11 @@
 = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name, :email => params[:email])) do |f|
   .sign-up-form
     = f.error_notification
+
+    / If the user has been invited to a particular game, pass the game ID
+    / along so that we can take them straight to the game board later.
+    = hidden_field_tag :for_game, params[:for_game]
+
     .form-inputs
       - if params[:email].present?
         = f.label :email, :required => true

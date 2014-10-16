@@ -25,7 +25,7 @@ class ProfilesController < ApplicationController
       sign_in(@profile.user, :bypass => true)
     end
 
-    respond_with @profile, location: root_path
+    respond_with @profile, location: params[:for_game].present? ? game_path(params[:for_game]) : root_path
   end
 
   private
