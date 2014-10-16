@@ -19,7 +19,10 @@
 
   p
     ' Board:
-    = link_to @game.board.title, edit_admin_board_path(@game.board)
+    - if @game.board
+      = link_to @game.board.title, edit_admin_board_path(@game.board)
+    - else
+      em No board
 
   .form-actions
     = form.button :submit, class: "btn-primary"

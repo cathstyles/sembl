@@ -18,7 +18,7 @@ header
       - @games.each do |game|
         tr
           td.title = link_to game.title, edit_admin_game_path(game)
-          td.board = game.board.title
+          td.board = game.board.try(:title)
           td.status = (game.invite_only) ? "Invite only" : "Open"
           td.created == game.updated_at.strftime("%d&nbsp;%b&nbsp;%Y")
           td.last-activity = time_ago_in_words game.updated_at
