@@ -1,4 +1,8 @@
+# Game reminder emails
 #
+# Some game reminder emails are sent after it sits in various states for too
+# long. See the `state_changed_at` and `reminder_count_for_state` attributes
+# for how these reminders are handled.
 
 # == States
 #   draft:     Will not be published

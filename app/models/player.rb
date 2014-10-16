@@ -1,3 +1,9 @@
+# Player reminder emails
+#
+# Some player reminder emails are sent after it sits in various states for too
+# long. See the `state_changed_at` and `reminder_count_for_state` attributes
+# for how these reminders are handled.
+
 class Player < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
