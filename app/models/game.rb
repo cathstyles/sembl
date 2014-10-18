@@ -131,7 +131,7 @@ class Game < ActiveRecord::Base
       where("
         (number_of_players >= ? AND number_of_players <= ? AND state_changed_at < ?) OR
         (number_of_players > ? AND state_changed_at < ?)",
-        3, 6, 2.days.ago,
+        3, 6, 3.days.ago,
         6,    3.days.ago)
   end
 
