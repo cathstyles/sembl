@@ -104,9 +104,10 @@ class Player < ActiveRecord::Base
       (reminder_count_for_state = ? AND state_changed_at < ?) OR
       (reminder_count_for_state = ? AND state_changed_at < ?) OR
       (reminder_count_for_state = ? AND state_changed_at < ?)",
-      0, 30.minutes.ago,
+      0, 4.hours.ago,
       1, 1.day.ago,
-      2, 2.days.ago
+      2, 2.days.ago,
+      3, 7.days.ago
     )
   end
 

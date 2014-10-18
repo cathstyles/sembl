@@ -1,35 +1,23 @@
 <% if @player.playing_turn? -%>
 <% if @player.reminder_count_for_state == 1 -%>
-It's now Round <%= @game.current_round %> in the game '<%= @game.title %>'.
-
-Go make some moves.
+It's now Round <%= @game.current_round %> in the game '<%= @game.title %>'. Go make some moves.
 <% elsif @player.reminder_count_for_state == 2 -%>
-Your move! It's Round <%= @game.current_round %> in '<%= @game.title %>', and <%= game_players_as_summarised_list_of_names(@game, @player) %> <%= @game.players.count > 2 ? "are" : "is" %> waiting for you.
-
-Play!
-<% elsif @player.reminder_count_for_state == 3 -%>
-Your move! It's Round <%= @game.current_round %> in '<%= @game.title %>', and <%= game_players_as_summarised_list_of_names(@game, @player) %> <%= @game.players.count > 2 ? "are" : "is" %> still waiting for you.
-
-Play! Play! Play!
+Your move! It's Round <%= @game.current_round %> in '<%= @game.title %>', and <%= game_players_as_summarised_list_of_names(@game, @player) %> <%= @game.players.count > 2 ? "are" : "is" %> waiting for you. Play!
+<% elsif @player.reminder_count_for_state >= 3 -%>
+Your move! It's Round <%= @game.current_round %> in '<%= @game.title %>', and <%= game_players_as_summarised_list_of_names(@game, @player) %> <%= @game.players.count > 2 ? "are" : "is" %> still waiting for you. Play! Play! Play!
 <% end -%>
 <% elsif @player.rating? -%>
 <% if @player.reminder_count_for_state == 1 -%>
-It's time to rate the sembls from Round [x] of '<%= @game.title %>'.
-
-Go rate 'em!
+It's time to rate the sembls from Round [x] of '<%= @game.title %>'. Go rate 'em!
 <% elsif @player.reminder_count_for_state == 2 -%>
-<%= game_players_as_summarised_list_of_names(@game, @player) %> <%= @game.players.count > 2 ? "are" : "is" %> patiently waiting for you to rate their sembls in the game '<%= @game.title %>'.
-
-Rate 'em!
-<% elsif @player.reminder_count_for_state == 3 -%>
-<%= game_players_as_summarised_list_of_names(@game, @player) %> <%= @game.players.count > 2 ? "are" : "is" %> are waiting for you to rate their sembls in the game '<%= @game.title %>'.
-
-Rate those sembls, g'on!
+<%= game_players_as_summarised_list_of_names(@game, @player) %> <%= @game.players.count > 2 ? "are" : "is" %> patiently waiting for you to rate their sembls in the game '<%= @game.title %>'. Rate 'em!
+<% elsif @player.reminder_count_for_state >= 3 -%>
+<%= game_players_as_summarised_list_of_names(@game, @player) %> <%= @game.players.count > 2 ? "are" : "is" %> are waiting for you to rate their sembls in the game '<%= @game.title %>'. Rate those sembls, g'on!
 <% end -%>
 <% end -%>
 
 <%= game_url(@game) %>
 
-<% if @player.reminder_count_for_state == 3 -%>
-We don't want to bombard you with reminders so this is the last one you will receive. If you don't return to the game in seven days – sadface! – it will disappear, pouf.
+<% if @player.reminder_count_for_state > 3 -%>
+This is the last reminder you will receive. If you don't return to the game in seven days – sadface! – it will disappear, pouf.
 <% end -%>
