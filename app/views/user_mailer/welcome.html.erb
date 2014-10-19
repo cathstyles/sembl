@@ -172,7 +172,7 @@
             <table border="0" cellpadding="0" cellspacing="0" align="left" class="deviceWidth">
                 <tr>
                     <td class="center" valign="top">
-                      <img src="<%= image_url('mailer/sembl-logo.jpg')%>" width="151" height="58" alt="" border="0" style="display: inline-block" />
+                      <img src="sembl-logo.jpg" width="151" height="58" alt="" border="0" style="display: inline-block" />
                     </td>
                 </tr>
             </table><!-- End Logo -->
@@ -189,47 +189,11 @@
         <tr>
           <td style="vertical-align: top;" bgcolor="#FCF5E6" valign="top">
 
-<!--
-            p
-              = "You have been invited by #{@game.creator.email} to join a game on Sembl."
+            <h1>Welcome, novice Sembler!</h1>
+            <h2>Feel free to [link: ask a question or leave a comment], and we'll respond as best we can.</h2>
+            <h2>Cheerios,</h2>
+            <h2>Sembl</h2>
 
-          - if @existing_user
-            p
-              = link_to "Join the game", game_url(@game, only_path: false)
-          - else
-            p
-              = link_to "Join the game on sembl", new_user_registration_url(only_path: false, :email => @email)
- -->
-
-            <h1>Hola, intrepid Sembler</h1>
-            <h2>You have been invited by <%= @game.creator.email %> to join a game on Sembl.</h2>
-
-          </td>
-        </tr>
-
-        <tr><td bgcolor="#FCF5E6" valign="top" height="25"></td></tr>
-
-        <tr>
-          <td class="center" style="vertical-align: top;" bgcolor="#FCF5E6" valign="top" >
-            <% if @existing_user %>
-              <%= link_to game_url(@game, only_path: false) do %>
-                <img src="<%= image_url('mailer/play-button.jpg')%>" width="133" height="49" />
-              <% end %>
-            <% else %>
-              <%= link_to new_user_registration_url(only_path: false, :email => @email) do %>
-                <img src="<%= image_url('mailer/play-button.jpg')%>" width="133" height="49" />
-              <% end %>
-            <% end %>
-          </td>
-        </tr>
-
-        <tr><td bgcolor="#FCF5E6" valign="top" height="35">&nbsp;</td></tr>
-
-        <tr>
-          <td style="vertical-align: top;" bgcolor="#FCF5E6" valign="top">
-            <p>If you need to, you may also <a href="/">decline</a> the invitation – we’ll let Max Wheeler know to invite someone else – and hopefully we’ll see you another time.</p>
-            <p>Regards,</p>
-            <p>- Sembl</p>
           </td>
         </tr>
 
@@ -245,7 +209,7 @@
 
         <tr>
           <td style="vertical-align: top;" bgcolor="#FCF5E6" valign="top" align="center">
-            <p class="details">If you have any questions, don’t hesitate to contact us at <a href="mailto:info@sembl.com">info@sembl.com</a></p>
+            <p class="details">If you have any questions, don’t hesitate to contact us at <a href="mailto:feedback@sembl.com">info@sembl.com</a></p>
           </td>
         </tr>
 

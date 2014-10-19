@@ -23,15 +23,15 @@ en:
   hello: "Hello world"
   game_mailer:
     game_completed:
-      subject: "Your Sembl game is complete."
+      subject: "Sembl – game over!"
     game_stale_and_incomplete_player_set:
-      subject: "Your Sembl game has gone stale."
+      subject: "Sembl – your game needs more players"
     game_started:
-      subject: "Your Sembl game has started!"
+      subject: "Sembl – your game has started!"
     player_invitation:
-      subject: "You have been invited to join a Sembl game."
+      subject: "Sembl – you have been invited to join a game."
     player_turn_reminder:
-      subject: "It's your turn."
+      subject: "Sembl – it's your turn."
   user_mailer:
     welcome:
       subject: "Welcome to Sembl."

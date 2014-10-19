@@ -190,7 +190,7 @@
           <td style="vertical-align: top;" bgcolor="#FCF5E6" valign="top">
 
             <h1>Hola, intrepid Sembler</h1>
-            <h2>The game '[game name]' has begun! Come and [link: make your first move].</h2>
+            <h2>The game '<%= @game.title %>' has begun! Come and make your first move:</h2>
 
           </td>
         </tr>
@@ -199,17 +199,9 @@
 
         <tr>
           <td class="center" style="vertical-align: top;" bgcolor="#FCF5E6" valign="top" >
-            <a href="/"><img src="play-button.jpg" width="133" height="49" alt="Play!" border="0" style="display: inline-block;" /></a>
-          </td>
-        </tr>
-
-        <tr><td bgcolor="#FCF5E6" valign="top" height="35">&nbsp;</td></tr>
-
-        <tr>
-          <td style="vertical-align: top;" bgcolor="#FCF5E6" valign="top">
-            <p>If you need to, you may also <a href="/">decline</a> the invitation – we’ll let Max Wheeler know to invite someone else – and hopefully we’ll see you another time.</p>
-            <p>Regards,</p>
-            <p>- Sembl</p>
+            <a href="<%= game_url(@game) %>" style="border:none;">
+              <img src="play-button.jpg" width="133" height="49" alt="Play!" border="0" style="display: inline-block;" />
+            </a>
           </td>
         </tr>
 
@@ -225,7 +217,7 @@
 
         <tr>
           <td style="vertical-align: top;" bgcolor="#FCF5E6" valign="top" align="center">
-            <p class="details">If you have any questions, don’t hesitate to contact us at <a href="mailto:info@sembl.com">info@sembl.com</a></p>
+            <p class="details">If you have a question, comment or concern, please email <a href="mailto:feedback@sembl.com">feedback@sembl.com</a> or tweet <a href="http://twitter.com/semblnet">@semblnet</a>.</p>
           </td>
         </tr>
 

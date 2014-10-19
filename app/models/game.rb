@@ -1,26 +1,8 @@
-# == Schema Information
+# Game reminder emails
 #
-# Table name: games
-#
-#  id                   :integer          not null, primary key
-#  board_id             :integer
-#  title                :string(255)      not null
-#  description          :text
-#  creator_id           :integer
-#  updator_id           :integer
-#  created_at           :datetime
-#  updated_at           :datetime
-#  invite_only          :boolean          default(FALSE)
-#  uploads_allowed      :boolean          default(FALSE)
-#  theme                :string(255)
-#  allow_keyword_search :boolean          default(FALSE)
-#  state                :string(255)
-#  current_round        :integer          default(1)
-#  random_seed          :integer
-#  number_of_players    :integer
-#  filter_content_by    :json
-#  stale                :boolean
-#
+# Some game reminder emails are sent after it sits in various states for too
+# long. See the `state_changed_at` and `reminder_count_for_state` attributes
+# for how these reminders are handled.
 
 # == States
 #   draft:     Will not be published
@@ -149,7 +131,7 @@ class Game < ActiveRecord::Base
       where("
         (number_of_players >= ? AND number_of_players <= ? AND state_changed_at < ?) OR
         (number_of_players > ? AND state_changed_at < ?)",
-        3, 6, 2.days.ago,
+        3, 6, 3.days.ago,
         6,    3.days.ago)
   end
 

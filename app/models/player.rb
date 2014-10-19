@@ -1,17 +1,8 @@
-# == Schema Information
+# Player reminder emails
 #
-# Table name: players
-#
-#  id         :integer          not null, primary key
-#  game_id    :integer
-#  user_id    :integer
-#  score      :float            default(0.0), not null
-#  created_at :datetime
-#  updated_at :datetime
-#  state      :string(255)      not null
-#  email      :string(255)
-#  move_state :string(255)
-#
+# Some player reminder emails are sent after it sits in various states for too
+# long. See the `state_changed_at` and `reminder_count_for_state` attributes
+# for how these reminders are handled.
 
 class Player < ActiveRecord::Base
   belongs_to :game
@@ -113,9 +104,10 @@ class Player < ActiveRecord::Base
       (reminder_count_for_state = ? AND state_changed_at < ?) OR
       (reminder_count_for_state = ? AND state_changed_at < ?) OR
       (reminder_count_for_state = ? AND state_changed_at < ?)",
-      0, 30.minutes.ago,
+      0, 4.hours.ago,
       1, 1.day.ago,
-      2, 2.days.ago
+      2, 2.days.ago,
+      3, 7.days.ago
     )
   end
 
