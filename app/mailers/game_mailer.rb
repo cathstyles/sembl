@@ -5,7 +5,7 @@ class GameMailer < ActionMailer::Base
   default from: "info@sembl.com"
 
   def player_invitation(player_id)
-    setup player_id_id
+    setup player_id
 
     @existing_user = @player.user.present?
     @email = @player.try(:user).try(:email) || @player.email
