@@ -174,6 +174,7 @@ GEM
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
+    newrelic_rpm (3.9.6.257)
     nio4r (1.0.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
@@ -353,6 +354,7 @@ DEPENDENCIES
   kaminari
   mini_magick
   nestive
+  newrelic_rpm
   nokogiri
   pg
   poltergeist
