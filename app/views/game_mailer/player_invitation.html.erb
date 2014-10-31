@@ -190,10 +190,10 @@
           <td style="vertical-align: top;" bgcolor="#FCF5E6" valign="top">
 
             <% if @player.reminder_count_for_state == 1 -%>
-              <h2><%= @game.creator.name %> has invited you to play a game of Sembl.</h2>
+              <h2>Hello, <%= @game.creator.name %> has invited you to <a href="<%= game_url(@game) %>">play a game</a> of Sembl.</h2>
               <h2>Enjoy!</h2>
             <% else -%>
-              <h2>This is just a reminder that <%= @game.creator.name %> has invited you to play a game of Sembl.</h2>
+              <h2>Hello, this is just a reminder that <%= @game.creator.name %> has invited you to <a href="<%= game_url(@game) %>">play a game</a> of Sembl.</h2>
               <h2>Enjoy!</h2>
             <% end -%>
 
