@@ -205,11 +205,11 @@
         <tr>
           <td class="center" style="vertical-align: top;" bgcolor="#FCF5E6" valign="top" >
             <% if @existing_user %>
-              <%= link_to game_url(@game, only_path: false) do %>
+              <%= link_to game_url(@game) do %>
                 <img src="<%= image_url('mailer/play-button.jpg')%>" width="133" height="49" />
               <% end %>
             <% else %>
-              <%= link_to new_user_registration_url(only_path: false, :email => @email) do %>
+              <%= link_to new_user_registration_url(email: @email, for_game: @game.id) do %>
                 <img src="<%= image_url('mailer/play-button.jpg')%>" width="133" height="49" />
               <% end %>
             <% end %>
