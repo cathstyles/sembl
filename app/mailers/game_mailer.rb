@@ -2,7 +2,7 @@
 class GameMailer < ActionMailer::Base
   helper :game
 
-  default from: "feedback@sembl.com"
+  default from: "feedback@sembl.net"
 
   def player_invitation(player_id)
     setup player_id
