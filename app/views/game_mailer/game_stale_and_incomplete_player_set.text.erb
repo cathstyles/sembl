@@ -7,7 +7,7 @@ So far, <%= @game.players.count %> players have joined the game (including your 
 <% else -%>
 Hola, Sembler.
 
-So far, <%= @game.players.count %> players have joined the open game '[game name]' (including your good self), and to play it, you need <%= @game.number_of_players - @game.players.count %>. Because this game has not reached capacity, it has been removed from the list of open games.
+So far, <%= @game.players.count %> players have joined the open game '<%= @game.title %>' (including your good self), and to play it, you need <%= @game.number_of_players - @game.players.count %>. Because this game has not reached capacity, it has been removed from the list of open games.
 
 No need to worry; the game can still go on! You will see it listed under 'Games you're playing', and you can invite others to join you by sending them a link:
 <% end -%>
