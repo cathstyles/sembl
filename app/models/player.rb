@@ -103,6 +103,7 @@ class Player < ActiveRecord::Base
     with_states(:playing_turn, :rating).where("
       (reminder_count_for_state = ? AND state_changed_at < ?) OR
       (reminder_count_for_state = ? AND state_changed_at < ?) OR
+      (reminder_count_for_state = ? AND state_changed_at < ?) OR
       (reminder_count_for_state = ? AND state_changed_at < ?)",
       0, 4.hours.ago,
       1, 1.day.ago,
