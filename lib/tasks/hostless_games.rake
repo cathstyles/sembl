@@ -69,6 +69,7 @@ def update_seed_thing(game, thing)
 end
 
 def joined_expiry_time_for_game(game)
+  return Time.now unless game.board.present?
   expiry_in_hours = HOSTLESS_JOINED_STALE_TIMES.find { |t| t[:players] == game.board.try(:number_of_players) }[:hours] || 3
   Time.now - (expiry_in_hours * 60 * 60)
 end
