@@ -125,7 +125,8 @@
 @Sembl.Games.Results.PlayerRoundResults = React.createClass
   render: ->
     _this = @
-    playerRoundResults = @props.players.map (player) ->
+    playersSorted = _.sortBy(@props.players.slice(0), (player) -> player.score).reverse()
+    playerRoundResults = playersSorted.map (player) ->
       name = player.user?.name || player.user?.email
       score = Math.floor(player.score * 100)
       user = player.user
@@ -283,7 +284,8 @@
 
     # Group the results into their rounds
     resultsByRound = []
-    for result in @props.results.models
+    sortedResults = _.sortBy(@props.results.models, (result) -> result.get("score")).reverse()
+    for result in sortedResults
       round = false
       resemblances = result.get("resemblances")
       if resemblances.length > 0
