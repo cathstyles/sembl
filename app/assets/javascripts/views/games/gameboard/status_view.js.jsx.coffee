@@ -60,7 +60,11 @@ Sembl.Games.Gameboard.StatusView = React.createClass
       if round == 1
         tooltip = "On the board — nice work! End your turn to let  us know you’re finished."
       else if round == 2
-        tooltip = "If you have made all the moves you want to make, end your turn to let us know you are finished."
+        availableNodes = @nodesForUserState("available")
+        tooltip = if availableNodes?.length > 0
+          "Great! Now fill the other #{if availableNodes.length > 1 then availableNodes.length + ' nodes' else 'node'}"
+        else
+          "If you’re happy with your moves, end your turn to let us know you are finished."
 
   triggerNotice: ->
     player = @props.game.get('player')
@@ -76,6 +80,9 @@ Sembl.Games.Gameboard.StatusView = React.createClass
 
   componentDidMount: ->
     @triggerNotice()
+
+  nodesForUserState: (userState) ->
+    @props.game.nodes.where(user_state: userState)
 
   render: ->
     player = @props.game.get('player')
