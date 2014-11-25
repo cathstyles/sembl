@@ -37,17 +37,22 @@
     e?.preventDefault()
     $(window).trigger "slideViewer.hide"
 
-  handleSetChild: (child) ->
-    @setState child: React.addons.cloneWithProps(child, {})
+  handleSetChild: (data) ->
+    @setState
+      child: React.addons.cloneWithProps(data.child, {})
+      full: if data.full? then data.full else false
+
 
   getInitialState: ->
     hidden: true
     child: null
+    full: false
 
   render: ->
     cx = React.addons.classSet
     className = cx (
       'slide-viewer': true,
+      'slide-viewer--full': @state.full,
       'slide-viewer--active': !@state.hidden,
       'slide-viewer--hidden': @state.hidden
     )

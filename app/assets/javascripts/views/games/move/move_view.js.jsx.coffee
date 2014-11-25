@@ -46,7 +46,7 @@ Gallery = @Sembl.Games.Gallery
 
   componentDidMount: ->
     @$window.trigger('slideViewer.setChild',
-      `<Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />`
+      child: `<Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />`
     )
 
     # Check turn is active
