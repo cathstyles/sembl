@@ -23,6 +23,10 @@ class Thing < ActiveRecord::Base
     where(game_id: nil)
   end
 
+  def self.moderated
+    where(moderated: true)
+  end
+
   ### Commands
 
   # Return JSON serialization needed for the kind of search queries we use.

@@ -48,7 +48,8 @@ protected
       :attribution,
       :copyright,
       :general_attributes,
-      :access_via
+      :access_via,
+      :moderated
     )
   end
 end

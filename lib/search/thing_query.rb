@@ -32,6 +32,7 @@ class Search::ThingQuery
     query_builder.match(:mature, false) if exclude_mature == 1
     query_builder.match(:sensitive, false) if exclude_sensitive == 1
     if include_user_contributed == 1
+      query_builder.match(:moderated, true)
       query_builder.match_any(:user_contributed, [true, false])
     else
       query_builder.match(:user_contributed, false)
