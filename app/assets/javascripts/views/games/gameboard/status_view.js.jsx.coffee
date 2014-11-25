@@ -58,7 +58,7 @@ Sembl.Games.Gameboard.StatusView = React.createClass
     round = @props.game.get('current_round')
     if state is 'playing_turn' and move_state is 'created'
       if round == 1
-        tooltip = "On the board — nice work!"
+        tooltip = "On the board — nice work! End your turn to let  us know you’re finished."
       else if round == 2
         tooltip = "If you have made all the moves you want to make, end your turn to let us know you are finished."
 
