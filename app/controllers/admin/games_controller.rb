@@ -2,7 +2,7 @@ class Admin::GamesController < AdminController
   respond_to :html
 
   def index
-    @games = Game.order("updated_at DESC")
+    @games = Game.not_stale.order("updated_at DESC").page params[:page]
     respond_with :admin, @games
   end
 
