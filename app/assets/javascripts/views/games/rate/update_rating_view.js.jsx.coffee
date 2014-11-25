@@ -25,7 +25,7 @@
 
     result = $.post "#{@props.move.collection.url()}.json", postData, (data) =>
       setData()
-      $(window).trigger('flash.hidden')
+      $(window).trigger('flash.notice', "Rating submitted")
 
     result.fail (response) ->
       responseObj = JSON.parse response.responseText;
