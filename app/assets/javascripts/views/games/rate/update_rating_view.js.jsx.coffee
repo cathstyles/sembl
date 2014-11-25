@@ -47,11 +47,17 @@
     slider.on "set", =>
       @saveRating slider.val()/100
 
+    # So we can drive the rating with Capybara
+    ratingInput = $el.find('.rating__rate__input')
+    ratingInput.on "change", =>
+      @saveRating ratingInput.val()/100
+
     if @props.link.game.get('current_round') == 1
       $(window).trigger('Slide to rate this sembl!')
 
 
   render: ->
     `<div className="rating__rate">
+      <input id="rating__rate__input" className="rating__rate__input hidden" type="text" value="50"/>
       <div className="rating__rate__slider" />
     </div>`
