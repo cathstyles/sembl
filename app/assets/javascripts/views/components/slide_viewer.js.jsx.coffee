@@ -1,3 +1,5 @@
+#= require request_animation_frame
+
 ###* @jsx React.DOM ###
 
 @Sembl.Components.SlideViewer = React.createClass
@@ -26,10 +28,14 @@
       else console.error "slideviewer got event #{name}"
 
   handleShow: ->
-    @setState hidden: false
+    requestAnimationFrame => @setState hidden: false
 
   handleHide: ->
     @setState hidden: true
+
+  doHide: (e) ->
+    e?.preventDefault()
+    $(window).trigger "slideViewer.hide"
 
   handleSetChild: (child) ->
     @setState child: React.addons.cloneWithProps(child, {})
@@ -46,12 +52,12 @@
       'slide-viewer--hidden': @state.hidden
     )
     `<div className={className}>
-      <div className="slide-viewer__inner">
-        <span className="slide-viewer__close-button" onClick={this.handleHide}>
-          <span className="slide-viewer__close-button__inner">
-            <i className="fa fa-times"></i>&nbsp;Hide the gallery
-          </span>
+      <span className="slide-viewer__close-button" onClick={this.doHide}>
+        <span className="slide-viewer__close-button__inner">
+          <i className="fa fa-times"></i>&nbsp;Close
         </span>
+      </span>
+      <div className="slide-viewer__inner">
         {this.state.child}
       </div>
     </div>`

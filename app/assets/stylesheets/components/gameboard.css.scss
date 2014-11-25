@@ -19,7 +19,7 @@
   left: 0;
   position: absolute;
   right: 0;
-  z-index: 10;
+  z-index: 200;
   .body-enter & {
     opacity: 0.01;
     transform: translate(0,100%);

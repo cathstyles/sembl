@@ -1,28 +1,33 @@
 .slide-viewer {
   background-color: $text-color;
   box-shadow: 0 0 100px 0 rgba(#000,.5);
-  width: 100%;
   position: absolute;
   z-index: 180;
+  left: 30%;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 .slide-viewer__inner {
   background-color: $text-color;
-  overflow-x: hidden;
+  height: 100%;
+  overflow-y: scroll;
   width: 100%;
 }
 
 .slide-viewer--active {
-  transition-property: margin-top;
-  transition-duration: 250ms;
-  //margin-top: -135px;
+  transition-property: transform, opacity;
+  transition-duration: 400ms;
+  transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
+  transform: translate(0, 0);
   height: auto;
 }
 
 .slide-viewer--hidden {
-  margin-top: 200px;
   height: 0;
   overflow: hidden;
+  transform: translate(300px, 0);
 }
 
 .slide-viewer__controls {
@@ -85,8 +90,11 @@
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  float: right;
+  position: absolute;
+  right: 100%;
+  top: 20px;
   text-shadow: 1px 1px 1px rgba(#000,.3);
+  width: 96px;
   &:hover {
     background-color: darken($text-color, 5%);
     color: $border-color;

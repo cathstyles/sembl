@@ -32,7 +32,7 @@ class Justifiedlayout
         lineRatio = rowHeight / item.height
         newItem.width = item.width * lineRatio
         newItem.height = rowHeight
-        
+
         # Set up array for each row
         rows[rowIndex] = rows[rowIndex] || {items: []}
 
