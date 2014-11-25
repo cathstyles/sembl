@@ -42,7 +42,32 @@ module FeatureHelpers
     expect(page).to have_content("Signed out successfully")
   end
 
-  def play_turn
+  def create_hostless_game(board, title, seed_thing)
+    game = Game.new(board: board,
+      title: title,
+      description: "A game for #{board.number_of_players} #{'player'.pluralize(board.number_of_players)}, starting with:",
+      seed_thing_id: Thing.last.id,
+      state: "draft")
+    game.copy_nodes_and_links_from_board
+    update_seed_thing(game, seed_thing)
+    game.state = "open"
+    game.save!
+  end
+
+  def update_seed_thing(game, thing)
+    if seed_thing = thing
+      seed_node = game.nodes.detect {|node|
+        node.round == 0 && !node.marked_for_destruction?
+      }
+      return unless seed_node
+      placement = seed_node.placements[0] || seed_node.placements.build
+      placement.assign_attributes(
+        thing: seed_thing
+      )
+    end
+  end
+
+  def play_turn(resemblance_description = "They're, like, so obviously similar")
     expect(page).to have_content "Let's go! Add your first image to begin the game"
     expect(page).to have_css ".state-available"
     find(".state-available").trigger "click"
@@ -57,7 +82,7 @@ module FeatureHelpers
     expect(page).to have_css ".game__resemblance__tip"
     first(".game__resemblance__tip").trigger("click")
     expect(page).to have_content "What’s the resemblance between"
-    fill_in "resemblance-input", with: "Some sembl connection"
+    fill_in "move__resemblance__description", with: resemblance_description
     click_on "Add Sembl"
     expect(page).to have_content "Happy with your move?"
     expect(page).to have_css ".move__actions__button"
