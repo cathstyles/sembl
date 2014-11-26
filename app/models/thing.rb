@@ -41,7 +41,7 @@ class Thing < ActiveRecord::Base
   ### Predicates
 
   def moderator_approved_user_contribution?
-    user_contributed? && moderator_approved
+    !!(user_contributed? && moderator_approved)
   end
 
   def user_contributed?
