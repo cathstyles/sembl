@@ -35,6 +35,7 @@ class Search::ThingQuery
       query_builder.match_any(:moderated, [true, false])
       query_builder.match_any(:user_contributed, [true, false])
     else
+      query_builder.match(:moderated, false)
       query_builder.match(:user_contributed, false)
     end
     query_builder.match(:suggested_seed, true) if suggested_seed == 1
