@@ -13,8 +13,8 @@
   = form.input :suggested_seed, label: "Suggested seed node" do
     = form.check_box :suggested_seed
   - if @thing.user_contributed?
-    = form.input :moderated, label: "Allow thing to be used in all games?" do
-      = form.check_box :moderated
+    = form.input :moderator_approved, label: "Allow thing to be used in all games?" do
+      = form.check_box :moderator_approved
 
   - unless @thing.new_record?
     .control-group

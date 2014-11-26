@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141125225629) do
+ActiveRecord::Schema.define(version: 20141126002824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,7 +171,7 @@ ActiveRecord::Schema.define(version: 20141125225629) do
     t.integer  "game_id"
     t.boolean  "sensitive",          default: false
     t.boolean  "mature",             default: false
-    t.boolean  "moderated",          default: false
+    t.boolean  "moderator_approved"
   end
 
   add_index "things", ["creator_id"], name: "index_things_on_creator_id", using: :btree

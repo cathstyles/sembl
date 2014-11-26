@@ -49,7 +49,7 @@ protected
       :copyright,
       :general_attributes,
       :access_via,
-      :moderated
+      :moderator_approved
     )
   end
 end
