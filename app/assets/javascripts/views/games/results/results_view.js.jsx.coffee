@@ -46,81 +46,27 @@
       ).join('')
 
 {SemblResult} = @Sembl.Games.Results
-@Sembl.Games.Results.MoveResult = React.createClass
-  render: ->
-    result = @props.result
-    target = result.get('target')
-    Sembl.results = Sembl.results || []
-    Sembl.results.push(result)
-    semblResults = for resemblance in result.get('resemblances')
-      params =
-        roundWinner: _.contains(_.pluck(@props.roundWinners, "id"), resemblance.id)
-        source: resemblance.source
-        target: target
-        description: resemblance.description
-        score: resemblance.score || 0
-        user: _this.props.user
-      SemblResult(params)
-    `<div className="results__move-result">
-      <h2>Round {this.props.round}</h2>
-      {semblResults}
-    </div>`
 
-{MoveResult} = @Sembl.Games.Results
-@Sembl.Games.Results.PlayerMoveResults = React.createClass
-  render: ->
-    _this = @
-    user = @props.results[0].get('user')
-    moveResults = _.map @props.results, (result, index) ->
-      `<MoveResult result={result} round={index + 1} roundWinners={_this.props.roundWinners}/>`
-    className = classSet
-      "results__player-move": true
-      "results__player-move--winner": (@props.game.get('state') is 'completed' and @props.leader is true)
-      "results__player-move--leader": (@props.game.get('state') is not 'completed' and @props.leader is true)
-
-    `<div className={className}>
-      <h1 className="results__player-move__name">
-        <em><span className="results__player-move__name-username">{user.name}</span></em>
-      </h1>
-      {moveResults}
-    </div>`
-
-
-@Sembl.Games.Results.PlayerGroup = React.createClass
-  render: ->
-    `<div className="results__grouped">
-      {this._formatSemblResults()}
-    </div>`
-  _formatSemblResults: ->
-    _this = @
-    _.map @props.results, (result) ->
-      target = result.get('target')
-      Sembl.results = Sembl.results || []
-      Sembl.results.push(result)
-      semblResults = for resemblance in result.get('resemblances')
-        params =
-          roundWinner: _.contains(_.pluck(_this.props.roundWinners, "id"), resemblance.id)
-          source: resemblance.source
-          target: target
-          description: resemblance.description
-          score: resemblance.score || 0
-          user: _this.props.user
-        SemblResult(params)
-
-{PlayerGroup} = @Sembl.Games.Results
 @Sembl.Games.Results.ResultsRound = React.createClass
   render: ->
     `<div className="results__round">
       <h1 className="results__round__heading">Round {this.props.round}</h1>
       <div>
-        {this._formatPlayerGroups()}
+        {this._formatSemblResults()}
       </div>
     </div>`
-  _formatPlayerGroups: ->
+  _formatSemblResults: ->
     _this = @
-    _.map @props.resultsByPlayer, (group) ->
-      user = group[0].get("user")
-      `<PlayerGroup user={user} results={group} roundWinners={_this.props.roundWinners}/>`
+    _.map @props.resemblances, (resemblance) ->
+      target = resemblance.result.get("target")
+      return SemblResult(
+        roundWinner: _.contains(_.pluck(_this.props.roundWinners, "id"), resemblance.id)
+        source: resemblance.source
+        target: target
+        description: resemblance.description
+        score: resemblance.score || 0
+        user: resemblance.result.get("user")
+      )
 
 @Sembl.Games.Results.PlayerRoundResults = React.createClass
   render: ->
@@ -260,6 +206,7 @@
 
     # Munge into better format
     rounds = {}
+
     for result in @props.results.models
       targetNode = result.get("target").node
       for resemblance in result.get("resemblances")
@@ -308,13 +255,15 @@
     else
       playerOverallResults = `<PlayerRoundResults players={players} />`
 
-    # playerMoveResults = for email, results of userGroupedResults
-    #   key = email
-    #   leader = (winner.user.email is email)
-    #   `<PlayerMoveResults key={key} results={results} game={_this.props.game} leader={leader} roundWinners={roundWinners}/>`
-
-    resultsRounds = _.map resultsByRoundByUsers, (round, index) ->
-      `<ResultsRound round={index} resultsByPlayer={round} roundWinners={roundWinners}/>`
+    resultsRounds = _.map resultsByRound, (results, index) ->
+      # Sort resemblances by score
+      resemblances = []
+      _.each results, (result) ->
+        _.each result.get("resemblances"), (resemblance) ->
+          resemblance.result = result
+          resemblances.push(resemblance)
+      resemblances = _.sortBy resemblances, (resemblance) -> 1 - resemblance.score
+      `<ResultsRound round={index} resemblances={resemblances} roundWinners={roundWinners}/>`
 
     `<div className="body-wrapper">
       <div className="body-wrapper__outer">
