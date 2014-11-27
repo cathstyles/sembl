@@ -52,14 +52,21 @@
     `<div className="results__round">
       <h1 className="results__round__heading">Round {this.props.round}</h1>
       <div>
-        {this._formatPlayerGroups()}
+        {this._formatSemblResults()}
       </div>
     </div>`
-  _formatPlayerGroups: ->
+  _formatSemblResults: ->
     _this = @
-    _.map @props.resultsByPlayer, (group) ->
-      user = group[0].get("user")
-      `<PlayerGroup user={user} results={group} roundWinners={_this.props.roundWinners}/>`
+    _.map @props.resemblances, (resemblance) ->
+      target = resemblance.result.get("target")
+      return SemblResult(
+        roundWinner: _.contains(_.pluck(_this.props.roundWinners, "id"), resemblance.id)
+        source: resemblance.source
+        target: target
+        description: resemblance.description
+        score: resemblance.score || 0
+        user: resemblance.result.get("user")
+      )
 
 @Sembl.Games.Results.PlayerRoundResults = React.createClass
   render: ->
@@ -199,6 +206,7 @@
 
     # Munge into better format
     rounds = {}
+
     for result in @props.results.models
       targetNode = result.get("target").node
       for resemblance in result.get("resemblances")
@@ -247,8 +255,15 @@
     else
       playerOverallResults = `<PlayerRoundResults players={players} />`
 
-    resultsRounds = _.map resultsByRoundByUsers, (round, index) ->
-      `<ResultsRound round={index} resultsByPlayer={round} roundWinners={roundWinners}/>`
+    resultsRounds = _.map resultsByRound, (results, index) ->
+      # Sort resemblances by score
+      resemblances = []
+      _.each results, (result) ->
+        _.each result.get("resemblances"), (resemblance) ->
+          resemblance.result = result
+          resemblances.push(resemblance)
+      resemblances = _.sortBy resemblances, (resemblance) -> 1 - resemblance.score
+      `<ResultsRound round={index} resemblances={resemblances} roundWinners={roundWinners}/>`
 
     `<div className="body-wrapper">
       <div className="body-wrapper__outer">
