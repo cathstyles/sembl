@@ -4,11 +4,11 @@ class Api::SearchController < ApiController
   def index
     if search_params[:type] == "user"
       user = User.find_by_email(search_params[:email])
-      render partial: "user", locals: {users: user ? [user] : []}
+      render partial: "user", locals: {users: Array.wrap(user)}
     else
-      result = Services.search_service.search(Thing, Search::ThingQuery.new(search_params))
-      @things = result[:hits]
-      @total = result[:total]
+      search = ThingSearch.new(search_params)
+      @things = search.results
+      @total = search.total
       respond_with @things
     end
   end
@@ -17,15 +17,19 @@ class Api::SearchController < ApiController
 
   def search_params
     params.permit(
-      :type, :email,
+      :type,          # Search type
+      :email,         # User search params
+      :access_filter, # Thing search params
+      :created_to,
+      :exclude_mature,
+      :exclude_sensitive,
       :game_id,
-      :text, :place_filter, :access_filter, :date_from, :date_to, :created_to, :random_seed,
-      :offset,
-      :limit,
+      :include_user_contributed,
+      :page,
+      :place_filter,
+      :random_seed,
       :suggested_seed,
-      :exclude_sensitive, :exclude_mature, :include_user_contributed
-    ).delete_if do |k,v|
-      v.strip.empty?
-    end
+      :text
+    )
   end
 end

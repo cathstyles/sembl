@@ -32,6 +32,7 @@ gem 'simple_form'
 gem 'skim'
 gem 'slim-rails'
 gem 'state_machine'
+gem 'sunspot_rails'
 gem 'transloadit-rails'
 gem 'uglifier'
 gem 'unf'
@@ -40,6 +41,7 @@ gem 'unicorn'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'sunspot_solr'
 
   # Guard et al
   gem "guard", "~> 2"
