@@ -28,7 +28,7 @@ Sembl.Games.HeaderView = React.createBackboneClass
 
   render: ->
     game = @model()
-    resultsAvailableForRound = game?.resultsAvailableForRound() && game?.get("is_participating")
+    resultsAvailableForRound = game?.resultsAvailableForRound() if game?.get("is_participating")
 
     headerTitle = `<h1 className="header__title">
         <a href="#">{game.get('title')}</a>
