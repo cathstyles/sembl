@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014031053) do
+ActiveRecord::Schema.define(version: 20141126002824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20141014031053) do
     t.integer  "number_of_players"
     t.json     "filter_content_by"
     t.boolean  "stale",                    default: false
-    t.datetime "state_changed_at",         default: '2014-10-12 22:39:14', null: false
+    t.datetime "state_changed_at",         default: '2014-10-16 04:51:12', null: false
     t.integer  "reminder_count_for_state", default: 0,                     null: false
   end
 
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 20141014031053) do
     t.string   "state",                                                    null: false
     t.string   "email"
     t.string   "move_state"
-    t.datetime "state_changed_at",         default: '2014-10-16 01:05:05', null: false
+    t.datetime "state_changed_at",         default: '2014-10-16 04:51:31', null: false
     t.integer  "reminder_count_for_state", default: 0,                     null: false
   end
 
@@ -171,6 +171,7 @@ ActiveRecord::Schema.define(version: 20141014031053) do
     t.integer  "game_id"
     t.boolean  "sensitive",          default: false
     t.boolean  "mature",             default: false
+    t.boolean  "moderator_approved"
   end
 
   add_index "things", ["creator_id"], name: "index_things_on_creator_id", using: :btree

@@ -20,7 +20,7 @@
     console.error responseObj
     if response.status == 422
       msgs = (value for key, value of responseObj.errors)
-      $(window).trigger('flash.error', msgs.join(", "))   
+      $(window).trigger('flash.error', msgs.join(", "))
     else
       $(window).trigger('flash.error', "Error: #{responseObj.errors}")
 

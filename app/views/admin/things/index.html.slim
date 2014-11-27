@@ -14,7 +14,8 @@ header
         th.title Title
         th.description Description
         th.access-via Access via
-        th.access-via Uploaded
+        th.uploaded Uploaded
+        th.user-uploaded User uploaded
         th.actions
     tbody
       - @things.each do |thing|
@@ -28,6 +29,7 @@ header
             .text-clip = thing.description
           td.access-via = thing.access_via
           td.uploaded == thing.created_at.strftime("%d&nbsp;%b&nbsp;%Y")
+          td.user-uploaded == thing.user_contributed? ? "Yes" : "No"
 
           td.actions
             .btn-group

@@ -5,7 +5,8 @@ header
     h1 Games
 
 - if @games.any?
-  table.table.table-striped.table-hover.index.datatable
+  = paginate @games
+  table.table.table-striped.table-hover.index
     thead
       tr
         th.title Title
@@ -25,3 +26,4 @@ header
           td.actions
             .btn-group
               = link_to "Delete", admin_game_path(game), class: "btn btn-small btn-danger", method: "delete", confirm: "There is no undo.\n\nAre you sure you want to remove #{game.title}?"
+  = paginate @games

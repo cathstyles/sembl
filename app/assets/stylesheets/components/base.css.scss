@@ -57,7 +57,14 @@ a {
   display: table;
   width: 100%;
   height: 100%;
+  transform: translate(0,0);
+  transition-duration: 350ms;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
 }
+  .body-wrapper__outer--slide-active {
+    transform: translate(-35%,0);
+  }
   .body-wrapper__inner {
     padding: 0 0 60px;
     display: table-cell;

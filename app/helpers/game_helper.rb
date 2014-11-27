@@ -69,9 +69,9 @@ module GameHelper
   end
 
   def player_state_message(player)
-    case player.state
+    case player.state.to_sym
     when :playing_turn
-      "playing their turn"
+      "playing their&nbsp;turn".html_safe
     when :rating
       "rating sembls"
     when :invited

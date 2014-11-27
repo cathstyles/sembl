@@ -58,9 +58,13 @@ Sembl.Games.Gameboard.StatusView = React.createClass
     round = @props.game.get('current_round')
     if state is 'playing_turn' and move_state is 'created'
       if round == 1
-        tooltip = "On the board — nice work!"
+        tooltip = "On the board — nice work! End your turn to let  us know you’re finished."
       else if round == 2
-        tooltip = "If you have made all the moves you want to make, end your turn to let us know you are finished."
+        availableNodes = @nodesForUserState("available")
+        tooltip = if availableNodes?.length > 0
+          "Great! Now fill the other #{if availableNodes.length > 1 then availableNodes.length + ' nodes' else 'node'}"
+        else
+          "If you’re happy with your moves, end your turn to let us know you are finished."
 
   triggerNotice: ->
     player = @props.game.get('player')
@@ -76,6 +80,9 @@ Sembl.Games.Gameboard.StatusView = React.createClass
 
   componentDidMount: ->
     @triggerNotice()
+
+  nodesForUserState: (userState) ->
+    @props.game.nodes.where(user_state: userState)
 
   render: ->
     player = @props.game.get('player')
@@ -115,6 +122,15 @@ Sembl.Games.Gameboard.StatusView = React.createClass
         statusHTML = `<div className="game__status">
           <div className="game__status-inner">
             <p>We’re waiting for the other players to finish their turns, then you’ll get a chance to rate their Sembls.</p>
+          </div>
+        </div>`
+      else if (@props.game.resultsAvailableForRound() && @props.game.get("is_participating")) && @props.game.get("state") is "completed"
+        statusHTML = `<div className="game__status">
+          <div className="game__status-inner">
+            <p>Game over!</p>
+            <a href={'#results/' + this.props.game.resultsAvailableForRound()} className="game__status__button game__status__end-turn">
+              View the results
+            </a>
           </div>
         </div>`
     else

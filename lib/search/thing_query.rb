@@ -32,9 +32,9 @@ class Search::ThingQuery
     query_builder.match(:mature, false) if exclude_mature == 1
     query_builder.match(:sensitive, false) if exclude_sensitive == 1
     if include_user_contributed == 1
-      query_builder.match_any(:user_contributed, [true, false])
+      query_builder.match_any(:moderator_approved_user_contribution, [true, false])
     else
-      query_builder.match(:user_contributed, false)
+      query_builder.match(:moderator_approved_user_contribution, false)
     end
     query_builder.match(:suggested_seed, true) if suggested_seed == 1
     query_builder.range(@date_field, date_from, date_to) unless !(date_from || date_to)

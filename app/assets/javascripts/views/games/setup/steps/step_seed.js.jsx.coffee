@@ -41,7 +41,8 @@ Checkbox = React.createClass
   setSlideViewer: ->
     seed = @props.seed
     $(window).trigger('slideViewer.setChild',
-      `<div>
+      full: true
+      child: `<div>
         <div className="slide-viewer__controls">
           <Checkbox name='suggested_seed' label="Suggested seeds" handleChange={this.handleCheckboxChange} />
           <div className="setup__steps__seed__search">

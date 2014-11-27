@@ -541,3 +541,9 @@ input.setup__steps__title__input {
     padding: 3px;
   }
 }
+
+
+.setup__help-inline {
+  font-style: italic;
+  color: darken($border-color, 20%);
+}

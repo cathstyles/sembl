@@ -1,4 +1,5 @@
 #= require d3
+#= require request_animation_frame
 #= require views/components/searcher
 #= require views/components/slide_viewer
 #= require views/games/gallery
@@ -28,6 +29,8 @@ Gallery = @Sembl.Games.Gallery
     @$window.on('move.resemblance.click', @handleResemblanceClick)
     @$window.on('move.placement.click', @handlePlacementClick)
     @$window.on('resize', @handleResize)
+    @$window.on('slideViewer.show', @onSlideviewerShow)
+    @$window.on('slideViewer.hide', @onSlideviewerHide)
 
   componentWillUnmount: ->
     @$window.off('move.actions.submitMove', @handleSubmitMove)
@@ -37,11 +40,13 @@ Gallery = @Sembl.Games.Gallery
     @$window.off('move.resemblance.click', @handleResemblanceClick)
     @$window.off('move.placement.click', @handlePlacementClick)
     @$window.off('resize', @handleResize)
+    @$window.off('slideViewer.show', @onSlideviewerShow)
+    @$window.off('slideViewer.hide', @onSlideviewerHide)
     @$window.trigger('slideViewer.hide')
 
   componentDidMount: ->
     @$window.trigger('slideViewer.setChild',
-      `<Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />`
+      child: `<Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />`
     )
 
     # Check turn is active
@@ -105,6 +110,15 @@ Gallery = @Sembl.Games.Gallery
     Sembl.game.fetch()
     Sembl.router.navigate("/", trigger: true)
 
+  onSlideviewerShow: (e) ->
+    @setState slideActive: true
+    requestAnimationFrame => @$window.trigger "resize"
+
+  onSlideviewerHide: (e) ->
+    console.log "onSlideviewerHide"
+    @setState slideActive: false
+    requestAnimationFrame => @$window.trigger "resize"
+
   getInitialState: () ->
     target = @props.node
     links =
@@ -122,6 +136,7 @@ Gallery = @Sembl.Games.Gallery
       move: move
       target: target
       links: links
+      slideActive: false
 
     # A move has been played already, we’re editing it
     existingPlacement = @props.node.get("viewable_placement")
@@ -135,10 +150,14 @@ Gallery = @Sembl.Games.Gallery
     target = @state.target
     links = @state.links
 
+    bodyOuterClasses = React.addons.classSet
+      "body-wrapper__outer": true
+      "body-wrapper__outer--slide-active": @state.slideActive
+
     `<div className="move">
       <Searcher filter={this.props.game.get('filter')} prefix={this.searcherPrefix} game={this.props.game} />
       <div className="body-wrapper">
-        <div className="body-wrapper__outer">
+        <div className={bodyOuterClasses}>
           <div className="body-wrapper__inner">
             <MoveGraph target={target} links={links} />
           </div>

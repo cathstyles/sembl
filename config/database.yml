@@ -2,7 +2,6 @@ development: &base
   adapter: postgresql
   database: sembl_development
   encoding: unicode
-  port: <%= ENV["BOXEN_POSTGRESQL_PORT"] || 5432 %>
   host: localhost
   password:
 
@@ -13,6 +12,5 @@ test:
   adapter: postgresql
   database: sembl_test
   encoding: unicode
-  port: <%= ENV["BOXEN_POSTGRESQL_PORT"] || 5432 %>
   host: localhost
   password:
