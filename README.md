@@ -31,6 +31,8 @@ Install the required gems & prepare the database:
 
     $ foreman start -f Procfile.dev
 
+Visit http://localhost:5000/ to use the app.
+
 ### Loading production data
 
     $ heroku pgbackups:capture --expire
