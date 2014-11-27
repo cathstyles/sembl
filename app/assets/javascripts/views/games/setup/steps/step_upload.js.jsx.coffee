@@ -51,14 +51,12 @@
       @postThing(data)
 
   finishedUpload: (results) ->
-    console.log 'finished transloadit upload', results
     remoteImageUrl = results[':original'][0].url
     @setState {remoteImageUrl}
 
   postThing: (data) ->
     url = '/api/things.json'
     success = (data) =>
-      console.log 'success!', data
       @getThings()
       @setState
         title: ""

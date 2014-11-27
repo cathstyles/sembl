@@ -18,7 +18,6 @@
     $(window).off(@galleryClickEvent, @handleGalleryClick)
 
   handleGalleryClick: (event, thing) ->
-    console.log 'handleGalleryClick', event, thing
     $(window).trigger('modal.open', `<GalleryThingModal thing={thing} />`)
 
   render: ->

@@ -51,13 +51,11 @@
     e.preventDefault()
 
   _disableForm: ->
-    console.log "DISABLE"
     @$form
       .on("submit", @_catchSubmission)
       .addClass(@_disabledClassName())
 
   _enableForm: ->
-    console.log "ENABLE"
     @$form
       .off("submit", @_catchSubmission)
       .removeClass(@_disabledClassName())

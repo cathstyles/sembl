@@ -40,7 +40,6 @@
       limit: @state.limit
       game_id: @props.game.id
     _.extend(params, @state.filter)
-    console.log 'searching', params
     $.ajax(
       url: "/api/search.json"
       data: params

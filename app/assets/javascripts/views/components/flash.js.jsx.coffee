@@ -19,7 +19,6 @@
     $(window).off('flash.hide', @handleHide)
 
   handleNotice: (event, msg) ->
-    console.log msg
     @setState msg: msg, className: 'notice'
 
   handleError: (event, msg) ->
