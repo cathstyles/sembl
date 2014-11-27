@@ -77,7 +77,7 @@ Gallery = @Sembl.Games.Gallery
 
   handlePlacementClick: (event, data) ->
     if data.userState in ['proposed', 'available']
-      @$window.trigger('slideViewer.show')
+      @$window.trigger('slideViewer.show', data)
     else if data.thing
       @$window.trigger('modal.open', `<ThingModal thing={data.thing} />`)
 
@@ -110,13 +110,15 @@ Gallery = @Sembl.Games.Gallery
     Sembl.game.fetch()
     Sembl.router.navigate("/", trigger: true)
 
-  onSlideviewerShow: (e) ->
-    @setState slideActive: true
+  onSlideviewerShow: (e, data) ->
+    # Find the `.state-filled`
+    offset = $(".state-filled").offset().top
+    offset = offset - (offset * 0.15)
+    @setState slideOffset: offset
     requestAnimationFrame => @$window.trigger "resize"
 
   onSlideviewerHide: (e) ->
-    console.log "onSlideviewerHide"
-    @setState slideActive: false
+    @setState slideOffset: 0
     requestAnimationFrame => @$window.trigger "resize"
 
   getInitialState: () ->
@@ -137,6 +139,7 @@ Gallery = @Sembl.Games.Gallery
       target: target
       links: links
       slideActive: false
+      slideOffset: 0
 
     # A move has been played already, we’re editing it
     existingPlacement = @props.node.get("viewable_placement")
@@ -150,14 +153,13 @@ Gallery = @Sembl.Games.Gallery
     target = @state.target
     links = @state.links
 
-    bodyOuterClasses = React.addons.classSet
-      "body-wrapper__outer": true
-      "body-wrapper__outer--slide-active": @state.slideActive
+    bodyOuterStyle =
+      "transform": "translate(0,-#{@state.slideOffset}px)"
 
     `<div className="move">
       <Searcher filter={this.props.game.get('filter')} prefix={this.searcherPrefix} game={this.props.game} />
       <div className="body-wrapper">
-        <div className={bodyOuterClasses}>
+        <div className="body-wrapper__outer" style={bodyOuterStyle}>
           <div className="body-wrapper__inner">
             <MoveGraph target={target} links={links} />
           </div>

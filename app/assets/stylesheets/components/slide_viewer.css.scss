@@ -3,9 +3,9 @@
   box-shadow: 0 0 100px 0 rgba(#000,.5);
   position: absolute;
   z-index: 180;
-  left: 30%;
+  left: 0;
   right: 0;
-  top: 0;
+  top: 20%;
   bottom: 0;
 }
   .slide-viewer--full {
@@ -30,7 +30,7 @@
 .slide-viewer--hidden {
   height: 0;
   overflow: hidden;
-  transform: translate(300px, 0);
+  transform: translate(0, 300px);
 }
 
 .slide-viewer__controls {
@@ -94,8 +94,7 @@
   cursor: pointer;
   display: inline-block;
   position: absolute;
-  right: 100%;
-  top: 20px;
+  bottom: 100%;
   text-shadow: 1px 1px 1px rgba(#000,.3);
   width: 96px;
   &:hover {
