@@ -66,7 +66,16 @@ class ThingSearch
         with :sensitive, false
       end
 
-      unless include_user_contributed
+      if include_user_contributed
+        any_of do
+          all_of do
+            with :user_contributed, true
+            with :moderator_approved, true
+          end
+
+          with :user_contributed, false
+        end
+      else
         with :user_contributed, false
       end
 

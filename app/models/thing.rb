@@ -60,6 +60,9 @@ class Thing < ActiveRecord::Base
     boolean :user_contributed do
       user_contributed?
     end
+    boolean :moderator_approved do
+      moderator_approved?
+    end
     boolean :sensitive
     boolean :mature
 
