@@ -30,13 +30,6 @@ Without Boxen:
 
 ### Running
 
-With Boxen
-
-    ./script/server
-    open http://sembl.dev/
-
-Without Boxen:
-
     bundle exec rails server
     open http://localhost:3000/
 
