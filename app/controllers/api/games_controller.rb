@@ -115,7 +115,7 @@ private
       clean_query_params = search_query_params.delete_if do |k,v|
         v.strip.empty?
       end.symbolize_keys
-      cleaned_json = Search::ThingQuery.new(clean_query_params).to_json
+      cleaned_json = ThingSearch.new(clean_query_params).to_json
       cleaned_json
     else
       nil

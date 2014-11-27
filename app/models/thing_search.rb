@@ -46,6 +46,20 @@ class ThingSearch
     query.total
   end
 
+  def to_json
+    # For saving to `game.filter_content_by`
+    Jbuilder.encode do |json|
+      json.text text      if text.present?
+      json.place_filter   if place_filter.present?
+      json.access_filter  if access_filter.present?
+      json.created_to     if created_to.present?
+      json.random_seed    if random_seed.present?
+      json.exclude_mature
+      json.exclude_sensitive
+      json.include_user_contributed
+    end
+  end
+
   private
 
   def query
