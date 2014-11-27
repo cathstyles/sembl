@@ -71,6 +71,6 @@ The app runs on Heroku. It uses these add-ons:
 * SendGrid - email delivery
 * Websolr - hosted solr search engine
 
-Deploy to heroku via a `git push`:
+Deploy to heroku with git:
 
     $ git push production master
