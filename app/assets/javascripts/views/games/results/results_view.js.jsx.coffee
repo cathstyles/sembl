@@ -287,7 +287,8 @@
       round = false
       resemblances = result.get("resemblances")
       if resemblances.length > 0
-        round = resemblances[0].source.node.round
+        # round = resemblances[0].source.node.round
+        round = result.get("target").node.round
         resultsByRound[round] = resultsByRound[round] || []
         resultsByRound[round].push result
     # Then group by users too
@@ -313,7 +314,7 @@
     #   `<PlayerMoveResults key={key} results={results} game={_this.props.game} leader={leader} roundWinners={roundWinners}/>`
 
     resultsRounds = _.map resultsByRoundByUsers, (round, index) ->
-      `<ResultsRound round={index + 1} resultsByPlayer={round} roundWinners={roundWinners}/>`
+      `<ResultsRound round={index} resultsByPlayer={round} roundWinners={roundWinners}/>`
 
     `<div className="body-wrapper">
       <div className="body-wrapper__outer">

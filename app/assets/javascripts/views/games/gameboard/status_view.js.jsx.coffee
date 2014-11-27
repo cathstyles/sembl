@@ -124,6 +124,15 @@ Sembl.Games.Gameboard.StatusView = React.createClass
             <p>We’re waiting for the other players to finish their turns, then you’ll get a chance to rate their Sembls.</p>
           </div>
         </div>`
+      else if (@props.game.resultsAvailableForRound() && @props.game.get("is_participating")) && @props.game.get("state") is "completed"
+        statusHTML = `<div className="game__status">
+          <div className="game__status-inner">
+            <p>Game over!</p>
+            <a href={'#results/' + this.props.game.resultsAvailableForRound()} className="game__status__button game__status__end-turn">
+              View the results
+            </a>
+          </div>
+        </div>`
     else
       statusHTML = `<div className="game__status">
         <div className="game__status-inner">

@@ -28,6 +28,7 @@ Sembl.Games.HeaderView = React.createBackboneClass
 
   render: ->
     game = @model()
+    # TODO WTF does this conditional do?
     resultsAvailableForRound = game?.resultsAvailableForRound() && game?.get("is_participating")
 
     headerTitle = `<h1 className="header__title">
@@ -49,7 +50,7 @@ Sembl.Games.HeaderView = React.createBackboneClass
         "Round"
       roundResults = `<li className="header__link">
           <i className="fa fa-trophy header__link-icon"></i>
-          <a href={'#results/' + resultsAvailableForRound} className="header__link-anchor">
+          <a href={'#results/' + game.resultsAvailableForRound()} className="header__link-anchor">
             <span className="header__link-truncate">{label}&nbsp;</span>
             Results
           </a>
