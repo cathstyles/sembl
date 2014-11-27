@@ -5,6 +5,10 @@
 # Set up Ruby dependencies
 bundle install -j4
 
+# Install development-only gems
+gem install foreman
+gem install mailcatcher
+
 # Set up staging and production git remotes
 git remote add production git@heroku.com:sembl.git
 
