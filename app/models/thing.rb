@@ -80,22 +80,7 @@ class Thing < ActiveRecord::Base
     where(moderator_approved: true)
   end
 
-  ### Commands
-
-  # Return JSON serialization needed for the kind of search queries we use.
-  def as_indexed_json(options={})
-    as_json(options).merge({"moderator_approved_user_contribution" => moderator_approved_user_contribution?})
-  end
-
-  def add_to_search_index
-    Services.search_service.index(self)
-  end
-
   ### Predicates
-
-  def moderator_approved_user_contribution?
-    !!(user_contributed? && moderator_approved)
-  end
 
   def user_contributed?
     game_id.present?
