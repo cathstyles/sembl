@@ -1,0 +1,5 @@
+web: bundle exec unicorn -c ./config/unicorn.rb
+solr: bundle exec rake sunspot:solr:run
+
+# Enable this if we move to a dedicated process for the Que worker
+# worker: bundle exec rake que:work
