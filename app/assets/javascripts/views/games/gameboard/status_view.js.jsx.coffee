@@ -133,7 +133,7 @@ Sembl.Games.Gameboard.StatusView = React.createClass
             </a>
           </div>
         </div>`
-    else
+    else if @props.game.get("state") != "completed" && @_remainingPlayerCount > 0
       statusHTML = `<div className="game__status">
         <div className="game__status-inner">
           <p>We need {this._formatPlayerCount()} to get started!</p>
@@ -142,6 +142,9 @@ Sembl.Games.Gameboard.StatusView = React.createClass
       </div>`
     return statusHTML
 
+  _remainingPlayerCount: ->
+    @props.game.get("number_of_players") - @props.game.players.length
+
   _formatPlayerCount: ->
-    remaining = @props.game.get("number_of_players") - @props.game.players.length
+    remaining = @_remainingPlayerCount()
     "#{remaining} #{if @props.game.players.length > 0 then 'more' else ''} player#{if remaining > 0 then 's' else ''}"
