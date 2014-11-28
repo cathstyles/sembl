@@ -9,7 +9,6 @@ class Api::SearchController < ApiController
       search = ThingSearch.new(search_params)
       @things = search.results
       @total = search.total
-      respond_with @things
     end
   end
 
