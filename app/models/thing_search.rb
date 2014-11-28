@@ -69,7 +69,10 @@ class ThingSearch
       end
 
       if game_id.present?
-        with :game_id, game_id
+        any_of do
+          with :game_id, game_id
+          with :game_id, nil
+        end
       end
 
       if exclude_mature
