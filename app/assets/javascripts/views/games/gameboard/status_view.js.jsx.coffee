@@ -73,7 +73,10 @@ Sembl.Games.Gameboard.StatusView = React.createClass
       $(window).trigger("flash.notice", tooltipText) if !!tooltipText
 
   handleJoin: ->
-    $(window).trigger('header.joinGame')
+    if @props.game.get('player')?
+      $(window).trigger('header.joinGame')
+    else
+      window.location = "/users/sign_in"
 
   componentDidUpdate: ->
     @triggerNotice()
@@ -133,7 +136,7 @@ Sembl.Games.Gameboard.StatusView = React.createClass
             </a>
           </div>
         </div>`
-    else if @props.game.get("state") != "completed" && @_remainingPlayerCount > 0
+    else if @props.game.get("state") != "completed" && @_remainingPlayerCount() > 0
       statusHTML = `<div className="game__status">
         <div className="game__status-inner">
           <p>We need {this._formatPlayerCount()} to get started!</p>
