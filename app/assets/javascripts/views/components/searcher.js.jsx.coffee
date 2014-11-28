@@ -30,9 +30,7 @@
     $.doTimeout("debounce.#{@props.prefix}.search", 200, @search)
 
   search: ->
-    params =
-      page: @state.page
-      game_id: @props.game.id
+    params = {page: @state.page}
     _.extend(params, @state.filter)
     $.ajax(
       url: "/api/search.json"

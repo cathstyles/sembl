@@ -22,7 +22,6 @@ class Api::SearchController < ApiController
       :created_to,
       :exclude_mature,
       :exclude_sensitive,
-      :game_id,
       :include_user_contributed,
       :page,
       :place_filter,

@@ -4,7 +4,6 @@ class ThingSearch
     :created_to,
     :exclude_mature,
     :exclude_sensitive,
-    :game_id,
     :include_user_contributed,
     :page,
     :place_filter,
@@ -26,10 +25,6 @@ class ThingSearch
     end
 
     @suggested_seed = %w(1 true).include?(params[:suggested_seed].to_s)
-
-    if params[:game_id].present?
-      @game_id = params[:game_id].to_i
-    end
 
     @exclude_mature           = to_bool(params[:exclude_mature])
     @exclude_sensitive        = to_bool(params[:exclude_sensitive])
@@ -66,13 +61,6 @@ class ThingSearch
     @query ||= Thing.search do
       if text.present?
         fulltext text, fields: %i(title description general_attributes_keywords general_attributes_dates attribution copyright)
-      end
-
-      if game_id.present?
-        any_of do
-          with :game_id, game_id
-          with :game_id, nil
-        end
       end
 
       if exclude_mature
