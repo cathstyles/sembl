@@ -10,7 +10,7 @@ class Api::RatingsController < ApiController
   def index
     authorize @game
     placements = Placement.for_round(@game).where('creator_id != ?', current_user.id)
-    @moves = placements.collect{|p| Move.new(placement: p)}
+    @moves = placements.collect{|p| Move.new(placement: p)}.shuffle
     respond_with @moves
   end
 
