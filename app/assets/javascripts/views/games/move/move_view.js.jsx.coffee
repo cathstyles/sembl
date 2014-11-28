@@ -33,7 +33,6 @@ Gallery = @Sembl.Games.Gallery
     @$window.on('slideViewer.hide', @onSlideviewerHide)
 
   componentWillUnmount: ->
-    @$window.trigger('slideViewer.hide')
     @$window.off('move.actions.submitMove', @handleSubmitMove)
     @$window.off('move.resemblance.change', @handleResemblanceChange)
     @$window.off("#{@galleryPrefix}.selectTargetThing", @handleSelectTargetThing)
@@ -93,6 +92,7 @@ Gallery = @Sembl.Games.Gallery
       move: @state.move
 
   handleSubmitMove: (event) ->
+    @$window.trigger('slideViewer.hide')
     @state.move.save({}, {
       success: =>
         @handleMoveComplete()
