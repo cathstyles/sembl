@@ -5,7 +5,7 @@ class Api::RatingsController < ApiController
   before_filter :authenticate_user!
   before_filter :find_game
 
-  # List of moves to rate. 
+  # List of moves to rate.
   # for_round defaults to current round
   def index
     authorize @game
@@ -14,10 +14,10 @@ class Api::RatingsController < ApiController
     respond_with @moves
   end
 
-  def create 
+  def create
     sembl = Resemblance.find(rating_params[:resemblance_id])
     @rating = sembl.rating_by(current_user) || Rating.new(resemblance: sembl, creator: current_user)
-    authorize @rating 
+    authorize @rating
 
     @rating.assign_attributes(rating: rating_params[:rating])
     @rating.save
@@ -25,7 +25,7 @@ class Api::RatingsController < ApiController
     respond_with :api, @game, @rating
   end
 
-  private 
+  private
 
   def find_game
     @game = Game.find(params[:game_id])
