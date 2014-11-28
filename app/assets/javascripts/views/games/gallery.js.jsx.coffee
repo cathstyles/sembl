@@ -109,7 +109,7 @@ GalleryImage = React.createClass
   checkContainerWidth: ->
     containerWidth = $(@getDOMNode()).innerWidth()
     if containerWidth != @state.containerWidth
-      @setState containerWidth: containerWidth    
+      @setState containerWidth: containerWidth
 
   handleSearchSetFilter: (event, filter) ->
     @clearImages = true
@@ -119,7 +119,7 @@ GalleryImage = React.createClass
       items = []
       @tempImages = []
       @clearImages = false
-    else 
+    else
       items = @state.images || []
 
     @total = data.results?.total || 0
@@ -137,7 +137,7 @@ GalleryImage = React.createClass
       @tempImages[index] = new TempImage(item, @handleTempImageLoad)
       maxIndex = Math.max(maxIndex, index)
 
-    @setState 
+    @setState
       images: items
       scrollWaypoint: !!data.results # is there new things
 
@@ -165,7 +165,7 @@ GalleryImage = React.createClass
     rowHeight = @props.rowHeight || 200
     containerWidth = @state.containerWidth
     justifiedLayout = new Justifiedlayout({containerWidth: containerWidth, rowHeight: rowHeight})
-    
+
     rows = justifiedLayout.fitRows(@state.images)
 
     scrollWaypointRow = Math.max(0, rows.length - 10)
