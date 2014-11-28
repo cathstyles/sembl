@@ -33,6 +33,7 @@ Gallery = @Sembl.Games.Gallery
     @$window.on('slideViewer.hide', @onSlideviewerHide)
 
   componentWillUnmount: ->
+    @$window.trigger('slideViewer.hide')
     @$window.off('move.actions.submitMove', @handleSubmitMove)
     @$window.off('move.resemblance.change', @handleResemblanceChange)
     @$window.off("#{@galleryPrefix}.selectTargetThing", @handleSelectTargetThing)
@@ -42,7 +43,6 @@ Gallery = @Sembl.Games.Gallery
     @$window.off('resize', @handleResize)
     @$window.off('slideViewer.show', @onSlideviewerShow)
     @$window.off('slideViewer.hide', @onSlideviewerHide)
-    @$window.trigger('slideViewer.hide')
 
   componentDidMount: ->
     @$window.trigger('slideViewer.setChild',
@@ -145,7 +145,6 @@ Gallery = @Sembl.Games.Gallery
     existingPlacement = @props.node.get("viewable_placement")
     if existingPlacement? and existingPlacement.thing?
       move.addPlacementThing(existingPlacement.thing)
-      # move.addResemblance(resemblance.link, resemblance.description, resemblance.target_description, resemblance.source_description)
       state.targetThing = existingPlacement.thing
     return state
 
@@ -154,6 +153,8 @@ Gallery = @Sembl.Games.Gallery
     links = @state.links
 
     bodyOuterStyle =
+      "-webkit-transform": "translate(0,-#{@state.slideOffset}px)"
+      "-moz-transform": "translate(0,-#{@state.slideOffset}px)"
       "transform": "translate(0,-#{@state.slideOffset}px)"
 
     `<div className="move">
