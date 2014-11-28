@@ -62,6 +62,7 @@ class ResemblanceFactory
           source_id = link.get("source_id")
           target_id = link.get("target_id")
           subs = node.get("sub_descriptions")
+          subs = _.filter subs, (sub) -> !(sub.source_id == source_id && sub.target_id == sub.target_id)
           if !subs? then subs = []
           if node_id is source_id and viewableResemblance.source_description?
             subs.push(source_id: source_id, target_id: target_id, sub_description: viewableResemblance.source_description)
