@@ -1,12 +1,8 @@
 ###* @jsx React.DOM ###
 
 @Sembl.Components.Searcher = React.createClass
-  maxOffset: Number.MAX_VALUE
-  defautLimit: 60
-
   getInitialState: ->
-    offset: 0
-    limit: @defautLimit
+    page: 1
     filter: @props.filter
 
   componentWillMount: ->
@@ -34,10 +30,8 @@
     $.doTimeout("debounce.#{@props.prefix}.search", 200, @search)
 
   search: ->
-    offset = @state.offset
     params =
-      offset: offset
-      limit: @state.limit
+      page: @state.page
       game_id: @props.game.id
     _.extend(params, @state.filter)
     $.ajax(
@@ -47,19 +41,20 @@
       dataType: 'json'
       error: (response) =>
         console.error 'error when searching', response.responseText
-        @results = []
+        @results = {}
         @handleNotify()
       success: (data) =>
-        total = data.total
-        things = data.hits
-        if things.length == 0
-          @maxOffset = offset
-        hits = for i,thing of things
+        # The offset is used to keep images in a stable position in an array
+        # when a parent component uses the searcher to work on multiple pages
+        # of results.
+        offset = ((data.page - 1) * data.per_page) + 1
+
+        hits = for i,thing of data.hits
           index: offset + parseInt(i)
           thing: thing
 
         @results =
-          total: total
+          total: data.total
           hits: hits
 
         @handleNotify()
@@ -68,24 +63,21 @@
   handleSetFilter: (event, filter) ->
     @setState
       filter: filter
-      offset: 0
+      page: 1
 
   handleNotify: ->
-    results = @results || []
+    results = @results || {}
     if @props.prefix
-      $(window).trigger("#{@props.prefix}.updated", {results: results, offset: @state.offset, limit: @state.limit})
+      $(window).trigger("#{@props.prefix}.updated", {results: results, page: @state.page})
 
   handleNextPage: (event) ->
-    @search
-    offset = Math.min(@maxOffset, @state.offset + @state.limit)
-    if offset != @state.offset
-      @setState
-        offset: offset
+    @setState({page: @state.page + 1})
+    @search()
 
   handlePreviousPage: (event) ->
-    if @state.offset > 0
-      @setState
-        offset: Math.max(0, @state.offset - @state.limit)
+    if @state.page > 1
+      @setState({page: @state.page - 1})
+    @search()
 
   render: ->
     `<div dataOffset={this.state.offset} dataLimit={this.state.limit} dataFilter={this.state.filter} />`
