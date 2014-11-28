@@ -1,21 +1,19 @@
 ###* @jsx React.DOM ###
 
 @Sembl.Games.Move.ResemblanceModal = React.createClass
-  handleChange: (fieldName, event) ->
+  handleSubmit: (event) ->
     newState = _.extend {}, @state
-    newState[fieldName] = event.target.value
+    newState["description"] = @refs.description.getDOMNode().value
+    newState["target_description"] = @refs.target_description.getDOMNode().value
+    newState["source_description"] = @refs.source_description.getDOMNode().value
     link = @props.link
     @setState newState
-    $.doTimeout('timeout.move.resemblance.change', 50, ->
-      $(window).trigger('move.resemblance.change',
-        link: link
-        description: newState.description
-        target_description: newState.target_description
-        source_description: newState.source_description
-      )
+    $(window).trigger('move.resemblance.change',
+      link: link
+      description: newState.description
+      target_description: newState.target_description
+      source_description: newState.source_description
     )
-
-  handleSubmit: (event) ->
     $(window).trigger('modal.close')
     event.preventDefault()
 
@@ -25,7 +23,7 @@
     source_description: @props.source_description
 
   componentDidMount: () ->
-    @refs.input.getDOMNode().focus()
+    @refs.description.getDOMNode().focus()
 
   render: ->
     sourceNode = @props.link.source()
@@ -42,7 +40,7 @@
           <div className="game__placement move__resemblance__node move__resemblance__node--last">
             <img src={targetImage} alt={targetTitle} className="game__placement__image move__resemblance__node-image" />
           </div>
-          <input className="move__resemblance__description" ref="input" type="text" onChange={this.handleChange.bind(this, "description")} value={this.state.description} placeholder="Enter your resemblance"/>
+          <input className="move__resemblance__description" ref="description" type="text" defaultValue={this.state.description} placeholder="Enter your resemblance"/>
           <div className="game__placement move__resemblance__node">
             <img src={sourceImage} alt={sourceTitle} className="game__placement__image move__resemblance__node-image" />
           </div>
@@ -50,10 +48,10 @@
         <div className="move__resemblance__optional">
           <p className="move__resemblance__optional-text">Optional — say more about each resemblance.</p>
           <div className="move__resemblance__optional-source">
-            <input ref="source_description" type="text" onChange={this.handleChange.bind(this, "source_description")} value={this.state.source_description} placeholder="Optional: Here’s why &#8230;"/>
+            <input ref="source_description" type="text"  defaultValue={this.state.source_description} placeholder="Optional: Here’s why &#8230;"/>
           </div>
           <div className="move__resemblance__optional-target">
-            <input ref="target_description" type="text" onChange={this.handleChange.bind(this, "target_description")} value={this.state.target_description} placeholder="Optional: &#8230; because &#8230;"/>
+            <input ref="target_description" type="text" defaultValue={this.state.target_description} placeholder="Optional: &#8230; because &#8230;"/>
           </div>
         </div>
         <button type="submit" className="move__edit__resemblance__close-button">
