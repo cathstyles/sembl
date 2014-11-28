@@ -59,7 +59,7 @@
           index: offset + parseInt(i)
           thing: thing
 
-        @results = 
+        @results =
           total: total
           hits: hits
 

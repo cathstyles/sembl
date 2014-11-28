@@ -15,10 +15,19 @@
       $(window).trigger('flash.notice', "Click the camera to choose an image from the gallery")
 
   handleClick: (event) ->
+    event?.preventDefault()
     data =
       node:      @props.node
       thing:     @state.thing
       userState: @state.userState
+    $(window).trigger('move.placement.click', data)
+
+  handleMetadataClick: (event) ->
+    event?.preventDefault()
+    data =
+      node:      @props.node
+      thing:     @state.thing
+      userState: false
     $(window).trigger('move.placement.click', data)
 
   handleSetThing: (event, data) ->
@@ -53,7 +62,18 @@
     else
       ""
 
-    `<div className={className + alertedClass} onClick={this.handleClick}>
-      <img className="game__placement__image" src={image_url} ref="image" />
+    # Format view image button
+    viewImageButton = if @state.userState == "proposed"
+      `<a href="#metadata" onClick={this.handleMetadataClick} className="game__placement__view-image">
+        View&nbsp;image
+      </a>`
+    else
+      ""
+
+    `<div className={className + alertedClass}>
+      <a href="#move" className="game__placement__link" onClick={this.handleClick}>
+        <img className="game__placement__image" src={image_url} ref="image" />
+      </a>
+      {viewImageButton}
       {subDescriptionNode}
     </div>`
