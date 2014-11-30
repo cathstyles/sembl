@@ -40,6 +40,14 @@ Visit http://localhost:5000/ to use the app.
     $ pg_restore --verbose --clean --no-acl --no-owner -h localhost -d sembl_development < production_db.dump
     $ rm production_db.dump
 
+### Working with the Solr search engine
+
+Running `foreman` and specifying `Procfile.dev` (as above) will run a local, app-specific instance of the Solr search engine.
+
+To load the search engine with the app's data, run this rake task:
+
+    $ rake sunspot:reindex
+
 ### Importing `Thing` records from CSV
 
 Open the rails console, and then:
