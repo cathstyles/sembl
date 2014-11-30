@@ -8,9 +8,6 @@ class Thing < ActiveRecord::Base
 
   belongs_to :game # only when it's uploaded by a user
 
-  after_create :add_to_search_index
-  after_update :add_to_search_index
-
   mount_uploader :image, ImageUploader
 
   # Must appear before `searchable` so we can refer to it there
