@@ -6,6 +6,8 @@ html
       = stylesheet_link_tag "application", media: "all"
       = stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", media: "all"
       = stylesheet_link_tag "//cloud.typography.com/7558852/759284/css/fonts.css", media: "all"
+      - if Rails.env == "test"
+        = stylesheet_link_tag "turn-off-animations", media: "all"
     = area :javascripts do
       = javascript_include_tag "application"
     = csrf_meta_tags
