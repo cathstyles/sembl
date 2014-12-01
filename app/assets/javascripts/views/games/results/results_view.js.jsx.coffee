@@ -246,9 +246,10 @@
 
     userGroupedResults = {}
     for result in @props.results.models
-      email = result.get('user').email
-      userGroupedResults[email] = userGroupedResults[email] || []
-      userGroupedResults[email].push(result)
+      if result.get('user')
+        email = result.get('user').email
+        userGroupedResults[email] = userGroupedResults[email] || []
+        userGroupedResults[email].push(result)
 
     if @props.game.get('state') is 'completed'
       playerOverallResults = `<PlayerFinalResults players={players} />`
