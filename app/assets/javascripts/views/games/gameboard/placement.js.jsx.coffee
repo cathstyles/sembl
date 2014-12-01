@@ -40,7 +40,7 @@
     alertedClass = ""
     alertedClass = " alerted" if round == 1 and userState == 'available'
 
-    `<div className={className + alertedClass} onClick={this.handleClick}>
+    `<div className={className + alertedClass} onClick={this.handleClick} data-node-id={node.id}>
       <img className="game__placement__image" src={image_url} />
     </div>`
 
