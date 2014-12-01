@@ -195,6 +195,5 @@ feature "Playing a whole freakin' game", js: true do
     click_on "View the results"
     assert_round_results [[user1, 88], [user1, 87], [user1, 84], [user3, 49], [user3, 47], [user3, 46], [user2, 17], [user2, 11], [user2, 10]]
     assert_overall_results [[user1, 84], [user2, 51], [user3, 22]]
-    sign_out_current_user
   end
 end
