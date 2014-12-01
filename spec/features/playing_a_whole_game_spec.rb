@@ -5,8 +5,8 @@ def rate(ratings)
     expect(page).to have_content "Rate this Sembl"
     page.execute_script "$('#rating__rate__input').val(#{rating}).trigger('change')"
     expect(page).to have_content "Rating submitted"
-    find(".flash__close", match: :first).trigger("click")
-    find(".rating__nav__next", match: :first).trigger("click")
+    find(".flash__close", match: :first).click
+    find(".rating__nav__next", match: :first).click
   end
 end
 

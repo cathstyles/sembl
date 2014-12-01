@@ -99,8 +99,7 @@ module FeatureHelpers
     # (1..round).each do |i|
     find(".game__resemblance__tip", match: :first)
     while all(".game__resemblance__tip").present? do
-      find(".game__resemblance__tip", match: :first).trigger("click")
-      # all(".game__resemblance__tip")[0].trigger("click")
+      find(".game__resemblance__tip", match: :first).click
       expect(page).to have_content "What’s the resemblance between"
       fill_in "move__resemblance__description", with: "round #{round}: " + resemblance_description
       click_on "Add Sembl"
