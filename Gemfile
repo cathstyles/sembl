@@ -67,6 +67,7 @@ group :test do
   gem 'database_cleaner'
   gem 'forgery'
   gem 'poltergeist'
+  gem 'selenium-webdriver' # For vids, demonstrations purposes
   gem 'shoulda-matchers'
 end
 
