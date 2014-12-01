@@ -6,7 +6,8 @@ class GamePolicy < ApplicationPolicy
   def show?
     !record.invite_only ||
     record.participating?(user) ||
-    record.creator_id == user.try(:id)
+    record.creator_id == user.try(:id) ||
+    user.admin? #TODO: change this when we go live
   end
 
   def create?
