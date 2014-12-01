@@ -17,9 +17,11 @@
         <div className="results__player-move__move__sembl__inner">
           <div className="results__player-move__move__source">
             <img className="results__player-move__move__thing" src={source.thing.image_admin_url} />
+            {this._formatSubSembl(this.props.source_description, "source")}
           </div>
           <div className="results__player-move__move__target">
             <img className="results__player-move__move__thing" src={target.thing.image_admin_url} />
+              {this._formatSubSembl(this.props.target_description, "target")}
           </div>
           <div className={"results__player-move__move__score score--" + scoreRounded}>
             {score}
@@ -44,6 +46,13 @@
       _.map(name.split(' ', 2), (item) ->
         item[0].toUpperCase()
       ).join('')
+  _formatSubSembl: (description, className) ->
+    if description
+      `<div className={"results__player-move__move__sub-sembl results__player-move__move__sub-sembl--"+className}>
+        <span className="results__player-move__move__sub-sembl__inner">{description}</span>
+      </div>`
+    else
+      ""
 
 {SemblResult} = @Sembl.Games.Results
 
@@ -64,6 +73,8 @@
         source: resemblance.source
         target: target
         description: resemblance.description
+        source_description: resemblance.source_description
+        target_description: resemblance.target_description
         score: resemblance.score || 0
         user: resemblance.result.get("user")
       )

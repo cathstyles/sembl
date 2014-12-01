@@ -251,6 +251,14 @@
   }
 }
 
+.game__placement__link {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
 .game__placement__image {
   border-radius: $border-radius-inner;
   height: 100%;
@@ -272,6 +280,18 @@
     width: 300px;
     margin-left: -90px;
   }
+
+ .game__placement__view-image {
+    @extend %button;
+    @include font-size(11);
+    @include inset(top, normal);
+    display: inline-block;
+    left: 50%;
+    margin-left: -60px;
+    position: absolute;
+    bottom: 115%;
+    width: 120px;
+ }
 
 .game__resemblance,
 .move__resemblance,
