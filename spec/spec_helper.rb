@@ -6,7 +6,7 @@ require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
-Capybara.asset_host = "http://sembl.dev/"
+Capybara.asset_host = "http://localhost:3000/"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
