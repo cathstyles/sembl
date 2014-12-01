@@ -5,10 +5,8 @@
 {classSet} = React.addons
 
 @Sembl.Games.Gameboard.Resemblance = React.createClass
-  getInitialState: ->
-    sticky: false
   handleClick: (event) ->
-    @setState sticky: !@state.sticky
+    Sembl.router.navigate("moved/#{@props.link.get("source_id")}/#{@props.link.get("target_id")}", trigger: true)
 
   render: ->
     resemblance = @props.link.get('viewable_resemblance')
@@ -52,7 +50,6 @@
         ""
       expandedClassNames = classSet
         "game__resemblance__expanded": true
-        "game__resemblance__expanded--sticky": @state.sticky
         "game__resemblance__expanded--playing-turn": @props.playingTurn
       `<div>
         <div className={'game__resemblance__filled game__resemblance__filled--' + scoreClass} />
@@ -68,7 +65,6 @@
 
     classNames = classSet
       "game__resemblance": true
-      "game__resemblance--sticky": @state.sticky
       "game__resemblance--playing-turn": @props.playingTurn
 
     `<div className={classNames}>
