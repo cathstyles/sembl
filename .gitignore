@@ -7,7 +7,9 @@
 /coverage
 /db/*.sqlite3
 /log/*.log
+/log/*.lck
 /public/assets
 /public/uploads
 /tmp
 /*_dump.sql
+/solr

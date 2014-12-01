@@ -1,13 +1,11 @@
 json.(
   query,
-  :text,
-  :place_filter,
   :access_filter,
-  :date_from,
-  :date_to,
   :created_to,
-  :random_seed,
   :exclude_mature,
   :exclude_sensitive,
-  :include_user_contributed
+  :include_user_contributed,
+  :place_filter,
+  :random_seed,
+  :text
 )

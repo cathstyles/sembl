@@ -20,8 +20,6 @@
           <span><i className="fa fa-circle"></i></span>
         </li>`
 
-    console.log @props.combinedIndex, @props.totalLinks
-
     backBtn = if @props.combinedIndex > 0
       `<div className="rating__nav__back" onClick={this.handleBack}>
           <i className="fa fa-chevron-left"></i>

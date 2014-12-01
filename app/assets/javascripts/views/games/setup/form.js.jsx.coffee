@@ -67,8 +67,6 @@
         uploads_allowed: game.get('uploads_allowed')
         invite_only: game.get('invite_only')
 
-    console.log 'formFields', formFields
-
     return state =
       game: game
       activeSteps: @props.firstSteps || []
@@ -124,11 +122,9 @@
       Sembl.game = new Sembl.Game(data)
       @setState
         game: Sembl.game
-      console.log 'saved'
       success(data) if success?
     _error = (response) =>
       responseObj = JSON.parse(response.responseText)
-      console.log responseObj
       if response.status == 422
         msgs = (value for key, value of responseObj.errors)
         $(window).trigger('flash.error', msgs.join(", "))
@@ -180,7 +176,6 @@
       activeSteps: @state.activeSteps
 
   render: ->
-    console.log 'new_view.state', @state
     boards = @state.game.boards.sortBy('title')
     stepList = []
     for step in @state.activeSteps

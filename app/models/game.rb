@@ -272,12 +272,13 @@ class Game < ActiveRecord::Base
   end
 
   def filter_query
-    filter_params = (filter_content_by || {}).symbolize_keys!
-    filter_params[:game_id] = id
+    @filter_query ||= begin
+      filter_params = (filter_content_by || {}).symbolize_keys!
+      filter_params[:game_id] = id
+      filter_params[:random_seed] = random_seed
 
-    @filter_query ||= Search::ThingQuery.new(filter_params)
-    @filter_query.random_seed = random_seed
-    @filter_query
+      ThingSearch.new(filter_params)
+    end
   end
 
   def copy_nodes_and_links_from_board

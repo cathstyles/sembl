@@ -77,6 +77,7 @@ Gallery = @Sembl.Games.Gallery
   handlePlacementClick: (event, data) ->
     if data.userState in ['proposed', 'available']
       @$window.trigger('slideViewer.show', data)
+      @$window.trigger('flash.hide')
     else if data.thing
       @$window.trigger('modal.open', `<ThingModal thing={data.thing} />`)
 
