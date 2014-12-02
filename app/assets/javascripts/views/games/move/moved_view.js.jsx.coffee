@@ -58,7 +58,12 @@ Gallery = @Sembl.Games.Gallery
       "-moz-transform": "translate(0,-#{@state.slideOffset}px)"
       "transform": "translate(0,-#{@state.slideOffset}px)"
 
-    creatorName = if @props.creator.name? && @props.creator.name != "" then @props.creator.name else @props.creator.email
+    creatorName = if @props.creator? && @props.creator.name? && @props.creator.name != ""
+      @props.creator.name
+    else if @props.creator?
+      @props.creator.email
+    else
+      "..."
     creatorName = if @props.game.get("player")? && @props.game.get("player").user.id == @props.creator.id
       "you!"
     else
