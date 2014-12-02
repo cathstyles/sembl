@@ -13,6 +13,7 @@
 
 
   handleClick: (event, link) ->
+    event?.preventDefault()
     $(window).trigger('move.resemblance.click',
       link: @props.link
       description: @state.description
@@ -97,10 +98,10 @@
     else
       ""
 
-    `<div className="move__resemblance" onClick={this.handleClick}>
+    `<a className="move__resemblance" onClick={this.handleClick} href="#moveresemblance">
       {tooltip}
       {sourceSubDescriptionNode}
       {child}
       {targetSubDescriptionNode}
-    </div>`
+    </a>`
 

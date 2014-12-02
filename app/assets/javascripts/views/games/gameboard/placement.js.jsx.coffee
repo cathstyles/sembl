@@ -10,6 +10,7 @@
     gameState: Sembl.game.get("state")
 
   handleClick: (event, data) ->
+    event.preventDefault()
     node = @props.node
     userState = node.get('user_state')
     if userState == 'available' && (@state.gameState is "playing" || @state.gameState is "joining" || @state.gameState is "open")
@@ -27,7 +28,7 @@
     if round == 1 and userState == 'available'
       $(window).trigger('flash.notice', "Let's go! Add your first image to begin the game.")
 
-  render: () ->
+  render: ->
     node = @props.node
     userState = @props.userState || node.get('user_state')
     if @state.gameState is "rating" and userState is "available" then userState = "locked"
@@ -40,8 +41,8 @@
     alertedClass = ""
     alertedClass = " alerted" if round == 1 and userState == 'available'
 
-    `<div className={className + alertedClass} onClick={this.handleClick}>
+    `<a href="#placement" className={className + alertedClass} onClick={this.handleClick}>
       <img className="game__placement__image" src={image_url} />
-    </div>`
+    </a>`
 
 

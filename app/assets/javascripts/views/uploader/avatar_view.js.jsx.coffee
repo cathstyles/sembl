@@ -15,7 +15,8 @@
     @$form = $(@props.avatarFormSelector)
 
   # Click to upload a different image
-  handleOnClick: ->
+  handleOnClick: (event) ->
+    event?.preventDefault()
     @setState step: 1
 
   finishedUpload: (results) ->
@@ -37,9 +38,9 @@
         srcURL = this.avatarRemoteUrl || this.props.avatarUrl
         `<img src={srcURL}/>`
 
-    `<div className="profile__avatar" onClick={this.handleOnClick}>
+    `<a href="#profile" className="profile__avatar" onClick={this.handleOnClick}>
       {currentComponent}
-    </div>`
+    </a>`
 
   _disabledClassName: ->
     "#{@props.avatarFormSelector.replace(/^\./, "")}--disabled"

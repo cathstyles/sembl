@@ -3,10 +3,8 @@
 @Sembl.Components.Flash = React.createClass
 
   getInitialState: ->
-    {
-      msg: ""
-      className: "hidden"
-    }
+    msg: ""
+    className: "hidden"
 
   componentWillMount: ->
     $(window).on('flash.notice', @handleNotice)
@@ -25,13 +23,14 @@
     @setState msg: msg, className: 'error'
 
   handleHide: (event) ->
+    event.preventDefault()
     @setState msg: "", className: 'hidden'
 
   render: ->
     className = "flash #{this.state.className}"
     `<aside className={className}>
-      <div className="flash__close" onClick={this.handleHide}>
+      <a className="flash__close" onClick={this.handleHide} href="#hideflash">
         <i className="fa fa-times"/>
-      </div>
+      </a>
       {this.state.msg}
     </aside>`

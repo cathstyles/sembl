@@ -5,16 +5,17 @@
 {ThingModal} = Sembl.Components
 
 @Sembl.Games.Setup.OverviewGraphPlacement = React.createClass
-  handleClick: (event, data) ->
+  handleClick: (event) ->
+    event?.preventDefault()
     if @props.thing
       if this.props.isDraft
         $(window).trigger('setup.steps.add', {stepName: 'seed'})
-      else 
+      else
         $(window).trigger('modal.open', `<ThingModal thing={this.props.thing}/>`)
 
   render: () ->
-    userState = 
-      if @props.thing 
+    userState =
+      if @props.thing
         'filled'
       else
         if @props.round == 0
@@ -30,8 +31,8 @@
       else
         "Round #{this.props.round}"
 
-    `<div className={className} onClick={this.handleClick}>
+    `<a href="#thingmodal" className={className} onClick={this.handleClick}>
       <div className="setup__overview__graph__placement__round"><em>{roundText}</em></div>
       <img className="game__placement__image" src={image_url} />
-    </div>`
+    </a>`
 

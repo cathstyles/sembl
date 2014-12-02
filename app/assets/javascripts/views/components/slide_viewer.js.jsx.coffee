@@ -57,11 +57,11 @@
       'slide-viewer--hidden': @state.hidden
     )
     `<div className={className}>
-      <span className="slide-viewer__close-button" onClick={this.doHide}>
+      <a className="slide-viewer__close-button" onClick={this.doHide} href="#hideslide">
         <span className="slide-viewer__close-button__inner">
           <i className="fa fa-times"></i>&nbsp;Close
         </span>
-      </span>
+      </a>
       <div className="slide-viewer__inner">
         {this.state.child}
       </div>

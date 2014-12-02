@@ -1,20 +1,20 @@
 ###* @jsx React.DOM ###
 
-@Sembl.Components.Tooltip = React.createClass 
+@Sembl.Components.Tooltip = React.createClass
 
-  getInitialState: -> 
-    {
-      hidden: false
-    }
+  getInitialState: ->
+    hidden: false
 
-  handleHide: -> 
+  handleHide: (event) ->
+    event.preventDefault()
     @setState hidden: true
 
-  render: -> 
+  render: ->
     hidden = if @state.hidden then "hidden" else ""
 
-    `<div 
+    `<a
+      href="#tooltop"
       className={this.props.className + " tooltip " + hidden}
       onClick={this.handleHide}>
       <div className="tooltip__inner">{this.props.children}</div>
-    </div>`
+    </a>`

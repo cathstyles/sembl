@@ -1,10 +1,12 @@
 ###* @jsx React.DOM ###
 
 @Sembl.Games.Rate.NavigationView = React.createClass
-  handleNext: ->
+  handleNext: (event) ->
+    event?.preventDefault()
     @props.handleNext()
 
-  handleBack: ->
+  handleBack: (event) ->
+    event?.preventDefault()
     @props.handleBack()
 
   render: ->
@@ -21,10 +23,10 @@
         </li>`
 
     backBtn = if @props.combinedIndex > 0
-      `<div className="rating__nav__back" onClick={this.handleBack}>
+      `<a href="#back" className="rating__nav__back" onClick={this.handleBack}>
           <i className="fa fa-chevron-left"></i>
           Previous Sembl
-       </div>`
+       </a>`
     else
       `<div className="rating__nav__back rating__nav__back--disabled">
           <i className="fa fa-chevron-left"></i>
@@ -35,10 +37,10 @@
     else
       "Go to the next Sembl"
     nextBtn = if currentResemblance.rating?
-      `<div className="rating__nav__next" onClick={this.handleNext}>
+      `<a href="#next" className="rating__nav__next" onClick={this.handleNext}>
         {nextBtnText}
         <i className="fa fa-chevron-right"></i>
-       </div>`
+       </a>`
     else
       `<div className="rating__nav__next rating__nav__next--disabled">
         {nextBtnText}

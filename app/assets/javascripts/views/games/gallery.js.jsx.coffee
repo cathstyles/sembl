@@ -59,19 +59,19 @@ class Justifiedlayout
 
 GalleryImage = React.createClass
   handleClick: (event) ->
+    event.preventDefault()
     image = @props.image
     if image.clickEvent
       $(window).trigger(image.clickEvent, image.thing)
 
   render: ->
     image = @props.image
-    `<div key={image.id} className={image.className} onClick={this.handleClick}
-      onClick={this.handleClick} >
-        <div className="games__gallery__overlay">
-          <div className="games__gallery__overlay-inner"><h1>{image.thing.title}</h1></div>
-        </div>
-        <img src={image.src} width={image.width} height={image.height} />
-      </div>`
+    `<a href="#gallery" key={image.id} className={image.className} onClick={this.handleClick}>
+      <div className="games__gallery__overlay">
+        <div className="games__gallery__overlay-inner"><h1>{image.thing.title}</h1></div>
+      </div>
+      <img src={image.src} width={image.width} height={image.height} />
+    </a>`
 
 @Sembl.Games.Gallery = React.createClass
   className: "games__gallery"
