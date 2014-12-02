@@ -70,7 +70,9 @@ GalleryImage = React.createClass
       <div className="games__gallery__overlay">
         <div className="games__gallery__overlay-inner"><h1>{image.thing.title}</h1></div>
       </div>
-      <img src={image.src} width={image.width} height={image.height} />
+      <div className="games__gallery__image">
+        <img src={image.src} width={image.width} height={image.height} />
+      </div>
     </a>`
 
 @Sembl.Games.Gallery = React.createClass
