@@ -7,3 +7,8 @@ json.title placement.try(:thing).try(:title)
 json.thing do
   json.partial! 'api/things/thing', thing: placement.thing
 end
+if placement.creator.present?
+  json.creator do
+    json.partial! 'api/users/user', user: placement.creator
+  end
+end

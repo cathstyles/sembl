@@ -1,6 +1,7 @@
 #= require views/games/gameboard/game_view
 #= require views/games/gameboard/game_header_view
 #= require views/games/move/move_view
+#= require views/games/move/moved_view
 #= require collections/moves
 #= require views/games/rate/rating_view
 #= require views/games/results/results_view
@@ -11,7 +12,8 @@
 class Sembl.GameRouter extends Backbone.Router
   routes:
     "": "board"
-    "move/:node_id": "move"
+    "move/:node_id":  "move"
+    "moved/:source_id/:target_id": "moved"
     "results/:round": "results"
     "rate": "rate"
 
@@ -33,6 +35,18 @@ class Sembl.GameRouter extends Backbone.Router
       body: Sembl.Games.Move.MoveView({node: node, game: @game}),
       header: Sembl.Games.HeaderView(model: @game, title: 'Your Move')
     PageTitle.set "Your move"
+
+  moved: (sourceID, targetID) ->
+    source = @game.nodes.get(sourceID)
+    target = @game.nodes.get(targetID)
+    placement = target.get("viewable_placement")
+    creator = placement?.creator
+    creatorName = if creator.name? && creator.name != "" then creator.name else creator.email
+
+    @layout.setProps
+      body: Sembl.Games.Move.MovedView({source: source, target: target, creator: creator, game: @game}),
+      header: Sembl.Games.HeaderView(model: @game, title: "Move by #{creatorName}")
+    PageTitle.set "Move by #{creatorName}"
 
   rate: ->
     moves = new Sembl.Moves([], {rating: true, game: @game})
