@@ -42,7 +42,11 @@
               <p>{thing.description}</p>
             </div>
           </div>
-          <h3 className={metadataToggleClasses} onClick={this._toggleMetadata}>{(this.state.showMetadata) ? "Hide" : "Show"} metadata</h3>
+          <h3 className={metadataToggleClasses}>
+            <a href="#togglemetadata" onClick={this._toggleMetadata}>
+              {(this.state.showMetadata) ? "Hide" : "Show"} metadata
+            </a>
+          </h3>
           <div className="move__thing-modal__attributes">
             <div className="move__thing-modal__attribute-row">
               <div className="move__thing-modal__attribute">

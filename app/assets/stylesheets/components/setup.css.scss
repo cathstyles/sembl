@@ -72,6 +72,8 @@
 .setup__steps__board__item {
   @extend .small-tracked-out-heading;
   border-top: 1px solid $border-color;
+  display: block;
+  color: $text-color;
   cursor: pointer;
   float: left;
   text-align: center;
@@ -92,11 +94,11 @@
       border: 1px dashed $text-color;
     }
   }
-  a {
+}
+  .setup__steps__board__title {
     color: $link-color;
     display: block;
   }
-}
 
 .setup__steps__board__item__inner {
   @include pad(all, small);

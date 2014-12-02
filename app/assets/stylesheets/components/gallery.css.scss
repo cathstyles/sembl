@@ -11,6 +11,11 @@
   cursor: pointer;
   position: relative;
   display: inline-block;
+  img {
+    transition-property: transform;
+    transition-duration: 2000ms;
+    transform: scale(1,1);
+  }
   &:hover {
     z-index: 100;
     &:before {
@@ -25,20 +30,18 @@
     }
     img {
       box-shadow: 0 0 12px 0 rgba(#000,.2);
-      transform: scale(1.1);
+      transform: scale(1.2, 1.2);
       z-index: 100;
       border: 3px solid #fff;
-      transition-property: scale;
-      transition-duration: 100ms;
     }
     .games__gallery__overlay {
-      border: 3px solid #fff;
-      display: block;
-      transform: scale(1.1);
-      z-index: 150;
+      opacity: 1;
     }
   }
 }
+  .games__gallery__image {
+    overflow: hidden;
+  }
 
 .games__gallery__selected_thing {
   @include pad(all, medium);
@@ -76,14 +79,19 @@
 }
 
 .games__gallery__overlay {
-  display: none;
+  background-color: rgba(#000,.5);
+  border: 3px solid #fff;
+  bottom: -3px;
   color: #fff;
-  background-color: rgba(#000,.8);
+  left: -3px;
+  opacity: 0;
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  right: -3px;
+  top: -3px;
+  transition-property: opacity;
+  transition-duration: 400ms;
+  // transition-delay: 100ms;
+  z-index: 150;
 }
 
 .games__gallery__overlay-inner {

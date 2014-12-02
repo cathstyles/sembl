@@ -7,6 +7,7 @@ end
 json.resemblances do
   json.array! move.resemblances do |resemblance|
     json.(resemblance, :id, :score, :description, :source_description, :target_description)
+    json.target_state move.placement.state
     json.source do
       json.node(resemblance.source.node, :id, :round)
       json.thing { json.partial! 'api/things/thing', thing: resemblance.source.thing}

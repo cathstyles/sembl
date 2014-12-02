@@ -15,15 +15,17 @@
 
   render: ->
     boards = $.map(@props.boards, (board) =>
-      selectBoard = (ev) => @handleSelectBoard(board); ev.preventDefault()
+      selectBoard = (event) =>
+        event?.preventDefault()
+        @handleSelectBoard(board)
       className = "setup__steps__board__item"
       className += " selected" if @props.board?.id == board.id
-      `<div className={className} onClick={selectBoard}>
+      `<a href="#selectboard" className={className} onClick={selectBoard}>
         <div className="setup__steps__board__item__inner">
-          <a key={board.id} href="#" onClick={selectBoard}>{board.get('title')}</a>
+          <span className="setup__steps__board__title" key={board.id}>{board.get('title')}</span>
           <ThumbBoardGraph board={board} style={{width: 50, height: 50}} />
         </div>
-      </div>`
+      </a>`
     )
 
     `<div className="setup__steps__board">

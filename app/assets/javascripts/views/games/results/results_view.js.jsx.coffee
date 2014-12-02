@@ -69,7 +69,7 @@
     _.map @props.resemblances, (resemblance) ->
       target = resemblance.result.get("target")
       return SemblResult(
-        roundWinner: _.contains(_.pluck(_this.props.roundWinners, "id"), resemblance.id)
+        roundWinner: resemblance.target_state == "final"
         source: resemblance.source
         target: target
         description: resemblance.description

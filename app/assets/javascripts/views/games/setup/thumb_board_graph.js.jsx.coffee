@@ -4,7 +4,7 @@
 
 {Graph} = Sembl.Components.Graph
 
-class NodeFactory 
+class NodeFactory
   createComponent: (data) ->
     `<div className="setup__thumb-board-graph__node" />`
 
@@ -22,7 +22,7 @@ class MidpointFactory
       y: node.get('y')
 
     links = for link in board.links.models
-      source: 
+      source:
         x: link.source.get('x')
         y: link.source.get('y')
       target:
@@ -33,8 +33,7 @@ class MidpointFactory
     midpointFactory = new MidpointFactory()
     window.board = board
     `<div className="setup__thumb-board-graph">
-      <Graph nodes={nodes} links={links} 
+      <Graph nodes={nodes} links={links}
         crop={true}
         nodeFactory={nodeFactory} midpointFactory={midpointFactory} />
     </div>`
-  

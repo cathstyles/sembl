@@ -6,7 +6,8 @@
 {Node} = Sembl.Components.Graph
 
 @Sembl.Games.Rate.Placement = React.createClass
-  handleClick: (event, data) ->
+  handleClick: (event) ->
+    event?.preventDefault()
     thing = @props.node.get('viewable_placement')?.thing
     if thing
       $(window).trigger('modal.open', `<ThingModal thing={thing} />`)
@@ -25,7 +26,7 @@
       ""
 
 
-    `<div className={className} onClick={this.handleClick}>
+    `<a href="#placement" className={className} onClick={this.handleClick}>
       <img className="game__placement__image" src={image_url} />
       {subDescriptionNode}
-    </div>`
+    </a>`

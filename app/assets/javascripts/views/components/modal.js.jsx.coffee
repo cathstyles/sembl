@@ -22,7 +22,8 @@ ESC_KEY = 27
     if not $.contains(@getDOMNode(), event.target)
       @handleClose()
 
-  handleClose: ->
+  handleClose: (event) ->
+    event?.preventDefault()
     @setState
       modalChild: null
     $('html').removeClass('modal-is-active')
@@ -33,12 +34,12 @@ ESC_KEY = 27
   render: ->
     if this.state.modalChild
       `<div className="modal modal--visible">
-        <div className="modal__capture" onClick={this.handleClose}/>
+        <a className="modal__capture" onClick={this.handleClose} href="#close"/>
         <div className="modal__wrapper">
           <div className="modal__inner metadata-is-not-visible">
-            <span className="move__thing__modal__button" onClick={this.handleClose}>
+            <a href="#thingmodal" className="move__thing__modal__button" onClick={this.handleClose}>
               <i className="fa fa-times"></i>
-            </span>
+            </a>
             {this.state.modalChild}
           </div>
         </div>

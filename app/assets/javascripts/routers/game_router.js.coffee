@@ -41,7 +41,12 @@ class Sembl.GameRouter extends Backbone.Router
     target = @game.nodes.get(targetID)
     placement = target.get("viewable_placement")
     creator = placement?.creator
-    creatorName = if creator.name? && creator.name != "" then creator.name else creator.email
+    creatorName = if creator?.name && creator.name? && creator.name != ""
+      creator.name
+    else if creator?
+      creator.email
+    else
+      "..."
 
     @layout.setProps
       body: Sembl.Games.Move.MovedView({source: source, target: target, creator: creator, game: @game}),

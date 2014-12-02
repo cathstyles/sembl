@@ -6,6 +6,7 @@
 
 @Sembl.Games.Gameboard.Resemblance = React.createClass
   handleClick: (event) ->
+    event.preventDefault()
     Sembl.router.navigate("moved/#{@props.link.get("source_id")}/#{@props.link.get("target_id")}", trigger: true)
 
   render: ->
@@ -54,9 +55,9 @@
       `<div>
         <div className={'game__resemblance__filled game__resemblance__filled--' + scoreClass} />
         <div className={expandedClassNames}>
-          <div className="game__resemblance__expanded__inner" onClick={this.handleClick}>
+          <a href="#resemblance" className="game__resemblance__expanded__inner" onClick={this.handleClick}>
             {resemblance.description}
-          </div>
+          </a>
         </div>
         {editButton}
       </div>`
