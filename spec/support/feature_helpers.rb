@@ -79,7 +79,7 @@ module FeatureHelpers
     if round > 1
       inplay_and_unplaced_nodes = @game.nodes.where("nodes.state = 'in_play'") - @game.nodes.joins(:placements)
       if inplay_and_unplaced_nodes.length > 0
-        find("div[data-node-id='#{inplay_and_unplaced_nodes.first.id}']").click
+        find("a[data-node-id='#{inplay_and_unplaced_nodes.first.id}']").click
       else
         find(".state-available", match: :first).click
       end
@@ -90,6 +90,7 @@ module FeatureHelpers
     end
     expect(page).to have_css ".state-available"
     find(".state-available").click
+    expect(page).to have_content "CLOSE"
     find(".games__gallery__thing", match: :first).click
     expect(page).to have_css ".move__thing-modal__place-button"
     find(".move__thing-modal__place-button", match: :first).click
