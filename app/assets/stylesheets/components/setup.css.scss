@@ -145,6 +145,12 @@ input.setup__steps__title__input {
   }
 }
 
+.setup__steps__seed__view-image {
+  @extend %button;
+  @include font-size(11);
+  margin-bottom: 10px;
+}
+
 .setup__steps__seed-image {
   @include inset(vert, small);
   background-color: $background-color;

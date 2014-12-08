@@ -72,6 +72,9 @@ Checkbox = React.createClass
         $(window).trigger("#{this.props.searcherPrefix}.setFilter", filter)
     )
 
+  handleViewImageClick: (event) ->
+    event.preventDefault()
+    $(window).trigger('modal.open', `<StepSeedThingModal selectEvent='setup.steps.seed.select' thing={this.props.seed} />`)
 
   handleGalleryClick: (event, thing) ->
     $(window).trigger('modal.open', `<StepSeedThingModal selectEvent='setup.steps.seed.select' thing={thing} />`)
@@ -81,6 +84,7 @@ Checkbox = React.createClass
     $(window).trigger('setup.steps.change', {seed: thing})
 
   handleSeedClick: (event) ->
+    event.preventDefault()
     $(window).trigger('slideViewer.show')
 
   handleRandomSeed: (event) ->
@@ -100,12 +104,18 @@ Checkbox = React.createClass
     else
       "game__placement state-available"
 
+    viewImage = if seed?.id
+      `<button className="setup__steps__seed__view-image" onClick={this.handleViewImageClick}>View image</button>`
+    else
+      ""
+
     `<div className="setup__steps__seed">
       <div className="setup__steps__title">Choose a seed:</div>
       <div className="setup__steps__inner">
-        <div className={seedPlacementClassName} onClick={this.handleSeedClick}>
+        {viewImage}
+        <a className={seedPlacementClassName} onClick={this.handleSeedClick}>
           <img className="game__placement__image" key={image_url} src={image_url} />
-        </div>
+        </a>
         <h3 className="setup__steps__seed-randomise">
           <a href="#" onClick={this.handleRandomSeed}><i className="fa fa-random"></i>&nbsp;<em>Randomise</em></a>
         </h3>
