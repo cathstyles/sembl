@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     def user_not_authorized
       puts 'ApplicationController.user_not_authorized'
       if current_user.present?
-        flash[:error] = "Sorry, you do not have permission to perform this action."
+        flash[:error] = "Sorry, you’ve stumbled across a restricted area."
         redirect_to request.headers["Referer"] || root_path
       else
         flash[:notice] = "Please sign in below<br/>or sign up #{ActionController::Base.helpers.link_to "here", new_user_registration_path}.".html_safe
