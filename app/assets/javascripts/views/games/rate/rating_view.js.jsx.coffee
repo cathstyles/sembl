@@ -57,7 +57,7 @@
 
   incrementIndexes: ->
     @state.combinedIndex = @state.combinedIndex + 1
-    if @state.combinedIndex >= @state.totalLinks then @state.combinedIndex = @state.totalLinks
+    if @state.combinedIndex > @state.totalLinks then @state.combinedIndex = @state.totalLinks
     move = @currentMove()
     linkCount = move.links.length
     moveCount = @props.moves.length

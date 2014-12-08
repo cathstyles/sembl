@@ -14,10 +14,12 @@
     currentResemblance = @props.currentLink.get('viewable_resemblance')
 
     spots = []
+    lastRating = false
     @props.moves.each (move, i) ->
       move.links.each (link, i) ->
         sembl = link.get('viewable_resemblance')
         className = if link.active  then "rating__nav__link--current" else ""
+        lastRating = link.active
         spots.push `<li className={'rating__nav__link ' + className} key={sembl.id}>
           <span><i className="fa fa-circle"></i></span>
         </li>`
@@ -32,7 +34,7 @@
           <i className="fa fa-chevron-left"></i>
           Previous Sembl
        </div>`
-    nextBtnText = if @props.totalLinks <= @props.combinedIndex
+    nextBtnText = if lastRating
       "Finish rating"
     else
       "Go to the next Sembl"
