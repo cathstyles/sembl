@@ -1,5 +1,5 @@
 .game-individual
-  div class=(game.open_to_join? ? 'game-individual__wrapper game-individual__wrapper--playable' : 'game-individual__wrapper')
+  div class=(game_is_player_actionable(game, current_user) ? 'game-individual__wrapper game-individual__wrapper--user-waiting' : 'game-individual__wrapper')
     .game-individual__image-container
       .game-individual__image-container__inner
         a href="#{game_path(game)}" class="game__individual-anchor"

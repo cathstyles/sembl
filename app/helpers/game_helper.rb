@@ -92,4 +92,13 @@ module GameHelper
 
     summarised_names.to_sentence
   end
+
+  def game_is_player_actionable(game, current_user)
+    actionable = false
+    player = game.players.select {|p| p.user == current_user}.try(:first)
+    unless player.blank?
+      actionable = player.state.to_sym != :waiting
+    end
+    actionable
+  end
 end

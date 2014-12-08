@@ -68,7 +68,7 @@
       transform: translate3d(0,0,0);
     }
   }
-  &.game-individual__wrapper--playable {
+  &.game-individual__wrapper--user-waiting {
     @extend %highlight-box;
     img {
       border-color: $highlight-color;
