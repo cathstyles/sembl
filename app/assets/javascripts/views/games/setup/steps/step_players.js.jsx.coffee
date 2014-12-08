@@ -12,10 +12,11 @@
 
   getInitialState: ->
     players: null
+    maxPlayerCount: @props.game.get('number_of_players')
 
   componentDidUpdate: (prevProps, prevState) ->
     if prevState.players is null
-      @refs.emailInput.getDOMNode().focus()
+      @refs?.emailInput.getDOMNode().focus()
 
   handleGivePlayers: (event, data) ->
     if data.players?
@@ -52,7 +53,6 @@
     if @state.players?
       players = @state.players
       playerCount = players.length
-      maxPlayerCount = @props.game.get('number_of_players')
 
       playerComponents = $.map(players, (player) =>
         user = player.get('user')
@@ -65,7 +65,7 @@
         </div>`
       )
 
-      inviteComponent = if playerCount < maxPlayerCount
+      inviteComponent = if playerCount < @state.maxPlayerCount
         `<form className="setup__steps__players__invite" onSubmit={this.handleInvite}>
           <label htmlFor="setup__steps__players__invite__input" className="setup__steps__players__invite__label">Enter email address: </label>
           <input ref='emailInput' id="setup__steps__players__invite__input" className="setup__steps__players__invite__input" type="text" />
