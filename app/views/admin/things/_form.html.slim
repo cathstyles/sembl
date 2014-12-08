@@ -15,6 +15,10 @@
   - if @thing.user_contributed?
     = form.input :moderator_approved, label: "Allow thing to be used in all games?" do
       = form.check_box :moderator_approved
+  = form.input :sensitive, label: "Mark as culturally sensitive?" do
+    = form.check_box :sensitive
+  = form.input :mature, label: "Mark as mature?" do
+    = form.check_box :mature
 
   - unless @thing.new_record?
     .control-group

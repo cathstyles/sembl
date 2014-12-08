@@ -28,7 +28,7 @@ class Admin::ThingsController < AdminController
     @thing.update_attributes(thing_params)
     @thing.updator = current_user
     @thing.save
-    respond_with :admin, @thing, location: [:admin, :things]
+    respond_with :admin, @thing, location: [:edit, :admin, :thing]
   end
 
   def destroy
@@ -49,7 +49,9 @@ protected
       :copyright,
       :general_attributes,
       :access_via,
-      :moderator_approved
+      :moderator_approved,
+      :sensitive,
+      :mature
     )
   end
 end
