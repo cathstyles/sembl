@@ -144,6 +144,12 @@ Sembl.Games.Gameboard.StatusView = React.createClass
           <a href="#join" onClick={this.handleJoin} className="game__status__button game__status__end-turn">Join this game</a>
         </div>
       </div>`
+    else if @props.game.get("state") != "completed" && @_remainingPlayerCount() == 0
+      statusHTML = `<div className="game__status">
+        <div className="game__status-inner">
+          <p>This game has a full complement of players.</p>
+        </div>
+      </div>`
     return statusHTML
 
   _remainingPlayerCount: ->
