@@ -29,7 +29,11 @@
             = game.description
     - if game.players.present?
       .game-individual__players
-        - game.players.without_states(:draft).each do |player|
+        - active_players = game.players.without_states(:draft)
+        - if active_players.length > 5
+          .game-individual__player--more
+            ' + #{active_players.length - 5} more
+        - active_players.first(5).each do |player|
           - if player.user.present?
             .game-individual__player
               - if player.user.profile.present?
