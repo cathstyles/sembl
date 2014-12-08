@@ -312,6 +312,7 @@
 }
 
 .move__resemblance {
+  display: block;
   cursor: pointer;
   &:hover {
     .game__resemblance__tip {
