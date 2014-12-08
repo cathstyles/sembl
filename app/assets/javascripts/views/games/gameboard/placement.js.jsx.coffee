@@ -31,7 +31,8 @@
   render: ->
     node = @props.node
     userState = @props.userState || node.get('user_state')
-    if @state.gameState is "rating" and userState is "available" then userState = "locked"
+    playerState = window.Sembl.game.get('player')?.state
+    if @state.gameState is "rating" and userState is "available" || userState is "available" and playerState is "waiting" then userState = "locked"
     className = "game__placement state-#{userState} "
 
     thing = node.get('viewable_placement')?.thing
