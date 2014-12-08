@@ -97,7 +97,7 @@ module GameHelper
     actionable = false
     player = game.players.select {|p| p.user == current_user}.try(:first)
     unless player.blank?
-      actionable = player.state.to_sym != :waiting
+      actionable = player.state.to_sym != :waiting && player.state.to_sym != :finished
     end
     actionable
   end
