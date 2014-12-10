@@ -82,7 +82,8 @@
 @Sembl.Games.Results.PlayerRoundResults = React.createClass
   render: ->
     _this = @
-    playerRoundResults = @props.players.map (player) ->
+    playersSorted = _.sortBy(@props.players.slice(0), (player) -> player.score).reverse()
+    playerRoundResults = playersSorted.map (player) ->
       name = player.user?.name || player.user?.email
       score = Math.floor(player.score * 100)
       user = player.user
@@ -256,9 +257,10 @@
 
     userGroupedResults = {}
     for result in @props.results.models
-      email = result.get('user').email
-      userGroupedResults[email] = userGroupedResults[email] || []
-      userGroupedResults[email].push(result)
+      if result.get('user')
+        email = result.get('user').email
+        userGroupedResults[email] = userGroupedResults[email] || []
+        userGroupedResults[email].push(result)
 
     if @props.game.get('state') is 'completed'
       playerOverallResults = `<PlayerFinalResults players={players} />`

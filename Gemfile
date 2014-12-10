@@ -54,6 +54,7 @@ group :doc do
 end
 
 group :development, :test do
+  gem 'pry-byebug'
   gem 'dotenv-rails'
   gem 'factory_girl_rails'
   gem 'pry-rails'
@@ -67,6 +68,7 @@ group :test do
   gem 'database_cleaner'
   gem 'forgery'
   gem 'poltergeist'
+  gem 'selenium-webdriver' # For vids, demonstrations purposes
   gem 'shoulda-matchers'
 end
 

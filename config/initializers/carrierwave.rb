@@ -23,6 +23,6 @@ CarrierWave.configure do |config|
   if Rails.env.test? || Rails.env.cucumber?
     config.storage = :file
     config.enable_processing = false
-    config.asset_host = "http://sembl.dev"
+    config.asset_host = "http://localhost:5000"
   end
 end

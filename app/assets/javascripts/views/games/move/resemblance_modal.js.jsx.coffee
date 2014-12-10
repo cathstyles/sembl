@@ -40,7 +40,7 @@
           <div className="game__placement move__resemblance__node move__resemblance__node--last">
             <img src={targetImage} alt={targetTitle} className="game__placement__image move__resemblance__node-image" />
           </div>
-          <input className="move__resemblance__description" ref="description" type="text" defaultValue={this.state.description} placeholder="Enter your resemblance"/>
+          <input className="move__resemblance__description" ref="description" type="text" defaultValue={this.state.description} placeholder="Enter your resemblance" name="move__resemblance__description"/>
           <div className="game__placement move__resemblance__node">
             <img src={sourceImage} alt={sourceTitle} className="game__placement__image move__resemblance__node-image" />
           </div>

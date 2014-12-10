@@ -13,6 +13,7 @@ module FeatureHelpers
   def sign_out_current_user
     visit "/"
     click_on "Sign out"
+    expect(page).to have_content "Signed out successfully."
   end
 
   def create_game(user, game_name)
@@ -29,7 +30,7 @@ module FeatureHelpers
     expect(page).to have_css ".game__placement.state-available"
     first(".game__placement.state-available").click
     expect(page).to have_css ".games__gallery__thing"
-    first(".games__gallery__thing").click 
+    first(".games__gallery__thing").click
     click_on "Set as seed node"
     click_on "Done!"
     sleep 3 # this is needed because of the polling works and the edit page refreshes (I think).
@@ -42,26 +43,73 @@ module FeatureHelpers
     expect(page).to have_content("Signed out successfully")
   end
 
-  def play_turn
-    expect(page).to have_content "Let's go! Add your first image to begin the game"
+  def create_hostless_game(board, title, seed_thing)
+    game = Game.new(board: board,
+      title: title,
+      description: "A game for #{board.number_of_players} #{'player'.pluralize(board.number_of_players)}, starting with:",
+      seed_thing_id: Thing.last.id,
+      state: "draft")
+    game.copy_nodes_and_links_from_board
+    update_seed_thing(game, seed_thing)
+    game.state = "open"
+    game.save!
+    game
+  end
+
+  def update_seed_thing(game, thing)
+    if seed_thing = thing
+      seed_node = game.nodes.detect {|node|
+        node.round == 0 && !node.marked_for_destruction?
+      }
+      return unless seed_node
+      placement = seed_node.placements[0] || seed_node.placements.build
+      placement.assign_attributes(
+        thing: seed_thing
+      )
+    end
+  end
+
+  def play_turn(round, resemblance_description = "They're, like, so obviously similar", user)
+    if round > 1
+      expect(page).to have_content "Select an open position"
+    else
+      expect(page).to have_content "Let's go! Add your first image to begin the game"
+    end
     expect(page).to have_css ".state-available"
-    find(".state-available").trigger "click"
-    expect(page).to have_content "Click the camera to choose an image from the gallery"
+    if round > 1
+      inplay_and_unplaced_nodes = @game.nodes.where("nodes.state = 'in_play'") - @game.nodes.joins(:placements)
+      if inplay_and_unplaced_nodes.length > 0
+        find("a[data-node-id='#{inplay_and_unplaced_nodes.first.id}']").click
+      else
+        find(".state-available", match: :first).click
+      end
+      expect(page).to have_content "Make your move!"
+    else
+      find(".state-available", match: :first).click
+      expect(page).to have_content "Click the camera to choose an image from the gallery"
+    end
     expect(page).to have_css ".state-available"
-    sleep 1
     find(".state-available").click
-    expect(page).to have_css ".games__gallery__thing"
-    first(".games__gallery__thing").click
-    expect(page).to have_content "Little Monkey"
-    first(".move__thing-modal__place-button").click
+    expect(page).to have_content "CLOSE"
+    find(".games__gallery__thing", match: :first).click
+    expect(page).to have_css ".move__thing-modal__place-button"
+    find(".move__thing-modal__place-button", match: :first).click
+
     expect(page).to have_css ".game__resemblance__tip"
-    first(".game__resemblance__tip").trigger("click")
-    expect(page).to have_content "What’s the resemblance between"
-    fill_in "resemblance-input", with: "Some sembl connection"
-    click_on "Add Sembl"
+
+    # (1..round).each do |i|
+    find(".game__resemblance__tip", match: :first)
+    while all(".game__resemblance__tip").present? do
+      find(".game__resemblance__tip", match: :first).click
+      expect(page).to have_content "What’s the resemblance between"
+      fill_in "move__resemblance__description", with: "round #{round}: " + resemblance_description
+      click_on "Add Sembl"
+      sleep 1
+    end
+
     expect(page).to have_content "Happy with your move?"
     expect(page).to have_css ".move__actions__button"
-    first(".move__actions__button").click
+    find(".move__actions__button", match: :first).click
     expect(page).to have_content "Happy with your move?"
     page.click_on "End your turn"
   end

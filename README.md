@@ -69,6 +69,13 @@ Test emails locally using [Mailcatcher](http://mailcatcher.me/). Install it sepa
 
 When it is running, visit http://localhost:1080/ to see the emails.
 
+### Running specs
+
+* Start the Solr engine in the test environment: `RAILS_ENV=test rake sunspot:solr:run`
+* Have foreman running to serve assets (see the "Running the application locally" section)
+* Many of the specs are currently out of date, but there is one large integration spec that runs through a whole 3 player game:
+  * `bundle exec rspec spec/features/playing_a_whole_game_spec.rb
+
 # Deployment
 
 The app runs on Heroku. It uses these add-ons:

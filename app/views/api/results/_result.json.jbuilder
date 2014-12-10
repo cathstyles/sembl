@@ -1,4 +1,4 @@
-json.user { json.partial! 'api/users/user', user: move.user }
+json.user { json.partial! 'api/users/user', user: move.user } if move.user.present?
 json.score move.placement.score
 json.target do
   json.node(move.target_node, :id, :round)
