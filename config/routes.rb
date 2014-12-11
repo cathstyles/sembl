@@ -1,4 +1,5 @@
 Sembl::Application.routes.draw do
+  ActiveAdmin.routes(self)
   namespace :api, module: :api do
     resources :games, only: [:show, :create, :update, :destroy] do
       member do

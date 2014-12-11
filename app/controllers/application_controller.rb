@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
     session[:previous_url] || root_path
   end
 
+  def authenticate_admin_user!
+    redirect_to(root_path) unless current_user.admin?
+  end
+
   private
 
     def user_not_authorized
