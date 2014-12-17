@@ -65,6 +65,9 @@ GEM
       sass (~> 3.2)
       thor
     builder (3.1.4)
+    bullet (4.14.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (>= 1.6.0)
     byebug (2.7.0)
       columnize (~> 0.3)
       debugger-linecache (~> 1.2)
@@ -380,6 +383,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uniform_notifier (1.6.2)
     warden (1.2.3)
       rack (>= 1.0)
     websocket (1.2.1)
@@ -397,6 +401,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
+  bullet
   capybara
   capybara-screenshot
   carrierwave
