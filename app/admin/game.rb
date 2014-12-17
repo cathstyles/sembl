@@ -28,12 +28,12 @@ ActiveAdmin.register Game do
   form do |f|
     f.semantic_errors # shows errors on :base
     f.inputs do
-      input :title
-      input :description
-      input :theme
-      input :invite_only
-      input :uploads_allowed
-      input :allow_keyword_search
+      f.input :title
+      f.input :description
+      f.input :theme
+      f.input :invite_only
+      f.input :uploads_allowed
+      f.input :allow_keyword_search
     end
     f.actions         # adds the 'Submit' and 'Cancel' buttons
   end

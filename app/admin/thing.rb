@@ -31,20 +31,20 @@ ActiveAdmin.register Thing do
     actions
   end
 
-  form do |f|
+  form(:html => { :multipart => true }) do |f|
     f.semantic_errors # shows errors on :base
     f.inputs do
-      input :title
-      input :description
-      input :item_url
-      input :copyright
-      input :access_via
-      input :general_attributes, as: :text, label: "Attributes"
-      input :image
-      input :suggested_seed, label: "Suggested seed node"
-      input :moderator_approved, label: "Allow thing to be used in all games?"
-      input :sensitive, label: "Mark as culturally sensitive?"
-      input :mature, label: "Mark as mature?"
+      f.input :title
+      f.input :description
+      f.input :item_url
+      f.input :copyright
+      f.input :access_via
+      f.input :general_attributes, as: :text, label: "Attributes"
+      f.input :image, as: :file, hint: f.template.image_tag(f.object.image.url)
+      f.input :suggested_seed, label: "Suggested seed node"
+      f.input :moderator_approved, label: "Allow thing to be used in all games?"
+      f.input :sensitive, label: "Mark as culturally sensitive?"
+      f.input :mature, label: "Mark as mature?"
     end
     f.actions         # adds the 'Submit' and 'Cancel' buttons
   end

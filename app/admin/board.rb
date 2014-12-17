@@ -18,10 +18,10 @@ ActiveAdmin.register Board do
   form do |f|
     f.semantic_errors # shows errors on :base
     f.inputs do
-      input :title
-      input :number_of_players
-      input :nodes_attributes, as: :text
-      input :links_attributes, as: :text
+      f.input :title
+      f.input :number_of_players
+      f.input :nodes_attributes, as: :text
+      f.input :links_attributes, as: :text
     end
     f.actions         # adds the 'Submit' and 'Cancel' buttons
   end

@@ -24,8 +24,8 @@ ActiveAdmin.register User do
   form do |f|
     f.semantic_errors # shows errors on :base
     f.inputs do
-     input :email
-     input :role, as: :select, collection: User.roles, include_blank: false
+     f.input :email
+     f.input :role, as: :select, collection: User.roles, include_blank: false
     end
     f.actions         # adds the 'Submit' and 'Cancel' buttons
   end
