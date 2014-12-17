@@ -30,15 +30,6 @@ Sembl::Application.routes.draw do
     get 'search', to: 'search#index'
   end
 
-  namespace :admin, module: :admin, constraints: AdminConstraint do
-    resources :things, except: [:show]
-    resources :games, except: [:show]
-    resources :boards, except: [:show]
-    resources :users, except: [:show]
-
-    root to: "home#show"
-  end
-
   devise_for :users, :controllers => { :registrations => "registrations",  :sessions => "sessions"  }
 
   resources :games, only: [:index, :show, :new, :edit] do
