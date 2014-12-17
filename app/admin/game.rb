@@ -3,11 +3,14 @@ ActiveAdmin.register Game do
   includes(:board)
 
   # Override ActiveAdmin auto filters so we can optimize queries
+  filter :title # need to manually include this as it's an association
   filter :board # need to manually include this as it's an association
+  filter :created_at # need to manually include this as it's an association
+  filter :updated_at # need to manually include this as it's an association
   filter :creator, collection: proc { User.includes(:profile).all }
   filter :updator, collection: proc { User.includes(:profile).all }
-  attributes_to_exclude_from_filter = ["board_id", "creador_id", "updator_id"]
-  (Game.attribute_names - attributes_to_exclude_from_filter).sort.each do |attr|
+  attributes_to_exclude = ["board_id", "creator_id", "updator_id", "title", "created_at", "updated_at", "state_changed_at"]
+  (Game.attribute_names - attributes_to_exclude).sort.each do |attr|
     filter attr.to_sym
   end
 
