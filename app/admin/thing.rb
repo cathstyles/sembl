@@ -4,10 +4,14 @@ ActiveAdmin.register Thing do
 
   # We want all the filters minus the "game" association filter (which loads too many records from the db)
   # and use association filters for "creator" and "updator"
+  filter :title
+  filter :description
+  filter :created_at
+  filter :updated_at
   filter :creator, collection: proc { User.includes(:profile).all }
   filter :updator, collection: proc { User.includes(:profile).all }
-  attributes_to_exclude_from_filter = ["game_id", "creator_id", "updator_id"]
-  (Thing.attribute_names - attributes_to_exclude_from_filter).sort.each do |attr|
+  attributes_to_exclude = ["game_id", "creator_id", "updator_id", "title", "description", "created_at", "updated_id"]
+  (Thing.attribute_names - attributes_to_exclude).sort.each do |attr|
     filter attr.to_sym
   end
 
