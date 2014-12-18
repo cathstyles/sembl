@@ -1,5 +1,6 @@
 ActiveAdmin.register User do
   permit_params :email, :password, :password_confirmation, :role
+  config.sort_order = "updated_at_desc"
   includes :profile
 
   filter :role, collection: User.roles, as: :select

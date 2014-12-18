@@ -1,5 +1,6 @@
 ActiveAdmin.register Board do
   permit_params :title, :number_of_players, :nodes_attributes, :links_attributes
+  config.sort_order = "updated_at_desc"
 
   filter :creator, collection: proc { User.includes(:profile).all }
   filter :updator, collection: proc { User.includes(:profile).all }

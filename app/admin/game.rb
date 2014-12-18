@@ -1,5 +1,8 @@
 ActiveAdmin.register Game do
   permit_params :title, :description, :theme, :invite_only, :uploads_allowed, :allow_keyword_search
+  config.sort_order = "updated_at_desc"
+  scope :not_stale, default: true
+  scope :all
   includes(:board)
 
   # Override ActiveAdmin auto filters so we can optimize queries

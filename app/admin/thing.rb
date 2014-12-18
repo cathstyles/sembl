@@ -1,5 +1,6 @@
 ActiveAdmin.register Thing do
   permit_params :title, :description, :item_url, :copyright, :access_via, :general_attributes, :image, :suggested_seed, :moderator_approved, :sensitive, :mature
+  config.sort_order = "updated_at_desc"
   includes({ creator: :profile })
 
   # We want all the filters minus the "game" association filter (which loads too many records from the db)
