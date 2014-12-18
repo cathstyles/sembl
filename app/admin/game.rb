@@ -43,4 +43,19 @@ ActiveAdmin.register Game do
     end
     f.actions         # adds the 'Submit' and 'Cancel' buttons
   end
+
+  show do |game|
+    attributes_table do
+      row :players do
+        game.users.each_with_index do |user, index|
+          text_node link_to(user.name, admin_user_path(user))
+          text_node ", " if index < game.users.length - 1
+        end
+      end
+      Game.attribute_names.sort.each do |attr|
+        row attr.to_sym
+      end
+    end
+    active_admin_comments
+  end
 end
