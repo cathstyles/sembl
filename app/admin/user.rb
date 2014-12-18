@@ -22,13 +22,23 @@ ActiveAdmin.register User do
     actions
   end
 
+  User.roles.each do |role_name, role_id|
+    batch_action "Set role to #{role_name} for".to_sym do |ids|
+      User.find(ids).each do |user|
+        user.role = role_id
+        user.save!
+      end
+      redirect_to collection_path, alert: "Selected users have been updated to #{role_name.to_s.humanize}s"
+    end
+  end
+
   form do |f|
     f.semantic_errors # shows errors on :base
     f.inputs do
      f.input :email
      f.input :role, as: :select, collection: User.roles, include_blank: false
     end
-    f.actions         # adds the 'Submit' and 'Cancel' buttons
+    f.actions # adds the 'Submit' and 'Cancel' buttons
   end
 
   show do |user|
