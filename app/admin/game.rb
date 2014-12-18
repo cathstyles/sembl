@@ -47,8 +47,8 @@ ActiveAdmin.register Game do
   show do |game|
     attributes_table do
       row :players do
-        game.users.each_with_index do |user, index|
-          text_node link_to(user.name, admin_user_path(user))
+        game.players.each_with_index do |player, index|
+          text_node link_to(player.name, admin_user_path(player.user)) + ": " + player.state
           text_node ", " if index < game.users.length - 1
         end
       end
