@@ -91,6 +91,8 @@ module FeatureHelpers
     expect(page).to have_css ".state-available"
     find(".state-available").click
     expect(page).to have_content "CLOSE"
+    sleep 1 #WHHHHY?
+    expect(page).to have_css ".games__gallery__thing"
     find(".games__gallery__thing", match: :first).click
     expect(page).to have_css ".move__thing-modal__place-button"
     find(".move__thing-modal__place-button", match: :first).click
