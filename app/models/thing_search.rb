@@ -58,7 +58,7 @@ class ThingSearch
   private
 
   def query
-    @query ||= Thing.search do
+    @query ||= Thing.solr_search do
       if text.present?
         fulltext text, fields: %i(title description general_attributes_keywords general_attributes_dates attribution copyright)
       end
