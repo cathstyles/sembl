@@ -30,4 +30,18 @@ ActiveAdmin.register User do
     end
     f.actions         # adds the 'Submit' and 'Cancel' buttons
   end
+
+  show do |user|
+    attributes_table do
+      row :name
+      row :bio
+      row :avatar do
+        image_tag user.avatar.url
+      end
+      User.attribute_names.sort.each do |attr|
+        row attr.to_sym
+      end
+    end
+    active_admin_comments
+  end
 end
