@@ -1,0 +1,16 @@
+= form_tag message_admin_user_path do
+  fieldset
+    ol
+      li
+        = label_tag "subject"
+        = text_field_tag "subject", "Sembl"
+    ol
+      li
+        = label_tag "Message"
+        - if params[:game_id]
+          - @game = Game.find(params[:game_id])
+          - email_content = "Dear #{@user.name},\n\nThe game '#{link_to(@game.title,game_path(id: @game.id)).html_safe}' that you are playing\n\nKind regards,\nSembl team"
+        - else
+          - email_content = "Dear #{@user.name},\n\n\n\nKind regards,\nSembl team"
+        = text_area_tag "content", email_content, rows: 10, cols: 25
+  p= submit_tag "Send email to user"

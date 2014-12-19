@@ -52,6 +52,14 @@ ActiveAdmin.register User do
         row attr.to_sym
       end
     end
+    panel "Email" do
+      render "email_form"
+    end
     active_admin_comments
+  end
+
+  member_action :message, method: :post do
+    Admin::UserMailer.email_message(user_id: resource.id, subject: params[:subject], content: params[:content]).deliver
+    redirect_to resource_path(resource), notice: "Message sent by email"
   end
 end
