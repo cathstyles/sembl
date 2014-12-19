@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin_user!
-    return true if current_user.admin?
+    return true if current_user && current_user.admin?
     if current_user
       redirect_to(root_path)
     else
