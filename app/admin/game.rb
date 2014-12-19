@@ -44,18 +44,28 @@ ActiveAdmin.register Game do
     f.actions         # adds the 'Submit' and 'Cancel' buttons
   end
 
-  show do |game|
-    attributes_table do
-      row :players do
-        game.players.each_with_index do |player, index|
-          text_node link_to(player.name, admin_user_path(player.user)) + ": " + player.state
-          text_node ", " if index < game.users.length - 1
+  show do
+    tabs do
+      tab 'Sembls' do
+        panel "Sembls" do
+          render 'sembls'
         end
       end
-      Game.attribute_names.sort.each do |attr|
-        row attr.to_sym
+      tab 'Details' do
+        attributes_table do
+          row :players do
+            game.players.each_with_index do |player, index|
+              text_node link_to(player.name, admin_user_path(player.user, game_id: game.id)) + ": " + player.state
+              text_node ", " if index < game.users.length - 1
+            end
+          end
+          Game.attribute_names.sort.each do |attr|
+            row attr.to_sym
+          end
+        end
+        active_admin_comments
       end
+
     end
-    active_admin_comments
   end
 end
