@@ -1,6 +1,10 @@
 ActiveAdmin.register User do
   permit_params :email, :password, :password_confirmation, :role
   config.sort_order = "updated_at_desc"
+  scope :all, default: true
+  User.roles.each do |role_name, role_id|
+    scope(role_name) { |scope| scope.where(role: role_id) }
+  end
   includes :profile
 
   filter :role, collection: User.roles, as: :select
@@ -60,6 +64,6 @@ ActiveAdmin.register User do
 
   member_action :message, method: :post do
     Admin::UserMailer.email_message(user_id: resource.id, subject: params[:subject], content: params[:content]).deliver
-    redirect_to resource_path(resource), notice: "Message sent by email"
+    redirect_to resource_path(resource), notice: "Email sent to user"
   end
 end
