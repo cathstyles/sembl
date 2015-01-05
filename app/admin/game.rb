@@ -58,8 +58,12 @@ ActiveAdmin.register Game do
           end
           row :players do
             game.players.each_with_index do |player, index|
-              text_node link_to(player.name, admin_user_path(player.user, game_id: game.id)) + ": " + player.state
-              text_node ", " if index < game.users.length - 1
+              if player.user.present?
+                text_node link_to(player.name, admin_user_path(player.user, game_id: game.id)) + ": " + player.state
+              else
+                text_node player.email + ": invited"
+              end
+              text_node ", " if index < game.players.length - 1
             end
           end
           Game.attribute_names.sort.each do |attr|
