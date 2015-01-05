@@ -53,6 +53,9 @@ ActiveAdmin.register Game do
       end
       tab 'Details' do
         attributes_table do
+          row "Public link" do
+            link_to game, game
+          end
           row :players do
             game.players.each_with_index do |player, index|
               text_node link_to(player.name, admin_user_path(player.user, game_id: game.id)) + ": " + player.state
