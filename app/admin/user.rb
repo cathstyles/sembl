@@ -41,9 +41,21 @@ ActiveAdmin.register User do
     f.semantic_errors # shows errors on :base
     f.inputs do
      f.input :email
+     f.input :password
+     f.input :password_confirmation
      f.input :role, as: :select, collection: User.roles, include_blank: false
     end
     f.actions # adds the 'Submit' and 'Cancel' buttons
+  end
+
+  controller do
+    def update
+      if params[:user][:password].blank?
+        params[:user].delete("password")
+        params[:user].delete("password_confirmation")
+      end
+      super
+    end
   end
 
   show do |user|
