@@ -69,6 +69,42 @@ ActiveAdmin.register User do
         row attr.to_sym
       end
     end
+    panel "Current games" do
+      table do
+        tr do
+          th { "Title" }
+          th { "Board" }
+          th { "Created" }
+          th { "Last Activity" }
+        end
+        user.games.where.not(state: :completed).reorder("updated_at desc").each do |game|
+          tr do
+            td { link_to game.title, admin_game_path(game)}
+            td { game.board.title }
+            td { game.created_at.strftime("%B %d, %Y %H:%M") }
+            td { time_ago_in_words(game.updated_at) + " ago" }
+          end
+        end
+      end
+    end
+    panel "Completed games" do
+      table do
+        tr do
+          th { "Title" }
+          th { "Board" }
+          th { "Created" }
+          th { "Last Activity" }
+        end
+        user.games.where(state: :completed).reorder("updated_at desc").each do |game|
+          tr do
+            td { link_to game.title, admin_game_path(game)}
+            td { game.board.title }
+            td { game.created_at.strftime("%B %d, %Y %H:%M") }
+            td { time_ago_in_words(game.updated_at) + " ago" }
+          end
+        end
+      end
+    end
     panel "Email" do
       render "email_form"
     end
