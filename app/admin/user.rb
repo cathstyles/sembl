@@ -8,6 +8,7 @@ ActiveAdmin.register User do
   includes :profile
 
   filter :role, collection: User.roles, as: :select
+  filter :profile_name, as: :string
   User.attribute_names.sort.each do |attr|
     filter attr.to_sym
   end
