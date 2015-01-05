@@ -54,7 +54,7 @@ ActiveAdmin.register Game do
       tab 'Details' do
         attributes_table do
           row "Public link" do
-            link_to game, game
+            link_to "link", game
           end
           row :players do
             game.players.each_with_index do |player, index|
