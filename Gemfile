@@ -9,6 +9,7 @@ gem "autoprefixer-rails"
 gem 'activeadmin', github: 'activeadmin'
 gem 'asset_sync'
 gem 'bootstrap-sass'
+gem 'bugsnag'
 gem 'carrierwave'
 gem 'coffee-rails'
 gem 'devise'
