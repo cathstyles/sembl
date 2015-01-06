@@ -10,6 +10,7 @@ class Player < ActiveRecord::Base
 
   after_create :allocate_first_node
   before_save :set_state_changed_at
+  before_save { |player| player.email = player.email.downcase } # Force lowercase email addresses
   after_destroy :remove_node_allocation
 
   validates :user_id, uniqueness: {scope: :game_id}, allow_nil: true
