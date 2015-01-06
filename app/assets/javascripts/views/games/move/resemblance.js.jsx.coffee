@@ -32,7 +32,7 @@
       @setState
         linkFilled: true
       if round == 1 and !!!@state.description
-        $(window).trigger('flash.notice', 'Top choice!')
+        $(window).trigger('flash.notice', 'Good choice!')
 
   getInitialState: ->
     link = @props.link
