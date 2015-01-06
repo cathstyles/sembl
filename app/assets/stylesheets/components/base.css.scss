@@ -178,7 +178,7 @@ textarea {
 .notice {
   animation-name: notice;
   animation-duration: 1.5s;
-  animation-iteration-count: infinite;
+  animation-iteration-count: 0;
 }
 
 @keyframes alert-grow {
@@ -189,7 +189,7 @@ textarea {
 .alerted {
   animation-name: alert-grow;
   animation-duration: 1s;
-  animation-iteration-count: infinite;
+  animation-iteration-count: 0;
 }
 
 .footer {

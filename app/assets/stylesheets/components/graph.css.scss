@@ -440,7 +440,7 @@
   animation-name: glow;
   animation-duration: 1s;
   animation-timing-function: ease;
-  animation-iteration-count: infinite;
+  animation-iteration-count: 0;
   background-color: #d2d79b;
   @include background-image(linear-gradient(#d2d79b, darken(#d2d79b,10%)));
   box-shadow: 0 0 10px 5px rgba(#d2d79b,.2);
