@@ -14,33 +14,34 @@
   componentDidMount: ->
     @$form = $(@props.avatarFormSelector)
 
-  # Click to upload a different image
-  handleOnClick: (event) ->
-    event?.preventDefault()
-    @setState step: 1
-
   finishedUpload: (results) ->
     @avatarRemoteUrl = results[':original'][0].url
     $("#profile_remote_avatar_url").val(@avatarRemoteUrl)
-    @setState step: 2
+    @setState step: 3
     @_enableForm()
 
   render: ->
+    uploadComponent = `<TransloaditUploadComponent
+                        startUpload={this._startUpload}
+                        finishedUpload={this.finishedUpload}
+                      />`
     currentComponent = switch @state.step
       when 1
-        `<TransloaditUploadComponent
-          startUpload={this._startUpload}
-          finishedUpload={this.finishedUpload}
-        />`
+        uploadComponent
 
       # TODO: some sort of design/text directive for click to edit
       when 2
         srcURL = this.avatarRemoteUrl || this.props.avatarUrl
-        `<img src={srcURL}/>`
+        `<div>
+           <img src={srcURL}/>
+           {uploadComponent}
+        </div>`
 
-    `<a href="#profile" className="profile__avatar" onClick={this.handleOnClick}>
-      {currentComponent}
-    </a>`
+      when 3
+        srcURL = this.avatarRemoteUrl || this.props.avatarUrl
+        `<div>
+           <img src={srcURL}/>
+        </div>`
 
   _disabledClassName: ->
     "#{@props.avatarFormSelector.replace(/^\./, "")}--disabled"
