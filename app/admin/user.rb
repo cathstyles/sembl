@@ -80,7 +80,7 @@ ActiveAdmin.register User do
         user.games.where.not(state: :completed).reorder("updated_at desc").each do |game|
           tr do
             td { link_to game.title, admin_game_path(game)}
-            td { game.try(:board).title }
+            td { game.try(:board).try(:title) }
             td { game.created_at.strftime("%B %d, %Y %H:%M") }
             td { time_ago_in_words(game.updated_at) + " ago" }
           end
