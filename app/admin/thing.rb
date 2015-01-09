@@ -5,6 +5,7 @@ ActiveAdmin.register Thing do
 
   # We want all the filters minus the "game" association filter (which loads too many records from the db)
   # and use association filters for "creator" and "updator"
+  filter :creator_role, as: :check_boxes, collection: proc { User.roles }
   filter :title
   filter :description
   filter :created_at
