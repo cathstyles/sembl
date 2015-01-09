@@ -207,7 +207,7 @@
     transition-duration: 150ms;
     transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1);
     width: 300px;
-    z-index: 1;
+    z-index: 2;
   }
     .results__player-move__move__sub-sembl__inner {
       @include pad(all, small);
