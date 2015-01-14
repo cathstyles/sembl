@@ -6,7 +6,7 @@
 @Sembl.Games.Setup.New = React.createClass
   render: ->
     `<Form className="setup"
-        firstSteps={['board','title','seed']}
+        firstSteps={['board','title']}
         game={this.props.game}
         user={this.props.user} />`
 
