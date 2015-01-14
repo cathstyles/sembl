@@ -1,6 +1,7 @@
 #= require views/games/setup/steps/step_seed_thing_modal
 #= require views/components/searcher
 #= require views/games/gallery
+#= require underscore
 
 ###* @jsx React.DOM ###
 
@@ -28,7 +29,10 @@ Checkbox = React.createClass
 
   getInitialState: ->
     auth_token: $('meta[name="csrf-token"]').attr "content"
-    uploaded: false
+    upload_complete: false
+    upload_url: null
+    upload_title: null
+    upload_description: null
 
   componentWillMount: ->
     $(window).on('setup.steps.seed.select', @handleSeedSelect)
@@ -102,11 +106,17 @@ Checkbox = React.createClass
 
   # Uploading
   finishedUpload: (results) ->
-    @setState uploaded: true
-    imageUrl = results[':original'][0].url
+    @setState
+      upload_url: results[':original'][0].url
+
+
+  onUploadSubmit: (e) ->
+    e.preventDefault()
     data =
       thing:
-        remote_image_url: imageUrl
+        remote_image_url: @state.upload_url
+        title: @state.upload_title
+        description: @state.upload_description
       game_id: Sembl.game.id
       authenticity_token: @state.auth_token
     @postThing(data)
@@ -115,6 +125,11 @@ Checkbox = React.createClass
     url = '/api/things.json'
     success = (response) =>
       $(window).trigger('setup.steps.change', {seed: response})
+      @setState
+        upload_complete: true
+        upload_url: null
+        upload_title: null
+        upload_description: null
     error = (response) =>
       console.error 'error!', response
       try
@@ -136,7 +151,45 @@ Checkbox = React.createClass
 
   newUpload: (e) ->
     e.preventDefault()
-    @setState uploaded: false
+    @setState
+      upload_complete: false
+      upload_url: null
+      upload_title: null
+      upload_description: null
+
+
+  handleUploadChange: (attr, e) ->
+    state = _.extend {}, @state
+    state[attr] = e.target.value
+    @setState state
+
+  formatUploader: ->
+    file = if @state.upload_url
+      `<img src={this.state.upload_url}/>`
+    else
+      `<TransloaditUploadComponent finishedUpload={this.finishedUpload} />`
+
+    buttonClass = if @uploadValid()
+      "setup__steps__seed-upload__button"
+    else
+      "setup__steps__seed-upload__button button--disabled"
+
+    `<div className="setup__steps__seed-upload">
+      <p>You can also upload your own custom one below:</p>
+      {file}
+      <div className="setup__steps__seed-upload__title">
+        <h3>Title</h3>
+        <input type="text" onChange={this.handleUploadChange.bind(this, "upload_title")}/>
+      </div>
+      <div className="setup__steps__seed-upload__description">
+        <h3>Description</h3>
+        <textarea onChange={this.handleUploadChange.bind(this, "upload_description")}/>
+      </div>
+      <button className={buttonClass} type="submit" disabled={!this.uploadValid()} onClick={this.onUploadSubmit}>Add this image</button>
+    </div>`
+
+  uploadValid: ->
+    (@state.upload_url? && @state.upload_title?)
 
   render: ->
     seed = @props.seed
@@ -146,10 +199,10 @@ Checkbox = React.createClass
     else
       "game__placement state-available"
 
-    upload = if @state.uploaded
+    upload = if @state.upload_complete
       `<p>Done! <a href="#" onClick={this.newUpload}>Upload another?</a></p>`
     else
-      `<TransloaditUploadComponent finishedUpload={this.finishedUpload} />`
+      @formatUploader()
 
     `<div className="setup__steps__seed">
       <div className="setup__steps__title">Choose a seed:</div>
@@ -165,7 +218,6 @@ Checkbox = React.createClass
           <a href="#random" onClick={this.handleRandomSeed}><i className="fa fa-random"/>&nbsp;<em>Random</em></a>
         </div>
         <div className="setup__steps__seed-custom">
-          <p>You can also upload your own custom one below:</p>
           {upload}
         </div>
       </div>

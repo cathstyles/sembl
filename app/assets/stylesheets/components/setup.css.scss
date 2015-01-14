@@ -190,6 +190,34 @@ input.setup__steps__title__input {
   }
 }
 
+// Upload
+.setup__steps__seed-upload {
+  border-top: 1px solid $border-color;
+  @include pad(top, normal);
+}
+
+.setup__steps__seed-upload__title,
+.setup__steps__seed-upload__description {
+  h3 {
+    @extend .small-tracked-out-heading;
+    @include inset(top, smaller);
+    @include inset(bottom, tiny);
+  }
+}
+  .setup__steps__seed-upload__title {
+    @include pad(top, small);
+  }
+  .setup__steps__seed-upload__description {
+    @include pad(bottom, normal);
+    textarea {
+      height: 5em;
+    }
+  }
+
+.setup__steps__seed-upload__button {
+  @extend %button;
+}
+
 // Settings
 
 .games-setup__settings-item {
