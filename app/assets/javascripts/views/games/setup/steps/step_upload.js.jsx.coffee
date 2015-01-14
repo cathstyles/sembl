@@ -167,11 +167,14 @@
 
 
     `<div className="setup__steps__upload">
-      <div className="setup__steps__title">Upload your own images for use in the game</div>
+      <div className="setup__steps__title">Upload your own images</div>
       <div className="setup__steps__inner">
+        <div className="setup__steps__upload-description copy">
+          <p>Be curator-ly in your sharing of images. Consider quality, proper attribution, and copyright.</p>
+        </div>
         {uploadForm}
       </div>
-      <div className="setup__steps__uploads__available">There are {this.state.totalUploads} custom images for this game</div>
+      <div className="setup__steps__title">Or select from the custom images already available</div>
       <div className="setup__steps__uploads__gallery">
         <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
       </div>

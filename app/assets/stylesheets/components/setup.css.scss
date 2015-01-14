@@ -596,3 +596,13 @@ input.setup__steps__title__input {
   font-style: italic;
   color: darken($border-color, 20%);
 }
+
+
+// Copy
+
+.setup__steps__upload-description {
+  @include pad(top, normal);
+  @include pad(horz, large);
+  text-align: center;
+  padding-bottom: 0;
+}
