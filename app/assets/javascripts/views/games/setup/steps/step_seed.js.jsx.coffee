@@ -20,11 +20,15 @@ Checkbox = React.createClass
     </div>`
 
 {StepSeedThingModal} = Sembl.Games.Setup
-{Searcher} = Sembl.Components
+{TransloaditUploadComponent, Searcher} = Sembl.Components
 {Gallery} = Sembl.Games
 
 @Sembl.Games.Setup.StepSeed = React.createClass
   galleryPrefix: "setup.steps.seed.gallery"
+
+  getInitialState: ->
+    auth_token: $('meta[name="csrf-token"]').attr "content"
+    uploaded: false
 
   componentWillMount: ->
     $(window).on('setup.steps.seed.select', @handleSeedSelect)
@@ -96,6 +100,44 @@ Checkbox = React.createClass
 
   isValid: -> @props.seed? && @props.seed.id?
 
+  # Uploading
+  finishedUpload: (results) ->
+    @setState uploaded: true
+    imageUrl = results[':original'][0].url
+    data =
+      thing:
+        remote_image_url: imageUrl
+      game_id: Sembl.game.id
+      authenticity_token: @state.auth_token
+    @postThing(data)
+
+  postThing: (data) ->
+    url = '/api/things.json'
+    success = (response) =>
+      $(window).trigger('setup.steps.change', {seed: response})
+    error = (response) =>
+      console.error 'error!', response
+      try
+        responseObj = JSON.parse(response.responseText)
+        if response.status == 422
+          msgs = (value for key, value of responseObj.errors)
+          $(window).trigger('flash.error', msgs.join(", "))
+        else
+          $(window).trigger('flash.error', "Error: #{responseObj.errors}")
+      catch e
+        console.error e
+    $.ajax
+      url: url
+      data: data
+      type: 'POST'
+      dataType: 'json'
+      success: success
+      error: error
+
+  newUpload: (e) ->
+    e.preventDefault()
+    @setState uploaded: false
+
   render: ->
     seed = @props.seed
     image_url = seed?.image_admin_url
@@ -104,20 +146,27 @@ Checkbox = React.createClass
     else
       "game__placement state-available"
 
-    viewImage = if seed?.id
-      `<button className="setup__steps__seed__view-image" onClick={this.handleViewImageClick}>View image</button>`
+    upload = if @state.uploaded
+      `<p>Done! <a href="#" onClick={this.newUpload}>Upload another?</a></p>`
     else
-      ""
+      `<TransloaditUploadComponent finishedUpload={this.finishedUpload} />`
 
     `<div className="setup__steps__seed">
       <div className="setup__steps__title">Choose a seed:</div>
       <div className="setup__steps__inner">
-        {viewImage}
-        <a className={seedPlacementClassName} onClick={this.handleSeedClick}>
+        <a className={seedPlacementClassName} onClick={this.handleViewImageClick}>
           <img className="game__placement__image" key={image_url} src={image_url} />
         </a>
-        <h3 className="setup__steps__seed-randomise">
-          <a href="#" onClick={this.handleRandomSeed}><i className="fa fa-random"></i>&nbsp;<em>Randomise</em></a>
-        </h3>
+        <div className="setup__steps__seed-options">
+          <a href="#seed" onClick={this.handleSeedClick}>
+            <i className="fa fa-th"/>&nbsp;<em>Select</em>
+          </a>
+          &nbsp;or&nbsp;
+          <a href="#random" onClick={this.handleRandomSeed}><i className="fa fa-random"/>&nbsp;<em>Random</em></a>
+        </div>
+        <div className="setup__steps__seed-custom">
+          <p>You can also upload your own custom one below:</p>
+          {upload}
+        </div>
       </div>
     </div>`

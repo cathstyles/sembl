@@ -175,16 +175,18 @@ input.setup__steps__title__input {
   }
 }
 
-.setup__steps__seed-randomise {
-  @extend .small-tracked-out-heading;
-  @include pad(top, smaller);
-  color: $link-color;
-  em {
-    text-decoration: underline;
+.setup__steps__seed-options {
+  @include pad(vert, normal);
+  @include inset(bottom, normal);
+  a {
+    @extend %button;
   }
-  i {
-    padding-right: 5px;
-    vertical-align: middle;
+}
+
+.setup__steps__seed-custom {
+  @include inset(bottom, normal);
+  p {
+    @include inset(bottom, normal);
   }
 }
 
