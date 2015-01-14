@@ -38,7 +38,10 @@ class Sembl.Move extends Backbone.Model
 
   isValid: ->
     numLinks = @semblLinks.length
-    numResemblances = (desc for linkId,desc of @resemblances).filter((desc)-> !!desc).length
+    console.log @resemblances
+    numResemblances = (desc for linkId,desc of @resemblances).filter((desc) ->
+      !!desc.description?
+    ).length
     !!@placement.thing_id && numLinks == numResemblances
 
   toJSON: ->
