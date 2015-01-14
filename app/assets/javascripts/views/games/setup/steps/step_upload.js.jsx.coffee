@@ -15,6 +15,9 @@
   getInitialState: ->
     title: null
     description: null
+    attribution: null
+    access_via: null
+    copyright: null
     remoteImageUrl: null
 
   componentDidMount:->
@@ -45,6 +48,9 @@
         thing:
           title: @state.title
           description: @state.description
+          attribution: @state.attribution
+          access_via: @state.access_via
+          copyright: @state.copyright
           remote_image_url: @state.remoteImageUrl
         game_id: @props.game.id
         authenticity_token: @props.game.get('auth_token')
@@ -61,6 +67,9 @@
       @setState
         title: ""
         description: ""
+        attribution: ""
+        access_via: ""
+        copyright: ""
         remoteImageUrl: null
         submitting: false
     error = (response) =>
@@ -133,6 +142,18 @@
           <div className="setup__steps__upload-step">
             <label className="setup__steps__upload-step__label">Description:</label>
             <textarea name="description" value={this.state.description} onChange={this.handleChange} className="setup__steps__upload-step__input" rows="5"></textarea>
+          </div>
+          <div className="setup__steps__upload-step">
+            <label className="setup__steps__upload-step__label">Attribution:</label>
+            <input name="attribution" value={this.state.attribution} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
+          </div>
+          <div className="setup__steps__upload-step">
+            <label className="setup__steps__upload-step__label">Access via:</label>
+            <input name="access_via" value={this.state.access_via} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
+          </div>
+          <div className="setup__steps__upload-step">
+            <label className="setup__steps__upload-step__label">Copyright:</label>
+            <input name="copyright" value={this.state.copy_right} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
           </div>
           <div className="setup__steps__upload-step">
             <button onClick={this.handleSubmit} className="setup__steps__upload-step__submit">Add this image</button>
