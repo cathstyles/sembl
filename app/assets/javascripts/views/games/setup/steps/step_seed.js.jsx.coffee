@@ -34,6 +34,9 @@ Checkbox = React.createClass
     upload_url: null
     upload_title: null
     upload_description: null
+    upload_attribution: null
+    upload_access_via: null
+    upload_copyright: null
 
   componentWillMount: ->
     $(window).on('setup.steps.seed.select', @handleSeedSelect)
@@ -120,6 +123,9 @@ Checkbox = React.createClass
         remote_image_url: @state.upload_url
         title: @state.upload_title
         description: @state.upload_description
+        attribution: @state.upload_attribution
+        access_via:  @state.upload_access_via
+        copyright:   @state.upload_copyright
       game_id: Sembl.game.id
       authenticity_token: @state.auth_token
     @postThing(data)
@@ -133,6 +139,9 @@ Checkbox = React.createClass
         upload_url: null
         upload_title: null
         upload_description: null
+        upload_attribution: null
+        upload_access_via: null
+        upload_copyright: null
     error = (response) =>
       console.error 'error!', response
       try
@@ -160,7 +169,9 @@ Checkbox = React.createClass
       upload_url: null
       upload_title: null
       upload_description: null
-
+      upload_attribution: null
+      upload_access_via: null
+      upload_copyright: null
 
   handleUploadChange: (attr, e) ->
     state = _.extend {}, @state
@@ -181,13 +192,25 @@ Checkbox = React.createClass
     `<div className="setup__steps__seed-upload">
       <p>You can also upload your own custom one below:</p>
       {file}
-      <div className="setup__steps__seed-upload__title">
-        <h3>Title</h3>
+      <div className="setup__steps__seed-upload__input">
+        <h3>Title*</h3>
         <input type="text" onChange={this.handleUploadChange.bind(this, "upload_title")}/>
       </div>
       <div className="setup__steps__seed-upload__description">
         <h3>Description</h3>
         <textarea onChange={this.handleUploadChange.bind(this, "upload_description")}/>
+      </div>
+      <div className="setup__steps__seed-upload__input">
+        <h3>Attribution</h3>
+        <input type="text" onChange={this.handleUploadChange.bind(this, "upload_attribution")}/>
+      </div>
+      <div className="setup__steps__seed-upload__input">
+        <h3>Access via</h3>
+        <input type="text" onChange={this.handleUploadChange.bind(this, "upload_access_via")}/>
+      </div>
+      <div className="setup__steps__seed-upload__input">
+        <h3>Copyright</h3>
+        <input type="text" onChange={this.handleUploadChange.bind(this, "upload_copyright")}/>
       </div>
       <button className={buttonClass} type="submit" disabled={!this.uploadValid()} onClick={this.onUploadSubmit}>Add this image</button>
     </div>`

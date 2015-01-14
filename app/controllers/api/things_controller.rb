@@ -44,7 +44,12 @@ private
   def create_thing_params
     params.require(:game_id)
     params.require(:thing).permit(
-      :title, :description, :remote_image_url
+      :title,
+      :description,
+      :remote_image_url,
+      :attribution,
+      :access_via,
+      :copyright
     )
   end
 end
