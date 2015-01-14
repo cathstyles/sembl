@@ -46,6 +46,10 @@ class Api::GamesController < ApiController
   def create
     puts 'creating with', params.inspect
     puts 'creating with', game_params.inspect
+    # Auto assign a random seed if none exists
+    if params[:game][:seed_thing_id].blank?
+      params[:game][:seed_thing_id] = random_thing_seed
+    end
     @game = Game.new(game_params)
     @game.creator = current_user
     @game.updator = current_user
@@ -134,5 +138,10 @@ private
       :seed_thing_id,
       players_attributes: [:id, :email, :user_id, :_destroy]
     )
+  end
+
+  def random_thing_seed
+    things = Thing.not_user_uploaded.select(:id)
+    Thing.find(things[SecureRandom.random_number(things.length-1)]).id
   end
 end
