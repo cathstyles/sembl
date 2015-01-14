@@ -25,6 +25,64 @@
       "move__thing-modal__attribute-toggle": true
       "move__thing-modal__attribute-toggle--toggled": @state.showMetadata
 
+    attributes = []
+    if thing.copyright? && thing.copyright != ""
+      attributes.push `<div className="move__thing-modal__attribute-row">
+        <div className="move__thing-modal__attribute">
+          <h2>Copyright:</h2>
+          <span className="move__thing-modal__attribute-text">{thing.copyright}</span>
+        </div>
+      </div>`
+    if thing.attribution? && thing.attribution != ""
+      attributes.push `<div className="move__thing-modal__attribute-row">
+          <div className="move__thing-modal__attribute">
+            <h2>Attribution:</h2>
+            <span className="move__thing-modal__attribute-text">{thing.attribution}</span>
+          </div>
+        </div>`
+    if thing.access_via? && thing.access_via != ""
+      attributes.push `<div className="move__thing-modal__attribute-row">
+          <div className="move__thing-modal__attribute">
+            <h2>Access via:</h2>
+            <span className="move__thing-modal__attribute-text">{thing.access_via}</span>
+          </div>
+        </div>`
+    if dates? && dates != ""
+      attributes.push `<div className="move__thing-modal__attribute-row">
+          <div className="move__thing-modal__attribute">
+            <h2>Dates:</h2>
+            <span className="move__thing-modal__attribute-text">{dates}</span>
+          </div>
+        </div>`
+    if places? && places != ""
+      attributes.push `<div className="move__thing-modal__attribute-row">
+          <div className="move__thing-modal__attribute">
+            <h2>Associated places:</h2>
+            <span className="move__thing-modal__attribute-text">{places}</span>
+          </div>
+        </div>`
+    if type? && type != ""
+      attributes.push `<div className="move__thing-modal__attribute-row">
+          <div className="move__thing-modal__attribute">
+            <h2>Type:</h2>
+            <span className="move__thing-modal__attribute-text">{type}</span>
+          </div>
+        </div>`
+
+    metadata = if attributes.length > 0
+      `<div>
+        <h3 className={metadataToggleClasses}>
+          <a href="#togglemetadata" onClick={this._toggleMetadata}>
+            {(this.state.showMetadata) ? "Hide" : "Show"} metadata
+          </a>
+        </h3>
+        <div className="move__thing-modal__attributes">
+          {attributes}
+        </div>
+      </div>`
+    else
+      ""
+
     `<div className={classes}>
       <div className="move__thing-modal__wrapper">
         <div className="move__thing-modal__body">
@@ -42,49 +100,7 @@
               <p>{thing.description}</p>
             </div>
           </div>
-          <h3 className={metadataToggleClasses}>
-            <a href="#togglemetadata" onClick={this._toggleMetadata}>
-              {(this.state.showMetadata) ? "Hide" : "Show"} metadata
-            </a>
-          </h3>
-          <div className="move__thing-modal__attributes">
-            <div className="move__thing-modal__attribute-row">
-              <div className="move__thing-modal__attribute">
-                <h2>Copyright:</h2>
-                <span className="move__thing-modal__attribute-text">{thing.copyright}</span>
-              </div>
-            </div>
-            <div className="move__thing-modal__attribute-row">
-              <div className="move__thing-modal__attribute">
-                <h2>Attribution:</h2>
-                <span className="move__thing-modal__attribute-text">{thing.attribution}</span>
-              </div>
-            </div>
-            <div className="move__thing-modal__attribute-row">
-              <div className="move__thing-modal__attribute">
-                <h2>Access via:</h2>
-                <span className="move__thing-modal__attribute-text">{thing.access_via}</span>
-              </div>
-            </div>
-            <div className="move__thing-modal__attribute-row">
-              <div className="move__thing-modal__attribute">
-                <h2>Dates:</h2>
-                <span className="move__thing-modal__attribute-text">{dates}</span>
-              </div>
-            </div>
-            <div className="move__thing-modal__attribute-row">
-              <div className="move__thing-modal__attribute">
-                <h2>Associated places:</h2>
-                <span className="move__thing-modal__attribute-text">{places}</span>
-              </div>
-            </div>
-            <div className="move__thing-modal__attribute-row">
-              <div className="move__thing-modal__attribute">
-                <h2>Type:</h2>
-                <span className="move__thing-modal__attribute-text">{type}</span>
-              </div>
-            </div>
-          </div>
+          {metadata}
         </div>
       </div>
     </div>`
