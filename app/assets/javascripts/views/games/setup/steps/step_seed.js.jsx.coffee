@@ -30,6 +30,7 @@ Checkbox = React.createClass
   getInitialState: ->
     auth_token: $('meta[name="csrf-token"]').attr "content"
     upload_complete: false
+    upload_submitting: false
     upload_url: null
     upload_title: null
     upload_description: null
@@ -112,6 +113,8 @@ Checkbox = React.createClass
 
   onUploadSubmit: (e) ->
     e.preventDefault()
+    @setState
+      upload_submitting: true
     data =
       thing:
         remote_image_url: @state.upload_url
@@ -153,6 +156,7 @@ Checkbox = React.createClass
     e.preventDefault()
     @setState
       upload_complete: false
+      upload_submitting: false
       upload_url: null
       upload_title: null
       upload_description: null
@@ -165,7 +169,7 @@ Checkbox = React.createClass
 
   formatUploader: ->
     file = if @state.upload_url
-      `<img src={this.state.upload_url}/>`
+      `<img className="setup__steps__seed-upload__image" src={this.state.upload_url}/>`
     else
       `<TransloaditUploadComponent finishedUpload={this.finishedUpload} />`
 
@@ -201,6 +205,8 @@ Checkbox = React.createClass
 
     upload = if @state.upload_complete
       `<p>Done! <a href="#" onClick={this.newUpload}>Upload another?</a></p>`
+    else if @state.upload_submitting
+      `<p>Saving your image ...</p>`
     else
       @formatUploader()
 

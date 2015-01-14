@@ -196,6 +196,12 @@ input.setup__steps__title__input {
   @include pad(top, normal);
 }
 
+.setup__steps__seed-upload__image {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .setup__steps__seed-upload__title,
 .setup__steps__seed-upload__description {
   h3 {
@@ -206,11 +212,15 @@ input.setup__steps__title__input {
 }
   .setup__steps__seed-upload__title {
     @include pad(top, small);
+    input {
+      width: 500px;
+    }
   }
   .setup__steps__seed-upload__description {
     @include pad(bottom, normal);
     textarea {
       height: 5em;
+      width: 500px;
     }
   }
 
