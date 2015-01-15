@@ -4,13 +4,16 @@ ESC_KEY = 27
 
 @Sembl.Components.Modal = React.createClass
   componentWillMount: ->
-    $(window).on('modal.open', @handleOpen)
-    $(window).on('modal.close', @handleClose)
+    @$window = $(window)
+    @$window.on('modal.open', @handleOpen)
+    @$window.on('modal.close', @handleClose)
+    @$window.on("keyup.modal", @handleKeyPress)
     $('body').on('click', @handleBackgroundClick)
 
   componentWillUnmount: ->
-    $(window).off('modal.open', @handleOpen)
-    $(window).off('modal.close', @handleClose)
+    @$window.off('modal.open', @handleOpen)
+    @$window.off('modal.close', @handleClose)
+    @$window.off('keyup.modal', @handleKeyPress)
     $('body').off('click', @handleBackgroundClick)
 
   handleOpen: (event, modalChild) ->
@@ -27,6 +30,9 @@ ESC_KEY = 27
     @setState
       modalChild: null
     $('html').removeClass('modal-is-active')
+
+  handleKeyPress: (e) ->
+    if e.keyCode is 27 then @handleClose(e)
 
   getInitialState: ->
     modalChild: null
