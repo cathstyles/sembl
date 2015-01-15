@@ -162,6 +162,12 @@
   }
 }
 
+.move__thing-modal__title-link {
+  @include font-size(14);
+  margin-left: 15px;
+  float: right;
+}
+
 .move__thing-modal__description {
   @include pad(horz, normal);
   line-height: 1.15;

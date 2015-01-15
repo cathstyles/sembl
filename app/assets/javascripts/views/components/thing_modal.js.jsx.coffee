@@ -83,6 +83,11 @@
     else
       ""
 
+    thing_link = if thing.item_url
+      `<a className='move__thing-modal__title-link' href={thing.item_url} target="_blank">View item</a>`
+    else
+      ""
+
     `<div className={classes}>
       <div className="move__thing-modal__wrapper">
         <div className="move__thing-modal__body">
@@ -94,7 +99,10 @@
           </div>
         </div>
         <div className="move__thing-modal__meta">
-          <h1 className="move__thing-modal__title">{thing.title}</h1>
+          <h1 className="move__thing-modal__title">
+            {thing.title}
+            {thing_link}
+          </h1>
           <div className="move__thing-modal__description">
             <div className="move__thing-modal__description__inner">
               <p>{thing.description}</p>
