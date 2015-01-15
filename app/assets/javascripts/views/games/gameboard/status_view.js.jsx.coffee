@@ -64,7 +64,7 @@ Sembl.Games.Gameboard.StatusView = React.createClass
         tooltip = if availableNodes?.length > 0
           "Great! Now fill the other #{if availableNodes.length > 1 then availableNodes.length + ' nodes' else 'node'}"
         else
-          "If you’re happy with your moves, end your turn to let us know you are finished."
+          "Hey, yay, all nodes are full. End your turn?"
 
   triggerNotice: ->
     player = @props.game.get('player')
