@@ -5,6 +5,7 @@ json.(@thing || thing,
   :copyright,
   :attribution,
   :access_via,
+  :item_url,
   :general_attributes
 )
 
