@@ -119,6 +119,7 @@
     height: 80px;
   }
   // Larger graphs can have smaller nodes
+  .setup__overview__graph &,
   .graph--nodes-24 & {
     width:  80px;
     height: 80px;
@@ -154,6 +155,7 @@
         margin-top: -15px;
       }
       // Larger graphs can have smaller nodes
+      .setup__overview__graph &,
       .graph--nodes-24 & {
         @include font-size(30);
         margin-left: -9px;
