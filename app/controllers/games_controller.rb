@@ -7,23 +7,15 @@ class GamesController < ApplicationController
   before_filter :find_game, except: [:index, :new, :create]
 
   def index
-    filtered_games = case filter_scope
-    when :participating
-      Game.participating(current_user).without_states(:completed)
-    when :hosted
-      Game.hosted_by(current_user)
-    when :browse
-      Game.where(invite_only: false).without_states(:open, :joining, :completed)
-    when :completed
-      Game.where(invite_only: false).with_states(:completed)
-    when :user_completed
-      Game.participating(current_user).with_states(:completed)
-    else
-      Game.open_to_join.not_stale
+    # begin rescue because this action often causes us to go over
+    # the hobby db connection limit of 20 on postgres...
+    begin
+      @games = filtered_games.page(params[:page])
+      @filter = filter_scope
+      respond_with @games
+    rescue ActiveRecord::StatementInvalid => e
+      ActiveRecord::Base.connection.reconnect!
     end
-    @filter = filter_scope
-    @games = filtered_games.page(params[:page])
-    respond_with @games
   end
 
   def show
@@ -77,6 +69,23 @@ private
       params[:filter].to_sym
     else
       :open
+    end
+  end
+
+  def filtered_games
+    case filter_scope
+    when :participating
+      Game.participating(current_user).without_states(:completed)
+    when :hosted
+      Game.hosted_by(current_user)
+    when :browse
+      Game.where(invite_only: false).without_states(:open, :joining, :completed)
+    when :completed
+      Game.where(invite_only: false).with_states(:completed)
+    when :user_completed
+      Game.participating(current_user).with_states(:completed)
+    else
+      Game.open_to_join.not_stale
     end
   end
 
