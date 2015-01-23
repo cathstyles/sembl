@@ -23,7 +23,14 @@ Sembl.Games.Gameboard.StatusView = React.createClass
 
     disabled = false
     buttonAlertedClass = ""
-    if state is 'playing_turn'
+    if state is 'playing_turn' and move_state is ""
+      disabled = true if move_state == "open"
+      buttonText = "End your turn"
+      buttonClassExtra = "game__status__end-turn game__status__end-turn--soft"
+      buttonAlertedClass = " alerted" if move_state is 'created'
+      buttonIcon = "fa fa-clock-o"
+      buttonClickHandler = @handleEndTurn
+    else if state is 'playing_turn'
       disabled = true if move_state == "open"
       buttonText = "End your turn"
       buttonClassExtra = "game__status__end-turn"
@@ -101,10 +108,16 @@ Sembl.Games.Gameboard.StatusView = React.createClass
           </div>
         </div>`
       else if player.state is "playing_turn"
-        statusButton = @getButtonForStatus(player.state, player.move_state)
+        availableNodes = @nodesForUserState("available")
+        if availableNodes?.length > 0
+          statusButton = @getButtonForStatus(player.state, "")
+          statusText = "There are more nodes to fill, though you can end your turn early if you like."
+        else
+          statusButton = @getButtonForStatus(player.state, player.move_state)
+          statusText = "End your turn to let us know when you’re done."
         statusHTML = `<div className="game__status">
           <div className="game__status-inner">
-            <p>End your turn to let us know when you’re done.</p>
+            <p>{statusText}</p>
             {statusButton}
           </div>
         </div>`

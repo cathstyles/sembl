@@ -80,6 +80,9 @@
   .game__status__end-turn {
     @extend %button--alternate;
   }
+    .game__status__end-turn.game__status__end-turn--soft {
+      @extend %button;
+    }
 
   .game__status__waiting {
     pointer-events: none;
