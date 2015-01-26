@@ -1,5 +1,6 @@
 json.(user, :id, :email, :role)
 json.(user.profile, :name, :bio)
+json.profile_id(user.profile.id)
 json.avatar_thumb user.profile.avatar.try(:thumb).try(:url)
 json.avatar_tiny_thumb user.profile.avatar.try(:tiny_thumb).try(:url)
 json.admin(user.admin?)

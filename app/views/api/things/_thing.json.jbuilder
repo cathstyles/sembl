@@ -6,7 +6,10 @@ json.(@thing || thing,
   :attribution,
   :access_via,
   :item_url,
-  :general_attributes
+  :dates,
+  :keywords,
+  :places,
+  :node_type
 )
 
 json.image_admin_url (@thing || thing).image.admin_thumb.url

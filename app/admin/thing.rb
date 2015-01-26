@@ -1,5 +1,5 @@
 ActiveAdmin.register Thing do
-  permit_params :title, :description, :item_url, :copyright, :access_via, :general_attributes, :image, :suggested_seed, :moderator_approved, :sensitive, :mature
+  permit_params :title, :description, :item_url, :copyright, :access_via, :image, :suggested_seed, :moderator_approved, :sensitive, :mature, :dates, :keywords, :places, :node_type
   config.sort_order = "updated_at_desc"
   includes({ creator: :profile })
 
@@ -46,7 +46,10 @@ ActiveAdmin.register Thing do
       f.input :item_url
       f.input :copyright
       f.input :access_via
-      f.input :general_attributes, as: :text, label: "Attributes"
+      f.input :dates
+      f.input :keywords
+      f.input :places
+      f.input :node_type
       f.input :image, as: :file, hint: f.template.image_tag(f.object.image.url)
       f.input :suggested_seed, label: "Suggested seed node"
       f.input :moderator_approved, label: "Allow thing to be used in all games?"

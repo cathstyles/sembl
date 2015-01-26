@@ -8,7 +8,11 @@ class ThingImporter
     'Title' => :title,
     'Description' => :description,
     'Access via' => :access_via,
-    'Copyright info' => :copyright
+    'Copyright info' => :copyright,
+    'Date/s' => :dates,
+    'Places' => :places,
+    'Keywords' => :keywords,
+    'Node type' => :node_type
   }.freeze
 
   def initialize(filename, options={})

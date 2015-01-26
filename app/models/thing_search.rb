@@ -60,7 +60,7 @@ class ThingSearch
   def query
     @query ||= Thing.solr_search do
       if text.present?
-        fulltext text, fields: %i(title description general_attributes_keywords general_attributes_dates attribution copyright)
+        fulltext text, fields: %i(title description keywords dates node_type attribution copyright)
       end
 
       if exclude_mature
@@ -93,7 +93,7 @@ class ThingSearch
       end
 
       if place_filter.present?
-        fulltext place_filter, fields: :general_attributes_places
+        fulltext place_filter, fields: :places
       end
 
       if access_filter.present?

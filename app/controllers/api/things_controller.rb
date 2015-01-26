@@ -49,7 +49,12 @@ private
       :remote_image_url,
       :attribution,
       :access_via,
-      :copyright
+      :copyright,
+      :dates,
+      :keywords,
+      :places,
+      :node_type,
+      :item_url
     )
   end
 end

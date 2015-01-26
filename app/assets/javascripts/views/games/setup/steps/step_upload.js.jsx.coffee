@@ -18,6 +18,11 @@
     attribution: null
     access_via: null
     copyright: null
+    dates: null
+    keywords: null
+    places: null
+    node_type: null
+    item_url: null
     remoteImageUrl: null
 
   componentDidMount:->
@@ -51,6 +56,11 @@
           attribution: @state.attribution
           access_via: @state.access_via
           copyright: @state.copyright
+          dates: @state.dates
+          keywords: @state.keywords
+          places: @state.places
+          node_type: @state.node_type
+          item_url: @state.item_url
           remote_image_url: @state.remoteImageUrl
         game_id: @props.game.id
         authenticity_token: @props.game.get('auth_token')
@@ -70,6 +80,11 @@
         attribution: ""
         access_via: ""
         copyright: ""
+        dates: null
+        keywords: null
+        places: null
+        node_type: null
+        item_url: null
         remoteImageUrl: null
         submitting: false
     error = (response) =>
@@ -153,7 +168,27 @@
           </div>
           <div className="setup__steps__upload-step">
             <label className="setup__steps__upload-step__label">Copyright:</label>
-            <input name="copyright" value={this.state.copy_right} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
+            <input name="copyright" value={this.state.copyright} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
+          </div>
+          <div className="setup__steps__upload-step">
+            <label className="setup__steps__upload-step__label">Dates:</label>
+            <input name="dates" value={this.state.dates} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
+          </div>
+          <div className="setup__steps__upload-step">
+            <label className="setup__steps__upload-step__label">Places:</label>
+            <input name="places" value={this.state.places} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
+          </div>
+          <div className="setup__steps__upload-step">
+            <label className="setup__steps__upload-step__label">Node type:</label>
+            <input name="node_type" value={this.state.node_type} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
+          </div>
+          <div className="setup__steps__upload-step">
+            <label className="setup__steps__upload-step__label">Keywords:</label>
+            <input name="keywords" value={this.state.keywords} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
+          </div>
+          <div className="setup__steps__upload-step">
+            <label className="setup__steps__upload-step__label">URL:</label>
+            <input name="item_url" value={this.state.item_url} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
           </div>
           <div className="setup__steps__upload-step">
             <button onClick={this.handleSubmit} className="setup__steps__upload-step__submit">Add this image</button>
@@ -174,7 +209,7 @@
         </div>
         {uploadForm}
       </div>
-      <div className="setup__steps__title">Or select from the custom images already available</div>
+      <div className="setup__steps__title">Custom images already available</div>
       <div className="setup__steps__uploads__gallery">
         <Gallery searcherPrefix={this.searcherPrefix} eventPrefix={this.galleryPrefix} />
       </div>

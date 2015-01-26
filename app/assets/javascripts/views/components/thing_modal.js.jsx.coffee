@@ -11,9 +11,10 @@
   render: () ->
     thing = @props.thing
 
-    dates = thing.general_attributes?['Date/s']
-    places = thing.general_attributes?['Places']?.join(', ')
-    type = thing.general_attributes?['Node type']
+    dates = thing.dates
+    places = thing.places
+    type = thing.node_type
+    keywords = thing.keywords
 
     classes = classSet
       "move__thing-modal": true
@@ -59,6 +60,13 @@
           <div className="move__thing-modal__attribute">
             <h2>Associated places:</h2>
             <span className="move__thing-modal__attribute-text">{places}</span>
+          </div>
+        </div>`
+    if keywords? && keywords != ""
+      attributes.push `<div className="move__thing-modal__attribute-row">
+          <div className="move__thing-modal__attribute">
+            <h2>Keywords:</h2>
+            <span className="move__thing-modal__attribute-text">{keywords}</span>
           </div>
         </div>`
     if type? && type != ""

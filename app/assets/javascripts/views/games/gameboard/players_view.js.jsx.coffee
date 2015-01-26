@@ -27,7 +27,7 @@
       nameAndStatus = @getNameAndStatus(player)
 
       `<li key={player.cid} className="game__player">
-          <div className="game__player__details">
+          <a className="game__player__details" href={"/profile/"+player.get("user").profile_id}>
             <span className={"game__player__details__avatar" + highlighted}>
               {avatar}
             </span>
@@ -35,7 +35,7 @@
             <span className="game__player__details__score">
               <i className="fa fa-star"></i>{player.formatted_score()}
             </span>
-          </div>
+          </a>
         </li>`
     )
 

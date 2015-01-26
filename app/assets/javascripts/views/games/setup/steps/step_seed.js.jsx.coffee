@@ -37,6 +37,11 @@ Checkbox = React.createClass
     upload_attribution: null
     upload_access_via: null
     upload_copyright: null
+    upload_dates: null
+    upload_keywords: null
+    upload_places: null
+    upload_node_type: null
+    upload_item_url: null
 
   componentWillMount: ->
     $(window).on('setup.steps.seed.select', @handleSeedSelect)
@@ -126,6 +131,11 @@ Checkbox = React.createClass
         attribution: @state.upload_attribution
         access_via:  @state.upload_access_via
         copyright:   @state.upload_copyright
+        dates:       @state.upload_dates
+        keywords:    @state.upload_keywords
+        places:      @state.upload_places
+        node_type:   @state.upload_node_type
+        item_url:    @state.upload_item_url
       game_id: Sembl.game.id
       authenticity_token: @state.auth_token
     @postThing(data)
@@ -142,6 +152,11 @@ Checkbox = React.createClass
         upload_attribution: null
         upload_access_via: null
         upload_copyright: null
+        upload_dates: null
+        upload_keywords: null
+        upload_places: null
+        upload_node_type: null
+        upload_item_url: null
     error = (response) =>
       console.error 'error!', response
       try
@@ -172,6 +187,11 @@ Checkbox = React.createClass
       upload_attribution: null
       upload_access_via: null
       upload_copyright: null
+      upload_dates: null
+      upload_keywords: null
+      upload_places: null
+      upload_node_type: null
+      upload_item_url: null
 
   handleUploadChange: (attr, e) ->
     state = _.extend {}, @state
@@ -211,6 +231,26 @@ Checkbox = React.createClass
       <div className="setup__steps__seed-upload__input">
         <h3>Copyright</h3>
         <input type="text" onChange={this.handleUploadChange.bind(this, "upload_copyright")}/>
+      </div>
+      <div className="setup__steps__seed-upload__input">
+        <h3>Dates</h3>
+        <input type="text" onChange={this.handleUploadChange.bind(this, "upload_dates")}/>
+      </div>
+      <div className="setup__steps__seed-upload__input">
+        <h3>Keywords</h3>
+        <input type="text" onChange={this.handleUploadChange.bind(this, "upload_keywords")}/>
+      </div>
+      <div className="setup__steps__seed-upload__input">
+        <h3>Places</h3>
+        <input type="text" onChange={this.handleUploadChange.bind(this, "upload_places")}/>
+      </div>
+      <div className="setup__steps__seed-upload__input">
+        <h3>Node type</h3>
+        <input type="text" onChange={this.handleUploadChange.bind(this, "upload_node_type")}/>
+      </div>
+      <div className="setup__steps__seed-upload__input">
+        <h3>URL</h3>
+        <input type="text" onChange={this.handleUploadChange.bind(this, "upload_item_url")}/>
       </div>
       <button className={buttonClass} type="submit" disabled={!this.uploadValid()} onClick={this.onUploadSubmit}>Add this image</button>
     </div>`
