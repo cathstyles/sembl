@@ -151,24 +151,39 @@
             {hasImage ? image : transloadit}
           </div>
           <div className="setup__steps__upload-step">
-            <label className="setup__steps__upload-step__label">Title:</label>
+            <label className="setup__steps__upload-step__label">
+              Title*:
+            </label>
             <input name="title" value={this.state.title} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
+            <span className="setup__hint">Give it a short title</span>
           </div>
           <div className="setup__steps__upload-step">
-            <label className="setup__steps__upload-step__label">Description:</label>
+            <label className="setup__steps__upload-step__label">
+              Description*:
+            </label>
             <textarea name="description" value={this.state.description} onChange={this.handleChange} className="setup__steps__upload-step__input" rows="5"></textarea>
+            <span className="setup__hint">Tell us what it depicts, and whatever else we need to know in order to understand it.</span>
           </div>
           <div className="setup__steps__upload-step">
-            <label className="setup__steps__upload-step__label">Attribution:</label>
+            <label className="setup__steps__upload-step__label">
+              Credit:
+            </label>
             <input name="attribution" value={this.state.attribution} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
+            <span className="setup__hint">Who created this? If appropriate, name more than one person. If the copyright holder requires a special form of attribution, put that in here.</span>
           </div>
           <div className="setup__steps__upload-step">
-            <label className="setup__steps__upload-step__label">Access via:</label>
+            <label className="setup__steps__upload-step__label">
+              Access via:
+            </label>
             <input name="access_via" value={this.state.access_via} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
+            <span className="setup__hint">If you got this image from the web, name the site.</span>
           </div>
           <div className="setup__steps__upload-step">
-            <label className="setup__steps__upload-step__label">Copyright:</label>
+            <label className="setup__steps__upload-step__label">
+              Copyright:
+            </label>
             <input name="copyright" value={this.state.copyright} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
+            <span className="setup__hint">Identify your right to share the image. E.g., say 'public domain', 'by permission', 'CC-BY-SA'.</span>
           </div>
           <div className="setup__steps__upload-step">
             <label className="setup__steps__upload-step__label">Dates:</label>
@@ -187,8 +202,11 @@
             <input name="keywords" value={this.state.keywords} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
           </div>
           <div className="setup__steps__upload-step">
-            <label className="setup__steps__upload-step__label">URL:</label>
+            <label className="setup__steps__upload-step__label">
+              URL:
+            </label>
             <input name="item_url" value={this.state.item_url} onChange={this.handleChange} className="setup__steps__upload-step__input" type="text" />
+            <span className="setup__hint">Paste in the web address – preferably a persistent one.</span>
           </div>
           <div className="setup__steps__upload-step">
             <button onClick={this.handleSubmit} className="setup__steps__upload-step__submit">Add this image</button>
@@ -205,7 +223,7 @@
       <div className="setup__steps__title">Upload your own images</div>
       <div className="setup__steps__inner">
         <div className="setup__steps__upload-description copy">
-          <p>Be curator-ly in your sharing of images. Consider quality, proper attribution, and copyright.</p>
+          <p>Please only upload good-quality images that you are entitled to share. 1500px is great – JPG, GIF or PNG. The more we know about an image, the more useful and interesting it becomes. Please tell us as much as you can. That said, none of the fields below are mandatory.</p>
         </div>
         {uploadForm}
       </div>
@@ -216,4 +234,4 @@
     </div>`
 
   _uploadValid: ->
-    (@state.remoteImageUrl? && @state.title?)
+    (@state.remoteImageUrl? && @state.title? && @state.description?)

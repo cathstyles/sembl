@@ -376,6 +376,16 @@ input.setup__steps__title__input {
   margin-left: 120px;
 }
 
+.setup__hint {
+  @include font-size(14);
+  display: block;
+  padding-left: 120px;
+  padding-top: 8px;
+  padding-bottom: 20px;
+  color: #999;
+  width: 70%;
+}
+
 // Overview
 
 .setup__overview {

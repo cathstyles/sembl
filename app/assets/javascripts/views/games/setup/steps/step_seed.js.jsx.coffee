@@ -217,11 +217,11 @@ Checkbox = React.createClass
         <input type="text" onChange={this.handleUploadChange.bind(this, "upload_title")}/>
       </div>
       <div className="setup__steps__seed-upload__description">
-        <h3>Description</h3>
+        <h3>Description*</h3>
         <textarea onChange={this.handleUploadChange.bind(this, "upload_description")}/>
       </div>
       <div className="setup__steps__seed-upload__input">
-        <h3>Attribution</h3>
+        <h3>Credit</h3>
         <input type="text" onChange={this.handleUploadChange.bind(this, "upload_attribution")}/>
       </div>
       <div className="setup__steps__seed-upload__input">
@@ -256,7 +256,7 @@ Checkbox = React.createClass
     </div>`
 
   uploadValid: ->
-    (@state.upload_url? && @state.upload_title?)
+    (@state.upload_url? && @state.upload_title? && @state.description?)
 
   render: ->
     seed = @props.seed

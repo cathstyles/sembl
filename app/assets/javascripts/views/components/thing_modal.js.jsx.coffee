@@ -37,7 +37,7 @@
     if thing.attribution? && thing.attribution != ""
       attributes.push `<div className="move__thing-modal__attribute-row">
           <div className="move__thing-modal__attribute">
-            <h2>Attribution:</h2>
+            <h2>Credit:</h2>
             <span className="move__thing-modal__attribute-text">{thing.attribution}</span>
           </div>
         </div>`
