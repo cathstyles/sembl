@@ -129,7 +129,7 @@
         </div>
         <div className="setup__overview__upload">
           <span className="setup__overview__item-title">Custom images:</span>
-          {invite_only ? editLink('upload', 'Upload') : <em className="setup__help-inline">Only available on invite-only games</em>}
+          {uploads_allowed ? editLink('upload', 'Upload') : <em className="setup__help-inline">Enable user-uploads to add custom images</em>}
         </div>
         <div className="setup__overview__bottom">
           {filterComponent}

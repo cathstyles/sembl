@@ -17,7 +17,6 @@ class Game < ActiveRecord::Base
   validates :seed_thing_id, presence: true
   #validates :number_of_players, presence: true, numericality: {greater_than: 1}
 
-  validate :uploads_disabled_for_public_game
   validate :players_must_not_outnumber_board_number
 
   belongs_to :board
@@ -262,12 +261,6 @@ class Game < ActiveRecord::Base
       else
         errors.add(:base, "#{number_of_players} players are required to publish this game.")
       end
-    end
-  end
-
-  def uploads_disabled_for_public_game
-    if !invite_only && uploads_allowed
-      errors.add(:base, "Can only enable uploads on private, invitation only games.")
     end
   end
 
