@@ -111,7 +111,7 @@ Sembl.Games.Gameboard.StatusView = React.createClass
         availableNodes = @nodesForUserState("available")
         if availableNodes?.length > 0
           statusButton = @getButtonForStatus(player.state, "")
-          statusText = "There are more nodes to fill, though you can end your turn early if you like."
+          statusText = "We recommend filling all open nodes but if you must..."
         else
           statusButton = @getButtonForStatus(player.state, player.move_state)
           statusText = "End your turn to let us know when you’re done."
