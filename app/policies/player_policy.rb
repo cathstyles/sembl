@@ -1,7 +1,7 @@
 class PlayerPolicy < ApplicationPolicy
 
   def create?
-    !!user && (user.id == record.game.creator_id || user.admin?) && record.game.draft?
+    !!user && (user.id == record.game.creator_id || user.admin?) && (record.game.draft? || record.game.joining?)
   end
 
   def destroy?
@@ -10,6 +10,6 @@ class PlayerPolicy < ApplicationPolicy
     puts 'game', record.game.inspect
     puts 'admin', user.admin?
     puts 'draft', record.game.draft?
-    !!user && (user.id == record.game.creator_id || user.admin?) && record.draft?
+    !!user && (user.id == record.game.creator_id || user.admin?) && (record.game.draft? || record.game.joining?)
   end
 end

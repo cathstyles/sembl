@@ -11,6 +11,8 @@ class Player < ActiveRecord::Base
   after_create :allocate_first_node
   before_save :set_state_changed_at
   before_save { |player| player.email = player.email.downcase if player.email.present? } # Force lowercase email addresses
+  # Invite to already open games
+  after_create { |player| player.deliver_invitation if !player.game.draft? && player.game.joining?}
   after_destroy :remove_node_allocation
 
   validates :user_id, uniqueness: {scope: :game_id}, allow_nil: true

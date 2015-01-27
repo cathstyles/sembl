@@ -121,7 +121,7 @@
         </div>
         <div className="setup__overview__players">
           <div className="setup__overview__item-players">
-            <span className="setup__overview__item-title">Players:</span> {isDraft && invite_only ? editLink('players') : null}
+            <span className="setup__overview__item-title">Players:</span> {invite_only ? editLink('players') : null}
               <ul className="setup__overview__players-list">
                 {playerComponents}
               </ul>
