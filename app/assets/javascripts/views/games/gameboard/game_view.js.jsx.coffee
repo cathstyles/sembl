@@ -44,7 +44,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
         $(window).trigger('flash.error', "Error ending turn: #{responseObj.errors}")
 
   getInitialState: ->
-    showIntroText: !@model().get("player").user.has_moved && !!!@model().get("intro_seen")
+    showIntroText: @model().get("player")?.user && !@model().get("player")?.user.has_moved && !!!@model().get("intro_seen")
 
   componentWillMount: ->
     $(window).on('resize', @handleResize)
