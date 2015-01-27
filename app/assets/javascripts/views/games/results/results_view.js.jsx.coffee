@@ -12,9 +12,10 @@
       "results__player-move__move": true
       "results__player-move__move--won": roundWinner
 
+
     `<div className={className} key={key}>
       <div className="results__player-move__move__sembl">
-        <div className="results__player-move__move__sembl__inner">
+        <a href={"#moved/" + source.node.id + "/" + target.node.id} className="results__player-move__move__sembl__inner">
           <div className="results__player-move__move__source">
             <img className="results__player-move__move__thing" src={source.thing.image_admin_url} />
             {this._formatSubSembl(this.props.source_description, "source")}
@@ -26,7 +27,7 @@
           <div className={"results__player-move__move__score score--" + scoreRounded}>
             {score}
           </div>
-        </div>
+        </a>
       </div>
       <div className="results__player-move__move__description">
         <p>{description}</p>

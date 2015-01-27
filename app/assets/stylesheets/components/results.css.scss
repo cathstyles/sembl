@@ -270,6 +270,7 @@
 
 .results__player-move__move__sembl__inner {
   @extend %clearfix-micro;
+  display: block;
   width: 210px;
 }
 
