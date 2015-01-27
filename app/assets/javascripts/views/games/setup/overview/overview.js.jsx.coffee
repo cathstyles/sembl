@@ -93,10 +93,10 @@
         </li>
       </ul>`
 
-    playerComponents = for player in @state.players
+    playerComponents = _.map @state.players, (player, i) ->
       user = player.get('user')
-      name = if user then user.name else player.get('email')
-      `<li key={name} className="setup__overview__players-list-item">{name}</li>`
+      name = if user and user.name != "" then user.name else player.get('email')
+      `<li key={name + i} className="setup__overview__players-list-item">{name}</li>`
     if playerComponents.length == 0
       playerComponents = if invite_only
           "No players have been invited to this game"
