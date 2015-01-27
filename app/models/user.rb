@@ -49,9 +49,12 @@ class User < ActiveRecord::Base
     email
   end
 
-
   def self.roles
     ROLES
+  end
+
+  def has_moved?
+    Placement.where(creator: self).count > 0
   end
 
   private

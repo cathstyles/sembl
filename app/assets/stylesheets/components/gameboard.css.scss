@@ -142,3 +142,47 @@
     background: green;
   }
 }
+
+
+
+// Help
+
+.game__intro {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 200ms;
+  pointer-events: none;
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+}
+  .game__intro--show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .game__intro__inner {
+    @include pad(all, large);
+    @extend %clearfix-micro;
+    @include font-size(18);
+    border-radius: 3px;
+    background-color: #fff;
+    box-shadow: 0 0 30px 0 rgba(#000,.2);
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 500px;
+    text-align: left;
+    button {
+      @extend %button;
+    }
+  }

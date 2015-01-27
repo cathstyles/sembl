@@ -43,6 +43,8 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
       else
         $(window).trigger('flash.error', "Error ending turn: #{responseObj.errors}")
 
+  getInitialState: ->
+    showIntroText: !@model().get("player").user.has_moved && !!!@model().get("intro_seen")
 
   componentWillMount: ->
     $(window).on('resize', @handleResize)
@@ -82,6 +84,22 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     else if currentState == "playing_turn" and currentState != previousState
       Sembl.router.navigate("results/#{@model().resultsAvailableForRound()}", trigger: true)
 
+  hideIntroMessage: (e) ->
+    e?.preventDefault()
+    @model().set("intro_seen", true)
+    @setState showIntroText: false
+
+  formatIntroMessage: ->
+    introClass = if @state.showIntroText is true then "game__intro game__intro--show" else "game__intro"
+    `<div className={introClass}>
+      <div className="game__intro__inner copy">
+        <h3>How to play</h3>
+        <p>In each Round, for every open node, place an image and 'sembl' it: craft a resemblance between it and the image/s already on the board.</p>
+        <p>The challenge is to be interesting – other players will rate your sembls on a sliding scale.</p>
+        <button onClick={this.hideIntroMessage}>Got it!</button>
+      </div>
+    </div>`
+
   render: ->
     # this width and height will be used to scale the x,y values of the nodes into the width and height of the graph div.
     game = @model()
@@ -98,6 +116,7 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
       </div>
       <PlayersView players={this.model().players} />
       <StatusView game={game} handleEndTurn={this.handleEndTurn} />
+      {this.formatIntroMessage()}
     </div>`
 
 
