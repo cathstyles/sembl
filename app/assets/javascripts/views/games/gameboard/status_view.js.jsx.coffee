@@ -65,13 +65,13 @@ Sembl.Games.Gameboard.StatusView = React.createClass
     round = @props.game.get('current_round')
     if state is 'playing_turn' and move_state is 'created'
       if round == 1
-        tooltip = "On the board — nice work! End your turn to let  us know you’re finished."
+        tooltip = "On the board – nice work! End your turn below."
       else if round == 2
         availableNodes = @nodesForUserState("available")
         tooltip = if availableNodes?.length > 0
           "Great! Now fill the other #{if availableNodes.length > 1 then availableNodes.length + ' nodes' else 'node'}"
         else
-          "Hey, yay, all nodes are full. End your turn?"
+          "Hey, yay, all nodes are full. End your turn below?"
 
   triggerNotice: ->
     player = @props.game.get('player')
@@ -114,7 +114,7 @@ Sembl.Games.Gameboard.StatusView = React.createClass
           statusText = "We recommend filling all open nodes but if you must..."
         else
           statusButton = @getButtonForStatus(player.state, player.move_state)
-          statusText = "End your turn to let us know when you’re done."
+          statusText = ""
         statusHTML = `<div className="game__status">
           <div className="game__status-inner">
             <p>{statusText}</p>
