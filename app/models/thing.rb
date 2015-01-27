@@ -47,6 +47,10 @@ class Thing < ActiveRecord::Base
     where(game_id: nil)
   end
 
+  def self.user_uploaded
+    where.not(game_id: nil)
+  end
+
   def self.moderator_approved
     where(moderator_approved: true)
   end
