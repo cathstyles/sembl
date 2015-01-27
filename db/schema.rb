@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210235416) do
+ActiveRecord::Schema.define(version: 20150126221244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,6 +187,10 @@ ActiveRecord::Schema.define(version: 20141210235416) do
     t.boolean  "sensitive",          default: false
     t.boolean  "mature",             default: false
     t.boolean  "moderator_approved"
+    t.string   "dates"
+    t.string   "keywords"
+    t.string   "places"
+    t.string   "node_type"
   end
 
   add_index "things", ["creator_id"], name: "index_things_on_creator_id", using: :btree
