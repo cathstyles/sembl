@@ -6,9 +6,23 @@
   - unless user_signed_in?
     .home__intro
       .copy
-        h2 Welcome to Sembl!
-        p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        p Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        h2 How to play
+        p In each round, for every open node:
+        ul
+          li
+            strong place an image
+            ' – choose from the gallery or upload your own
+          li
+            strong ‘sembl’ it
+            ' – craft a resemblance between it and the image/s already on the board
+        p
+          ' The challenge is to
+          strong be interesting
+          ' – other players will rate your sembls on a sliding scale.
+        p
+          ' Join an open game or – if you want to host games for players you invite –
+          a href="http://sembl.net/join/contact/" request an upgrade
+          '.
       .home__sign-up-block
         = link_to "Sign up now for free", new_user_registration_path
   - if user_signed_in? && (current_user.power_user? || current_user.admin?)
