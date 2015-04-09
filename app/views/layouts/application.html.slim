@@ -41,7 +41,11 @@ html
 
     .content.container
       = area :content do
-        = flashes
+        - flash.each do |key, msg|
+            = content_tag :div, :class => "flash #{key}", "data-view" => "flashMessage" do
+              button.flash__close
+                i.fa.fa-times
+              = msg
         = yield
 
     / TODO Remove tracking code

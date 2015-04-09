@@ -20,6 +20,7 @@
 #= require views/games/index
 #= require views/games/setup/new_view
 #= require views/games/setup/edit_view
+#= require views/components/flash_message
 
 @Sembl =
   version: "0.1"
