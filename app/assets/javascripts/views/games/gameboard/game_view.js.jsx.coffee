@@ -82,7 +82,9 @@ Sembl.Games.Gameboard.GameView = React.createBackboneClass
     if currentState == "rating" and currentState != previousState
       Sembl.router.navigate("rate", trigger: true)
     else if currentState == "playing_turn" and currentState != previousState
-      Sembl.router.navigate("results/#{@model().resultsAvailableForRound()}", trigger: true)
+      roundResults = @model().resultsAvailableForRound()
+      if roundResults > 0
+        Sembl.router.navigate("results/#{roundResults}", trigger: true)
 
   hideIntroMessage: (e) ->
     e?.preventDefault()
