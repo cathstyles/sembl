@@ -223,7 +223,7 @@
       <div className="setup__steps__title">Upload your own images</div>
       <div className="setup__steps__inner">
         <div className="setup__steps__upload-description copy">
-          <p>Please only upload good-quality images that you are entitled to share. 1500px is great – JPG, GIF or PNG. The more we know about an image, the more useful and interesting it becomes. Please tell us as much as you can. That said, none of the fields below are mandatory.</p>
+          <p>Please only upload good-quality images that you are entitled to share. 1500px is great – JPG, GIF or PNG. The more we know about an image, the more useful and interesting it becomes. Please tell us as much as you can. That said, only Title and Description are mandatory.</p>
         </div>
         {uploadForm}
       </div>
