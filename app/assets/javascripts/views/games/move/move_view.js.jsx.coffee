@@ -42,6 +42,7 @@ Gallery = @Sembl.Games.Gallery
     @$window.off('resize', @handleResize)
     @$window.off('slideViewer.show', @onSlideviewerShow)
     @$window.off('slideViewer.hide', @onSlideviewerHide)
+    @$window.trigger "slideViewer.hide"
 
   componentDidMount: ->
     @$window.trigger('slideViewer.setChild',
