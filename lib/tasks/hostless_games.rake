@@ -3,10 +3,10 @@ HOSTLESS_UNJOINED_STALE_TIME = ENV["HOSTLESS_UNJOINED_STALE_TIME"].to_i || (60 *
 
 HOSTLESS_JOINED_STALE_TIMES = [
   { players: 2, hours: 3 },
-  { players: 3, hours: 6 },
-  { players: 4, hours: 12 },
-  { players: 5, hours: 24 },
-  { players: 6, hours: 48 },
+  { players: 3, hours: 24 },
+  { players: 4, hours: 24 },
+  { players: 5, hours: 24 * 2 },
+  { players: 6, hours: 24 * 3 },
   { players: 7, hours: 24 * 3 },
   { players: 8, hours: 24 * 6 },
   { players: 9, hours: 24 * 9 },
