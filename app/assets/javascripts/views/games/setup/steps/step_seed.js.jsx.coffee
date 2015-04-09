@@ -281,7 +281,7 @@ Checkbox = React.createClass
         </a>
         <div className="setup__steps__seed-options">
           <a href="#seed" onClick={this.handleSeedClick}>
-            <i className="fa fa-th"/>&nbsp;<em>Select</em>
+            <i className="fa fa-th"/>&nbsp;<em>Browse</em>
           </a>
           &nbsp;or&nbsp;
           <a href="#random" onClick={this.handleRandomSeed}><i className="fa fa-random"/>&nbsp;<em>Random</em></a>
