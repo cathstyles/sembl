@@ -1,6 +1,8 @@
 ActiveAdmin.register Player do
   config.sort_order = "updated_at_desc"
 
+  filter :id
+
   index do
     id_column
     actions
