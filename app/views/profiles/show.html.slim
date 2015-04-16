@@ -1,0 +1,16 @@
+.header
+  .heading
+    h1
+      = @profile.name
+.profile-show
+  .profile-show__avatar
+    img src=@profile.avatar.try(:thumb).try(:url)
+  .profile-show__bio
+    p=@profile.bio
+
+  - if @games.present?
+    ul
+      - @games.each do |game|
+        li
+          = link_to game.title, game_path(game)
+

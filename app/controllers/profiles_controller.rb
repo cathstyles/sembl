@@ -3,6 +3,11 @@ class ProfilesController < ApplicationController
 
   before_filter :find_profile
 
+  def show
+    @games = @profile.user.games.where(invite_only: false).without_states(:open, :joining)
+    respond_with @profile
+  end
+
   def edit
     @new_user = params[:new_user] || false
     authorize @profile
@@ -31,7 +36,11 @@ class ProfilesController < ApplicationController
   private
 
   def find_profile
-    @profile = Profile.where(user: current_user).take
+    @profile = if params[:id]
+      Profile.find(params[:id])
+    else
+      Profile.where(user: current_user).take
+    end
   end
 
   def profile_params

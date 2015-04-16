@@ -27,7 +27,7 @@
       nameAndStatus = @getNameAndStatus(player)
 
       `<li key={player.cid} className="game__player">
-          <a className="game__player__details" href={"/profile/"+player.get("user").profile_id}>
+          <a className="game__player__details" href={"/profiles/"+player.get("user").profile_id}>
             <span className={"game__player__details__avatar" + highlighted}>
               {avatar}
             </span>

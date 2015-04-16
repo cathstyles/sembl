@@ -60,9 +60,19 @@ ActiveAdmin.register Game do
           row :players do
             game.players.each_with_index do |player, index|
               if player.user.present?
-                text_node link_to(player.name, admin_user_path(player.user, game_id: game.id)) + ": " + player.state
+                text_node link_to(player.name, admin_player_path(player, game_id: game.id)) + ": " + player.state
               else
                 text_node player.email + ": invited"
+              end
+              text_node ", " if index < game.players.length - 1
+            end
+          end
+          row :users do
+            game.players.each_with_index do |player, index|
+              if player.user.present?
+                text_node link_to(player.name, admin_user_path(player.user, game_id: game.id))
+              else
+                text_node player.email
               end
               text_node ", " if index < game.players.length - 1
             end

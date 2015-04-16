@@ -37,6 +37,7 @@ Sembl::Application.routes.draw do
   end
 
   resource :profile
+  resources :profiles, only: [:show, :edit]
 
   get  'transloadit_signatures/:template_id' => 'transloadit_signatures#template'
   post 'transloadit_signatures/:template_id' => 'transloadit_signatures#template'
