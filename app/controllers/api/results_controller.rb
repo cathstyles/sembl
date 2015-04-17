@@ -2,7 +2,6 @@ class Api::ResultsController < ApiController
   respond_to :json
 
   after_filter :verify_authorized
-  before_filter :authenticate_user!
   before_filter :find_game
 
   # def index

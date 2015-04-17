@@ -38,8 +38,17 @@ Gallery = @Sembl.Games.Gallery
 
     target.set("user_state", "filled")
 
+
+    # Ridiculous translated of the move into a node
+    targetPlacement = target.get("viewable_placement")
+    targetPlacement.thing = @props.resemblance.move.thing
+
+    # This is also ridiculous: set the viewable resemblance for _every_ link to the
+    # one we care about. It doesn’t matter because this is always a single source-target
+    # node so there will only ever be one
     links =
       for link in @props.game.links.where({source_id: source.id, target_id: target.id})
+        link.set("viewable_resemblance", @props.resemblance)
         _.extend({}, link)
 
     # Basic state

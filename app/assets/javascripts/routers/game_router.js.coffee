@@ -13,7 +13,7 @@ class Sembl.GameRouter extends Backbone.Router
   routes:
     "": "board"
     "move/:node_id":  "move"
-    "moved/:source_id/:target_id": "moved"
+    "moved/:round/:resemblance_id/:source_id/:target_id": "moved"
     "results/:round": "results"
     "rate": "rate"
 
@@ -36,22 +36,41 @@ class Sembl.GameRouter extends Backbone.Router
       header: Sembl.Games.HeaderView(model: @game, title: 'Your Move')
     PageTitle.set "Your move"
 
-  moved: (sourceID, targetID) ->
-    source = @game.nodes.get(sourceID)
+  moved: (round, resemblanceID, sourceID, targetID) ->
     target = @game.nodes.get(targetID)
-    placement = target.get("viewable_placement")
-    creator = placement?.creator
-    creatorName = if creator?.name && creator.name? && creator.name != ""
-      creator.name
-    else if creator?
-      creator.email
-    else
-      "..."
+    source = @game.nodes.get(sourceID)
 
-    @layout.setProps
-      body: Sembl.Games.Move.MovedView({source: source, target: target, creator: creator, game: @game}),
-      header: Sembl.Games.HeaderView(model: @game, title: "Move by #{creatorName}")
-    PageTitle.set "Move by #{creatorName}"
+    # This should really be its own endpoint `/game/:id/resemblance/123
+    # but we’re just fetching it from the results for now
+    results = new Sembl.Results([], {game: @game, round: round})
+    res = results.fetch()
+    title = if @game.get('state') is 'completed' then "Final Results" else "Round #{round} Results"
+    PageTitle.set title
+
+    res.done =>
+      # Flatten resemblances
+      resemblances = []
+      results.each((result) ->
+        _.each(result.get("resemblances"), (resemblance) ->
+          resemblance.user = result.get("user")
+          resemblance.move = result.get("target")
+          resemblances.push(resemblance)
+        )
+      )
+      resemblance = _.find(resemblances, (r) ->
+        r.id == parseFloat(resemblanceID)
+      )
+      creatorName = if resemblance.user?.name && resemblance.user.name? && resemblance.user.name != ""
+        resemblance.user.name
+      else if creator?
+        resemblance.user.email
+      else
+        "..."
+
+      @layout.setProps
+        body: Sembl.Games.Move.MovedView({source: source, target: target, resemblance: resemblance, creator: resemblance.user, game: @game}),
+        header: Sembl.Games.HeaderView(model: @game, title: "Move by #{creatorName}")
+      PageTitle.set "Move by #{creatorName}"
 
   rate: ->
     moves = new Sembl.Moves([], {rating: true, game: @game})

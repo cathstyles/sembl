@@ -11,13 +11,13 @@ class Placement < ActiveRecord::Base
 
   after_create :reify_seed_node
 
-  # == States 
+  # == States
   #   proposed
   #   final
   state_machine initial: :proposed do
     after_transition :proposed => :final, do: :fill_node
 
-    event :reify do 
+    event :reify do
       transition :proposed => :final
     end
   end
@@ -42,8 +42,8 @@ class Placement < ActiveRecord::Base
 
   def reify_seed_node
     if node.round == 0
-      self.reify 
+      self.reify
     end
-  end 
+  end
 
 end

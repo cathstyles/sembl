@@ -4,6 +4,7 @@ class GamePolicy < ApplicationPolicy
   end
 
   def show?
+    record.completed? ||
     !record.invite_only ||
     record.participating?(user) ||
     record.creator_id == user.try(:id) ||

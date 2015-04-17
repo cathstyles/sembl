@@ -14,8 +14,9 @@
 
 
     `<div className={className} key={key}>
+      <span>{this.props.rid}</span>
       <div className="results__player-move__move__sembl">
-        <a href={"#moved/" + source.node.id + "/" + target.node.id} className="results__player-move__move__sembl__inner">
+        <a href={"#moved/" + this.props.round + "/" + this.props.resemblanceID + "/" + source.node.id + "/" + target.node.id} className="results__player-move__move__sembl__inner">
           <div className="results__player-move__move__source">
             <img className="results__player-move__move__thing" src={source.thing.image_admin_url} />
             {this._formatSubSembl(this.props.source_description, "source")}
@@ -70,6 +71,8 @@
     _.map @props.resemblances, (resemblance) ->
       target = resemblance.result.get("target")
       return SemblResult(
+        round: _this.props.round
+        resemblanceID: resemblance.id
         roundWinner: resemblance.target_state == "final"
         source: resemblance.source
         target: target
@@ -91,7 +94,7 @@
 
       className = classSet
         "results__player-score": true
-        "results__player-score--you": (player.user?email is Sembl.user.email)
+        "results__player-score--you": (player.user.email is Sembl.user?.email?)
 
       `<div className={className}>
         <div className="results__player-score__avatar">
@@ -141,7 +144,7 @@
 
         className = classSet
           "results__award": true
-          "results__award--you": (award.player.user.email is Sembl.user.email)
+          "results__award--you": (award.player.user.email is Sembl.user?.email?)
 
         `<div className={className}>
           <span className="results__award__icon">
@@ -174,7 +177,7 @@
 
       className = classSet
         "results__player-score": true
-        "results__player-score--you": (user.email is Sembl.user.email)
+        "results__player-score--you": (user.email is Sembl.user?.email?)
 
       `<div className={className}>
         <div className="results__player-score__avatar">
