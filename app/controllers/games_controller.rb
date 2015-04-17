@@ -75,15 +75,15 @@ private
   def filtered_games
     case filter_scope
     when :participating
-      Game.participating(current_user).without_states(:completed)
+      Game.participating(current_user).without_states(:draft, :completed)
     when :hosted
       Game.hosted_by(current_user)
     when :browse
-      Game.where(invite_only: false).without_states(:open, :joining, :completed)
+      Game.where(invite_only: false).without_states(:draft, :open, :joining, :completed)
     when :completed
-      Game.where(invite_only: false).with_states(:completed)
+      Game.where(invite_only: false).with_states(:draft, :completed)
     when :user_completed
-      Game.participating(current_user).with_states(:completed)
+      Game.participating(current_user).with_states(:draft, :completed)
     else
       Game.open_to_join.not_stale
     end
