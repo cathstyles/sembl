@@ -181,9 +181,9 @@
 
       `<div className={className}>
         <div className="results__player-score__avatar">
-          <span className="game__player__details__avatar">
+          <a className="game__player__details__avatar" href={"/profiles/" + player.user.profile_id}>
             {_this._getAvatar(user)}
-          </span>
+          </a>
         </div>
         <h1 className="results__player-score__name">
           <em>{name}</em><br />
