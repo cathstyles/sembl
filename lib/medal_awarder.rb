@@ -34,7 +34,7 @@ class MedalAwarder
       icon: 'fa-trophy',
       player: player,
       result_name: 'Nodes won',
-      result: nodes_won
+      result: {description: nodes_won}
     }
   end
 
@@ -44,7 +44,7 @@ class MedalAwarder
   def highest_rated_sembl
     sembl = @resemblances.order("score DESC").limit(1).take
     {
-      name: 'Highest rated sembl',
+      name: 'Top sembl',
       icon: 'fa-star',
       player: @game.player(sembl.creator),
       result_name: 'Sembl',
@@ -59,7 +59,7 @@ class MedalAwarder
       icon: 'fa-thumbs-up',
       player: @game.player(User.find(rater[0])),
       result_name: 'Average rating given',
-      result: rater[1].to_f
+      result: {description: (rater[1].to_f * 100).round}
     }
   end
 
@@ -70,7 +70,7 @@ class MedalAwarder
       icon: 'fa-thumbs-down',
       player: @game.player(User.find(rater[0])),
       result_name: 'Average rating given',
-      result: rater[1].to_f
+      result: {description: (rater[1].to_f * 100).round}
     }
   end
 end
