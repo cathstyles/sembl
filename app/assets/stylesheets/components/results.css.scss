@@ -483,6 +483,7 @@
   background-color: $highlight-background-color;
   border: 1px solid $border-color;
   margin-top: -1px;
+  padding-left: 70px;
   position: relative;
   &:first-child {
     border-top-left-radius: $border-radius;
@@ -510,8 +511,9 @@
   border: 2px solid $highlight-color;
   border-radius: 50%;
   color: darken($highlight-color, 20%);
-  float: left;
+  position: absolute;
   line-height: 1.65;
+  left: 10px;
   width: 50px;
   height: 50px;
   text-align: center;
