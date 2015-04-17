@@ -187,18 +187,27 @@
         </tr>
       </table><!-- End Header -->
 
+      <%-
+        user_game_url = (@existing_user) ? game_url(@game) : new_user_registration_url(email: @email, for_game: @game.id)
+      %>
+
       <!-- Content Table: One column table (includes full width image and text) -->
       <table width="490" class="deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#FCF5E6">
         <tr>
           <td style="vertical-align: top;" bgcolor="#FCF5E6" valign="top">
 
-            <% if @player.reminder_count_for_state == 1 -%>
-              <h2>Hello, <%= @game.creator.name %> has invited you to <a href="<%= game_url(@game) %>">play a game</a> of Sembl.</h2>
-              <h2>Enjoy!</h2>
+            <h2>Hello,</h2>
+            <% if @player.reminder_count_for_state == 0 -%>
+              <h2><%= @game.creator.name %> has invited you to <a href="<%= user_game_url %>">play a game</a> of Sembl.</h2>
+              <h2>In each move, describe how two things are alike. And be interesting – other players will rate your every connections.</h2>
             <% else -%>
-              <h2>Hello, this is just a reminder that <%= @game.creator.name %> has invited you to <a href="<%= game_url(@game) %>">play a game</a> of Sembl.</h2>
-              <h2>Enjoy!</h2>
+              <h2><%= @game.creator.name %> has invited you to <a href="<%= user_game_url %>">play a game</a> of Sembl.</h2>
+              <h2>In each move, describe how two things are alike. And be interesting – other players will rate your every connections.</h2>
+              <h2>Sign up to start playing instantly.</h2>
             <% end -%>
+            <h2>Hope you enjoy it :)</h2>
+            <h2>Regards,</h2>
+            <h2>— Sembl</h2>
 
           </td>
         </tr>
@@ -208,11 +217,7 @@
         <tr>
           <td class="center" style="vertical-align: top;" bgcolor="#FCF5E6" valign="top" >
             <% if @existing_user %>
-              <%= link_to game_url(@game) do %>
-                <img src="<%= image_url('mailer/play-button.jpg')%>" width="133" height="49" />
-              <% end %>
-            <% else %>
-              <%= link_to new_user_registration_url(email: @email, for_game: @game.id) do %>
+              <%= link_to user_game_url do %>
                 <img src="<%= image_url('mailer/play-button.jpg')%>" width="133" height="49" />
               <% end %>
             <% end %>

@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "info@sembl.com"
+  default from: "feedback@sembl.net"
 
   # Player has just created an account:
   # TODO

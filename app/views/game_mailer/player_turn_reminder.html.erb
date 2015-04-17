@@ -195,11 +195,11 @@
             <% if @player.playing_turn? -%>
 
               <% if @player.reminder_count_for_state == 1 -%>
-                <h2>It's now Round <%= @game.current_round %> in the game '<%= @game.title %>'. Go <a href="<%= game_url(@game) %>">make some moves</a>.</h2>
+                <h2>It's now Round <%= @game.current_round %> in the game ‘<%= @game.title %>’. Go <a href="<%= game_url(@game) %>">make some moves</a>.</h2>
               <% elsif @player.reminder_count_for_state == 2 -%>
-                <h2>Your move! It's Round <%= @game.current_round %> in '<%= @game.title %>', and <%= game_players_as_summarised_list_of_names(@game, @player) %> <%= @game.players.count > 2 ? "are" : "is" %> waiting for you. <a href="<%= game_url(@game) %>">Play!</a></h2>
+                <h2>Your move! It's Round <%= @game.current_round %> in ‘<%= @game.title %>’, and <%= game_players_as_summarised_list_of_names(@game, @player) %> <%= @game.players.count > 2 ? "are" : "is" %> waiting for you. <a href="<%= game_url(@game) %>">Play!</a></h2>
               <% elsif @player.reminder_count_for_state >= 3 -%>
-                <h2>Your move! It's Round <%= @game.current_round %> in '<%= @game.title %>', and <%= game_players_as_summarised_list_of_names(@game, @player) %> <%= @game.players.count > 2 ? "are" : "is" %> still waiting for you. <a href="<%= game_url(@game) %>">Play! Play! Play!</a></h2>
+                <h2>Your move! It's Round <%= @game.current_round %> in ‘<%= @game.title %>’, and <%= game_players_as_summarised_list_of_names(@game, @player) %> <%= @game.players.count > 2 ? "are" : "is" %> still waiting for you. <a href="<%= game_url(@game) %>">Play! Play! Play!</a></h2>
               <% end -%>
 
             <% elsif @player.rating? -%>
@@ -219,7 +219,7 @@
             <% end -%>
 
             <h2>Regards,</h2>
-            <h2>- Sembl</h2>
+            <h2>— Sembl</h2>
 
           </td>
         </tr>

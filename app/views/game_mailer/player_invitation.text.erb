@@ -1,19 +1,21 @@
-<% if @player.reminder_count_for_state == 1 -%>
-  Hello, <%= @game.creator.name %> has invited you to play a game of Sembl. Enjoy!
+<% user_game_url = (@existing_user) ? game_url(@game) : new_user_registration_url(email: @email, for_game: @game.id) -%>
+Hello,
+
+<% if @player.reminder_count_for_state == 0 -%>
+<%= @game.creator.name %> has invited you to play a game of Sembl: <%= user_game_url %>
+
+In each move, describe how two things are alike. And be interesting – other players will rate your every connections.
 <% else -%>
-  Hello, this is just a reminder that <%= @game.creator.name %> has invited you to play a game of Sembl. Enjoy!
+<%= @game.creator.name %> has invited you to play a game of Sembl: <%= user_game_url %>
+
+In each move, describe how two things are alike. And be interesting – other players will rate your every connections.
+
+Sign up to start playing instantly.
 <% end -%>
 
-<% if @existing_user -%>
-  <%= game_url(@game) %>
-<% else -%>
-  <%= new_user_registration_url(email: @email, for_game: @game.id) %>
-<% end -%>
+Hope you enjoy it :)
 
 Regards,
-
-- Sembl
-
-
+— Sembl
 
 If you have a question, comment or concern, please email feedback@sembl.net or tweet @semblnet
