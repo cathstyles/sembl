@@ -122,3 +122,65 @@
 .profile__edit-form--disabled {
   opacity: 0.5;
 }
+
+
+// Show
+
+.profile-show__container {
+  margin-top: 10px;
+}
+
+.profile-show {
+  @extend %clearfix-micro;
+  @include pad(all, normal);
+  background-color: $highlight-background-color;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px 5px rgba(#888,.1);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 60%;
+}
+  .profile-show__header {
+    @include font-size(24);
+    @include inset(top, medium);
+    // @include inset(bottom, small);
+    font-weight: 700;
+    text-align: center;
+  }
+  .profile-show__avatar {
+    border-radius: 50%;
+    display: inline-block;
+    overflow: hidden;
+  }
+  .profile-show__avatar-none {
+    @include font-size(54);
+    color: lighten($text-color, 30%);
+    display: table-cell;
+    background-color: $border-color;
+    vertical-align: middle;
+    height: 150px;
+    width: 150px;
+  }
+
+  .profile-show__bio {
+    @include pad(top, mid);
+    @include pad(bottom, smaller);
+    @include pad(horz, mid);
+    text-align: left;
+  }
+  .profile-show__games {
+    @extend %clearfix-micro;
+    @include pad(all, mid);
+    @include inset(bottom, large);
+    text-align: left;
+  }
+    .profile-show__games-header {
+      @extend %white-drop-shadow;
+      @include font-size(24);
+      @include inset(top, huge);
+      @include inset(bottom, small);
+      font-weight: 700;
+      text-align: center;
+    }

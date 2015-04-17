@@ -1,16 +1,24 @@
-.header
-  .heading
-    h1
-      = @profile.name
-.profile-show
-  .profile-show__avatar
-    img src=@profile.avatar.try(:thumb).try(:url)
-  .profile-show__bio
-    p=@profile.bio
+.container.profile-show__container
+  .header
+    .heading
+      h1 Profile
+  .profile-show
+    .profile-show__avatar
+      - if @profile.avatar.present?
+        img src=@profile.avatar.try(:thumb).try(:url)
+      - else
+        .profile-show__avatar-none
+          = @profile.display_name[0].upcase
+    - if @profile.name.present?
+      h1.profile-show__header= @profile.name
+    .profile-show__bio.copy
+      p=@profile.bio
 
   - if @games.present?
-    ul
+    - if @profile.name.present?
+      h2.profile-show__games-header
+        = @profile.name
+        '’s games
+    .profile-show__games
       - @games.each do |game|
-        li
-          = link_to game.title, game_path(game)
-
+        = render partial: "games/game", locals: {game: game}
