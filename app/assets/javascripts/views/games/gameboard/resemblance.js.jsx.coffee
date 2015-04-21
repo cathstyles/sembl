@@ -7,7 +7,8 @@
 @Sembl.Games.Gameboard.Resemblance = React.createClass
   handleClick: (event) ->
     event.preventDefault()
-    Sembl.router.navigate("moved/#{@props.link.get("source_id")}/#{@props.link.get("target_id")}", trigger: true)
+    viewable_resemblance = @props.link.get('viewable_resemblance')
+    Sembl.router.navigate("#moved/#{@props.link.get('round')}/#{viewable_resemblance.id}/#{@props.link.get("source_id")}/#{@props.link.get("target_id")}", trigger: true)
 
   render: ->
     resemblance = @props.link.get('viewable_resemblance')

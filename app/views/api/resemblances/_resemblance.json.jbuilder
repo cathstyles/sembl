@@ -1,3 +1,4 @@
+json.id resemblance.try(:id)
 json.description resemblance.try(:description)
 json.score resemblance.try(:score)
 json.source_description resemblance.try(:source_description)
