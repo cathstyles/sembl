@@ -206,6 +206,7 @@ class Game < ActiveRecord::Base
   def increment_round
     round_complete = true
     nodes.where(round: current_round).each do |node|
+      puts node.final_placement.present?
       round_complete = false unless node.final_placement.present?
     end
 
@@ -245,6 +246,26 @@ class Game < ActiveRecord::Base
       player.calculate_score
       player.save
     end
+  end
+
+  # Predicates
+
+  def has_placements_for_round?
+    has_placements_for_round = true
+    # Ensure all nodes have a placement
+    nodes.where(round: current_round).each do |node|
+      has_placements_for_round = false unless node.placements.with_state('proposed').present?
+    end
+    has_placements_for_round
+  end
+
+  def has_ratings_for_round?
+    has_ratings_for_round = false
+    # Infer rating state based on player state
+    players.each do |player|
+      has_ratings_for_round = true if player.state == "waiting"
+    end
+    has_ratings_for_round
   end
 
   # == Validations

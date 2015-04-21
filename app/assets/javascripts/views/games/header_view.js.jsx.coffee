@@ -26,6 +26,43 @@ Sembl.Games.HeaderView = React.createBackboneClass
     gameplayTabWidth = $('.header__centre-title').outerWidth()
     $('.header__centre-title').css 'margin-left', ((gameplayTabWidth / 2) * -1) + 'px'
 
+  endRound: (e) ->
+    e.preventDefault()
+    if window.confirm("Are you sure you want to close this round?")
+      request = $.ajax({
+        method: "post"
+        url: "/api/games/#{Sembl.game.id}/end_round"
+        data:
+          authenticity_token: Sembl.game.get('auth_token')
+      })
+      request.done (data) ->
+        Sembl.game.fetch()
+        $(window).trigger('flash.notice', "Round successfully ended.")
+        Sembl.router.navigate("/", trigger: true)
+
+      request.error (xhr, text, errorThrown) ->
+        $(window).trigger('flash.error', xhr.responseJSON.errors)
+
+  endRoundRating: (e) ->
+    e.preventDefault()
+    if window.confirm("Are you sure you want to close rating for this round?")
+      request = $.ajax({
+        method: "post"
+        url: "/api/games/#{Sembl.game.id}/end_round_rating"
+        data:
+          authenticity_token: Sembl.game.get('auth_token')
+      })
+      request.done (data) ->
+        Sembl.game.fetch()
+        $(window).trigger('flash.notice', "Rating round successfully ended.")
+
+      request.error (xhr, text, errorThrown) ->
+        $(window).trigger('flash.error', xhr.responseJSON.errors)
+
+  isHosting: ->
+    game = @model()
+    game?.get('is_hosting') || game?.get('is_admin')
+
   render: ->
     game = @model()
     # TODO WTF does this conditional do?
@@ -41,7 +78,7 @@ Sembl.Games.HeaderView = React.createBackboneClass
     edit = `<li className="header__link">
         <i className="fa fa-pencil header__link-icon"></i>
         <a href={editUrl} className="header__link-anchor">Edit game</a>
-      </li>` if game?.get('is_hosting') || game?.get('is_admin')
+      </li>` if @isHosting()
 
     if resultsAvailableForRound
       label = if game.get("state") is "completed"
@@ -56,6 +93,21 @@ Sembl.Games.HeaderView = React.createBackboneClass
           </a>
         </li>`
 
+    endRound = if @isHosting() && game.get("state") == "playing"
+      `<li className="header__link">
+        <i className="fa fa-ban header__link-icon"></i>
+        <a href="#endround" className="header__link-anchor" onClick={this.endRound}>End round</a>
+      </li>`
+    else
+      false
+    endRating = if @isHosting() && game.get("state") == "rating"
+      `<li className="header__link">
+        <i className="fa fa-ban header__link-icon"></i>
+        <a href="#endrating" className="header__link-anchor" onClick={this.endRoundRating}>End rating</a>
+      </li>`
+    else
+      false
+
     return `<div className="header__components">
       {headerTitle}
       {moreInfo}
@@ -65,5 +117,7 @@ Sembl.Games.HeaderView = React.createBackboneClass
       <ul className="header__links">
         {roundResults}
         {edit}
+        {endRound}
+        {endRating}
       </ul>
     </div>`

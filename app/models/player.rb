@@ -48,6 +48,10 @@ class Player < ActiveRecord::Base
       transition :playing_turn => :waiting, if: lambda { |player| player.move_created? }
     end
 
+    event :force_end_turn do
+      transition :playing_turn => :waiting
+    end
+
     event :begin_rating do
       transition :waiting => :rating
     end

@@ -12,9 +12,9 @@ class Rating < ActiveRecord::Base
     end
   end
 
-  def update_resemblance_score 
+  def update_resemblance_score
     resemblance.calculate_score
-    resemblance.save! 
+    resemblance.save!
   end
 
   def self.for_game(game)

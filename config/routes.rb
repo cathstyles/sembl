@@ -6,6 +6,8 @@ Sembl::Application.routes.draw do
         post 'join'
         post 'end_turn'
         post 'end_rating'
+        post 'end_round'
+        post 'end_round_rating'
       end
       # Need a show route for the create route _url method to work when calling respond_with.
       resources :ratings, only: [:create, :index, :show]

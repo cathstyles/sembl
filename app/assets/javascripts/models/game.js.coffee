@@ -13,7 +13,7 @@ class Sembl.Game extends Backbone.Model
     @players = new Sembl.Players(@get("players"), game: this)
     @boards = new Sembl.Boards(@get("boards"))
     @board = new Sembl.Board(@get("board"))
-    
+
     @listenTo(@, 'change:players', @updatePlayers)
     @listenTo(@, 'change:nodes', @updateNodes)
     @listenTo(@, 'change:links', @updateLinks)
@@ -24,27 +24,27 @@ class Sembl.Game extends Backbone.Model
   showUrl: ->
     "/games/#{@id}"
 
-  updatePlayers: -> 
+  updatePlayers: ->
     @players.reset(@get("players"))
 
-  updateNodes: -> 
+  updateNodes: ->
     @nodes.reset(@get("nodes"))
 
-  updateLinks: -> 
+  updateLinks: ->
     @links.reset(@get("links"))
-    
+
   width: ->
     _(@nodes.pluck("x")).max()
 
   height: ->
     _(@nodes.pluck("y")).max()
 
-  hasErrors: -> 
+  hasErrors: ->
     @get('errors') is not null and @get('errors').length > 0
 
-  canJoin: -> 
-    Sembl.user and !@get('is_participating') and (@get('state') is 'open' or @get('state') is 'joining') 
+  canJoin: ->
+    Sembl.user and !@get('is_participating') and (@get('state') is 'open' or @get('state') is 'joining')
 
-  resultsAvailableForRound: -> 
+  resultsAvailableForRound: ->
     if @get('state') == 'completed' then @get('current_round') else @get('current_round')-1
 

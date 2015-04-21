@@ -49,4 +49,14 @@ class GamePolicy < ApplicationPolicy
   def save_template?
     customise?
   end
+
+  def end_round?
+    record.creator_id == user.try(:id) ||
+    (user && user.admin?)
+  end
+
+  def end_round_rating?
+    record.creator_id == user.try(:id) ||
+    (user && user.admin?)
+  end
 end

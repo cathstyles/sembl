@@ -8,19 +8,23 @@
 @Sembl.Games.Rate.RatingView = React.createBackboneClass
 
   getInitialState: ->
-    link = @props.moves.at(0).links.at(0)
-    link.active = true
-    totalLinks = 0
-    @props.moves.each (move) ->
-      totalLinks = totalLinks + move.links.length
-    {
-      moveIndex: 0
-      linkIndex: 0
-      combinedIndex: 0
-      progress: 'rating'
-      currentLink: link
-      totalLinks: (totalLinks - 1)
-    }
+    if @props.moves.length > 0
+      link = @props.moves.at(0).links.at(0)
+      link.active = true
+      totalLinks = 0
+      @props.moves.each (move) ->
+        totalLinks = totalLinks + move.links.length
+      {
+        moveIndex: 0
+        linkIndex: 0
+        combinedIndex: 0
+        progress: 'rating'
+        currentLink: link
+        totalLinks: (totalLinks - 1)
+      }
+    else
+      @endRating()
+      return progress: "finished"
 
   componentWillMount: ->
     $(window).on('resize', @handleResize)
@@ -100,43 +104,46 @@
     @currentMove().links.at(@state.linkIndex)
 
   render: ->
-    move = @currentMove()
-    sources = (link.source() for link in move.links.models)
+    if @props.moves.length > 0
+      move = @currentMove()
+      sources = (link.source() for link in move.links.models)
 
-    rootNode = _.extend({children: sources}, move.targetNode)
-    tree = d3.layout.tree()
-    nodes = tree.nodes(rootNode)
+      rootNode = _.extend({children: sources}, move.targetNode)
+      tree = d3.layout.tree()
+      nodes = tree.nodes(rootNode)
 
-    if @state.progress == 'finished'
-      $(window).trigger('flash.notice', 'Finished rating!' )
-      @endRating()
+      if @state.progress == 'finished'
+        $(window).trigger('flash.notice', 'Finished rating!' )
+        @endRating()
 
-    `<div className="move">
-      <div className="body-wrapper">
-        <div className="body-wrapper__outer">
-          <div className="body-wrapper__inner">
-            <div className="rating__inner">
-              <div className="rating__info">
-                <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
-              </div>
-              <UpdateRatingView
-                move={this.currentMove()}
-                link={this.state.currentLink}
-                key={this.state.currentLink.cid}
-                handleRated={this.updateRated}
-                />
-              <div className="rate__graph">
-                <RateGraph target={move.targetNode} links={move.links.models} />
+      `<div className="move">
+        <div className="body-wrapper">
+          <div className="body-wrapper__outer">
+            <div className="body-wrapper__inner">
+              <div className="rating__inner">
+                <div className="rating__info">
+                  <div className="rating__info__inner">Rate this Sembl for <em>quality</em>, <em>truthfulness</em> and <em>originality</em></div>
+                </div>
+                <UpdateRatingView
+                  move={this.currentMove()}
+                  link={this.state.currentLink}
+                  key={this.state.currentLink.cid}
+                  handleRated={this.updateRated}
+                  />
+                <div className="rate__graph">
+                  <RateGraph target={move.targetNode} links={move.links.models} />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <NavigationView
-          moves={this.props.moves}
-          combinedIndex={this.state.combinedIndex}
-          totalLinks={this.state.totalLinks}
-          currentLink={this.state.currentLink}
-          handleNext={this.incrementIndexes}
-          handleBack={this.decrementIndexes}/>
-    </div>`
+        <NavigationView
+            moves={this.props.moves}
+            combinedIndex={this.state.combinedIndex}
+            totalLinks={this.state.totalLinks}
+            currentLink={this.state.currentLink}
+            handleNext={this.incrementIndexes}
+            handleBack={this.decrementIndexes}/>
+      </div>`
+    else
+      `<div className="move"></div>`
