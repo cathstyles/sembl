@@ -35,10 +35,10 @@ Visit http://localhost:5000/ to use the app.
 
 ### Loading production data
 
-    $ heroku pgbackups:capture --expire
-    $ curl `heroku pgbackups:url` -o production_db.dump
-    $ pg_restore --verbose --clean --no-acl --no-owner -h localhost -d sembl_development < production_db.dump
-    $ rm production_db.dump
+    heroku pgbackups:capture --expire
+    curl `heroku pgbackups:url` -o production_db.dump
+    pg_restore --verbose --clean --no-acl --no-owner -h localhost -d sembl_development < production_db.dump
+    rm production_db.dump
 
 ### Working with the Solr search engine
 
