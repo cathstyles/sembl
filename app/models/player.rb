@@ -163,7 +163,7 @@ class Player < ActiveRecord::Base
 
   def check_rating_completion
     if game.players.with_state(:waiting).count == game.number_of_players
-      game.ratings_completed
+      game.ratings_completed!
     end
   end
 
