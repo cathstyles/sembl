@@ -81,9 +81,9 @@ private
     when :browse
       Game.where(invite_only: false).without_states(:draft, :open, :joining, :completed)
     when :completed
-      Game.where(invite_only: false).with_states(:draft, :completed)
+      Game.where(invite_only: false).with_states(:completed)
     when :user_completed
-      Game.participating(current_user).with_states(:draft, :completed)
+      Game.participating(current_user).with_states(:completed)
     else
       Game.open_to_join.not_stale
     end
