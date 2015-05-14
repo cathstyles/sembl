@@ -47,13 +47,14 @@ class Api::GamesController < ApiController
     authorize @game
     if @game.state != "playing" || !@game.has_placements_for_round?
       raise ApiError.new(params), "Cannot end the round."
-    end
+    else
 
-    @game.players.each do |player|
-      player.force_end_turn if player && player.state == "playing_turn"
+      @game.players.each do |player|
+        player.force_end_turn if player && player.state == "playing_turn"
+      end
+      @game.reload
+      respond_with @game
     end
-    @game.reload
-    respond_with @game
   end
 
   # End rating for all players
@@ -62,35 +63,38 @@ class Api::GamesController < ApiController
 
     if @game.state != "rating" || !@game.has_ratings_for_round?
       raise ApiError.new(params), "Cannot end the rating round."
-    end
+    else
 
-    @game.players.each do |player|
-      user = player.user
-      # End all the ratings
-      placements = Placement.for_round(@game).where('creator_id != ?', user.id)
-      moves = placements.collect{|p| Move.new(placement: p)}.shuffle
+      @game.players.each do |player|
+        user = player.user
+        # End all the ratings
+        placements = Placement.for_round(@game).where('creator_id != ?', user.id)
+        moves = placements.collect{|p| Move.new(placement: p)}.shuffle
 
-      if moves.present?
-        moves.each do |move|
-          if move.links.present?
-            move.links.each do |link|
-              sembl = link.viewable_resemblance(user)
-              if sembl.present? && !sembl.rating_by(user).present?
-                rating = Rating.new(resemblance: sembl, creator: user)
-                rating.assign_attributes(rating: 0)
-                rating.save
+        if moves.present?
+          moves.each do |move|
+            if move.links.present?
+              move.links.each do |link|
+                sembl = link.viewable_resemblance(user)
+                if sembl.present? && !sembl.rating_by(user).present?
+                  rating = Rating.new(resemblance: sembl, creator: user)
+                  rating.assign_attributes(rating: 50)
+                  rating.save
+                end
               end
             end
           end
         end
+
+        player.end_rating if player && player.state == "rating"
       end
 
-      player.end_rating if player && player.state == "rating"
+      # Just manually check for completion
+      @game.players.first.check_rating_completion
+
+      @game.reload
+      respond_with @game
     end
-
-
-    @game.reload
-    respond_with @game
   end
 
   def create
