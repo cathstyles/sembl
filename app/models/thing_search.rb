@@ -44,14 +44,14 @@ class ThingSearch
   def to_json
     # For saving to `game.filter_content_by`
     Jbuilder.encode do |json|
-      json.text text      if text.present?
-      json.place_filter   if place_filter.present?
-      json.access_filter  if access_filter.present?
-      json.created_to     if created_to.present?
-      json.random_seed    if random_seed.present?
-      json.exclude_mature
-      json.exclude_sensitive
-      json.include_user_contributed
+      json.text text                   if text.present?
+      json.place_filter place_filter   if place_filter.present?
+      json.access_filter access_filter if access_filter.present?
+      json.created_to created_to       if created_to.present?
+      json.random_seed random_seed     if random_seed.present?
+      json.exclude_mature exclude_mature
+      json.exclude_sensitive exclude_sensitive
+      json.include_user_contributed include_user_contributed
     end
   end
 
