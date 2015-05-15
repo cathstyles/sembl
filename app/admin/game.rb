@@ -60,13 +60,13 @@ ActiveAdmin.register Game do
           end
           row :players do
             game.players.each_with_index do |player, index|
-              if player.user.present?
-                text_node link_to(player.name, admin_player_path(player, game_id: game.id)) + ": " + player.state
-              else
-                text_node player.email + ": invited"
-              end
+              player_name = player.user.present? ? player.name : player.email
+              text_node link_to(player_name, admin_player_path(player, game_id: game.id)) + ": " + player.state
               text_node ", " if index < game.players.length - 1
             end
+          end
+          Game.attribute_names.sort.each do |attr|
+            row attr.to_sym
           end
           row :users do
             game.players.each_with_index do |player, index|
@@ -77,9 +77,6 @@ ActiveAdmin.register Game do
               end
               text_node ", " if index < game.players.length - 1
             end
-          end
-          Game.attribute_names.sort.each do |attr|
-            row attr.to_sym
           end
         end
         active_admin_comments

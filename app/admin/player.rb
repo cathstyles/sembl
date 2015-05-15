@@ -13,8 +13,10 @@ ActiveAdmin.register Player do
       row :game do
         link_to player.game.title, admin_game_path(player.game)
       end
-      row :user do
-        link_to player.user.email, admin_user_path(player.user)
+      if player.user.present?
+        row :user do
+          link_to player.user.email, admin_user_path(player.user)
+        end
       end
     end
   end
