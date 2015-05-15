@@ -1,7 +1,7 @@
 class PlayerPolicy < ApplicationPolicy
 
   def create?
-    !!user && (user.id == record.game.creator_id || user.admin?) && (record.game.draft? || record.game.joining?)
+    !!user && (user.id == record.game.creator_id || user.admin?) && (record.game.needs_more_players?)
   end
 
   def destroy?

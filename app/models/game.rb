@@ -268,6 +268,10 @@ class Game < ActiveRecord::Base
     has_ratings_for_round
   end
 
+  def needs_more_players?
+    number_of_players && players.count < number_of_players
+  end
+
   # == Validations
   def players_must_not_outnumber_board_number
     if number_of_players && players.count > (number_of_players || 0)
@@ -276,7 +280,7 @@ class Game < ActiveRecord::Base
   end
 
   def all_players_created
-    if number_of_players && players.count < number_of_players
+    if needs_more_players?
       if invite_only
         errors.add(:base, "This game is invite only. #{number_of_players} players must be invited to publish this game.")
       else
