@@ -13,6 +13,7 @@ class Player < ActiveRecord::Base
   before_save { |player| player.email = player.email.downcase if player.email.present? } # Force lowercase email addresses
   # Invite to already open games
   after_create { |player| player.deliver_invitation if !player.game.draft? && player.game.joining?}
+  before_destroy :check_player_state
   after_destroy :remove_node_allocation
 
   validates :user_id, uniqueness: {scope: :game_id}, allow_nil: true
@@ -183,5 +184,12 @@ class Player < ActiveRecord::Base
 
   def reset_reminder_count_for_state
     update reminder_count_for_state: 0
+  end
+
+  def check_player_state
+    unless (self.state == "playing_turn" || self.state == "invited" || self.state == "draft")
+      errors[:base] << "Cannot delete player who has moved"
+      return false
+    end
   end
 end
