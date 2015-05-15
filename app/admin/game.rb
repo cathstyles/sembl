@@ -1,5 +1,5 @@
 ActiveAdmin.register Game do
-  permit_params :title, :description, :theme, :invite_only, :uploads_allowed, :allow_keyword_search, :stale
+  permit_params :title, :description, :theme, :invite_only, :uploads_allowed, :allow_keyword_search, :stale, :filter_content_by
   config.sort_order = "updated_at_desc"
   scope :not_stale, default: true
   scope :all
@@ -41,6 +41,7 @@ ActiveAdmin.register Game do
       f.input :uploads_allowed
       f.input :allow_keyword_search
       f.input :stale, label: "Stale hostless game?"
+      f.input :filter_content_by, as: :string, label: "Filter images options"
     end
     f.actions         # adds the 'Submit' and 'Cancel' buttons
   end
