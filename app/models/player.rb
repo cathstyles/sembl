@@ -95,8 +95,11 @@ class Player < ActiveRecord::Base
   delegate \
     :avatar,
     :bio,
-    :name,
     to: :user
+
+  def name
+    user.present? ? user.name : self.email
+  end
 
   def self.playing
     without_states(:draft, :invited)
