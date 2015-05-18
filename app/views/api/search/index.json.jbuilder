@@ -4,6 +4,6 @@ json.hits do
   )
 end
 json.total @total
-json.page @things.current_page
-json.per_page @things.per_page
-json.total_pages @things.total_pages
+json.page @current_page
+json.per_page @per_page
+json.total_pages @total_pages
