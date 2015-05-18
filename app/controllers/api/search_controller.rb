@@ -7,9 +7,7 @@ class Api::SearchController < ApiController
       render partial: "user", locals: {users: Array.wrap(user)}
     else
       @search = ThingSearch.new(search_params)
-
-      fallback_class = params[:exclude_fallbacks].to_s.include(%w(1 true)) ? ThingSearchNullFallback : ThingSearchFallback
-      @fallback_search = fallback_class.new(search_params)
+      @fallback_search = fallback_search_class.new(search_params)
 
       @things = @search.results
       @things = @things & @fallback_search.results if @search.requires_fallback?
@@ -22,6 +20,14 @@ class Api::SearchController < ApiController
   end
 
   private
+
+  def fallback_search_class
+    if %w(1 true).include?(params[:exclude_fallbacks]) || !@fallback_search.requires_fallback?
+      ThingSearchNullFallback
+    else
+      ThingSearchFallback
+    end
+  end
 
   def search_params
     params.permit(
