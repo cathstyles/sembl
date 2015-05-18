@@ -11,7 +11,8 @@ class Api::SearchController < ApiController
 
       @things = @search.results
       if !exclude_fallbacks && @search.requires_fallback? && @search.results_should_include_fallback?
-        @things = @things & @fallback_search.results
+        @things = @things + @fallback_search.results
+        @things = @things.uniq {|r| r.id}
       end
 
       @total        = @search.total + @fallback_search.total
