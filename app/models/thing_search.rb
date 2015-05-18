@@ -6,6 +6,7 @@ class ThingSearch
     :exclude_sensitive,
     :include_user_contributed,
     :page,
+    :per_page,
     :place_filter,
     :random_seed,
     :suggested_seed,
@@ -31,6 +32,7 @@ class ThingSearch
     @include_user_contributed = to_bool(params[:include_user_contributed])
 
     @page = (params[:page].presence || 1).to_i
+    @per_page = (params[:per_page].presence || 30).to_i
   end
 
   def results
@@ -53,6 +55,14 @@ class ThingSearch
       json.exclude_sensitive exclude_sensitive
       json.include_user_contributed include_user_contributed
     end
+  end
+
+  def requires_fallback?
+    (text.present? || place_filter.present? || access_filter.present?)
+  end
+
+  def results_should_include_fallback?
+    query.total < (per_page * page)
   end
 
   private
@@ -104,7 +114,7 @@ class ThingSearch
         order_by :random, seed: random_seed
       end
 
-      paginate page: page
+      paginate page: page, per_page: per_page
     end
   end
 
