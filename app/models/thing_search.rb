@@ -58,8 +58,11 @@ class ThingSearch
   end
 
   def requires_fallback?
-    (text.present? || place_filter.present? || access_filter.present?) &&
-      query.total < (per_page * page)
+    (text.present? || place_filter.present? || access_filter.present?)
+  end
+
+  def results_should_include_fallback?
+    query.total < (per_page * page)
   end
 
   private
