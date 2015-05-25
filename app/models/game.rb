@@ -125,6 +125,7 @@ class Game < ActiveRecord::Base
   end
 
   def self.requiring_stale_and_incomplete_player_set_notification
+    hostless.
     with_states(:open, :joining).
       where(reminder_count_for_state: 0).
       where("
