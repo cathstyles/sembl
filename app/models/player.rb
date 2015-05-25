@@ -176,6 +176,10 @@ class Player < ActiveRecord::Base
     self.score = Placement.joins(:node).where("nodes.game_id = ? AND creator_id = ? AND score IS NOT NULL", game.id, user.id).average(:score)
   end
 
+  def has_moved?
+    !(self.state == "playing_turn" || self.state == "invited" || self.state == "draft")
+  end
+
   private
 
   def set_state_changed_at
@@ -185,9 +189,8 @@ class Player < ActiveRecord::Base
   def reset_reminder_count_for_state
     update reminder_count_for_state: 0
   end
-
   def check_player_state
-    unless (self.state == "playing_turn" || self.state == "invited" || self.state == "draft")
+    if has_moved?
       errors[:base] << "Cannot delete player who has moved"
       return false
     end
