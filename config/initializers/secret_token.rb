@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Sembl::Application.config.secret_key_base = 'ddded41cfdd214947420a90d2df5e7ad7cd85832065332cdc59f8c7b8951149573793f8d803a627489a06c92bbd62f0713ad64132f07d38386788d4a4469dde4'
+Sembl::Application.config.secret_key_base = ENV["SECRET_KEY_BASE"]
