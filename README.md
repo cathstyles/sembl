@@ -2,26 +2,9 @@
 
 Sembl is a multiplayer web-based "board" game for finding and sharing resemblences between things.
 
-Important links:
-
-* [Basecamp project](https://basecamp.com/1782196/projects/3404831)
-* [Trello board](https://trello.com/b/vr2JHoIc/sembl)
-
-Primary developers:
-
-* Max Wheeler (design & front-end development)
-* Andy McCray (design)
-* Narinda Reeders (development)
-* Nick Binnington (development)
-
 # Development
 
 ### First-time setup
-
-Check out the app with babushka:
-
-    $ babushka projects:sembl
-    $ cd ~/src/sembl
 
 Install the required gems & prepare the database:
 
@@ -35,8 +18,10 @@ Visit http://localhost:5000/ to use the app.
 
 ### Loading production data
 
-    heroku pgbackups:capture --expire
-    curl `heroku pgbackups:url` -o production_db.dump
+Once you've installed the Heroku Toolbelt:
+
+    heroku pg:backups capture
+    curl `heroku pg:backups public-url` -o production_db.dump
     pg_restore --verbose --clean --no-acl --no-owner -h localhost -d sembl_development < production_db.dump
     rm production_db.dump
 
@@ -74,7 +59,7 @@ When it is running, visit http://localhost:1080/ to see the emails.
 * Start the Solr engine in the test environment: `RAILS_ENV=test rake sunspot:solr:run`
 * Have foreman running to serve assets (see the "Running the application locally" section)
 * Many of the specs are currently out of date, but there is one large integration spec that runs through a whole 3 player game:
-  * `bundle exec rspec spec/features/playing_a_whole_game_spec.rb
+  * `bundle exec rspec spec/features/playing_a_whole_game_spec.rb`
 
 # Deployment
 
