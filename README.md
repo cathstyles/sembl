@@ -1,6 +1,6 @@
 # Sembl
 
-Sembl is a multiplayer web-based "board" game for finding and sharing resemblences between things.
+Sembl is a multiplayer web-based "board" game for finding and sharing resemblances between things.
 
 # Development
 
