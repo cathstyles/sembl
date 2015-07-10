@@ -21,7 +21,7 @@ Sembl is a multiplayer web-based "board" game for finding and sharing resemblanc
 
 ### First-time setup
 
-Install the required gems & prepare the database:
+Install the required gems & prepare the database by running this command from the root directory of the application in Terminal:
 
     $ bin/setup
 
@@ -31,14 +31,22 @@ Install the required gems & prepare the database:
 
 Visit http://localhost:5000/ to use the app.
 
+### Setting up the production Heroku Remote
+
+You need to install the [Heroku Toolbelt])(https://toolbelt.heroku.com/), and login to a Heroku account (with `heroku login`) that has access to the Sembl Heroku application.
+
+After that you can add the git remote by running:
+
+    $ heroku git:remote -a production
+
 ### Loading production data
 
-Once you've installed the Heroku Toolbelt:
+You will need [Postgres database server](http://www.postgresql.org/download/) installed. After that, running the following commands will capture, download and restore the production database to your local database server:
 
-    heroku pg:backups capture
-    curl `heroku pg:backups public-url` -o production_db.dump
-    pg_restore --verbose --clean --no-acl --no-owner -h localhost -d sembl_development < production_db.dump
-    rm production_db.dump
+    $ heroku pg:backups capture
+    $ curl `heroku pg:backups public-url` -o production_db.dump
+    $ pg_restore --verbose --clean --no-acl --no-owner -h localhost -d sembl_development < production_db.dump
+    $ rm production_db.dump
 
 ### Working with the Solr search engine
 
@@ -50,35 +58,37 @@ To load the search engine with the app's data, run this rake task:
 
 ### Importing `Thing` records from CSV
 
-Open the rails console, and then:
+Open the rails console `rails console`, and then
 
-If images are in the same directory as the file
+if images are in the same directory as the file, run:
 
     ThingImporter.new("path/to/filename.csv")
 
-If images are in different directory:
+if images are in different directory, run:
 
     ThingImporter.new("path/to/filename.csv", image_path: "path/to/images")
 
 ### Testing emails
 
-Test emails locally using [Mailcatcher](http://mailcatcher.me/). Install it separately:
+You can test emails locally using [Mailcatcher](http://mailcatcher.me/), which you need to install separately:
 
     $ gem install mailcatcher
     $ mailcatcher
 
-When it is running, visit http://localhost:1080/ to see the emails.
+Now that it is running, visit http://localhost:1080/ to see the emails sent while using the local, development version of application.
 
 ### Running specs
 
-* Start the Solr engine in the test environment: `RAILS_ENV=test rake sunspot:solr:run`
-* Have foreman running to serve assets (see the "Running the application locally" section)
-* Many of the specs are currently out of date, but there is one large integration spec that runs through a whole 3 player game:
+Running the specs are a way of testing the application is working as expected prior to deploying it to production (to Heroku).
+
+* Start the Solr engine in the test environment: `RAILS_ENV=test rake sunspot:solr:run` in one terminal session
+* Have foreman running in another terminal session to serve assets (see the "Running the application locally" section)
+* Many of the specs are currently out of date, but there is one large integration spec that runs through a whole 3 player game. Run this command in a 3rd terminal session:
   * `bundle exec rspec spec/features/playing_a_whole_game_spec.rb`
 
 # Deployment
 
-The app runs on Heroku. It uses these add-ons:
+The production app runs on Heroku and uses these add-ons:
 
 * Heroku Postgres - database
 * PG Backups Auto - database backups
