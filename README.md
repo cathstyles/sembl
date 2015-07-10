@@ -1,8 +1,23 @@
 # Sembl
 
-Sembl is a multiplayer web-based "board" game for finding and sharing resemblances between things.
+Sembl is a multiplayer web-based "board" game for finding and sharing resemblances between things. The backend is coded in Ruby on Rails, and the frontend in React.
 
 # Development
+
+### Core models
+
+* __Game__: A Sembl game, which brings together most of the following models and is responsible for managing the state of a game at a given time.
+* __Board__: A player selectable game board. Includes attributes for the number of possible players and board layout.
+* __Thing__: A "thing" is an image and metadata uploaded by an admin or a player which can be placed onto a "node" during gameplay.
+* __Node__: A node is a spot in an active game which is filled, or can be filled, with a thing. Nodes are created when a game is created, and their locations are defined by the game's board.
+* __Link__: A link joins two nodes together. Links are also created when a game is created and their locations are defined by the game's board.
+* __Move__: A move is not stored in the database. A move occurs when a player places a thing onto a node.
+* __Placement__: A placement is created when a user places a thing onto an unfilled node during a "move".
+* __Resemblance__: A resemblance or "sembl" is created during gameplay when a user places a thing onto a node and describes the reasoning behind that placement (happens during a "move").
+* __User__: A person that has signed up on the website.
+* __Profile__: A single profile belongs to a user, and is created when the user signs up. It includes things like "name", "bio" and "avatar".
+* __Player__: A user that is currently playing a game. This model stores player related state, such as their current.
+* __Rating__: A rating is created during the rating part of gameplay (when, after each round, players rate other people sembls)
 
 ### First-time setup
 
