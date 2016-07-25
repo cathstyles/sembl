@@ -4,6 +4,8 @@ Sembl is a multiplayer web-based "board" game for finding and sharing resemblanc
 
 ## Development with Vagrant
 
+### Installation
+
 You’ll require the following to be installed:
 
  - VirtualBox
@@ -19,8 +21,16 @@ vagrant plugin install vagrant-hostmanager
 vagrant up
 vagrant ssh
 bin/setup
+```
+
+### Running
+
+```
+vagrant ssh
 foreman start -f Procfile.dev
 ```
+
+The site should now be running on <http://sembl.dev:3000/>
 
 ## Development
 
