@@ -1,0 +1,27 @@
+---
+- name: install aptitude
+  apt:
+    name: aptitude
+  become: true
+  become_user: root
+
+# - name: bring system up to date
+#   apt: update_cache=yes upgrade=yes
+#   sudo: yes
+
+- name: install packages
+  apt:
+    pkg: "{{ item }}"
+  with_items:
+    - git
+    - language-pack-en
+    - libsqlite3-dev
+    - postgresql
+    - postgresql-contrib
+    - libpq-dev
+    - python-psycopg2
+    - nodejs
+    - imagemagick
+    - solr-common
+  become: true
+  become_user: root

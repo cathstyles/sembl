@@ -1,0 +1,12 @@
+---
+- name: dev locale
+  become: true
+  become_user: root
+  locale_gen: name=en_US.UTF-8 state=present
+
+- name: set default locale
+  become: true
+  become_user: root
+  lineinfile: dest=/etc/default/locale
+    regexp="LC_ALL"
+    line="LC_ALL=\"en_US.UTF-8\""

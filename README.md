@@ -2,7 +2,27 @@
 
 Sembl is a multiplayer web-based "board" game for finding and sharing resemblances between things. The backend is coded in Ruby on Rails, and the frontend in React.
 
-# Development
+## Development with Vagrant
+
+You’ll require the following to be installed:
+
+ - VirtualBox
+ - Vagrant
+ - Ansible
+
+Then run:
+
+```
+git clone git@github.com:cathstyles/sembl.git
+cd sembl
+vagrant plugin install vagrant-hostmanager
+vagrant up
+vagrant ssh
+bin/setup
+foreman start -f Procfile.dev
+```
+
+## Development
 
 ### Core models
 
@@ -99,3 +119,4 @@ The production app runs on Heroku and uses these add-ons:
 Deploy to heroku with git:
 
     $ git push production master
+

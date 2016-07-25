@@ -3,6 +3,7 @@
 /.env
 /.ruby-version
 /.sass-cache
+/.vagrant
 /config/database.yml
 /coverage
 /db/*.sqlite3
