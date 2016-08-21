@@ -1,0 +1,35 @@
+---
+- name: install build-essential
+  apt:
+    name: build-essential
+  become: true
+  become_user: root
+
+- name: download ruby-install archive
+  get_url:
+    dest: /tmp/ruby-install-{{ ruby_install_version }}.tar.gz
+    sha256sum: aa4448c2c356510cc7c2505961961a17bd3f3435842831e04c8516eb703afd19
+    url: https://github.com/postmodern/ruby-install/archive/v{{ ruby_install_version }}.tar.gz
+
+- name: extract ruby-install
+  unarchive:
+    copy: no
+    dest: /tmp
+    src: /tmp/ruby-install-{{ ruby_install_version }}.tar.gz
+
+- name: make install ruby-install
+  command: make install chdir=/tmp/ruby-install-{{ ruby_install_version }}
+  become: true
+  become_user: root
+
+- name: install ruby
+  command: ruby-install ruby {{ ruby_version }} --no-reinstall --system
+  become: true
+  become_user: root
+
+- name: install bundler
+  gem:
+    name: bundler
+    user_install: no
+  become: true
+  become_user: root

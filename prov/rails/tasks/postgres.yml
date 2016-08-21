@@ -1,0 +1,53 @@
+---
+- name: Create test DB
+  become: true
+  become_user: postgres
+  postgresql_db:
+  args:
+    name: sembl_test
+    encoding: 'UTF-8'
+    lc_collate: 'en_US.UTF-8'
+    lc_ctype: 'en_US.UTF-8'
+    template: template0
+  vars:
+    ansible_ssh_pipelining: true
+
+- name: Create development DB
+  become: true
+  become_user: postgres
+  postgresql_db:
+  args:
+    name: sembl_development
+    encoding: 'UTF-8'
+    lc_collate: 'en_US.UTF-8'
+    lc_ctype: 'en_US.UTF-8'
+    template: template0
+  vars:
+    ansible_ssh_pipelining: true
+
+- name: create Vagrant db user
+  become: true
+  become_user: postgres
+  postgresql_user: name=vagrant
+  args:
+    db: sembl_development
+    password:
+    role_attr_flags: SUPERUSER
+  vars:
+    ansible_ssh_pipelining: true
+
+- name: postgresql should allow access to host
+  become: true
+  become_user: root
+  copy:
+    dest: /etc/postgresql/9.5/main/pg_hba.conf
+    content: |
+      local   all             postgres                                peer
+      local   all             all                                     trust
+      host    all             all             127.0.0.1/32            trust
+      host    all             all             ::1/128                 trust
+
+- name: restart postgresql
+  service: name=postgresql state=restarted
+  become: true
+  become_user: root

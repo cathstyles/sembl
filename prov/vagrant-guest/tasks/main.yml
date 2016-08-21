@@ -1,0 +1,12 @@
+---
+- name: change to /vagrant directory automatically
+  lineinfile:
+    create: yes
+    dest: /home/vagrant/foo
+    line: bar
+
+- name: change to /vagrant directory automatically
+  lineinfile:
+    create: yes
+    dest: /home/vagrant/.bashrc
+    line: cd /vagrant

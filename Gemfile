@@ -45,6 +45,7 @@ group :development do
   gem 'bullet'
   gem 'mailcatcher'
   gem 'sunspot_solr'
+  gem 'foreman'
 
   # Guard et al
   gem "guard", "~> 2"

@@ -1,0 +1,8 @@
+[webservers]
+vagrant
+
+[webservers:vars]
+
+ansible_ssh_host=sembl.dev
+ansible_ssh_user=vagrant
+ansible_ssh_private_key_file=.vagrant/machines/default/virtualbox/private_key

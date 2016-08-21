@@ -1,0 +1,12 @@
+---
+ruby_install_major_version: 0
+ruby_install_minor_version: 5
+ruby_install_patch_version: 0
+
+ruby_install_version: "{{ ruby_install_major_version }}.{{ ruby_install_minor_version }}.{{ ruby_install_patch_version }}"
+
+ruby_major_version: 2
+ruby_minor_version: 0
+ruby_patch_version: 0
+
+ruby_version: "{{ ruby_major_version }}.{{ ruby_minor_version }}.{{ ruby_patch_version }}"
