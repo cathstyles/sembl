@@ -1,5 +1,5 @@
 ---
-# - include: update_locale.yml
-# - include: packages.yml
-# - include: ruby.yml
+- include: update_locale.yml
+- include: packages.yml
+- include: ruby.yml
 - include: postgres.yml
